@@ -1,0 +1,28 @@
+{
+  "updated_at": "2026-11-22T16:15:12.516Z",
+  "current": "2026-11-23-0015",
+  "editions": [
+    {
+      "id": "2026-11-23-0015",
+      "at": "2026-11-22T16:15:12.516Z",
+      "window": {
+        "start": "2026-11-19T16:15:12.516Z",
+        "end": "2026-11-22T16:15:12.516Z",
+        "hours": 72
+      },
+      "stats": {
+        "fresh": 226,
+        "deep": 20,
+        "rest": 206,
+        "skipped": 5
+      },
+      "verdicts": {
+        "approve": 5,
+        "look": 15,
+        "pushback": 0,
+        "pending": 0
+      },
+      "api_calls": 906
+    }
+  ]
+}
