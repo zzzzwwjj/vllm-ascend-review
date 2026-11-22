@@ -1,0 +1,133 @@
+{
+  "edition": {
+    "id": "2026-11-23-0015",
+    "at": "2026-11-22T16:15:12.516Z",
+    "window": {
+      "start": "2026-11-19T16:15:12.516Z",
+      "end": "2026-11-22T16:15:12.516Z",
+      "hours": 72
+    },
+    "stats": {
+      "fresh": 226,
+      "deep": 20,
+      "rest": 206,
+      "skipped": 5
+    },
+    "verdicts": {
+      "approve": 5,
+      "look": 15,
+      "pushback": 0,
+      "pending": 0
+    },
+    "api_calls": 906
+  },
+  "window": {
+    "start": "2026-11-19T16:15:12.516Z",
+    "end": "2026-11-22T16:15:12.516Z",
+    "reason": "首次运行，回看最近 3 天",
+    "hours": 72
+  },
+  "deep": [
+    {
+      "number": 20796,
+      "title": "[BugFix] Support batch-shared with adaptive verification",
+      "verdict": "approve"
+    },
+    {
+      "number": 20854,
+      "title": "[Feature][SpecDecode] Support suffix decoding on MRV2",
+      "verdict": "look"
+    },
+    {
+      "number": 19396,
+      "title": "[BugFix] Preserve configured KV transfer engine IDs",
+      "verdict": "look"
+    },
+    {
+      "number": 22342,
+      "title": "[Feature][Model] Add support_torch_compile for Step5",
+      "verdict": "look"
+    },
+    {
+      "number": 20758,
+      "title": "[Refactor][V2] Move kernel block handling into AttentionGroup",
+      "verdict": "look"
+    },
+    {
+      "number": 22115,
+      "title": "[Feature][SpecDecode] Complete Kimi DSpark C8 QuantFlashMLA integration",
+      "verdict": "approve"
+    },
+    {
+      "number": 22307,
+      "title": "refactor: make Ascend code paths Model Runner V2 only",
+      "verdict": "look"
+    },
+    {
+      "number": 21658,
+      "title": "[Performance][DSV4.1] Shard DeepSeek V4.1 indexer query rows across TP ranks",
+      "verdict": "approve"
+    },
+    {
+      "number": 21605,
+      "title": "[Performance][A3][A5] Speed up packed DCP attention output combine",
+      "verdict": "approve"
+    },
+    {
+      "number": 22172,
+      "title": "[Feature][SpecDecode] Enable GLM-5.3-Flash DFlash2 graph in PD serving",
+      "verdict": "look"
+    },
+    {
+      "number": 22089,
+      "title": "[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PCP",
+      "verdict": "look"
+    },
+    {
+      "number": 21624,
+      "title": "[Feature][Model] Add Kimi fine-grained projection and shared-expert TP",
+      "verdict": "look"
+    },
+    {
+      "number": 21831,
+      "title": "[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP",
+      "verdict": "look"
+    },
+    {
+      "number": 22495,
+      "title": "[BugFix][Device] Bind visible NPUs to the --device-ids selection",
+      "verdict": "look"
+    },
+    {
+      "number": 22317,
+      "title": "[BugFix] Allow non-MLA DFlash drafts with target DCP",
+      "verdict": "approve"
+    },
+    {
+      "number": 17556,
+      "title": "[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard",
+      "verdict": "look"
+    },
+    {
+      "number": 16335,
+      "title": "[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family",
+      "verdict": "look"
+    },
+    {
+      "number": 21675,
+      "title": "[Feature] support MLA attention mode for DFlash2 draft models",
+      "verdict": "look"
+    },
+    {
+      "number": 20949,
+      "title": "[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules",
+      "verdict": "look"
+    },
+    {
+      "number": 20797,
+      "title": "[Performance][Spec Decode] Fuse add and argmax for Dspark on Ascend V2",
+      "verdict": "look"
+    }
+  ],
+  "rest_count": 206
+}
