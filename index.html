@@ -93,15 +93,20 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
 }
 </style>
 </head>
-<body data-base="" data-edition="2026-11-23-0800" data-latest="1">
+<body data-base="" data-edition="2026-11-23-1300" data-latest="1">
 <div class="layout">
 <aside class="side">
   <div class="side-head">
     <a href="index.html" class="brand">vLLM-Ascend<br><span>待我检视</span></a>
     <p class="side-sub">@zzzzwwjj · 每工作日 08:00 / 13:00 / 18:00</p>
   </div>
-  <div class="side-title">历史记录 <span>2</span></div>
-  <nav class="eds"><div class="ed-day">11-23</div><a class="ed active" href="runs/2026-11-23-0800.html">
+  <div class="side-title">历史记录 <span>3</span></div>
+  <nav class="eds"><div class="ed-day">11-23</div><a class="ed active" href="runs/2026-11-23-1300.html">
+  <span class="ed-when">13:00</span>
+  <span class="ed-nums">新增 87 · 精读 20</span>
+  <span class="ed-dots"><i class="dot ok"></i>5<i class="dot look"></i>15<i class="dot push"></i>0</span>
+</a>
+<a class="ed" href="runs/2026-11-23-0800.html">
   <span class="ed-when">08:00</span>
   <span class="ed-nums">新增 69 · 精读 20</span>
   <span class="ed-dots"><i class="dot ok"></i>6<i class="dot look"></i>12<i class="dot push"></i>2</span>
@@ -115,233 +120,257 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
 <main>
 <header>
   <h1>vLLM-Ascend 待我检视 <span class="at">@zzzzwwjj</span><span class="b b-ok" style="margin-left:8px">最新</span></h1>
-  <p class="sub">窗口 11-23 00:15 → 11-23 08:00（7.8 小时）· 自上次运行 2026-11-22T16:15:12.516Z · 生成于 11-23 08:00（Asia/Shanghai）</p>
+  <p class="sub">窗口 11-23 08:00 → 11-23 13:00（5 小时）· 自上次运行 11-23 08:00 · 生成于 11-23 13:00（Asia/Shanghai）</p>
   <div class="stats">
-    <span>本期新增 69</span>
+    <span>本期新增 87</span>
     <span>精读 20</span>
-    <span>列表 49</span>
-    <span>跳过 0</span>
-    <span>我负责的 PR 63</span>
-    <span>可批准 6 / 需细看 12 / 建议打回 2</span>
+    <span>列表 67</span>
+    <span>跳过 4</span>
+    <span>我负责的 PR 72</span>
+    <span>可批准 5 / 需细看 15 / 建议打回 0</span>
   </div>
 </header>
 <div class="content">
   <h2>本期精读（20）</h2>
-  <article class="card v-approve" id="pr-22089">
+  <article class="card v-look" id="pr-21697">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22089" target="_blank" rel="noopener">#22089</a>
-    <h3>[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PCP</h3>
-    <span class="b v-approve">可批准</span>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21697" target="_blank" rel="noopener">#21697</a>
+    <h3>[BugFix][CI] Add Qwen3.8-Flash-Next TP2 IPC coverage for A3 and A5</h3>
+    <span class="b v-look">需细看</span>
   </div>
   <div class="meta">
-    <span>@Zhaocen</span>
-    <span class="b b-ok">CI 通过 · 6</span>
-    <span class="b b-ok">已有 1 人批准</span>
+    <span>@Windfeng8</span>
+    <span class="b b-ok">CI 通过 · 8</span>
+    <span class="b b-ok">已有 3 人批准</span>
     
-    <span>我负责 1/8 个文件 · +5/-3</span>
-    <span>已排队 6.3 天</span>
-    <span class="tag">作者有新提交</span>
+    <span>我负责 1/13 个文件 · +4/-0</span>
+    <span>已排队 10.9 天</span>
+    <span class="tag">新进入队列</span>
     
   </div>
-  <p class="summary">GLM-5.3-Flash+DFlash2 跳过通用 mamba 页对齐，交由 GLM-Next planner，DCP=1 的 draft KV 不切分。</p>
-  <p class="intent"><b>为什么改：</b>通用 hybrid 对齐会按 draft 页 padding target 池，破坏 packed MLA 视图；改由模型专属 planner 对齐，并让复制式 DFlash draft 在 DCP=1 下不切分。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>get_kv_cache_spec 新增 uses_model_specific_page_alignment gate：跳过 _align_hybrid_attention_page_sizes 与 SFA 提前 return，但最终仍无 padding 地 update mamba_specs；核对 GLM5+DFlash 下所有 MLA spec 都带 flag，且 builder 一定调用 GLM planner。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>gate 依赖 GLM-Next planner 兜底：builder 只在 is_glm5_next_cache_spec 命中时调用 planner；若未来某个 spec 带 flag 而 model_version 检查不一致，页大小将不再被任何路径修正且无报错。</li><li class="risk-low"><b>LOW</b>跳过了 AscendSFAIndexerCacheSpec 分支的提前 return 后，hisparse/packed-indexer 处理会在含 mamba specs 的 dict 上继续执行；GLM5 若同时配置 hisparse 的组合未被测试覆盖。</li><li class="risk-low"><b>LOW</b>owned 单测只验证 flag、单层 page_size 与 draft dcp_sharded，未直接验证 get_kv_cache_spec 产出经 builder/planner 后 target packed 池与 draft 独立 slot 的真实布局。</li></ul></div>
-  <p class="tests"><b>测试：</b>test_kpool_sfa_c8_main_cache_spec 参数化 None/1/2 覆盖 gate、state 页大小和 draft 不切分，另有 GLM-Next planner 单测；CI 成功（6 项，2 skipped）。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：GLM5+DFlash 是否会同时出现 AscendSFAIndexerCacheSpec 或 hisparse_config？若是，跳过 SFA 提前 return 是否安全？</li><li>需要作者确认：是否有用例覆盖 get_kv_cache_spec→builder→planner 的完整链路，而不只是单层 spec 断言？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>可以批准；建议补一条完整 builder 链路用例并确认 hisparse 组合不受影响。</p>
+  <p class="summary">为 Qwen3.8 加 A3/A5 TP2 IPC 用例，并新增仅 A5 的 QSA 四 token GBSA 能力，A3 走 FIA 兜底。</p>
+  <p class="intent"><b>为什么改：</b>A3 上 GBSA 元数据准备失败：安装的算子不接受 QSA 四 token 稀疏块（blockShapeY=4）。故把该 ABI 提成硬件能力，A3 走 selected-token FIA，A5 保留原生 GBSA。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/device/hardware_profile.py</code><span>QSA_GBSA_BLOCK4 只加在 A5 的 frozenset（L509），A3 仍走 _A3_CAPABILITIES（未含）；确认这是有意为之，且 A3/A2/310P 的 QSA 路径全部能落进 FIA 兜底。</span></li><li><code>vllm_ascend/device/hardware_profile.py</code><span>能力是按 AscendDeviceType 静态声明，但失败根因是「安装的 CANN 算子 ABI」（枚举注释自己也写 Stacks without this ABI）。需确认消费方除 supports() 外是否还按 CANN 包版本/算子可用性二次校验，否则 A5 + 旧包照样走原生四 token GBSA 而报错。</span></li><li><code>vllm_ascend/device/hardware_profile.py</code><span>新成员插在 MINIMAX_M3_GBSA_METADATA_REUSE 之后，Enum auto() 会让后续成员数值整体后移；确认没有按 .value 做缓存键/序列化的地方。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>本 PR 顶着 [BugFix][CI] 标题，却改动了生产 attention dispatch（hardware_profile 之外还有 3 个 backend 文件），而作者自述 A3/A5 实机验证与「GitHub hardware CI for this new commit」均 Pending，只有 CPU 回归通过——合并即改变默认路径，缺硬件证据。</li><li class="risk-medium"><b>MEDIUM</b>A5 静态声明 QSA_GBSA_BLOCK4：若 A5 现场装的是不支持 blockShapeY=4 的旧 CANN，supports() 仍为真，兜底不会生效，只在 A3 上规避了问题；同类先例（minimax_m3_gbsa_bf16_softmax_precision 按硬件写死）说明该模式在仓库里被接受，但此处失败原因明确是 ABI 而非硅片。</li><li class="risk-medium"><b>MEDIUM</b>body 自承 FIA 兜底在长上下文可能比原生稀疏 GBSA 更慢，且「no performance parity is claimed」；A3 上 Qwen3.8-Flash-Next 的性能回退没有量化数据。</li><li class="risk-low"><b>LOW</b>能力矩阵测试已同步：tests/ut/device/test_hardware_profile.py 的 _EXPECTED_CAPABILITIES[A5] 在 head 处已含 QSA_GBSA_BLOCK4（L137），assert profile.capabilities == expected 不会漏；但后续若在 A3 打开该能力需同时改两处，容易漏。</li><li class="risk-low"><b>LOW</b>我在可定位的 vllm_ascend/worker/v2/attn_utils.py、attention_v1.py、v2 model_runner.py、aclgraph_utils.py 中都没搜到 QSA 消费点，消费方应在 other_files 里；若最终没有生产代码读该能力，则这条声明是死代码。</li></ul></div>
+  <p class="tests"><b>测试：</b>同 PR 已同步硬件能力矩阵单测（A5 集合含 QSA_GBSA_BLOCK4），并新增后端 CPU 回归（能力选择、FIA 掩码、分块 tiling、无 GBSA 元数据）；但无 NPU 单测/CI 用例，A3、A5 实机与 GitHub 硬件 CI 均 Pending。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：QSA_GBSA_BLOCK4 为什么按 device type 静态声明而不是按安装的 CANN 算子能力探测？A5 上装旧 CANN 时消费方会回退到 selected-token FIA 吗？</li><li>需要作者确认：A3 关闭该能力后，Qwen3.8-Flash-Next 的 decode（含 FULL graph 捕获/回放）是否全部走 FIA 兜底，长上下文下的性能损失量级是多少？</li><li>需要作者确认：能否把生产 attention dispatch 的改动从 [BugFix][CI] 测试 PR 中拆出，或先补 A3/A5 实机结果再合入？</li><li>需要作者确认：目前 A3 与本轮失败是「环境里的算子」问题，那么同镜像的 A5 是否也可能出现同类 ABI 缺失（只是本轮没跑到）？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>先要 A3/A5 实机与硬件 CI 结果，并确认能力判断是否要叠加 CANN 版本校验，再决定合入。</p>
 </article>
-<article class="card v-look" id="pr-20796">
+<article class="card v-look" id="pr-21019">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21019" target="_blank" rel="noopener">#21019</a>
+    <h3>[Refactor] Migrate MLA DCP graph parameter updates to UpdatableGraph</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@faceItCalmly</span>
+    <span class="b b-ok">CI 通过 · 7</span>
+    <span class="b b-ok">已有 1 人批准</span>
+    
+    <span>我负责 1/11 个文件 · +1/-7</span>
+    <span>已排队 18.1 天</span>
+    <span class="tag">新进入队列</span>
+    
+  </div>
+  <p class="summary">MLA DCP 图参数更新迁到 UpdatableGraph：去掉 DCP world_size 限制，DCP MLA 改走图内任务注册。</p>
+  <p class="intent"><b>为什么改：</b>DCP MLA 原走人工簿记的 relay 图参数更新；改为捕获期注册任务、replay 前由 provider 从 metadata 解析参数，与非 DCP MLA 统一。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/utils.py</code><span>use_updatable_graph 删掉 get_dcp_group().world_size == 1 后，AscendMLABackend 一律返回 True；确认两个消费点语义一致：aclgraph_utils.run_fullgraph:147 选 _updatable_graph_replay，acl_graph.update_full_graph_params 开头同样用该谓词早退，于是 relay 对 MLA 彻底不可达。</span></li><li><code>vllm_ascend/utils.py</code><span>配套的 mla_cp.AscendMlaDCPImpl.update_graph_params 现在直接 raise NotImplementedError(&#39;FIA and PA should be use UpdatableGraph.&#39;)：确认没有任何绕过该谓词的入口（draft、model_state、breakable graph）仍会调用 update_full_graph_params 打到 MLA。</span></li><li><code>vllm_ascend/utils.py</code><span>本改动未同步 tests/ut/test_utils.py::test_use_updatable_graph_does_not_require_current_vllm_config：head 处 L47-49 仍断言 world_size=2 时返回 False，与新实现直接矛盾。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>head（1e30598）上 tests/ut/test_utils.py L44-49 仍 mock get_dcp_group 并断言 `not use_updatable_graph(AscendMLABackend)`（world_size=2）；新实现不再读 DCP world size，该断言必失败。CI 却显示 success，说明该用例未在本 branch 执行或 CI 结果不属于该 head，需要作者确认并更新用例。</li><li class="risk-medium"><b>MEDIUM</b>DCP MLA 改走 UpdatableGraph 后参数完全依赖 MLADCPParamProvider 从 attn_metadata 取 cp_seq_len / cp_history_seq_len / actual_seq_lengths_q；这些字段由 metadata builder 的 update_dcp_seq_lens_cpu 在 replay 前刷新，若 DCP+MTP/spec decode 或 PCP 混合路径漏填，resolve 会 assert 失败，或静默沿用旧长度导致注意力覆盖范围错误（这类错误不会报错，只出错误结果）。</li><li class="risk-medium"><b>MEDIUM</b>我在 DCP 侧只看到两处 register_task（_run_dcp_mtp_split_attention_op 与 _forward_decode 的 CPKVScope.FULL），prefill（chunked context / PCP）没有注册任务；如果该路径会进入 FULL 图捕获而非 PIECEWISE，参数将固化在捕获值。</li><li class="risk-medium"><b>MEDIUM</b>同一谓词也决定整张图走 updatable 还是 relay（_get_graph_update_backend 只取第一个可执行 backend），MLA 与 SFA/GDN 混布时判定与各层实际注册的任务可能不一致：SFA 仍靠自己的 update_graph_params。</li><li class="risk-low"><b>LOW</b>改动跨 11 文件 +365/-593，删掉的是 relay 专用簿记；body 的 How was this patch tested 为空，没有任何 DCP 实机数据，仅靠 CI。</li></ul></div>
+  <p class="tests"><b>测试：</b>PR 带了 tests 改动：tests/ut/compilation/test_acl_graph.py 覆盖 MLADCPParamProvider 的 HISTORY/CURRENT 解析与「replay 刷新长度、保留捕获 cache/输出缓冲」（L1018 起），tests/ut/attention/test_mla_cp.py 覆盖 DCP metadata 字段；但 tests/ut/test_utils.py 的旧断言未更新，也没有 DCP&gt;1 的实机图回放用例。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：tests/ut/test_utils.py::test_use_updatable_graph_does_not_require_current_vllm_config 为什么不随实现更新？这个用例在本分支 CI 里实际跑过吗？</li><li>需要作者确认：DCP MLA 的 prefill（chunked context / PCP gather）是否也需要 register_task？我只看到 decode 两处注册。</li><li>需要作者确认：DCP + MTP/spec decode 时，cp_seq_len 与 cp_history_seq_len 是否保证在任何 replay 前都已由 update_dcp_seq_lens_cpu 刷成当前 batch？</li><li>需要作者确认：能否补一份 DCP size&gt;1（含 MIXED/FULL graph）实机回放前后的输出一致性对比？</li><li>需要作者确认：MLA 与 SFA/GDN 混布模型下，relay 早退会不会让 MLA 层已注册的图任务被跳过？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>方向可接受，但先让作者更新 tests/ut/test_utils.py 的旧断言并补 DCP 实机回放数据。</p>
+</article>
+<article class="card v-approve" id="pr-20796">
   <div class="card-head">
     <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/20796" target="_blank" rel="noopener">#20796</a>
     <h3>[BugFix] Support batch-shared with adaptive verification</h3>
-    <span class="b v-look">需细看</span>
+    <span class="b v-approve">可批准</span>
   </div>
   <div class="meta">
     <span>@zouzy5137</span>
-    <span class="b b-ok">CI 通过 · 57</span>
+    <span class="b b-ok">CI 通过 · 52</span>
     <span class="b b-ok">已有 3 人批准</span>
     
     <span>我负责 1/6 个文件 · +9/-8</span>
-    <span>已排队 19.5 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">适配 #58466：reallocate_drafts 固定 4 元组，并传 num_admitted_draft_tokens 给 InputBatch。</p>
-  <p class="intent"><b>为什么改：</b>batch-shard 采样与 adaptive verification 叠加时，需把实际接纳 draft 数交给上游 batch/采样路径，否则边界不一致；修 #22171。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>reallocate_drafts 从 len(allocation)==4 的条件兼容改为强制 4 元组解包，删除 pp_kwargs 拼接并显式传 num_admitted_draft_tokens；确认不活跃路径传 None 的语义，以及 vLLM 0.33.0 兼容 lane 的返回元组长度。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>旧代码的 len(allocation)==4 明显是在兼容返回 3 元组的版本；若 0.33.0 release lane 的 reallocate_drafts 仍返回 3 元组，新代码会在首步 ValueError 解包失败，而改动行没有 UT 覆盖。</li><li class="risk-low"><b>LOW</b>num_admitted_draft_tokens 仅在 adaptive verification active 时赋值，其余路径显式传 None；若上游 batch-shared sampler 把它当必填 int 使用，需要确认默认值语义。</li><li class="risk-low"><b>LOW</b>本 PR 没有为 batch-shard+adaptive 组合新增单测，只依赖 CI/e2e 与在线性能、AIME 精度对比。</li></ul></div>
-  <p class="tests"><b>测试：</b>无新增单测；CI 成功（57 项，20 skipped），作者给出 batch-shard 开/关的在线服务性能与 AIME2025 精度对比。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：vLLM 0.33.0 lane 的 AdaptiveVerificationManager.reallocate_drafts 是否也返回 4 元组、InputBatch 是否已有 num_admitted_draft_tokens 字段？</li><li>需要作者确认：若 0.33.0 lane 仍是 3 元组，是否保留 len(allocation) 兼容分支或加版本 gate？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>建议细看：先确认 0.33.0 lane 兼容性，否则请保留旧的长度兼容分支。</p>
-</article>
-<article class="card v-approve" id="pr-22307">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22307" target="_blank" rel="noopener">#22307</a>
-    <h3>refactor: make Ascend code paths Model Runner V2 only</h3>
-    <span class="b v-approve">可批准</span>
-  </div>
-  <div class="meta">
-    <span>@xiaohaifeng1999</span>
-    <span class="b b-ok">CI 通过 · 6</span>
-    <span class="b b-ok">已有 1 人批准</span>
-    <span class="b b-bad">1 人要求修改</span>
-    <span>我负责 5/93 个文件 · +78/-161</span>
-    <span>已排队 4.6 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">移除 Ascend 代码中的 V1/V2 分支，V2 成为唯一 model runner，并删除 V1 专用 EPLB/expert-map 状态与测试。</p>
-  <p class="intent"><b>为什么改：</b>V1 已不可用（VLLM_USE_V2_MODEL_RUNNER=0 直接报错），清掉双路径死代码与 V1 专用状态，降低维护成本。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/platform.py</code><span>set_additional_forward_context 删除 V1 的 minimal extras 分支；EPLB 校验收敛为 V2 过滤+强制 async，删除 V1 的三条 ValueError。</span></li><li><code>vllm_ascend/worker/worker.py</code><span>PP 非末 rank 不再走 V1 kv_connector_output 透传；use_v2_model_runner 属性提前赋值供上游 warmup/elastic-EP 读取，确认早于任何使用点。</span></li><li><code>vllm_ascend/ascend_forward_context.py</code><span>删除 _USE_V2_EXTRA_KWARGS 与 sync_v2_extra_kwargs，proxy 无条件读写 additional_kwargs；确认没有旁路代码直接读 forward_context 属性。</span></li><li><code>vllm_ascend/ascend_config.py</code><span>删除 shared_engram/engram-DP 共享与 dspark sparse-kv 的 V1 守卫；确认这些配置只在 V2 下可达。</span></li><li><code>vllm_ascend/utils.py</code><span>requires_lmhead_dp_sync 去掉 use_v2_model_runner 条件，只在 DCP=1 且 lmhead_tp_enable 时返回真。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>改动跨 93 文件、删除 1861 行；sync_v2_extra_kwargs 符号被删后，任何未覆盖的 lazy import 路径都会运行期 ImportError，CI 之外的平台分支需要确认零引用。</li><li class="risk-low"><b>LOW</b>EPLB 的 V1-only 报错改为静默过滤+警告，旧部署把 V1 参数配到 V2 时少一次 fail-fast。</li><li class="risk-low"><b>LOW</b>worker.use_v2_model_runner 仍从 vllm_config 读取；若未来上游移除该属性且 shim 未生效，会 AttributeError（注释已说明随 release lane 一起删）。</li></ul></div>
-  <p class="tests"><b>测试：</b>V1-only 单测删除/改写，e2e 覆盖 qwen3 eager+graph、deepseek w8a8、attention precision 与两卡 EPLB；CI 成功（57 项，20 skipped）。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：全仓（含 lazy 加载路径）已无对 sync_v2_extra_kwargs 的 import，能否提供 grep 清单？</li><li>需要作者确认：V1-only EPLB 参数从报错变为过滤+警告是否为有意行为？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>可以批准；合并前用 grep 确认被删符号零引用。</p>
-</article>
-<article class="card v-approve" id="pr-17556">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/17556" target="_blank" rel="noopener">#17556</a>
-    <h3>[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard</h3>
-    <span class="b v-approve">可批准</span>
-  </div>
-  <div class="meta">
-    <span>@mashuiping</span>
-    <span class="b b-ok">CI 通过 · 7</span>
-    
-    
-    <span>我负责 1/2 个文件 · +7/-0</span>
-    <span>已排队 56.9 天</span>
+    <span>已排队 19.7 天</span>
     <span class="tag">作者有新提交</span>
     
   </div>
-  <p class="summary">graph capture 前调用 warmup_kernels 预热 V2 Triton kernel（受 jit_warmup 开关保护）。</p>
-  <p class="intent"><b>为什么改：</b>缺该调用时 Triton kernel 等首个真实请求才编译：冷缓存首内容 token 87.02s，预热后 28.46s。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>warmup_kernels 位于 kernel_warmup 之后、capture_model 之前，参数为 (model_runner, execute_model, sample_tokens)；guard 读 self.use_v2_model_runner 与 vllm_config.kernel_config.enable_jit_warmup。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>vllm.v1.worker.gpu.warmup.warmup_kernels 与 KernelConfig.enable_jit_warmup 是较新的上游接口；0.33.0 兼容 lane 若缺该模块/字段，V2 启动会 ImportError/AttributeError，当前没有版本 gate。</li><li class="risk-low"><b>LOW</b>body 称 enforce_eager 会关闭 enable_jit_warmup，但仓库内未见对应推导；若 eager 下仍为 True，只是多一轮预编译耗时，不影响正确性。</li><li class="risk-low"><b>LOW</b>池化模型/不同 PP rank 下 warmup_kernels 的行为未被 UT 覆盖。</li></ul></div>
-  <p class="tests"><b>测试：</b>新增 UT 断言 warmup_kernels 在 capture_model 之前以正确参数调用，3 个既有 compile_or_warm_up UT 补 use_v2_model_runner=False；CI 成功（7 项，2 skipped）。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：vLLM 0.33.0 lane 是否已有 vllm.v1.worker.gpu.warmup 模块和 kernel_config.enable_jit_warmup 字段？</li><li>需要作者确认：enforce_eager=True 时 enable_jit_warmup 是否确实为 False，还是需要在代码里显式跳过？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>可以批准，但请确认 0.33.0 lane 的接口存在，必要时加版本 gate。</p>
+  <p class="summary">reallocate_drafts 改强解 4 元组，并把 num_admitted_draft_tokens 显式传给 AscendInputBatch。</p>
+  <p class="intent"><b>为什么改：</b>batch-shard 采样与 adaptive verification 叠加时需把实际接纳的 draft 数交给上游采样/批处理路径，否则边界不一致（修 #22171）；顺带把 **pp_kwargs 改为显式字段。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>L1015-1042：reallocate_drafts 由 allocation[:3] + len(allocation)==4 兼容分支改为无条件 4 元组解包；原防御分支本轮被删，需确认受支持的上游 lane 一律返回 4 元组，否则首个 decode step 就 ValueError。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>L978-984 与 L1131-1155：num_admitted_draft_tokens 先初始化为 None，仅在 adaptive_verification_active 时被赋值，然后作为显式 kwarg 传进 AscendInputBatch（原 **pp_kwargs 拆成 num_admitted_draft_tokens + max_seq_len_np）；确认非 adaptive 路径传 None 时上游 InputBatch 与其消费方都能处理。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>L1656-1668：_sync_adaptive_fia_query_start_loc 的第 5 个实参仍是 total_num_draft_tokens（3rd 返回值），而不是新解出的 num_admitted_draft_tokens（4th）；两者是否恒等，否则 FIA query 边界按错误口径同步。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>原代码的 len(allocation)==4 兼容分支被本 PR 显式删除（patch 的 - 行可见），现在没有降级路径：CI 里 0.33.0/0.31.0 lane（同文件 L232/L1218/L1255/L1709 仍有 vllm_version_is 分支）若上游仍返回 3 元组，开 adaptive verification 的首步即解包失败。作者给的是 pinned main（c410543d）上的在线验证，未覆盖老 lane。</li><li class="risk-medium"><b>MEDIUM</b>非 adaptive 路径显式传 num_admitted_draft_tokens=None；若上游 InputBatch 把它当必填 int（参与 logits/采样索引计算或直接算术），会退化成 None 运算报错，影响所有不开 adaptive verification 的普通 batch-shard 请求。</li><li class="risk-low"><b>LOW</b>没有针对性单测：tests/ut/worker/test_adaptive_verification.py 与 tests/ut/worker/test_model_runner_v2.py 里都搜不到 reallocate_drafts / num_admitted_draft_tokens，body 的 Testing checklist 三项（边界、回归、错误路径）全部未勾选。</li><li class="risk-low"><b>LOW</b>AscendInputBatch 依赖 fields(InputBatch) 的字段镜像（vllm_ascend/worker/v2/input_batch.py:71）；上游给 InputBatch 加 num_admitted_draft_tokens 后，make_dummy 的 base_fields 拷贝会自动带上，但若上游字段无默认值则 dummy 路径需额外补齐，值得跑一次 FULL 图捕获用例。</li></ul></div>
+  <p class="tests"><b>测试：</b>无新增单测；e2e 数据较完整（64 请求、并发 16、batch-shard 开/关对比吞吐 +0.9~1.1%、AIME2025 70%→73.33%），CI 52 项 0 失败 18 skipped。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：受支持的 vLLM lane（尤其 0.33.0）reallocate_drafts 是否都已返回 4 元组？既然删掉了 len(allocation)==4 兼容，要不要加 vllm_version_is gate？</li><li>需要作者确认：非 adaptive 路径传 num_admitted_draft_tokens=None 时，上游 InputBatch 及其采样端允许吗？</li><li>需要作者确认：num_admitted_draft_tokens（4th）与 total_num_draft_tokens（3rd）的语义差别是什么？为什么 _sync_adaptive_fia_query_start_loc 仍用 total_num_draft_tokens？</li><li>能否补一条单测覆盖 4 元组解包 + None 分支？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>可以批准；建议作者补一条解包/None 分支单测，并确认老版本 lane 的返回元组长度。</p>
 </article>
-<article class="card v-look" id="pr-21831">
+<article class="card v-approve" id="pr-21658">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21831" target="_blank" rel="noopener">#21831</a>
-    <h3>[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@Zhaocen</span>
-    <span class="b b-ok">CI 通过 · 6</span>
-    
-    <span class="b b-bad">2 人要求修改</span>
-    <span>我负责 1/5 个文件 · +0/-29</span>
-    <span>已排队 9.6 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">放开 GLM-5.3-Flash DFlash2 的 PP 限制，配合跨 stage hidden/mHC 传输与 embedding 加载。</p>
-  <p class="intent"><b>为什么改：</b>原守卫因 DFlash2 不支持 PP 而 fail-fast；补齐跨 stage aux hidden/mHC 与 embedding 共享后放开 PP。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/platform.py</code><span>删除 _validate_glm5next_dflash2_pp_config 及其调用；确认其余 _validate_indexer_pp_config/_validate_parallel_config/_validate_engram_config 覆盖 PP&gt;1，且再无其它引用该函数，也没有把 PP+SP MoE 等仍不支持的组合放进来。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>head 在 embedding 实现重构后只跑了 578 个聚焦单测，body 自述 A3 PP=2 全模型 smoke 用的是 earlier embedding implementation；exact-head 缺少 PP 端到端证据。</li><li class="risk-medium"><b>MEDIUM</b>body 明确 GLM-5.3-Flash PP + sequence-parallel MoE 仍不支持，但删除守卫后未见新增对该组合的 fail-fast，用户可能配出可启动但结果错误的组合。</li><li class="risk-low"><b>LOW</b>PR 当前 changes_requested=2、mergeable=blocked，需确认两条评审意见是否已在 head 解决。</li></ul></div>
-  <p class="tests"><b>测试：</b>新增 tests/ut/models/test_glm5next_pp.py 覆盖 1/2/3 stage 的 aux hidden 顺序、mHC 跨 stage 状态与 DFlash/DFlash2 embedding 共享；578 项聚焦 UT 通过；CI 6 项成功（2 skipped），A3 smoke 为旧 revision。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：exact head 是否补跑 PP=2 全模型 smoke？当前 body 只给出 earlier embedding 实现的结果。</li><li>需要作者确认：GLM-5.3-Flash PP + sequence-parallel MoE 不支持时由哪条校验拦截？删除守卫后是否应补一条明确报错？</li><li>需要作者确认：两条 changes_requested 是否已全部解决？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>建议先细看：要求 exact-head e2e 与 SP MoE 组合的 fail-fast 后再批准。</p>
-</article>
-<article class="card v-look" id="pr-22495">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22495" target="_blank" rel="noopener">#22495</a>
-    <h3>[BugFix][Device] Bind visible NPUs to the --device-ids selection</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@shiqiangA</span>
-    <span class="b b-ok">CI 通过 · 9</span>
-    <span class="b b-ok">已有 1 人批准</span>
-    
-    <span>我负责 1/3 个文件 · +106/-0</span>
-    <span>已排队 3.5 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">按 --device-ids 收窄 ASCEND_RT_VISIBLE_DEVICES 并重编号为 0..N-1，避免解析模型时初始化未选中的 NPU。</p>
-  <p class="intent"><b>为什么改：</b>ASCEND_RT_VISIBLE_DEVICES=4,5 配 --device-ids 1 时，架构解析经 get_all_max_shared_mem 触达所有可见卡，初始化 chip4 导致 npu:0/npu:1 混用与图捕获失败。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/platform.py</code><span>_narrow_visible_devices_to_device_ids 的收窄+重编号是否与 assigned_physical_gpu_ids 的两段映射一致；visible 未设置/越界/重复/UUID/Ray/已收窄各分支；parse_args 包装的幂等与时序</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>把 device_ids 改写成 0..N-1 依赖 vLLM 在收窄后的 env 上再把 device_ids 解析成物理 id；若某版本把 device_ids 直接当物理 id（或先解析后挂钩），worker 会绑定错误/不存在的卡。body 只给出单卡实测，多卡 device_ids 顺序未验证。</li><li class="risk-medium"><b>MEDIUM</b>挂钩只在 CLI parser.parse_args/parse_known_args 的实例上；LLM(..., device_ids=[...]) 等程序化入口会绕过，body 声称的“在 create_engine_config 收窄”实际未实现。</li><li class="risk-medium"><b>MEDIUM</b>Ray 判定只看 distributed_executor_backend，未覆盖 data_parallel_backend=ray 与 external_launcher；这些组合是否应同样 no-op 需确认。</li><li class="risk-low"><b>LOW</b>visible 为空串会被当作未设置并重新写入 device_ids（可能违背用户置空禁卡的意图）；若 CANN 支持“0-3”这类范围写法，_split_visible_devices 会误判越界而静默 not-narrow。</li></ul></div>
-  <p class="tests"><b>测试：</b>tests/ut/test_platform.py 新增 TestNarrowVisibleDevices 共 9 个用例，覆盖收窄/重编号、visible 未设置、越界、重复、Ray、UUID、已收窄及 parse_args/parse_known_args 包装；缺真实 EngineArgs/多卡物理绑定以及“未选中卡不被初始化”的 e2e 断言。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：该 vLLM 版本在哪里把 device_ids 解析成 assigned_physical_gpu_ids，是否确实发生在 env 收窄之后？多卡（如 visible=2,3,4 + device_ids=1,2）的绑定与 npu-smi 结果有实测吗？</li><li>程序化 LLM(device_ids=...) 和 data_parallel_backend=ray/external_launcher 是否也需要收窄，或明确不支持？</li><li>ASCEND_RT_VISIBLE_DEVICES 是否支持范围/负一写法？空串是否应视为“用户禁用全部卡”而不覆盖？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>方向正确、单测齐全；请补多卡与程序化入口验证，并确认 vLLM 侧 device_ids 解析时序后再批准。</p>
-</article>
-<article class="card v-approve" id="pr-22539">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22539" target="_blank" rel="noopener">#22539</a>
-    <h3>[Performance][MoE] Fuse All2AllV INT8 quantization with token routing</h3>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21658" target="_blank" rel="noopener">#21658</a>
+    <h3>[Performance][DSV4.1] Shard DeepSeek V4.1 indexer query rows across TP ranks</h3>
     <span class="b v-approve">可批准</span>
   </div>
   <div class="meta">
-    <span>@diaochengxi</span>
+    <span>@jwkkkkkkdada</span>
     <span class="b b-ok">CI 通过 · 6</span>
+    <span class="b b-ok">已有 1 人批准</span>
     
-    
-    <span>我负责 1/5 个文件 · +4/-0</span>
-    <span>已排队 3.3 天</span>
-    <span class="tag">新进入队列</span>
+    <span>我负责 1/20 个文件 · +3/-1</span>
+    <span>已排队 11.1 天</span>
+    <span class="tag">作者有新提交</span>
     
   </div>
-  <p class="summary">HardwareProfile 新增 A3 专用阈值字段（默认 None、A3=1024），供 All2AllV 融合 top-k 路由与 INT8 动态量化。</p>
-  <p class="intent"><b>为什么改：</b>All2AllV 原先先按 top-k 展开 BF16 再逐 token 动态量化，重复量化且多一次展开；A3 大批次复用原生 init_routing quant_mode=1 融合两步以降低 dispatch 耗时。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/device/hardware_profile.py</code><span>新字段默认 None、仅 A3=1024 是否符合“按硬件族选择”的语义；dataclass 默认值与既有 profile 构造/测试是否兼容；A2/A5/310P 是否保持回退</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>阈值只按 A3 硬件族硬编码为 1024，与 CANN/算子版本无关，也没有 env/配置回退开关；若某些 A3 软件栈上 fused 路径更慢或 quant_mode=1 行为不同，只能改代码回退。</li><li class="risk-low"><b>LOW</b>1024 阈值来自单套 A3/CANN 9.2.1 微基准；body 自述 serving A/B 未显示稳定端到端收益，实际收益可能被高估。</li><li class="risk-low"><b>LOW</b>字段默认值 None 覆盖 A2/A5/310P，token_dispatcher 仅在 dst_type=int8 且非 MXFP/LoRA 时启用，回退路径保留；后续新增硬件族需保持默认 None。</li></ul></div>
-  <p class="tests"><b>测试：</b>tests/ut/device/test_hardware_profile.py 新增 A2/A3/A5/310P 阈值参数化断言；tests/ut/ops/test_token_dispatcher.py 新增 fused 调用顺序、量化与批次回退用例（body 称 48 passed/11 skipped）。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：1024 是否需要按 CANN 版本或 A3 子型号分级？是否值得加一个 internal env 开关以便线上 A/B 和快速回退？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>我负责的 profile 字段改动小而清晰、已有单测，可批准；建议后续补阈值分级或回退开关。</p>
+  <p class="summary">为 v2 ACL graph 工厂加 model_state.get_graph_manager_cls 钩子，让 DSV4.1 用专用分片图管理器。</p>
+  <p class="intent"><b>为什么改：</b>V4.1 indexer 的 K 在 TP 内复制，按 query 行分片可减少重复打分；同一 FULL bucket 需分别捕获分片与复制两种图，而工厂原先把 manager 写死。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>L1710-1711：getattr(model_state, &#39;get_graph_manager_cls&#39;, None) 返回 None 时回退 ModelAclGraphManager；确认 hook 返回的类能接受 (vllm_config, device, cudagraph_mode, query_shapes, model_runner) 五个位置参数，且第 4 个在 main lane 是 Mapping、0.33.0 lane 是 int。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>钩子在 graph_manager_wrapper 的 factory 里调用，唯一调用点是 _initialize_kv_cache（L518 的 with 块）；确认调用时机晚于 self.model_state 建立（L511 sparse offload 已用 self.model_state），且早于 pcp_manager 的 set_runner_state。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>钩子无契约校验：返回非 ModelAclGraphManager 子类、__init__ 签名不同、或属性存在但为 None（会 TypeError: not callable）都只在 manager 构造时才炸。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>钩子是 model_state 上的非正式协议：没有 isinstance/签名断言，也没有基类声明；后续任何 model_state 实现写错（参数顺序、返回 None）都只在 KV 初始化时才暴露，且错误信息会是 TypeError 而不是「钩子契约不符」。</li><li class="risk-medium"><b>MEDIUM</b>hook 缺失时静默回退默认 manager（无 warning）：若 V4.1 的 model_state 因重命名/继承变化丢了 get_graph_manager_cls，分片优化会静默失效而不报错，性能回归难以归因。</li><li class="risk-low"><b>LOW</b>query_shapes 在 main lane 是 decode_query_lens（Mapping[int,int]），0.33.0 lane 是 decode_query_len（int），专用 manager 的构造签名必须同时兼容；UT 只用 *args 的假类模拟，没有校验真实专用 manager 的签名。</li><li class="risk-low"><b>LOW</b>PR 规模大（20 文件 +1303/-37），目前仅 1 个 approval；我负责的 4 行本身风险低，但整体仍需要更多领域 review。</li></ul></div>
+  <p class="tests"><b>测试：</b>有专门 UT tests/ut/worker/test_model_graph_manager_factory.py（52 行，parametrize 有/无钩子 × main/0.33.0 lane，断言 5 个位置参数、kwargs 透传与 patched 类复原）；另有 V4.1 分片/图变体 UT，e2e 只有 8×910B 真机数据。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：get_graph_manager_cls 返回的专用 manager 是否在 main 与 0.33.0 两个 lane 都能接住第 4 个参数（Mapping / int）？能否加 isinstance 或注释固化契约？</li><li>需要作者确认：钩子缺失时的静默回退是否该打一次 warning，避免分片优化悄悄失效？</li><li>rebase 后 DeepSeekV41AclGraphManager 建分片描述的最小行数门槛（tp，PCP 时 ×2）与 model_state.prepare_attn 的 should_shard 判定是否仍严格一致？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>钩子本身可批准；建议作者给非正式协议补一句 warning 或断言，并确认专用 manager 在两个 vllm lane 的签名。</p>
 </article>
-<article class="card v-look" id="pr-12651">
+<article class="card v-look" id="pr-21444">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/12651" target="_blank" rel="noopener">#12651</a>
-    <h3>[BugFix]refresh Ascend MoE comm state after L2 wake to fix ep+sleep level2 precision issue</h3>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21444" target="_blank" rel="noopener">#21444</a>
+    <h3>[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts</h3>
     <span class="b v-look">需细看</span>
   </div>
   <div class="meta">
-    <span>@zgh-99</span>
-    <span class="b b-ok">CI 通过 · 2</span>
+    <span>@SkychenLee</span>
+    <span class="b b-ok">CI 通过 · 6</span>
+    <span class="b b-ok">已有 1 人批准</span>
+    <span class="b b-bad">1 人要求修改</span>
+    <span>我负责 3/10 个文件 · +75/-4</span>
+    <span>已排队 12.8 天</span>
+    <span class="tag">作者有新提交</span>
     
+  </div>
+  <p class="summary">Qwen3-Next/3.5 + DFlash2 在 A2/A3 启用 FA3，并在 v2 跳过 spec 的 CPU 长度同步。</p>
+  <p class="intent"><b>为什么改：</b>装了可选 FA3 算子时让受支持 Qwen 目标与 DFlash2 草稿走 FA3，减少 decode 的 CPU 标量读取与事件等待；仅在目标/草稿后端都符合时省掉 D2H 与等待。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/device/hardware_profile.py</code><span>FlashAttentionNpu3Model.QWEN 同时加入 A2 与 A3 的 flash_attn_npu_3_models（A5 仍只有 STEP5）；body 的实机验证只有 A3，A2 属推断性声明，需要依据。</span></li><li><code>vllm_ascend/platform.py</code><span>_uses_qwen_fa3：要求 backends.model_tag in (&#39;backbone&#39;,&#39;dflash_head&#39;) 且 spec.method==&#39;dflash&#39; 且草稿含 DFlash2DraftModel；确认 &#39;backbone&#39; 就是 Qwen 目标加载时的真实 model_tag（draft 侧沿用 target config 的注释与 _is_supported_flash_attn_draft 的 dflash_head 用法需一致）。</span></li><li><code>vllm_ascend/platform.py</code><span>_validate_flash_attn_npu_3 的共享门控是否覆盖 Qwen：attn_type==DECODER、fp16/bf16、kv_cache_dtype 白名单、cache_config.cache_dtype in (auto,float16,bfloat16)、非 C8、无 pcp/dcp/sink/adaptive、parallel 全 1、flash_attn_npu_3 已安装——已确认 C8 通过 cache_dtype 白名单与 enable_c8_quant 两处排除。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>_can_skip_spec_cpu_length_sync 新增 Qwen 分支：只放行 Qwen3_5ForConditionalGeneration，其余 QWEN_FA3_TARGETS 架构直接 return False；FA3 后端类经 sys.modules.get(&#39;vllm_ascend.attention.flash_attention_v3&#39;) 探测，target_backends 由 attn_groups 去掉纯 draft 组后求集合，要求恰好 {fa3, AscendGDNFusedAttentionBackend}，并要求 MambaHybridModelState、kvpp=1、无 kv_transfer/sparse offload/adaptive verification。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>A2 被写进 profile（flash_attn_npu_3_models 含 QWEN），但 body 只给出 A3 TP2 的精度与 0 同步数据；A2 上 Qwen FA3 + 跳过 CPU 长度同步的正确性没有任何证据，UT 也只是镜像 profile 常量。</li><li class="risk-medium"><b>MEDIUM</b>sys.modules 探测是隐式时序契约：_can_skip_spec_cpu_length_sync 若在 FA3 模块尚未 import 时被调用（如首次 execute_model 早期），会返回 False（性能静默失效，无 warning）；且一旦该模块被其它路径 import 而 FA3 实际未选中，仅靠 target_backends 集合相等来兜底。</li><li class="risk-medium"><b>MEDIUM</b>仓库内 reviews 仍有 1 个 changes_requested（作者本轮已去掉上期被质疑的 vllm 私有 selector monkeypatch，但未见该 reviewer 的复核），合并前需要该 reviewer 关闭。</li><li class="risk-low"><b>LOW</b>platform._uses_qwen_fa3 没有单测（tests/ut/test_platform.py 无 QWEN 相关用例）；model_tag 取值仅靠字符串字面量与原注释，上游 tag 改名不会报错只会静默不启用 FA3。</li><li class="risk-low"><b>LOW</b>_uses_qwen_fa3 放行 Qwen3Next/Qwen3_5Moe 等 5 个架构，而 _can_skip_spec_cpu_length_sync 只放行 Qwen3_5ForConditionalGeneration；两者不对称是有意为之，但后续容易误以为「都验证过」。</li><li class="risk-low"><b>LOW</b>backend 判定用类对象 is 比较（draft 全为同一 fa3 类、target 集合恰为 {fa3, GDN}），Qwen3.5 目标若新增非 GDN 非 FA3 的层会静默退回同步路径，属性能而非正确性风险。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增 UT 覆盖我负责的改动：tests/ut/worker/test_model_runner_v2.py::test_qwen_dflash2_cpu_length_sync（按 target/draft 是否 FA3 × Qwen3_5/Qwen3_5Moe 断言 record/synchronize 是否发生），tests/ut/device/test_hardware_profile.py 已加入 (A2/A3, {MINIMAX,QWEN}) 的矩阵断言；platform._uses_qwen_fa3 无单测，A2 无实机数据。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：&#39;backbone&#39; 是否就是 Qwen 目标加载时的真实 model_tag？上游改名时这里会静默不启用 FA3，能否加一次 logger 或对 tag 做集中定义？</li><li>需要作者确认：A2 凭什么也开启 FlashAttentionNpu3Model.QWEN？能否补 A2 的精度/性能或先只在 A3 生效？</li><li>需要作者确认：sys.modules 里 FA3 模块未 import 而返回 False 的情形会不会在真实启动路径上发生（即优化是否可能静默不生效）？</li><li>需要作者确认：仍需 1 个 changes_requested 的 reviewer 复核，之前对私有 monkeypatch 的反对意见是否已被认可移除？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>代码方向可以接受且有 UT；先补 A2 依据并请提出 changes_requested 的 reviewer 复核，再合入。</p>
+</article>
+<article class="card v-look" id="pr-15883">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/15883" target="_blank" rel="noopener">#15883</a>
+    <h3>[Feature] Add decode Mooncake host DRAM allocation for sparse KV offload</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@TheManyBELL</span>
+    <span class="b b-ok">CI 通过 · 6</span>
+    <span class="b b-ok">已有 1 人批准</span>
     
-    <span>我负责 1/2 个文件 · +7/-0</span>
-    <span>已排队 123.5 天</span>
+    <span>我负责 4/17 个文件 · +61/-29</span>
+    <span>已排队 77.6 天</span>
     <span class="tag">新进入队列</span>
     
   </div>
-  <p class="summary">L2 唤醒后重建 All2AllV 的 expert_ids_per_ep_rank（非 buffer，IPC 重载不恢复），避免 EP 用脏专家 id。</p>
-  <p class="intent"><b>为什么改：</b>sleep(level=2) 丢弃 NPU 权重并由外部 IPC 重载后，dispatcher 的持久张量仍是丢弃后的脏值，导致 EP&gt;1 混合训练 rollout 生成流畅但内容错误。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>wake_up 中 refresh 的时序（allocator.wake_up 之后、IPC 重载之前）、flag 生命周期、level=1 不触发、未启用 sleep/异常路径；新增 import 顺序与空白</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>refresh 用 ids.copy_ 原地写回，但 L2 会对 CaMem 池内所有分配 unmap+release；wake_up 只 create_and_map 不恢复内容。需作者确认该张量是独立 handle、refresh 一定发生在 remap 之后且在 IPC 重载之后不会被覆盖。</li><li class="risk-medium"><b>MEDIUM</b>PR body 说修复在 verl/workers/rollout/vllm_rollout/utils.py，并包含“重载后重新 patch_vllm_moe_model_weight_loader”；head 实际只改 worker.py + moe_comm_method.py，第二个修复不在 diff 中，描述与代码不一致。</li><li class="risk-medium"><b>MEDIUM</b>新增 except Exception 只 warning，refresh 失败会静默保留脏路由，精度问题难以发现；建议至少在严格模式/首轮 raise 或加失败计数日志。</li><li class="risk-low"><b>LOW</b>新增 import 放在 vllm_ascend.distributed 之前，违反仓库 ruff I（isort）排序；wake_up 新增空行含尾随空格（git diff --check 会报）；PR 仍处 merge-conflicts/dirty。</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 无任何单测/CI 用例；sleep/wake 与 dispatcher 注册表是跨文件状态，建议加 UT：mock allocator+dispatcher，断言 sleep(2) 置位、wake_up 后 ids==arange(num_experts)%num_local、level=1 不刷新、异常仅告警。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：expert_ids_per_ep_rank 在 L2 丢弃+create_and_map 后仍指向独立有效内存吗？refresh 放在 allocator.wake_up 之后、IPC 权重重载之前，是否满足 body 所述“after IPC reload”？</li><li>body 中的 patch_vllm_moe_model_weight_loader 二次修复是否已拆到其他 PR？若不是，为何 head diff 里没有？</li><li>动态 EPLB 或重载后 num_experts/num_local_experts 可能变化，用 arange%num_local 重建是否覆盖这些场景？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>实现方向合理，但请先 rebase 解冲突、修 import 顺序/尾随空格、补 sleep/wake UT 并更新 body 后再细看。</p>
+  <p class="summary">新增 HostKVAllocator 与 Mooncake 主机池、host_backend 选项及 prepare/close 生命周期，默认路径不变。</p>
+  <p class="intent"><b>为什么改：</b>把稀疏 KV offload 的 Host KV 分配从 MemFabric 解耦，为 Mooncake 共享段后端预留资源层与配置入口，并把初始化/释放收口到 prepare/close，供后续 PR 接数据通路。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>initialize_kv_cache 中 prepare_host_kv_allocation 的时机（在 super().initialize_kv_cache 之前）、device_id=torch.npu.current_device() 与 data_parallel_index 的语义；shutdown 新增 try/finally 调 manager.close() 是否覆盖原始异常、close 是否幂等。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>_allocate_kv_cache 新增第 6 个实参 get_sparse_kv_offload_manager().allocate_host_kv_tensors：该访问器是 assert 实现，必须保证 prepare 先执行；检查所有可达 _allocate_kv_cache 的入口（含单测/其他 allocate 入口）。</span></li><li><code>vllm_ascend/ascend_config.py</code><span>host_backend 的 Literal 与 model_validator 约束（mooncake 要求 use_fused_overlap=true 且 keep_device_kv_cache=false，与 _validate_preconditions 的 PD decode 约束是否等价）；lru_max_threads 用 type(value) is not int 严格校验，默认值 8 是否兼容已有配置。</span></li><li><code>vllm_ascend/envs.py</code><span>VLLM_ASCEND_SKIP_MIGRATEPAGES 用 bool(int(...)) 而非同文件已有的 _bool_env 帮助函数：&#39;true&#39; 等写法会抛不友好的 ValueError；实际消费点在 cpu_binding.bind_memory，影响是进程级而非注释所说的 backend-owned。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>host_backend=&quot;mooncake&quot; 是用户可见配置，校验可过（use_fused_overlap=true、keep_device_kv_cache=false 的 PD decode 即可），但作者自述数据通路未完成：用户启用后可能只建池、静默产生错误结果。建议数据通路就绪前硬门禁（raise NotImplementedError）。</li><li class="risk-medium"><b>MEDIUM</b>shutdown 的 finally 无条件 manager.close()：若 close() 抛错会覆盖 try 块里原本的 super().shutdown()/engram 释放异常，排障信息丢失；且 close() 不重置 _host_allocation_prepared 与模块级 _SPARSE_KV_OFFLOAD_MANAGER，同进程二次 initialize_kv_cache 会得到已关闭 manager 并报 allocate_host_kv_tensors 的 RuntimeError。</li><li class="risk-medium"><b>MEDIUM</b>默认 memfabric 路径语义已核对（base 在 Manager.__init__ 里做同样的 offload.initialize/reserve/alloc/store_url，head 只改到 prepare），但初始化发生在 super().initialize_kv_cache 之前，意味着 MemFabric store 先于设备 KV/connector 建立；若 PD connector 初始化失败，host 池与 store 端口需靠 finally/进程退出兜底。</li><li class="risk-low"><b>LOW</b>attn_utils 把 assert 型 get_sparse_kv_offload_manager() 当实参求值：若某些测试或替代入口在未初始化 manager 时走到 store_on_host 分支，会得到裸 AssertionError（-O 下则 AttributeError）；异常信息不如显式 RuntimeError。</li><li class="risk-low"><b>LOW</b>envs 新开关跳过的是进程级 NUMA migratepages（CPU 绑核仍执行），会影响该 worker 所有内存的 NUMA 亲和性，而注释写成 backend-owned host memory，语义偏窄；同时未复用 _bool_env，VLLM_ASCEND_SKIP_MIGRATEPAGES=true 会在 bind_memory 处直接 ValueError。</li></ul></div>
+  <p class="tests"><b>测试：</b>PR 自带 test_mooncake_host_pool.py（10 例，无需 Mooncake/NPU）、test_sparse_kv_offload_manager.py（34 例）、test_ascend_config.py（+7 host_backend 校验）、test_cpu_binding.py 更新；但未见 shutdown close/同进程重复初始化的用例（测试文件列表未包含在 deep JSON，无法逐条核对）。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：既然 mooncake 数据通路要后续 PR 才落地，能否在 host_backend=&quot;mooncake&quot; 时直接 raise NotImplementedError（或先不暴露配置），避免用户误开启后静默算错？</li><li>manager.close() 之后 _host_allocation_prepared 仍为 True 且模块单例不清空，同一进程再次 initialize_kv_cache（如测试/多实例）会失败；是否补 reset/可重入语义？</li><li>shutdown 的 finally 中 close() 抛错会覆盖原始异常，是否改为记录日志或聚合错误（类似 engram 的 first_error 处理）？</li><li>attn_utils 用 assert 型 get_sparse_kv_offload_manager() 作为实参，除 v2 initialize_kv_cache 外还有哪些入口会走到 store_on_host 分支？能否改成显式报错或由调用方注入回调？</li><li>lru_max_threads 由固定 8 改为 min(configured, available_cpus)，核数 &lt;8 的机器上 LRU workspace 会变小；这与 native planner 的线程数假设是否一致，是否有对应单测？</li><li>host_backend 与 lru_max_threads 是用户可见配置，是否需要同步 additional_config 文档/示例？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>解耦方向认可，但先给 mooncake 配置加硬门禁、补 close/重复初始化测试并修正 env 解析，再考虑批准。</p>
 </article>
-<article class="card v-push" id="pr-12069">
+<article class="card v-look" id="pr-21624">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/12069" target="_blank" rel="noopener">#12069</a>
-    <h3>[Refactor]update permute/unpermute to init_routing/finalize_routing</h3>
-    <span class="b v-push">建议打回</span>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21624" target="_blank" rel="noopener">#21624</a>
+    <h3>[Feature][Model] Add Kimi fine-grained projection and shared-expert TP</h3>
+    <span class="b v-look">需细看</span>
   </div>
   <div class="meta">
-    <span>@lcfenglinwan</span>
+    <span>@Dawn952</span>
+    <span class="b b-ok">CI 通过 · 10</span>
+    <span class="b b-ok">已有 5 人批准</span>
+    
+    <span>我负责 8/41 个文件 · +124/-74</span>
+    <span>已排队 11.7 天</span>
+    <span class="tag">作者有新提交</span>
+    
+  </div>
+  <p class="summary">为 Kimi-K3.1 增加细粒度 QKV/G/O/MLP 投影与共享专家 DP 轴切分，并扩展进程组与启动校验。</p>
+  <p class="intent"><b>为什么改：</b>降低 Kimi 每卡投影与共享专家权重占用：沿独立 DP 轴切分权重，复用 GLM 投影基础设施，要求图调度+recompute 对齐容量，共享专家按 owner gather/RS 归约。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ascend_config.py</code><span>requires_graph() 的语义与调用点：derive_and_validate 在 _validate_preconditions 之前用它要求 recompute_scheduler_enable，而 _validate_preconditions 可能随后因 capture 不足把 oproj/mlp 自动 disable；新增 gproj/shared 字段校验、GLM/Kimi 分支差异与错误信息。</span></li><li><code>vllm_ascend/distributed/parallel_state.py</code><span>新增 _GPROJ_TP/_SHARED_EXPERT_TP 的创建条件与 destroy 按 id 去重；_create_or_get_group 按 size 缓存导致同尺寸组件复用同一 GroupCoordinator（group_name 取首个）的副作用。</span></li><li><code>vllm_ascend/utils.py</code><span>should_skip_allreduce_across_dp_group 重排：qkv 检查移到 dense 早退之后、新增 requires_graph 强制 return False，既有 oproj/mlp 配置由“可 skip”变为“每步都做 DP allreduce”，是否只影响新路径。</span></li><li><code>vllm_ascend/ops/kda_parallel.py</code><span>KDAColumnParallelLinear 新增 tp_group 参数：self.tp_group 在 super().__init__ 前赋值是否会被 vLLM 覆盖；pcp_group=None 后 forward 分支；KDAMergedColumnParallelLinear 的 padding_size 仍用 get_tp_group()*get_pcp_group() 计算是否与显式组一致。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>_finegrained_tp_requires_graph 的判定扩大到 shared/gproj/Kimi-qkv 后，_check_finegrained_tp_graph_step 对 eager dispatch 的硬失败是否影响既有 oproj/mlp 配置；dp_size&gt;1 条件是否仍正确。</span></li><li><code>vllm_ascend/worker/v2/model_states/default.py</code><span>_check_finegrained_tp_idle_graph_step 放在 prepare_attn 入口：ring_state_update_skipped() 仅在 _dummy_run 携带 skip_gdn_state_update 时为真，需确认不会在正常 profile/capture 或非 Kimi 模型上误触发；mamba_hybrid 通过 MRO 复用同一方法。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>should_skip_allreduce_across_dp_group 对既有 oproj/mlp 配置由“可跳过 DP allreduce”变为“每步强制 allreduce”（并要求 decoder replay 也参与 all_reduce），属于既有用户的行为/性能变化，PR 描述未量化该对比；若只为新的 DP 轴投影需要，应确认是否应限定在 Kimi/gproj/shared 或加开关。</li><li class="risk-high"><b>HIGH</b>kda_parallel 的显式 tp_group 只改了分配 rank/size，但 KDAMergedColumnParallelLinear 的 padding_size 仍按 get_tp_group().world_size * get_pcp_group().world_size 计算；Kimi qkv/gproj 在 TP=PCP=1、组大小 8 时若走带 padding 的 merged linear，padding 输出与分片口径可能不一致，导致 shape/loader 错误。</li><li class="risk-medium"><b>MEDIUM</b>requires_graph 把“需要图调度”和“需要 DP 容量对齐”混成一个谓词，被 derive_and_validate、platform、model_runner、model_states、utils 五处复用；其包含的组件集合一改（如再加新 knob）会同时改变启动校验、allreduce 与 idle 守卫，容易漏改/误伤。</li><li class="risk-medium"><b>MEDIUM</b>derive_and_validate 中 requires_graph 在 _validate_preconditions 之前调用，而后者会把 capture 覆盖不足的 oproj/mlp 自动 disable；配置最终可能一个 knob 都没生效却已要求 recompute_scheduler_enable（base 对 oproj/mlp 相同，但新增 gproj/shared/Kimi-qkv 走的是硬 ValueError 而非 disable，三类 knob 行为不一致）。</li><li class="risk-medium"><b>MEDIUM</b>shared_expert TP 的校验只看到 enable_shared_expert_dp 与 LoRA，未见对融合共享 MegaMoe（enable_fused_mc2=2）的互斥校验；body 声称“Fused shared MegaMoe stays disabled”，若只在别的文件里保证，需指出位置与测试。</li><li class="risk-low"><b>LOW</b>derive_and_validate 的 AssertionError 文案仍只提 oproj_tensor_parallel_size / mlp_tensor_parallel_size，但触发条件现已包含 shared_expert/gproj/Kimi qkv，排障信息会误导。</li></ul></div>
+  <p class="tests"><b>测试：</b>CI 10 项全绿（2 skipped），PR 带 module:tests/module:ops 标签且 body 给出 A5 64 卡 decode 基准；但 deep JSON 未列出新增单测路径，无法核对 requires_graph 组合、进程组同尺寸复用/销毁、idle eager 守卫、Kimi merged padding 等边界用例。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：should_skip_allreduce 对既有 oproj/mlp 配置改为强制 DP allreduce 是否必要且已 benchmark？能否限定到 Kimi/gproj/shared 或提供开关，避免既有 GLM 配置性能回退？</li><li>KDAMergedColumnParallelLinear 的 padding_size 仍按全局 get_tp_group()*get_pcp_group() 计算，显式 tp_group 下是否应改用 tp_group.world_size？Kimi qkv/gproj 使用带 padding 的 merged linear 时是否已验证 shape 与权重 loader 一致？</li><li>请确认 ColumnParallelLinear.__init__ 不会重新赋值 self.tp_group（否则 KDAColumnParallelLinear 传入的显式组会被静默忽略），以及 KDAInputParallelLinear 的 tp_size 参数与 tp_group.world_size 必须相等的约束在哪里保证？</li><li>shared_expert_tensor_parallel_size 与 enable_fused_mc2=2（融合共享 MegaMoe）是否有互斥校验？若有在哪个文件、由哪个测试覆盖？</li><li>requires_graph 在 derive_and_validate 阶段被调用时 model_config 可能为 None（同文件 _is_megamoe_supported_by_config 的注释），此时 Kimi qkv 的 recompute 校验会静默跳过；这是否可接受？</li><li>同一尺寸的多个组件复用同一个 GroupCoordinator（group_name 取首个创建名），destroy 按 id 去重；是否有代码依赖 get_*_group().group_name 做日志/调试/序列化？</li><li>7 个新配置项是否同步了文档（labels 含 documentation）与 additional_config 校验示例？新增单测文件是哪些？</li><li>本轮相对上期新增了哪些提交？body 里 A5 64 卡 benchmark 与 requires_graph 统一看起来是本轮补充，但我没有上期 head 快照，无法逐行对比，也不想沿用旧结论；请说明这是否回应了上期关于 eager/分布对齐的疑虑。</li></ul></div>
+  <p class="rec"><b>建议动作：</b>方向认可，但要求先确认 kda merged padding/显式组一致性、should_skip 行为变化范围与 MegaMoe 互斥校验，并补相应单测后再批准。</p>
+</article>
+<article class="card v-look" id="pr-22135">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22135" target="_blank" rel="noopener">#22135</a>
+    <h3>[BugFix][Upstream] Guard hf_config.model_type accesses with getattr</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@LiPu-jpg</span>
+    <span class="b b-ok">CI 通过 · 7</span>
+    <span class="b b-ok">已有 1 人批准</span>
+    
+    <span>我负责 6/21 个文件 · +16/-10</span>
+    <span>已排队 5.9 天</span>
+    <span class="tag">仍在队列</span>
+    
+  </div>
+  <p class="summary">将多处 hf_config/hf_text_config.model_type 直读改为 getattr 兜底，避免上游 mock 配置缺属性时报错。</p>
+  <p class="intent"><b>为什么改：</b>上游 #21983 测试用只含必要属性的 mock 配置，vllm-ascend 补丁/规划代码直读 .model_type 会抛 AttributeError；本 PR 统一改 getattr 兜底。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/platform.py</code><span>_align_hybrid_block_size / update_block_size_for_backend / _is_supported_flash_attn_draft / _validate_minimax_dspark_flash_attn：只 guard 了 model_type，未 guard 中间层 hf_config/hf_text_config，与同文件其它 site 的嵌套 getattr 写法不一致。</span></li><li><code>vllm_ascend/utils.py</code><span>refresh_block_size 中 getattr(model_config.hf_config, &quot;model_type&quot;, None)：model_config.hf_config 仍是直读，mock 缺 hf_config 时依旧 AttributeError；该函数由 platform.check_and_update_config 调用，需确认不在上游 mock 路径上。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>_can_skip_spec_cpu_length_sync 两处嵌套 getattr 后语义仍为“不等于目标 model_type 则不跳过”，需确认 None 兜底不会让原本应走特殊路径的模型误入通用分支。</span></li><li><code>vllm_ascend/worker/worker.py</code><span>_scale_kv_cache_memory_for_multi_group 的 is_step_model 判定用 getattr 后 in 元组，行为对真实配置等价；确认没有依赖 AttributeError 的测试。</span></li><li><code>vllm_ascend/ops/gdn_attn_builder.py</code><span>get_builder_cls 的 getattr 链保留了 vllm_config is not None 前置判断，确认 GDN/RecoverSSM builder 选择的默认分支（返回普通 builder）是期望行为。</span></li><li><code>vllm_ascend/ops/kimi_pixel_norm.py</code><span>hf_config = model_config.hf_config 仍直读，且 hf_config.architectures 也未兜底；需确认该函数只在真实 Kimi 配置上被调用。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>作者自述的主修复文件 vllm_ascend/patch/platform/patch_kv_cache_utils.py 与新增单测 tests/ut/patch/platform/test_patch_kv_cache_utils_model_type.py 在 head(3f13a9c4) 均不存在（fetch 404），且 changed_files=21 与 body 的“22 个文件”不符；若 rebase 时丢失，则 PR 既没有修到声明的主要 site，也没有新增测试，body 的测试结论无法在 head 复现。</li><li class="risk-low"><b>LOW</b>guard 深度不一致：platform.py:497/537、utils.py:1558、kimi_pixel_norm.py:67 只对 model_type 做了 getattr，中间层 hf_config 仍直读；上游 mock 若缺 hf_config 仍会 AttributeError，与 body 声称的“hf_config/hf_text_config 一并兜底”不符。</li><li class="risk-low"><b>LOW</b>同族文件仍有未 guard 的直读：例如 vllm_ascend/patch/platform/patch_speculative_config.py:133 的 if hf_config.model_type == &quot;glm5_next_text&quot;（紧随其后的赋值按 body 说明保留可以，但读取未兜底）；是否属于“漏改”需作者确认。</li><li class="risk-low"><b>LOW</b>把缺失属性从抛错改成 None 会改变分支走向（如 minimax/kimi/dflash 判定直接返回 False），对真实配置等价，但若某些真实配置依赖旧异常暴露配置错误，将被静默吞掉（可接受，但需知悉）。</li></ul></div>
+  <p class="tests"><b>测试：</b>body 声称新增 test_patch_kv_cache_utils_model_type.py（6 passed）+ 上游 hisparse HMA 用例 4 passed，但 head 上该测试文件 404，CI 7 项全绿（2 skipped）无法证明新增用例存在；6 个 owned 文件的 guard 无专属单测。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：head 上找不到 vllm_ascend/patch/platform/patch_kv_cache_utils.py 与 tests/ut/patch/platform/test_patch_kv_cache_utils_model_type.py，是否 rebase 时丢失？若已改名/合并，请给出当前路径，否则本 PR 缺少声明的主修复与新增测试。</li><li>为什么 platform.py:497/537、utils.py:1558、kimi_pixel_norm.py:67 只 guard model_type、不 guard hf_config？上游 mock 缺 hf_config 时这些路径是否仍会失败？</li><li>patch_speculative_config.py:133 仍直读 hf_config.model_type（只保留赋值），是否应一并 getattr 兜底？</li><li>6 个 owned 文件是否有对应单测或上游用例覆盖？没有的话能否补一个缺 hf_config/hf_text_config 的 mock 用例？</li><li>None 兜底导致判定走默认分支的行为是否符合预期（例如 kimi_pixel_norm 在缺 model_type 时返回 None 而不是报错）？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>改动本身安全低风险，但需先确认新增单测/主补丁文件是否在 rebase 中丢失，并统一 guard 深度后再批准。</p>
+</article>
+<article class="card v-look" id="pr-20479">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/20479" target="_blank" rel="noopener">#20479</a>
+    <h3>[Refactor][KV Cache] Remove DSV4 exclusion from hybrid allocation</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@doubinfx</span>
     <span class="b b-ok">CI 通过 · 6</span>
     
     
-    <span>我负责 1/3 个文件 · +1/-13</span>
-    <span>已排队 130.7 天</span>
+    <span>我负责 1/3 个文件 · +9/-23</span>
+    <span>已排队 22.8 天</span>
     <span class="tag">新进入队列</span>
     
   </div>
-  <p class="summary">MoE permute/unpermute 改用原生 init_routing_v2/finalize_routing，删除自定义封装。</p>
-  <p class="intent"><b>为什么改：</b>统一复用 torch_npu 原生 MoE 路由算子（v2 支持 count/scale 等参数），减少 vllm-ascend 自维护的 custom op 与 permute/unpermute 双层封装。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/device/device_op.py</code><span>Base/A5 两个 npu_moe_init_routing 改为 torch_npu.npu_moe_init_routing_v2 后参数语义/返回 dtype 是否与 custom op 等价（quant_mode=1/3 的 x_dtype、expert_tokens_num_type、active_expert_range）；删除 npu_moe_token_unpermute 后是否还有 310P/插件调用方</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>相邻的 token_dispatcher 重构把 _combine_preprocess/_combine_postprocess 的 npu_moe_token_unpermute 换成 npu_moe_finalize_routing，并删除了 base 中 scale_type==float8_e8m0fnu 的 MXFP 分支（head 处 _dispatch_postprocess 的 scale_type 参数已不再使用）。若 A5 W8A8MXFP 仍走此路径，scale 的 float8_e8m0fnu view 与 x_dtype 丢失会导致 dtype 不匹配或数值错误。</li><li class="risk-high"><b>HIGH</b>base 的 _dispatch_postprocess 对 with_quant 的 scale 用 npu_moe_token_permute，head 改为 init_routing_v2(scale=...)；对已量化的 int8 token 走 quant_mode=-1 的 init_routing 是否受支持、第 4 个返回值是否为有效 permuted scale，需要作者给出 A3/A5 实机精度结果。</li><li class="risk-medium"><b>MEDIUM</b>BaseDeviceAdaptor 切原生 v2 时仍不传 x_dtype（act_quant_type 继续被忽略），而旧 custom op 在任意 quant_mode 下固定输出 int8；int8 W8A8 可能依赖默认 dtype、MXFP 依赖 A5 override，需按 CANN 版本确认。</li><li class="risk-medium"><b>MEDIUM</b>token_combine 用 expanded_permuted_rows=hidden_states.unsqueeze(0) + drop_pad_mode=3，而另外两处 unpermute 用 2D + drop_pad_mode=2，入参形状与模式不一致，需确认 finalize_routing 两种调用都正确。</li><li class="risk-low"><b>LOW</b>PR 无描述、无测试（标签仅 module:ops），且 mergeable_state=dirty/merge-conflicts；custom op 仍在 csrc 注册成为死代码，未清理或标注 deprecated。</li></ul></div>
-  <p class="tests"><b>测试：</b>没有新增/修改单测或 CI 用例（tests/ut/device/test_device_op.py 未涉及这些算子），仅 6 项 CI 通过；建议补 init_routing/finalize_routing 与旧 permute/unpermute 的数值等价 UT（含 MXFP scale、0 token、单专家、int8 输入）。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认并补充：finalize_routing 的 drop_pad_mode=2/3 与 unsqueeze(0) 入参形状约定，以及它与 npu_moe_token_unpermute(probs=...) 的数值等价性。</li><li>A5 W8A8MXFP（scale_type=float8_e8m0fnu）在新路径上如何处理 scale dtype 与 x_dtype？head 已无对应分支，是漏删还是有意去掉？</li><li>删除 DeviceOperator.npu_moe_token_unpermute 前是否确认所有调用方（含 310P 继承路径、插件、下游）都已迁移？custom op 是否计划保留/删除？</li><li>torch_npu.npu_moe_init_routing_v2 的最低 CANN/torch_npu 版本是多少，是否覆盖仓库支持矩阵？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>建议打回：先 rebase 解冲突，补齐与旧 permute/unpermute 的数值等价证据和 MXFP 路径说明，再谈合并。</p>
+  <p class="summary">DSV4 判定改用 model_type，并在共享 backing 分配后提前 return，删除通用 hybrid 路径中不可达的 DSV4 特判。</p>
+  <p class="intent"><b>为什么改：</b>原实现靠 dsv4_backing 标志在通用循环里跳过 DSV4、且保留一段不可达的 DSV4 分配，控制流隐晦；改为早返回后通用 hybrid 分配不再需要 DSV4 特判。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>_is_dsv4_model 从 hasattr(compress_ratios) 改为 hf_config.model_type in (deepseek_v4, deepseek_v41)；注意 allocate_kv_cache_main 用 hf_text_config.model_type 且集合含 deepseek_v41_text，两个判定对象/集合不一致。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>新增 assert：{kv_cache_groups 的所有 layer_names} == (kv_cache_raw_tensors.keys() | shared_layers.keys())，需确认 DSV4 + KV sharing、MTP/DSpark draft 层、TurboQuant、特殊 spec（Indexer KPool Tail 等）时不会误报；且 assert 在生产 -O 下会失效。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>早 return 与原 in-loop &#39;if dsv4_backing is not None: continue&#39; + &#39;if is_dsv4_model:&#39; 块的等价性：确认早 return 覆盖全部 DSV4 分支、且 shared_layers 未在早 return 前丢失 raw tensor。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>hybrid_backing 条件去掉 not is_dsv4_model 后的可达性：DSV4 一定在 layerwise/DSV4 早 return 处离开，is_paired_sfa（kimi_k31）与 DSV4 不会同时成立。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>新 assert 目前只在 A3 DeepSeek-V4-Flash、DP4/TP1/PCP4 场景验证；若 DSV4 配置带 MTP/DSpark draft 层、KV sharing（shared_layers 别名链）、TurboQuant 或 Mamba 类 group，kv_cache_groups 的 layer_names 与 raw∪shared 集合可能不相等而直接打断启动。建议改为 raise ValueError 并输出两个差集，便于定位。</li><li class="risk-medium"><b>MEDIUM</b>_is_dsv4_model 用 hf_config.model_type（两值）而 allocate_kv_cache_main 用 hf_text_config.model_type（三值含 deepseek_v41_text）；当前因 main 对这三个类型直接走 unified_allocate_kv_cache，_allocate_kv_cache 的 DSV4 分支只在两者不一致时可达。若后续新增 V4 变体或调整 dispatch，可能出现 hf_config 判定漏命中而静默退回通用 hybrid 分配（旧 compress_ratios 判定可命中）。</li><li class="risk-low"><b>LOW</b>body 写的是 model_type == &quot;deepseek_v4&quot;，代码额外接受 deepseek_v41；虽然与 allocate_kv_cache_main 的集合方向一致，但描述与实现不符，需作者确认这是有意覆盖 V4.1。</li><li class="risk-low"><b>LOW</b>删除 in-loop 的 DSV4 兜底块后，如果将来早 return 处新增跳过条件、或 is_dsv4_model 判定被放宽/收紧，_allocate_kv_cache 会静默走通用分配，目前没有断言/单测保护“DSV4 不可达通用 hybrid”这一不变量。</li></ul></div>
+  <p class="tests"><b>测试：</b>changed_files=3（attn_utils 加两个测试 fixture）；body 称 DSV4/TurboQuant 9 个 + 通用 hybrid/Mamba 12 个用例通过，并在 A3 16 卡 DP4/TP1/PCP4 上验证 use_layerwise true/false 与无 KV Pool 三种场景；新增 assert 未见专门单测，MTP/spec、KV sharing 组合未覆盖。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：新 assert 在 DSV4 + MTP/DSpark draft 层、KV sharing、TurboQuant、以及不同 DP/CP 组合下是否都成立？能否改为带差集的 ValueError 以便排障（assert 在 -O 下也会失效）？</li><li>为什么 _is_dsv4_model 读 hf_config.model_type 且不含 deepseek_v41_text，而 allocate_kv_cache_main 读 hf_text_config.model_type 且含该值？是否应抽成同一个 helper，避免两个判定漂移？</li><li>body 只写 deepseek_v4，代码同时接受 deepseek_v41，是有意覆盖 V4.1 吗？</li><li>早 return 后 shared_layers 的别名层不再获得 raw tensor（仅由 assert 放行），reshape 阶段是否完全依赖 shared_kv_cache_layers 处理？有对应 DSV4+KV sharing 测试吗？</li><li>这次是否补充了 _is_dsv4_model 的单测（旧 compress_ratios fixture 已改为 model_type）？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>等价性与方向 OK，但建议把 assert 改成带差集的 ValueError、统一 DSV4 判定 helper，并补 spec/multimodal/KV-sharing 配置的覆盖后再批准。</p>
+</article>
+<article class="card v-look" id="pr-21675">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21675" target="_blank" rel="noopener">#21675</a>
+    <h3>[Feature] support MLA attention mode for Kimi-K3.1 DFlash2 draft models</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@sunny-rain-63</span>
+    <span class="b b-ok">CI 通过 · 12</span>
+    
+    
+    <span>我负责 2/15 个文件 · +23/-0</span>
+    <span>已排队 10.9 天</span>
+    <span class="tag">作者有新提交</span>
+    
+  </div>
+  <p class="summary">DFlash2 draft 支持 MLA 注意力与滑窗，放开其 CPU length sync、补 loaded_shard_ids。</p>
+  <p class="intent"><b>为什么改：</b>Kimi-K3.1-Dflash2-Preview 的 draft 用 MLA 权重且每层 1024 滑窗：GQA 实现无法加载、MLA 路径丢窗导致接受率跌到 1.3–2.5，本 PR 打通加载并强制滑窗。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>_can_skip_spec_cpu_length_sync 新增 KimiK31 + dflash + DFlash2DraftModel 的 True 分支：只看 draft architectures，不区分 MLA/GQA，也未检查 draft backends 是否就绪，与既有 dspark 分支的守卫不一致。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>新分支的 PP/PCP/DCP=1、kv_transfer_config is None、sparse offload 关闭、非 adaptive verification 条件是否覆盖所有会用到精确 host 长度的路径；PP 检查与顶部 sync_spec_pp_cpu_counts 重复。</span></li><li><code>vllm_ascend/ops/linear.py</code><span>在 AscendColumnParallelLinear.__init__ 末尾初始化 loaded_shard_ids：该属性已在两个子类各赋值一次（重复），且会出现在所有 Ascend 列并行实例上，需确认上游 #63752 是否用 hasattr 做能力探测。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>新 sync-skip 分支只按 &#39;DFlash2DraftModel&#39; in architectures 匹配，无法区分 attention_mode=mla 与 gqa；body 声称“GQA DFlash2 drafts 无行为变化”，但 KimiK31 target + GQA DFlash2 draft 配置下该函数会从同步（False）改为跳过（True），可能影响 GQA 草稿的 CPU 长度语义。</li><li class="risk-medium"><b>MEDIUM</b>dspark 分支要求 bool(speculator.attn_backends) / use_flashmla / model_state.device_metadata 等运行时就绪信号（注释明确“Before set_attn, keep syncing”），新 dflash 分支只做配置判定；若在 speculator/attention backend 初始化前（warmup、capture、profile）被调用，会提前跳过精确 host 长度，存在静默错序风险。</li><li class="risk-low"><b>LOW</b>loaded_shard_ids 现已在 AscendColumnParallelLinear 基类初始化，AscendMergedColumnParallelLinear 与另一子类各自又赋值一次（三处重复）；若上游把 hasattr(layer, &#39;loaded_shard_ids&#39;) 当作“参与 stacked shard 校验”的能力标志，给所有列并行都加上该属性可能让非 stacked 层进入校验路径（需上游代码确认）。</li><li class="risk-low"><b>LOW</b>滑窗 enforcement（patch use_flashmla、FIA sparse_mode=4、混窗组启动校验）都在其它文件，只能据 body 判断；patch 发生在 AscendMLAImpl.__init__ 之后，需确认没有其它模块缓存旧的 use_flashmla/窗口信息（capture 决策、draft KV cache 布局、draft prefill 路径）。</li><li class="risk-low"><b>LOW</b>CI 12 项中 8 项 skipped，只有 4 项实际执行；owned 两处改动（CPU length sync、loaded_shard_ids）没有对应单测，主要依赖 A5 32 卡 e2e。</li></ul></div>
+  <p class="tests"><b>测试：</b>body 称 tests/ut 新增/更新了窗口解析、混窗组校验、late patch 后 FlashMLA gating、causality 与上游一致性用例，并做了 4x A5 32 卡 TP32 手工 e2e；但 CI 12 项中 8 项 skipped，owned 的 CPU length sync 与 loaded_shard_ids 无专门单测。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>新 _can_skip_spec_cpu_length_sync 分支是否应限定 attention_mode==&#39;mla&#39;（或 speculator 的 MLA 后端），以避免改变 KimiK31 + GQA DFlash2 draft 的既有同步行为？</li><li>为何不像 dspark 分支那样要求 draft_backends 已就绪 / model_state.device_metadata？在 warmup、capture、profile 阶段调用该函数是否安全？</li><li>loaded_shard_ids 在基类与两个子类重复初始化，是否可删掉子类两处？上游 #63752 是否用 hasattr 探测该属性，从而影响非 stacked 层？</li><li>窗口 patch 在 AscendMLAImpl.__init__ 求值 use_flashmla 之后才覆盖它，是否还有其它分支（capture、draft KV cache 布局、draft prefill）读了旧值？</li><li>本轮相对上期新增了哪些提交？body 中 fix(kimi_k3)、fix(dflash2) 与滑窗段落看起来是本轮补充，但我没有上期 head 快照，无法逐行对比，也不想沿用旧结论。</li></ul></div>
+  <p class="rec"><b>建议动作：</b>方向与 e2e 证据较充分，但建议把 CPU length skip 限定到 MLA draft、补 backend 就绪守卫与单测，再批准。</p>
 </article>
 <article class="card v-look" id="pr-16335">
   <div class="card-head">
@@ -355,326 +384,324 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
     
     
     <span>我负责 1/8 个文件 · +8/-0</span>
-    <span>已排队 72.7 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">AscendMRotaryEmbedding 注册 FP32 inv_freq，供 Qwen3-VL/3.5 融合算子内联生成 MRoPE cos/sin。</p>
-  <p class="intent"><b>为什么改：</b>融合算子原先要按位置 gather cos_sin_cache 并物化 per-token cos/sin；把逆频率预注册到 rope 模块后可在 kernel 内现算，省掉 gather 与中间张量。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ops/rotary_embedding.py</code><span>__init__ 覆盖注册 inv_freq：父类是否已有 inv_freq/是否接受 scaling_factor；scaled 情况置 None 的语义；FP32/CPU 初始化后经 .to()/sleep 重载是否仍为 FP32 且在 NPU</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>新代码依赖 vLLM 父类 MRotaryEmbedding 的 scaling_factor 属性与 _compute_inv_freq(base) 私有 API；现有 UT 全部用 __new__ 绕过 __init__，唯一真实构造在 tests/e2e/nightly，PR CI 不跑。若 CI 锁定版本签名不同，Qwen3-VL 初始化会直接 AttributeError。</li><li class="risk-medium"><b>MEDIUM</b>inv_freq 仅在 __init__ 计算一次并作为非持久 buffer；若父类将来也注册/使用 inv_freq，或模型以 meta/dtype 转换方式初始化，buffer 可能变成 bf16 或未初始化。目前靠 get_fused_mrope_inputs 的 dtype/device 检查回退 cache 兜底。</li><li class="risk-low"><b>LOW</b>scaling_factor=1.0（而非 None）时会禁用内联路径，只影响性能不影响正确性；sleep level=2 恢复 buffers 时 named_buffers 会跳过 None buffer，无副作用。</li><li class="risk-low"><b>LOW</b>新增 __init__ 未断言 ACL graph 捕获前 buffer 已在 NPU，依赖模型整体 .to(device)；get_fused_mrope_inputs 在 device 不匹配时会回退 cache，风险受控。</li></ul></div>
-  <p class="tests"><b>测试：</b>新增 tests/e2e/nightly/.../test_split_qkv_rmsnorm_mrope.py 的内联用例（default/YaRN、3 种模型 shape、1/40/512/4096 token、interleaved、ACLGraph replay，inline 与 cache gather 对比），属 nightly 不在 PR CI；缺真实 __init__ 的 UT。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：CI/目标 vLLM 版本的 MRotaryEmbedding 是否有 scaling_factor 与 _compute_inv_freq(base)，且 inv_freq 长度为 rotary_dim/2、dtype=float32；建议加一个用真实 __init__ 的 UT。</li><li>父类是否可能已注册 inv_freq（不同语义）？若未来冲突，是否应只在缺失时注册或改用私有命名？</li><li>scaling_factor=1.0 常见于部分 config，此时禁用内联路径是否符合预期？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>我负责的 8 行改动方向安全、有 nightly 等价性用例；建议补真实构造的 UT 并确认父类 API 版本后再批准。</p>
-</article>
-<article class="card v-look" id="pr-21675">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21675" target="_blank" rel="noopener">#21675</a>
-    <h3>[Feature] support MLA attention mode for DFlash2 draft models</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@sunny-rain-63</span>
-    <span class="b b-ok">CI 通过 · 6</span>
-    
-    
-    <span>我负责 2/15 个文件 · +23/-0</span>
-    <span>已排队 10.7 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">DFlash2 草稿支持 MLA：新增 Kimi MLA 解码层与权重映射，按 attention_mode 分发；K3.1 上跳过 CPU 长度同步。</p>
-  <p class="intent"><b>为什么改：</b>Kimi-K3.1 声明 attention_mode=mla，其 MLA 草稿权重无法被 GQA-only 的 DFlash2Qwen3Attention 加载；需新增 MLA 草稿路径并放宽 draft cache/mask 工具。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>新增 K3.1+DFlash2 跳过 CPU 长度同步分支的位置（在 _skip_fa3_cpu_length_sync 之后、dspark 之前）与全部前置条件：pp/pcp/dcp、kv_transfer、sparse offload、adaptive verification；确认是否还需 kvpp_config.size==1。</span></li><li><code>vllm_ascend/ops/linear.py</code><span>AscendColumnParallelLinear 补 loaded_shard_ids={} 与 base 中 AscendQKVParallelLinear/AscendMergedColumnParallelLinear 的同类修复一致；确认 inherited 的 AscendDCPGroupColumnParallelLinear 也因此覆盖，且 stacked weight loader 确实会写该 dict。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>该分支不检查 asc_config.kvpp_config.size==1（同文件后续 Qwen 分支在 #21444 中会检查），K3.1+DFlash2 与 KVPP/流水并行叠加时 MLA draft 的长度语义未验证；目前只靠 kv_transfer_config is None 和 sparse offload 关闭排除部分组合。</li><li class="risk-medium"><b>MEDIUM</b>跳过 CPU 长度同步会让 _update_seq_lens_cpu 依赖上游“乐观上界”而非精确 host 计数，该行为只对 K3.1 的 KDA/SFA 读 device 长度成立；PR 描述未给出该路径的 NPU 实测或单测，CI 无法覆盖 DFlash2 e2e。</li><li class="risk-medium"><b>MEDIUM</b>分支没有像 dspark 路径那样检查已初始化的 target backend（例如 SFA indexer 是否 device-length 版本），若目标侧后端组合不同可能读到上界长度。</li><li class="risk-low"><b>LOW</b>与 #21444 在 _can_skip_spec_cpu_length_sync 同一位置插入分支，合并顺序会冲突；linear.py 的两行改动自身与既有修复保持一致，风险低。</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 带 module:tests 标签且 CI 全绿，但 owned 的 runner 跳过同步分支与 linear 属性无可见单测，该分支只能由 NPU 上的 K3.1+DFlash2 运行时触发，PR 描述未附该场景验证。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：为什么 K3.1+DFlash2 分支不需要 kvpp_config.size==1 的 guard？KVPP 开启时该路径是否仍然安全？</li><li>需要作者确认：K3.1 目标模型在所有并行/后端组合下是否都只读 device 长度或 CPU 上界？是否应像 dspark 分支一样检查已初始化的 target backend？</li><li>需要作者确认：该跳过同步分支是否有单测或 NPU e2e 记录？与 #21444 合并时哪一方先 rebase？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先让作者补充该分支的验证记录与 KVPP 说明，并与 #21444 协调 rebase 顺序后再批准。</p>
-</article>
-<article class="card v-look" id="pr-20949">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/20949" target="_blank" rel="noopener">#20949</a>
-    <h3>[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@cocobronie2333-dot</span>
-    <span class="b b-ok">CI 通过 · 11</span>
-    
-    
-    <span>我负责 2/17 个文件 · +6/-1</span>
-    <span>已排队 18.5 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">Qwen4Exp prefill offload 接入共享 planner/Push；GDN 保存钩子带层名，复用布局下修正 Qwen4 视图偏移。</p>
-  <p class="intent"><b>为什么改：</b>复用 Qwen4Exp 的 QSA 主 KV、GDN 状态与压缩 indexer cache；复用分配返回 owner 字节窗口，需重建相对偏移视图，并在共享槽覆盖前按层名提交 GDN 状态。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>slot_offset=-qwen4_cache_layout.region(region_name).offset 只在 get_layerwise_reuse_layout(kv_cache_config) 非 None 且 role 非 PLE/HIDDEN 时生效；核对 QSA_MAIN(r0)/QSA_RAW(r4)/QSA_COMPRESSED(r5)/GDN(r1,r2) 各组 storage_offset 是否恰好为 0 与相对偏移，且窗口大小与 reuse_layout.cache_view_sizes 一致。</span></li><li><code>vllm_ascend/ops/gdn.py</code><span>maybe_save_kv_layer_to_connector(&quot;&quot;, []) → self.prefix：确认 prefix 与 wait_for_kv_layer_from_connector、attn_metadata[self.prefix]、no_compile_layers 键一致，且 save_kv_layer(prefix, [], metadata) 对 GDN 状态是“命名通知”而非依赖空列表内容。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>gdn.py 的调用位于 AscendGatedDeltaNetAttention._forward_core 末尾，对全部 GDN/hybrid 模型生效，不只 Qwen4Exp offload：只要 connector 有 metadata，普通 PD/Mooncake 等 v1 transfer connector 也会首次收到非空 layer_name + 空 kv_cache_layer 列表，其 save_kv_layer 行为未在本 PR 说明或测试。</li><li class="risk-medium"><b>MEDIUM</b>attn_utils 的偏移修正依赖 worker 把 apply_layerwise_kv_cache_plan 替换后的 config 同时传给分配与 reshape（worker.py 中确实先 plan/apply 再 initialize_kv_cache），若其它调用方或 deepcopy 后丢失 reuse_layout，会二次偏移或视图错位。</li><li class="risk-medium"><b>MEDIUM</b>复用窗口起点由 planner 的 rotation slot 决定，代码假定窗口内几何与原 slot 几何（相对 anchor region）一致；多 slot 分组以 layer_stride=0 共享窗口时，正确性完全依赖 cache_view_sizes 与 region 偏移匹配，缺少断言/单测。</li><li class="risk-low"><b>LOW</b>PR 是 17 文件、973+/349- 的大 cherry-pick（含 #21256/#21891/#21262），与 main 上已合并的共享 planner 存在重复代码，回归面大且后续需删除临时 patch。</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 带 module:tests 与 documentation、CI 全绿，body 提到回归测试与文档；但 owned 的两处改动（GDN 保存命名、Qwen4 复用相对偏移）是否有单测/e2e 覆盖不明确，需确认 Qwen4Exp offload 的端到端用例。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：gdn.py 传入 self.prefix 后，非 layerwise Push 的 connector 收到 save_kv_layer(prefix, [], metadata) 是否安全？是否补了该路径的回归用例？</li><li>需要作者确认：Qwen4 复用布局下如何保证每层 raw 窗口起点等于其 anchor region 起点？多 slot 分组共享窗口（layer_stride=0）是否验证过？</li><li>是否需要 use_v2_model_runner 门控或显式报错？plan_layerwise_cache_reuse 在 worker.py 中不区分 runner 都会执行。</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先要求作者补充 GDN 保存钩子对非 layerwise connector 的影响说明与 Qwen4 复用偏移的单测，再细看整体 cherry-pick。</p>
-</article>
-<article class="card v-look" id="pr-21444">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21444" target="_blank" rel="noopener">#21444</a>
-    <h3>[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@SkychenLee</span>
-    <span class="b b-ok">CI 通过 · 10</span>
-    
-    <span class="b b-bad">1 人要求修改</span>
-    <span>我负责 3/10 个文件 · +104/-5</span>
-    <span>已排队 12.6 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">Qwen3.5/DFlash2 启用 FA3：profile 增加 QWEN 门控，v2 跳过 CPU 长度同步，并隔离 target/draft 后端选择。</p>
-  <p class="intent"><b>为什么改：</b>已装 flash_attn_npu_3 时让受支持 Qwen 目标与 DFlash2 草稿走 FA3，减少 decode CPU 标量读取/事件等待；并修上游 selector 缓存不含 model_tag 导致草稿误用目标后端。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>attention_backend_cache_scope：monkeypatch vllm 私有 selector._cached_get_attn_backend 的覆盖范围（是否包含 draft 权重加载）、inspect.unwrap/@cache 对不可哈希参数的行为、finally 恢复与嵌套调用；以及新 Qwen skip 分支中 target_backends 用 layer_names 过滤 draft 的集合构造、kvpp/offload/adaptive 条件与 MambaHybridModelState 判定。</span></li><li><code>vllm_ascend/platform.py</code><span>_uses_qwen_fa3：&#39;backbone&#39; 与 &#39;dflash_head&#39; 两个字面量是否与上游 backends.model_tag 一致；backbone 分支未限制 spec.method，任意投机方法的 Qwen 目标都会选 FA3；_validate_flash_attn_npu_3 的通用 dtype/kv_cache/cache_dtype/C8 门控是否仍覆盖 Qwen 路径。</span></li><li><code>vllm_ascend/device/hardware_profile.py</code><span>FlashAttentionNpu3Model.QWEN 同时加入 A2 与 A3 的 flash_attn_npu_3_models；确认 A2 是否有验证依据（body 只给了 A3 的 profile 与精度数据）。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>attention_backend_cache_scope 无条件 monkeypatch vllm 私有符号 selector._cached_get_attn_backend，所有模型的 load_model 都会经过；上游重命名/移除/改签名时没有 vllm_version_is 守卫或 try/except 回退，会直接让加载失败。</li><li class="risk-medium"><b>MEDIUM</b>_uses_qwen_fa3 的 backbone 分支只按 architecture 判断（不要求 method==&#39;dflash&#39;），Qwen3-Next/3.5 + eagle/ngram 等组合也会被自动切到 FA3，超出 PR 描述的 DFlash2 验证范围；dflash_head 分支则要求 spec.method/draft 架构。</li><li class="risk-medium"><b>MEDIUM</b>A2 profile 也开启 QWEN FA3，但 body 明确测试环境是 A3（TP2、FA3 0.5.1）；A2 上该新 path 的正确性与性能没有证据。</li><li class="risk-medium"><b>MEDIUM</b>target_backends 用 group.layer_names 与 draft_backends 的 key 求差集，依赖 attn_groups 在调用前已初始化且 group 内 layer 不混合 target/draft；@cache 的 key 含 *args/**kwargs，若上游 selector 参数出现不可哈希对象会抛 TypeError。</li><li class="risk-low"><b>LOW</b>PR 存在 1 个 changes_requested（是否已解决未在数据中体现）；与 #21675 同改 _can_skip_spec_cpu_length_sync，合并时需协调。</li></ul></div>
-  <p class="tests"><b>测试：</b>CI 全绿且带 ready-precise/module:tests；body 给出 A3 TP2 的 0 阻塞同步/0 同步拷贝 profile 与精度验证，但 cache scope 与 skip 分支没有可见单测，A2 无验证。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：&#39;backbone&#39; 是否就是 Qwen 目标加载时的 model_tag（我在仓库内只看到 &#39;dflash_head&#39;/&#39;dspark_head&#39; 的用法）？</li><li>需要作者确认：backbone 分支为何不要求 spec.method==&#39;dflash&#39;？Qwen + eagle/其他投机方法是否验证过 FA3？</li><li>需要作者确认：attention_backend_cache_scope 是否覆盖 draft 权重加载？若 draft 在 load_model 之外加载，上游缓存不含 model_tag 的问题是否仍存在？</li><li>上游 _cached_get_attn_backend 改名时是否有版本守卫或降级方案？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先要求作者答复 monkeypatch 兼容策略、backbone 适用范围与 A2 证据，再细看。</p>
-</article>
-<article class="card v-approve" id="pr-22538">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22538" target="_blank" rel="noopener">#22538</a>
-    <h3>[Performance][Model] Reuse Qwen4Exp HC block output across streams</h3>
-    <span class="b v-approve">可批准</span>
-  </div>
-  <div class="meta">
-    <span>@diaochengxi</span>
-    <span class="b b-ok">CI 通过 · 6</span>
-    
-    
-    <span>我负责 1/8 个文件 · +4/-0</span>
-    <span>已排队 3.3 天</span>
+    <span>已排队 72.9 天</span>
     <span class="tag">作者有新提交</span>
     
   </div>
-  <p class="summary">hc_combine_norm 新增 A3 row-wise kernel，每行只读一次 block_output；profile 阈值字段仅 A3=512。</p>
-  <p class="intent"><b>为什么改：</b>现有 per-(row,stream) kernel 对同一行 block_output 读 4 次；row-wise 变体一次读行、按原序遍历 HC stream，保持 BF16 物化与 FP32 RMSNorm 归约顺序。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/device/hardware_profile.py</code><span>新增 qwen4exp_hc_combine_norm_row_wise_min_rows 默认 None、仅 A3=512；HardwareProfile 为 frozen+slots dataclass，加默认字段不破坏既有 profile 构造，其它 SoC 保持 None。已核对消费端 hc.py：仅当 min_rows 非 None、per-branch 权重（norm_weight_numel != group_dim）且 rows&gt;=min_rows 时切 row-wise，legacy 调用参数未变。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>row-wise kernel 的数值等价（BF16 combine 物化边界、FP32 RMSNorm 归约顺序）只由 PR body 的 A3 单设备/TP2 验证背书；tests/ut/ops/test_qwen4_exp_hc.py 只覆盖 dispatch（kernel 被 monkeypatch），kernel 内偏移/掩码错误不会被 UT 发现。</li><li class="risk-low"><b>LOW</b>512 阈值与 A3-only 为硬编码 profile 值，A2/A5 及 &lt;512 行保持 legacy；后续 crossover 变化需改代码，且 body 未附 crossover 数据。</li><li class="risk-low"><b>LOW</b>row-wise 分支只给 kernel_kwargs 传 WIDE_OFFSETS（int64 行寻址），legacy kernel 不接收该参数，kwargs 分支已隔离，未发现签名不一致。</li></ul></div>
-  <p class="tests"><b>测试：</b>tests/ut/ops/test_qwen4_exp_hc.py 覆盖 dispatch 矩阵（511/512 边界、None、shared weight、wide offset、grid/kwargs），CI 全绿；kernel 数值等价不在 UT 覆盖内，仅有 body 中的单设备算子测试与 TP2 全模型验证。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：是否有 row-wise 与 legacy 的数值等价单测/golden 对比？body 的单设备算子测试覆盖 rows=512 及 per-branch 权重两种情况吗？</li><li>A3 的 512 阈值能否附上 crossover 数据？A2/A5 何时验证并设置该字段？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>可批准；建议补充 row-wise 与 legacy 的数值等价用例，并把 512 阈值的实测依据写进 PR。</p>
+  <p class="summary">AscendMRotaryEmbedding 注册 FP32 inv_freq，供 Qwen3-VL/3.5 融合算子内联算 cos/sin。</p>
+  <p class="intent"><b>为什么改：</b>融合算子此前要按位置 gather cos_sin_cache 并物化 per-token cos/sin；预注册逆频率后可在 kernel 内现算，减少 gather 与中间张量。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ops/rotary_embedding.py</code><span>651-658 行新增 __init__：super().__init__ 之后按 self.scaling_factor 是否为 None 决定 inv_freq（scaled 时注册 None buffer）；核对父类 MRotaryEmbedding 确接受 scaling_factor、存在 _compute_inv_freq(base)，且父类未注册同名 inv_freq。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>新代码依赖 vLLM 父类 MRotaryEmbedding 的 self.scaling_factor 与私有 _compute_inv_freq(base)。PR CI 的 tests/ut/ops/test_rotary_embedding.py 全部用 __new__ 绕过 __init__；唯一真实构造在 nightly 的 test_inline_cos_sin_model_inputs（test_split_qkv_rmsnorm_mrope.py:367，default/YaRN 两参），PR CI 不跑，父类 API 变动会在 Qwen3-VL/3.5 初始化时直接 AttributeError。</li><li class="risk-low"><b>LOW</b>inv_freq 只在 __init__ 生成一次且 persistent=False；sleep/唤醒或整体 .to() 若未搬运该 buffer，get_fused_mrope_inputs（patch/worker/mrope_utils.py:35-47）会因 dtype/device 不符回退 cache（只损失性能）；但该函数不校验 contiguity，非连续的 inv_freq 会被融合算子报错而非回退。</li><li class="risk-low"><b>LOW</b>scaling_factor=1.0 也会被当作 scaled 而禁用内联路径（仅性能影响）；新增 __init__(*args, **kwargs) 绕过了仓库对 AscendRotaryEmbedding 使用的父类签名守卫模式，父类 init 签名变化不再被该守卫发现。</li><li class="risk-low"><b>LOW</b>本轮为『作者有新提交』：上期两版卡片（0015/0800）记录的 owned 8 行 patch 与当前 head 一致；body 仍引用 vLLM 752a3a5 / vllm-ascend 3cb3f83 的 230 passed，而 head 已换 base，无法从 body/patch 判断新提交是否在 head 上重跑过这两组 nightly。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增/扩展 nightly e2e（inline vs cache gather、default/YaRN、3 种模型 shape、4096 token、ACLGraph replay、零 token、非法参数），但 PR CI 不跑 nightly；tests/ut 仍只用 __new__，没有真实构造 __init__ 的用例。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：目标 vLLM 版本的 MRotaryEmbedding 构造函数确实接受 scaling_factor、具备 _compute_inv_freq(base)，且父类未注册同名 inv_freq（否则 register_buffer 会 KeyError）。</li><li>本轮新提交相对上期改了什么？head cd94c67 已在新的 base 上，body 里的 230 passed 是否在 head 上重跑过？</li><li>能否补一个用真实 __init__（CPU 即可）的 tests/ut 用例，把父类 API 兼容性纳入 PR CI？</li><li>scaling_factor=1.0 的 common config 会禁用内联路径，这符合预期吗？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>8 行改动方向安全、有 nightly 等价性用例；先让作者确认父类 API 并在 head 重跑/补真实构造 UT 后再批准。</p>
 </article>
-<article class="card v-look" id="pr-22808">
+<article class="card v-look" id="pr-21935">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22808" target="_blank" rel="noopener">#22808</a>
-    <h3>[Feature][KV Cache] Support HND for GLM-MoE-DSA with DFlash</h3>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21935" target="_blank" rel="noopener">#21935</a>
+    <h3>[Feature] Support Qwen4-Exp batch-invariant execution on Ascend</h3>
     <span class="b v-look">需细看</span>
   </div>
   <div class="meta">
-    <span>@goodgoodname</span>
-    <span class="b b-ok">CI 通过 · 7</span>
+    <span>@yeyunu</span>
+    <span class="b b-ok">CI 通过 · 6</span>
     
     
-    <span>我负责 1/13 个文件 · +15/-3</span>
-    <span>已排队 0.2 天</span>
+    <span>我负责 2/15 个文件 · +7/-1</span>
+    <span>已排队 7.1 天</span>
     <span class="tag">新进入队列</span>
     
   </div>
-  <p class="summary">GLM-MoE-DSA+DFlash 的 HND/KVPP：v2 分配用单 backing 逐层切片，修正 FP8 indexer 单 buffer 返回形态。</p>
-  <p class="intent"><b>为什么改：</b>HND 需 layer-outer 连续页，KVPP 会把 sliding-window draft 提升为 full；需按 descriptor 逐层窗口分配/reshape，并让 FP8 scale 与 key 同页。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>新增 glm_moe_dsa_dflash_hnd.applies_to 分支：在 reuse_layout 分支之后、gemma/generic 之前，用 allocate_cache_backing + page_size_bytes*num_blocks 逐层视图替换默认分配；核对分支顺序（HND 与 layerwise reuse/稀疏 offload 的优先级）、空 PP stage 返回 {}、以及 descriptor 的 size/layer_stride 是否满足 allocate_cache_backing 的“所有 descriptor 同 size”约束。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>KVPP 返回形态改为 len(parts)&gt;1 或 (AscendSFAIndexerCacheSpec 且 not scale_dim) 才返回 tuple，量化单 packed buffer 返回 Tensor；对照 _reshape_kv_cache_v2 的 Tensor 分支（make_page_strided_cache_view + offset_bytes=key_bytes）与 unquantized 的 (raw_k_tensor,) 分支，确认两类 spec 都落在预期分支。</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>HND 分支不再按层单独 2MiB 对齐分配，而是返回一个大 backing 的元素对齐切片；若 KV transfer/CANN 对每层 cache base 有 2MiB 对齐假设，可能受影响（body 称 rebase 前四节点 HND 已验证，未在新 base 复跑）。</li><li class="risk-medium"><b>MEDIUM</b>applies_to 依赖上游 CacheConfig.kv_cache_layout 的 &#39;HND&#39;/&#39;LBHNC&#39; 字面量，仓库内未找到该字段定义或取值校验；上游版本不一致时该分支会静默不生效（退回默认分配）。</li><li class="risk-medium"><b>MEDIUM</b>与 layerwise reuse 的关系未说明：reuse_layout 分支先命中，HND 的 build_cache_config 与 reuse tensors 是否可能同时存在并冲突（例如 KV pool offload + HND 叠加）没有互斥或断言。</li><li class="risk-low"><b>LOW</b>KVPP 分支的判定用 specs[name].scale_dim，若 _get_layer_kv_cache_specs 未含某个 cache_name 会 KeyError（旧代码同样索引，风险未新增），但 packed buffer 的 numel 必须恰为 num_blocks*page_size_bytes，否则 reshape 的整除/下界断言会失败。</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 带 module:tests、CI 全绿；body 列出 promoted draft allocation / cache placement / page-strided write 的回归测试及四节点 GSM8K 精度，但 rebase 后未在四节点复跑，owned 的分配分支未见 UT。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：HND 的逐层切片为何不需要保持每层 2MiB 对齐？KV 传输用的是整块 backing 注册还是每层地址？</li><li>需要作者确认：layerwise reuse 与 HND 同时命中时的预期行为？是否应显式互斥或让 HND 优先？</li><li>需要作者确认：&#39;HND&#39;/&#39;LBHNC&#39; 是上游 vllm CacheConfig 的合法值吗？glm_moe_dsa_dflash_hnd.build_cache_config/build_groups 在何处被应用到 worker 的 KVCacheConfig？我在 platform.py、worker.py、v2/model_runner.py、core/kv_cache_interface.py 中都没找到调用点。</li><li>需要作者确认：KVPP 单 packed buffer（FP8 scale 与 key 同页）的 numel 在所有 block_size/kernel_block_size/压缩比组合下都恰为整数个 page_size_bytes 吗？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先要求作者答复对齐问题、与 layerwise reuse 的叠加语义，并给出 rebase 后的四节点复跑结果，再细看。</p>
+  <p class="summary">批不变模式下 EP MoE 固定走 AlltoAll，并为 Ascend fused GDN 后端声明 batch-invariance 能力。</p>
+  <p class="intent"><b>为什么改：</b>Qwen4-Exp 同一请求在不同 batch 组成或物理 KV 页布局下结果会变；批不变模式需固定通信与注意力调度路径，避免按 token 数切换 MC2/FusedMC2。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ascend_forward_context.py</code><span>447-457 行：EP 生效且 (lora_config 非空 or envs.VLLM_BATCH_INVARIANT) 时强制 MoECommType.ALLTOALL。核对每个 token 数/图捕获/EP 世界大小下 ALLTOALL 均可用，且与 enable_fused_mc2/MegaMoe 的选择不冲突（use_mega_moe 仍独立计算，但只在 FusedMC2CommImpl 内消费）。</span></li><li><code>vllm_ascend/ops/gdn_attn_builder.py</code><span>1418-1420 行给 AscendGDNFusedAttentionBackend 覆写 supports_batch_invariance=True；而基类 AscendGDNAttentionBackend:1118-1121 已返回 True，确认该覆写是冗余、还是另有语义（例如基类后续会改为 False）。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>批不变效果未在硬件上验证：body 自述新增的 4 个 A5 e2e（tests/e2e/pull_request/one_card/test_qwen4_gbsa_batch_invariant.py，已核对存在，monkeypatch gbsa.envs.VLLM_BATCH_INVARIANT）尚未运行；full-model token/logprob、性能与峰值内存回归也未建立。CPU 用例只解释 Triton kernel body，不验证 CANN 数值。</li><li class="risk-medium"><b>MEDIUM</b>改动是全局的：任何 EP MoE 模型在 VLLM_BATCH_INVARIANT=1 下都会从 MC2/FusedMC2/AllGather 切到 ALLTOALL，可能带来性能回退，且未在 Qwen4-Exp 之外的模型上验证；除关闭 BI 外没有选择性开关。</li><li class="risk-low"><b>LOW</b>envs.VLLM_BATCH_INVARIANT 在 select_moe_comm_method 的短路求值路径被访问（EP 模型每次 forward context 构建都会到达），若 CI 锁定的 vLLM 版本缺该属性会直接 AttributeError；建议确认最低支持版本或 getattr 兜底。</li><li class="risk-low"><b>LOW</b>Fused GDN 的 supports_batch_invariance 覆写与基类实现完全一致（head 1118-1121 已 True），属冗余代码；若原意是只为 fused 后端声明能力，现基类 True 已覆盖全部 GDN 后端，需要澄清语义。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增 34 个 CPU GBSA 用例与 20 个通信策略 CPU 用例，并登记 4 个 A5 e2e（未跑）；owned 的通信策略分支有覆盖，但无 CANN/Triton 代码生成与 full-model 批不变验证。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：VLLM_BATCH_INVARIANT 下把所有 EP MoE 模型都切到 ALLTOALL 是否为有意为之？是否应只对 Qwen4-Exp 生效，或提供回退开关？</li><li>新增 A5 e2e 与 full-model token/logprob 对比何时能在 CI 上跑？CANN v8 之外的版本上 GBSA BI 路径是拒绝还是回退？</li><li>AscendGDNAttentionBackend 已返回 supports_batch_invariance=True，Fused 后端的覆写是否冗余？若未来基类要按后端区分，是否同步调整？</li><li>需要作者确认最低支持的 vLLM 版本都有 envs.VLLM_BATCH_INVARIANT，避免 forward context 构建时 AttributeError。</li></ul></div>
+  <p class="rec"><b>建议动作：</b>代码方向合理但批不变结论尚缺硬件与 full-model 证据；待 A5 用例和不变量验证补齐后再批准，并顺手清理冗余覆写。</p>
 </article>
-<article class="card v-look" id="pr-11906">
+<article class="card v-look" id="pr-16219">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/11906" target="_blank" rel="noopener">#11906</a>
-    <h3>[Feature] Integrate speculative dynamic top-k in speculative decoding</h3>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/16219" target="_blank" rel="noopener">#16219</a>
+    <h3>[Feature][Sparse KV Offload] Support non-memfabric fused-overlap membership staging and d2h graph writeback</h3>
     <span class="b v-look">需细看</span>
   </div>
   <div class="meta">
-    <span>@seven-mile</span>
-    <span class="b b-ok">CI 通过 · 14</span>
+    <span>@Shichang-Zhang</span>
+    <span class="b b-ok">CI 通过 · 6</span>
     
     
-    <span>我负责 2/23 个文件 · +102/-1</span>
-    <span>已排队 132.8 天</span>
+    <span>我负责 4/24 个文件 · +66/-29</span>
+    <span>已排队 73.9 天</span>
     <span class="tag">新进入队列</span>
     
   </div>
-  <p class="summary">支持投机解码动态 top-k：新增 SpecKConfig 校验，per-token top-k 经 forward context 传入 MoE。</p>
-  <p class="intent"><b>为什么改：</b>把 speculator 的 logits 转成每 token 自适应的 Top-k，让 FusedMoE 跳过未用位置，从而降低投机验证阶段 MoE 计算量；同时用配置门禁限制不支持的组合。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ascend_config.py</code><span>SpecKConfig（442-522 行）的门禁完整性与参数校验：是否漏掉 LoRA 等组合、ppl_thresholds 长度/语义、full_top_k_layer_range 是否校验层数范围；enabled 时依赖 vllm_config.use_v2_model_runner 判断 V2</span></li><li><code>vllm_ascend/ascend_forward_context.py</code><span>select_moe_comm_method（346-414 行）在 spec-K 开启时把 MoE 通信无条件压成 ALLGATHER，且位于 LoRA 分支之前；token_top_ks 通过 _EXTRA_CTX 写入 forward context（131 行），需确认 v1 退出后无残留、v2 additional_kwargs 路径不被误用</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>spec_k_config 未校验 lora_config，而 select_moe_comm_method 中 spec-K 分支排在 LoRA+EP 的 ALLTOALL 之前；原本注释明确 LoRA+EP 必须 AlltoAll，开 spec-K 后会被强制改成 ALLGATHER，若 ALLGATHER 路径不支持 MoE LoRA 会静默算错</li><li class="risk-medium"><b>MEDIUM</b>spec-K 是 engine-global 开关，一旦开启，target 与 draft（含 MTP MoE）所有 forward 都只能用 ALLGATHER，MC2/FUSED_MC2/ALLTOALL 全部失效且 docstring 未更新；EP 大并发下吞吐可能明显回退，缺少可关闭/按模型区分的说明</li><li class="risk-medium"><b>MEDIUM</b>配置语义校验不足：ppl_thresholds 只校验正数/非递增，未校验长度与 num_spec_tokens 或 top-k 档位一致；full_top_k_layer_range 未校验 start/end 落在实际层数内、也未限制 step 方向，配错时错误可能延后到运行期</li><li class="risk-low"><b>LOW</b>V2 拒绝逻辑用 getattr(vllm_config, &quot;use_v2_model_runner&quot;, False)；若某些路径只通过 env VLLM_USE_V2_MODEL_RUNNER 打开 V2 而该属性缺失，门禁会失效，spec-K 在 v2 下拿到 None top-k 而静默退化为全量 top-k</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 标了 module:tests、CI 14 项通过，但配置侧仅见 tests/ut/test_ascend_config.py::test_spec_k_rejects_eplb 一个用例；ALLGATHER 路由条件与 v1 token_top_ks 传递（model_runner_v1.py:2232-2282）无对应单测证据。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>spec-K + MoE LoRA 是否支持？SpecKConfig 没有拒绝 lora_config，而 select_moe_comm_method 会让它绕过 LoRA+EP 必须 ALLTOALL 的分支，请确认 ALLGATHER 的 MoE LoRA 路径正确。</li><li>强制 ALLGATHER 关闭 MC2/FUSED_MC2/ALLTOALL 的性能代价测过吗？为什么不做成按 target/draft 或按模型区分，draft MTP 也一起降级是否必要？</li><li>ppl_thresholds 的长度是否要求等于 num_spec_tokens（或 top-k 档位数）？full_top_k_layer_range 是否应校验落在模型层数范围内？</li><li>profile/dummy run 阶段 token_top_ks=None 时，改动后的 FusedMoE kernel 行为是否有测试覆盖？</li><li>V2 门禁用 vllm_config.use_v2_model_runner 判断，是否覆盖仅用环境变量开启 V2 的场景？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>方向合理，但先补齐 Spec-K 与 LoRA/EP 组合的门禁或说明、解释强制 ALLGATHER 的代价，并补配置校验与 ALLGATHER 路由单测后再细看。</p>
+  <p class="summary">稀疏 KV offload 支持 Mooncake Host：membership staging、图安全写回，v2 runner 接入 Host 分配/关闭。</p>
+  <p class="intent"><b>为什么改：</b>Mooncake Shared Segment 是 NPU 可寻址内存，CPU planner 与图重放无法直接复用 MemFabric 路径；需 staging、图安全写回与 Host 分配接线，保持 memfabric 默认行为。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>1299-1305 行把 get_sparse_kv_offload_manager().allocate_host_kv_tensors 作为第 7 个位置参数传入 allocate_kv_cache_tensors_for_sparse_kv_offload；确认 manager 已在同一次 initialize_kv_cache 中初始化并 prepare_host_kv_allocation，且所有 store_on_host 层的分配都走该回调（MemFabric 下非 tp0 仍返回 None 的语义保持不变）。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>508-515 行新增 prepare_host_kv_allocation(device_id=torch.npu.current_device(), dp_rank=data_parallel_index) 的调用时机与参数语义（local device vs global rank、DP 段名唯一性）；645-695 行 shutdown 改为 try/finally 并 manager.close()，确认异常/重入路径与全局 manager 生命周期。</span></li><li><code>vllm_ascend/ascend_config.py</code><span>SparseKVOffloadConfig 新增 lru_max_threads/host_backend 字段及 mooncake 组合校验：host_backend=&#39;mooncake&#39; 要求 use_fused_overlap=true 且 keep_device_kv_cache=false；确认非 PD 在 _validate_preconditions 被拒、非 A3 在 manager 初始化被拒，且默认 memfabric 行为不变。</span></li><li><code>vllm_ascend/envs.py</code><span>92-102 行新增 VLLM_ASCEND_SKIP_MIGRATEPAGES 与 VLLM_ASCEND_FSA_PAIRED_CURRENT_SCATTER；确认解析风格（未用 _bool_env，空串会 ValueError、非 0/1 被当 True）、默认值以及消费点是否真实存在。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>manager.close() 只把 _host_kv_allocator 置 None，未复位 _host_allocation_prepared，全局 _SPARSE_KV_OFFLOAD_MANAGER 也仍指向已 close 的 manager。若同进程再次 initialize_kv_cache（重初始化/测试），prepare_host_kv_allocation 会提前返回，随后 allocate_host_kv_tensors 因 allocator=None 抛 RuntimeError；测试只覆盖了 close 幂等，没有覆盖 close 后重新 prepare。</li><li class="risk-medium"><b>MEDIUM</b>v2 runner 用 torch.npu.current_device() 作 device_id、parallel_config.data_parallel_index 作 dp_rank，直接传给 Mooncake create_shared_segment / 段名（mooncake_host_pool.py:108-120）。多机 DP、单机多 DP 组或 VISIBLE_DEVICES 非 0 基时，段名唯一性与设备绑定是否与 MemFabric 旧路径一致需要实测确认。</li><li class="risk-low"><b>LOW</b>新增 env 未复用 envs.py 里的 _bool_env：VLLM_ASCEND_SKIP_MIGRATEPAGES= 空串会 ValueError，=2 会被当成 True；与仓库其它布尔 env 的约定不一致。另外本次未在 owned 文件中定位到 VLLM_ASCEND_SKIP_MIGRATEPAGES 的读取点，消费方可能在其它 20 个文件里。</li><li class="risk-low"><b>LOW</b>PR 依赖未合入的 #15883（Mooncake Host pool 与 allocator 接线），本 PR 的配置字段/manager 改动与之有交叠；合并顺序与冲突需要关注。其余 20 个改动文件（membership staging、ACL callback 生命周期、index_copy 写回）本次未逐一核对。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增 manager 单测（含 prepare_host_kv_allocation、mooncake pool、close）、external_plan/index_copy 单测（35+12+4 本地通过）与 nightly 图重放；但 owned 的 v2 runner 调用顺序、shutdown 重入与 env 解析没有直接单测。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：manager.close() 之后同进程是否可能再次 initialize_kv_cache？若是，_SPARSE_KV_OFFLOAD_MANAGER 与 _host_allocation_prepared 是否需要复位（当前 close 后无法重新 prepare）？</li><li>device_id=torch.npu.current_device()、dp_rank=parallel_config.data_parallel_index 的语义是否与 Mooncake create_shared_segment 的期望一致（多机 DP、多 DP/node、非 0 基 device）？</li><li>VLLM_ASCEND_SKIP_MIGRATEPAGES 的消费点在哪个文件？为何不用 _bool_env 处理空值/非法值？</li><li>需要作者确认 #15883 的合并顺序：本 PR 是否包含其 host_backend/lru_max_threads 配置字段，两 PR 合并时会不会互相覆盖？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>方向正确且 manager 单测较全；head 的 worker.init_device 只构造 v2 NPUModelRunner（无 v1 双路径需同步）；先解决 close 后全局 manager 不可重 prepare 的生命周期问题，并确认 #15883 合并顺序与 device/dp 参数语义后再合并。</p>
 </article>
-<article class="card v-push" id="pr-12574">
+<article class="card v-approve" id="pr-22045">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/12574" target="_blank" rel="noopener">#12574</a>
-    <h3>华为淬火行动部署报告</h3>
-    <span class="b v-push">建议打回</span>
-  </div>
-  <div class="meta">
-    <span>@danaodai</span>
-    <span class="b b-ok">CI 通过 · 2</span>
-    
-    
-    <span>我负责 5/17 个文件 · +69/-27</span>
-    <span>已排队 123.7 天</span>
-    <span class="tag">新进入队列</span>
-    
-  </div>
-  <p class="summary">为规避上游删除 get_pcp_group，把 PCP 调用改为按环境变量条件导入取值；但 head 里提交了未清理的冲突标记。</p>
-  <p class="intent"><b>为什么改：</b>vLLM 新版移除 get_pcp_group 等 PCP API 后，vllm-ascend 直接调用会 ImportError；作者想让 PCP 变成可选依赖，非 PCP 场景不导入也不参与 PCP 拓扑。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/distributed/parallel_state.py</code><span>head 处第 10-18 行含两套未清理的 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt; 冲突标记，文件已不是合法 Python；且 all_ranks reshape 在 env 关闭时去掉 pcp 因子，需确认不破坏后续 group_ranks 布局</span></li><li><code>vllm_ascend/platform.py</code><span>第 336-344 行给 cp_kv_cache_interleave_size 断言加了 prefill_context_parallel_enable() 前置条件；env=0 但 prefill_context_parallel_size&gt;1 时会跳过校验</span></li><li><code>vllm_ascend/distributed/kvpool/pool_worker.py</code><span>pcp_size/pcp_rank 改为 env 开关 + get_prefill_context_model_parallel_*；需确认 env 关闭时 rank 仍与实际 PCP group 一致</span></li><li><code>vllm_ascend/distributed/mooncake_connector.py</code><span>Scheduler 与 Worker 两处 pcp_size 都按 env 取 1，需确认与 kv_transfer 侧 pcp 分片数量一致</span></li><li><code>vllm_ascend/distributed/llmdatadist_c_mgr_connector.py</code><span>条件导入 get_prefill_context_model_parallel_rank 与 pcp_size 取 1 的兜底，需确认否则 pcp_rank 使用处不会 NameError</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>parallel_state.py 里提交了未解决的合并冲突标记（两套），文件无法 import，整个 vllm_ascend 包不可用；这属于硬阻断</li><li class="risk-medium"><b>MEDIUM</b>PCP 启用判据从 parallel_config.prefill_context_parallel_size 变成环境变量 VLLM_ASCEND_ENABLE_CONTEXT_PARALLEL；若用户只设 size 不设 env，PCP 会被静默降级为 size=1/rank=0，kv 分片与通信拓扑可能错位</li><li class="risk-medium"><b>MEDIUM</b>platform.py 的 interleave/block_size 断言被 env 前置条件短路，P/D 分离且 PCP/DCP&gt;1 的错误配置可能不再报错，改为运行期数据错乱</li><li class="risk-low"><b>LOW</b>把 from vllm.utils.network_utils import get_ip 挪到条件 import 之后，仅为规避 isort，后续维护易漏看</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 未带任何测试；deep 记录 CI 仅 2 项且显示成功，但 head 存在语法错误，说明 CI 未覆盖该文件导入，绿测不可信。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>parallel_state.py 第 10-18 行的冲突标记是有意提交的吗？请先 rebase 清干净并确认 python -c &#39;import vllm_ascend&#39; 可通过。</li><li>为什么用环境变量而不是 parallel_config.prefill_context_parallel_size 判断是否启用 PCP？size&gt;1 但 env=0 的配置是否合法、此时是否仍会创建 PCP group？</li><li>platform.py 跳过 interleave 断言后，P/D 分离 + PCP&gt;1 的错误配置由哪一层兜底？</li><li>PR 标题「华为淬火行动部署报告」与改动无关，是否提交错了分支/描述？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>打回：清理冲突标记、统一 PCP 启用判据并补导入/配置测试后再复审。</p>
-</article>
-<article class="card v-approve" id="pr-16336">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/16336" target="_blank" rel="noopener">#16336</a>
-    <h3>[Ops][Feature] Fused Triton Qwen vision QKV, RoPE, and FIA padding</h3>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22045" target="_blank" rel="noopener">#22045</a>
+    <h3>[Feature][2/N] [Spec Decode][Qwen GDN] Enable Qwen GDN RecoverSSM on Ascend</h3>
     <span class="b v-approve">可批准</span>
   </div>
   <div class="meta">
-    <span>@YujianGuo</span>
-    <span class="b b-ok">CI 通过 · 8</span>
+    <span>@hanxi-java</span>
+    <span class="b b-wait">CI 进行中 · 22</span>
+    <span class="b b-ok">已有 8 人批准</span>
     
-    
-    <span>我负责 1/12 个文件 · +90/-1</span>
-    <span>已排队 72.7 天</span>
-    <span class="tag">仍在队列</span>
-    
-  </div>
-  <p class="summary">为 Qwen3.5 vision 增加融合 Triton kernel：一次完成 QKV 抽取、RoPE 与 pad 到 128 直供 FIA，带守卫与回退。</p>
-  <p class="intent"><b>为什么改：</b>现有 Triton RoPE 需要先物化 Q/K、再分别做三次 padding；本 PR 把三者融合成一次 launch 并按 FIA 布局直接输出，减少 vision attention 的算子与访存开销，同时保留原有缓存写入路径。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ops/mm_encoder_attention.py</code><span>_can_use_fused_qkv_rope_pad_fia（238-280 行）的守卫矩阵：dtype/device/contiguity/捕获/并行度与 head_size=72、8 heads、packed [T,1,1728]、cos/sin [T,36] 的匹配；_get_fused_fia_seq_lengths（48-60 行）与 maybe_compute_actual_seq_lengths 的边界语义；forward_qkv_rope_pad_fia（282-308 行）失败必须整体回退 None</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>守卫只按 head_size==72、num_heads==num_kv_heads==8、packed shape 识别，不校验模型家族；该 patch 挂在共享的 Qwen2_5_VisionAttention.forward 上，若将来有同形状但 RoPE 约定不同（如 interleaved 而非 half-split）的模型复用该类，会静默走融合 kernel 且没有回退，结果错误却难定位</li><li class="risk-low"><b>LOW</b>_get_fused_fia_seq_lengths 与 maybe_compute_actual_seq_lengths 是两条重复的 host 长度计算逻辑（前者允许重复端点、要求末端严格等于 token_count），后续任何一侧修改都可能让 FIA 语义分叉</li><li class="risk-low"><b>LOW</b>forward_qkv_rope_pad_fia 用 self.head_size 做 _maybe_unpad_output，而其他路径传 _maybe_pad_qkv 返回的 origin_head_dim；当前 D72→128 两者相等，但若 padding 策略或 head_size 变化，切片维度可能切错</li><li class="risk-low"><b>LOW</b>融合输出 72..99 列写 0 依赖 cos/sin 越界加载被 padding_option=&quot;zero&quot; 置零这一不变量（已核对当前 kernel 成立，96..127 另有显式零存），适配器层未断言该前提，kernel 后续改动容易破坏 padding 正确性</li></ul></div>
-  <p class="tests"><b>测试：</b>测试较充分：tests/ut/ops/test_mm_encoder_attention.py 覆盖守卫接受/拒绝（含 D80、非 A2）、host lengths 回退、forward 与 capture 路径，以及已移除 env 开关后的默认行为；作者另报 70 个 CPU 用例、10 个 910B3 算子精度用例与三路径 bitwise 一致的微基准。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>守卫仅凭 head_dim=72/8 heads 识别 Qwen3.5，是否应在 patch 注册处再按模型类型限定一次，避免同形状但 RoPE 约定不同的模型误用？</li><li>_get_fused_fia_seq_lengths 允许重复端点（零长序列）并直接作为 FIA 的 actual_seq_lengths，是否需要像 capture 路径那样过滤？</li><li>融合路径默认开启且不再保留 env 开关（UT 已固定该行为），线上若遇精度/性能异常如何快速关闭？是否需要一个隐藏开关兜底？</li><li>生产上 Qwen3.5 vision 的 cu_seqlens 是否保证在 CPU？若在 NPU 上会直接回退到通用路径，融合收益是否还能兑现？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>可批准：适配器守卫、回退与 UT 都到位；建议作者补一句该维度守卫的适用模型说明或加模型级限定。</p>
-</article>
-<article class="card v-look" id="pr-21456">
-  <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/21456" target="_blank" rel="noopener">#21456</a>
-    <h3>[Refactor][CP] Decouple PCP/DCP metadata, topology and backend selection</h3>
-    <span class="b v-look">需细看</span>
-  </div>
-  <div class="meta">
-    <span>@cn-sys</span>
-    <span class="b b-ok">CI 通过 · 8</span>
-    
-    
-    <span>我负责 2/42 个文件 · +62/-72</span>
-    <span>已排队 12.6 天</span>
+    <span>我负责 1/57 个文件 · +2/-2</span>
+    <span>已排队 6.7 天</span>
     <span class="tag">作者有新提交</span>
     
   </div>
-  <p class="summary">解耦 PCP/DCP 的状态、校验、后端选择与元数据钩子到 context_parallel/registry，platform/v2 走统一入口。</p>
-  <p class="intent"><b>为什么改：</b>任务 #10660/#9079：让新注意力后端可插件化接入，消除 GQA/MLA 与 PCP/DCP 的交叉依赖，并集中拓扑校验与后端映射表，降低后续扩展与维护成本。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/platform.py</code><span>_select_attn_backend_cls 中 pcp_backend_map 折叠为 backend_map（344-369 行）是否与旧 4 项白名单严格等价；新增 validate_dcp_block_interleave(resolve_cp_topology(...)) 在 step 9 的时序与兼容性（683-687 行）；4 处拓扑校验改走 topology 后错误消息/默认值是否保持</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>isinstance 三元判断替换为 find_cp_backend_for_builder + hooks 后（632-686 行），DSA/DSA_V41 的 extra kwargs、SFA 的 target/draft variant 拆分、以及 after_build 回写 common_ratio_to_sas_metadata 是否与 base 版本逐项等价</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>分支已落后主线且 mergeable_state=dirty：作者自述上游 #21737 删除了本 PR 扩展的 GQA-DCP 路径，且 common_cp.py 已自带 CPKVScope / AscendPCPAttentionContext 等同名符号。42 文件/3657 行在 rebase 与范围决策前无法给出可靠结论，合并风险高</li><li class="risk-medium"><b>MEDIUM</b>validate_dcp_block_interleave 是 base 中不存在的新启动期硬失败（base 仅有 P/D+非 hybrid 的 interleave==block_size 断言与 SFA 覆盖 interleave 的 warning）；DCP&gt;1 且 block_size 不能被 interleave 整除的既有配置会从可运行变成启动报错，缺少兼容性论证</li><li class="risk-medium"><b>MEDIUM</b>PCP 选择从独立白名单表改为通用 backend_map：当前 4 项完全一致，但失去白名单保护，将来向 backend_map 增加任意后端都会被 PCP 路径静默接受（除非该 key 恰好缺失）</li><li class="risk-medium"><b>MEDIUM</b>find_cp_backend_for_builder 依赖懒加载 5 个 adapter 后按 isinstance 匹配 base/cp builder；若某 provider 未注册或导入失败，函数返回 None 会静默跳过 DSA/SFA 必需的 extra kwargs（DSA 的 common_ratio_to_sas_metadata 等），表现为运行期 TypeError 或 metadata 语义错误，而非明确报错</li><li class="risk-low"><b>LOW</b>拓扑校验统一后，PCP 不支持判断改为 getattr(vllm_config, use_v2_model_runner, False)；虽说保留了原错误文案，但未用测试固定旧行为，属性缺省场景可能改变判据</li></ul></div>
-  <p class="tests"><b>测试：</b>PR 声称新增 import-compat 与 topology 单测、CI 8 项通过；我未能在常见路径定位到 registry/topology 的测试文件，DSA/SFA 钩子等价性和新增 interleave 硬校验均缺少可核对用例。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>上游 #21737 已删除 GQA-DCP 路径，本 PR 是否接受先缩减到不与其冲突的范围并 rebase 后再评审？</li><li>新增的 block_size % cp_kv_cache_interleave_size 启动期硬校验会不会让现有 DCP 配置启动失败？能否补一个「旧配置仍可启动」的用例？</li><li>PCP 从独立白名单改为共享 backend_map 后，如何防止未来新增的后端被 PCP 路径误用？是否考虑在 provider 上加 supports_pcp 断言并在 platform 校验？</li><li>find_cp_backend_for_builder 返回 None 时是否应 fail-fast 或至少告警？DSA/SFA builder 缺少必需 kwargs 时现在的失败形态是什么？</li><li>v1 路径（worker/attn_utils.py 等）是否也切到 registry，是否还残留 isinstance/pcp_backend_map 副本未同步？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先按作者提议缩减范围并 rebase 主线、确认新增 interleave 校验兼容性，再逐项核对 DSA/DSA_V41/SFA 钩子与旧 isinstance 分支的等价性后复审。</p>
+  <p class="summary">GDN 实现迁至 attention/，utils.py 同步 GDN 与 310P 实现的 customop 导入路径。</p>
+  <p class="intent"><b>为什么改：</b>Qwen GDN RecoverSSM 把 GDN attention 实现与 builder/metadata 重组到 attention/ 目录，旧 ops.gdn 已删除，注册入口需指向新路径。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/utils.py</code><span>983-984 行改 import vllm_ascend._310p.attention.gdn_310，1017-1019 行改 import vllm_ascend.attention.gdn；核对两模块在 head 均存在、类名未变（AscendGatedDeltaNetAttention310 / AscendGatedDeltaNetAttention），并确认 customop 注册发生在模型构造之前。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-low"><b>LOW</b>旧路径 vllm_ascend/ops/gdn.py、ops/gdn_attn_builder.py、ops/gdn_recoverssm_metadata.py 在 head 已删除；若还有未更新引用会在 import 期失败。已核对 utils.py、patch/worker/patch_qwen3_5.py 与新模块导入一致，但无法全仓扫描；310P 分支只在 310P 硬件导入，PR CI 未必覆盖。</li><li class="risk-low"><b>LOW</b>utils.py:1114 的注释仍写『patch_qwen3_5 imports vllm_ascend.ops.gdn』，而 patch_qwen3_5.py 实际已改为 attention.gdn，属注释漂移，会误导后续排查 FLA/310P 导入时机。</li><li class="risk-low"><b>LOW</b>body 的 compileall 清单仍包含已删除的 vllm_ascend/ops/gdn.py，说明正文未随最后一次目录迁移更新；不能据此认为 head 做过完整静态检查。PR 共 57 个文件、22 项 CI pending，其余改动不在我负责范围。</li><li class="risk-low"><b>LOW</b>该 PR 上期只在队列列表出现、未精读，没有可对比的旧结论；本轮 head 68296bc 的 owned 改动仍只有 2 行导入。body 的 compileall 与测试清单仍指向旧路径，所列静态检查与性能数据是否对应 head 需作者确认。</li></ul></div>
+  <p class="tests"><b>测试：</b>PR 新增 UT（config/metadata）与 nightly、four-card PD e2e，但 body 明说本机未运行 pytest/NPU 套件；owned 的两行导入无专门用例，310P 分支无 CI 覆盖。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：是否已有全仓检索证明除 utils.py/patch_qwen3_5.py 外，没有其它模块 import 已删除的 ops.gdn / ops.gdn_attn_builder / ops.gdn_recoverssm_metadata？</li><li>310P 的 AscendGatedDeltaNetAttention310 新路径是否在 310P 机器上冒烟过（PR CI 可能不覆盖该分支）？</li><li>能否更新 utils.py:1114 的注释与 body 的 compileall 路径，避免后续误读？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>我负责的 utils.py 两行与模块迁移一致、可批准；合并前请确认 pending CI 与 310P 路径冒烟，并顺手修正注释/正文。</p>
 </article>
-<article class="card v-look" id="pr-7964">
+<article class="card v-approve" id="pr-22412">
   <div class="card-head">
-    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/7964" target="_blank" rel="noopener">#7964</a>
-    <h3>[Attention][Feature] Support Llama-4-Scout-17B-16E-Instruct</h3>
-    <span class="b v-look">需细看</span>
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/22412" target="_blank" rel="noopener">#22412</a>
+    <h3>[Refactor][xlite] XliteWorker inherits NPUWorker.init_device via a _make_model_runner hook</h3>
+    <span class="b v-approve">可批准</span>
   </div>
   <div class="meta">
-    <span>@liyifu-2026</span>
-    <span class="b b-ok">CI 通过 · 7</span>
+    <span>@SijieFu</span>
+    <span class="b b-ok">CI 通过 · 8</span>
     
     
-    <span>我负责 2/18 个文件 · +10/-0</span>
-    <span>已排队 234.4 天</span>
+    <span>我负责 1/3 个文件 · +13/-13</span>
+    <span>已排队 4 天</span>
+    <span class="tag">新进入队列</span>
+    
+  </div>
+  <p class="summary">NPUWorker.init_device 抽出 _make_model_runner 钩子，XliteWorker 改为只覆写该钩子并继承骨架。</p>
+  <p class="intent"><b>为什么改：</b>XliteWorker 手抄 init_device 已漂移（漏 register_ascend_fla_customop）且会继续漂移；改为对齐上游 GPUWorker 的钩子，让 runner 选择成为唯一差异。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>725-756 行 init_device 改为 self.model_runner = self._make_model_runner()，report_usage_stats 仍在 rank0；默认钩子保持 mm-encoder 走 torch_cuda_wrapper + MMEncoderModelRunner、否则 NPUModelRunner。核对与旧内联代码顺序等价，且子类覆写钩子时 self.device 已就绪；并删除 _make_model_runner 的 NotImplementedError 隔离桩（patch hunk @@ -311,9 +312,6），确认没有其它子类依赖旧语义。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-low"><b>LOW</b>删除隔离桩后，任何未覆写 _make_model_runner 的 NPUWorker 子类会静默继承默认 NPUModelRunner，而不再在调用时抛 NotImplementedError；本 PR 只改 3 个文件，body 说明 NPUWorker310 仍走自己的 init_device/_create_model_runner、XliteWorker 有覆写，但仍需确认仓库内无其它子类。</li><li class="risk-low"><b>LOW</b>XliteWorker 现在会执行基类骨架里的 register_ascend_fla_customop()，即额外 import FLA 相关模块并做 NPU 侧注册；这是修复漂移的本意，但在没有 FLA/CANN 组件的 xlite 环境里，启动路径比以前多了这一依赖，需冒烟确认。</li><li class="risk-low"><b>LOW</b>TYPE_CHECKING 新增 from vllm.v1.worker.gpu_model_runner import GPUModelRunner：仅类型检查期使用，但若 CI 锁定的 vLLM 版本无该模块，mypy/IDE 会报错（运行期无影响）；XliteWorker._make_model_runner 返回 XliteModelRunnerV2，窄于基类注解，后续启用严格 override 检查时可能告警。</li></ul></div>
+  <p class="tests"><b>测试：</b>tests/ut/worker/test_worker_inheritance.py 新增 test_npu_worker_init_device_selects_default_runner，并改写 test_xlite_constructor_and_device_runner，逐项断言 FLA 注册→workspace→钩子→usage stats 与 xlite_runner 别名；CI 通过。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：除 NPUWorker310/XliteWorker 外，仓库内没有其它 NPUWorker 子类依赖旧的 _make_model_runner NotImplementedError 隔离桩。</li><li>需要作者确认：支持的 vLLM 版本都有 vllm/v1/worker/gpu_model_runner.py 的 GPUModelRunner（类型检查用）；XliteModelRunnerV2 是否确为 GPUModelRunner 子类，避免 mypy override 告警。</li></ul></div>
+  <p class="rec"><b>建议动作：</b>改动小、钩子语义清晰且有直接 UT 覆盖，可批准；合并前确认无其它子类依赖旧隔离桩即可。</p>
+</article>
+<article class="card v-approve" id="pr-17556">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/17556" target="_blank" rel="noopener">#17556</a>
+    <h3>[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard</h3>
+    <span class="b v-approve">可批准</span>
+  </div>
+  <div class="meta">
+    <span>@mashuiping</span>
+    <span class="b b-ok">CI 通过 · 9</span>
+    
+    
+    <span>我负责 1/2 个文件 · +7/-0</span>
+    <span>已排队 57.1 天</span>
     <span class="tag">仍在队列</span>
     
   </div>
-  <p class="summary">为 Llama-4-Scout 增加 SWA 与 sinks 解码；build 脚本加 CANN env 探测，platform 钩子加 **kwargs。</p>
-  <p class="intent"><b>为什么改：</b>Llama-4-Scout 的滑窗注意力与 sinks 在 Ascend 上缺 mask 生成和 BSH 解码路径，且上游传参/API 漂移导致 TypeError、AssertionError；PR 补能力并做签名对齐。</p>
-  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>csrc/build_aclnn.sh</code><span>新增段在 set -euo pipefail 的子 shell 内（第 258 行）直接展开 ${ASCEND_HOME_PATH}（第 272/277/278 行），未用 :- 兜底；而第 52 行日志恰好用 ${ASCEND_HOME_PATH:-&lt;unset&gt;}，说明该变量允许未设置</span></li><li><code>vllm_ascend/platform.py</code><span>set_additional_forward_context 末尾加 **kwargs（第 802 行）；v1 分支直接 return {}，v2 分支按显式形参组装 context，需确认静默忽略上游新增 kwarg 是否会漏字段</span></li></ul></div>
-  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>build_aclnn.sh 在 CANN 环境未 source（ASCEND_HOME_PATH 未设置）时，set -u 会让新增的 [ -n &quot;${ASCEND_HOME_PATH}&quot; ] 直接以 unbound variable 退出；而 source set_env.sh 又要求变量已存在，&#39;确保 CANN 环境已 source&#39; 的自举逻辑实际不可达，反而把原本能继续的构建变成失败</li><li class="risk-medium"><b>MEDIUM</b>platform.py 的 **kwargs 是无版本判别的静默吞参：上游若新增需进入 forward context 的元数据（如 input_ids 之类），会被无声丢弃，后续属性缺失的报错点远离此处；建议至少 log 一次未知 kwargs 或显式列出</li><li class="risk-medium"><b>MEDIUM</b>PR 已 234 天未 rebase（mergeable_state=dirty、merge-conflicts 标签），base 为 4 月主线；SWA 只改了 attention_v1 与 _310p/attention_cp，而当前默认 v2 引擎走 worker/v2/attn_utils + attention backends，需确认 v2 路径是否也需同步</li><li class="risk-low"><b>LOW</b>build 脚本里的 ls -l 调试输出属于临时排查残留，与本 PR 主题（Llama-4 支持）无关，建议移出或删除；PR 还混入 csrc 构建、fused_moe hasattr 兜底等 scope creep</li></ul></div>
-  <p class="tests"><b>测试：</b>作者仅给出 4x A2 GSM8K 0.96 的端到端验证并新增 E2E 配置，未见针对 SWA mask/BSH 解码或 **kwargs 兼容的单测；build 脚本改动无 CI 覆盖。</p>
-  <div class="block"><h4>要问作者</h4><ul class="questions"><li>build_aclnn.sh 在 ASCEND_HOME_PATH 未设置时（脚本第 52 行明确考虑了 unset）会因 set -u 报 unbound variable，是否实测过？是否应改为 ${ASCEND_HOME_PATH:-} 并把 ls 调试输出去掉？</li><li>platform.py 的 **kwargs 是为哪个上游版本新增的哪个参数加的？能否显式列出而不是静默吞掉，避免将来漏字段？</li><li>SWA 实现只落在 attention_v1；当前默认 v2 model runner 下 Llama-4 是否仍走该路径？worker/v2 的 metadata builder 是否也需要 swa_mask？</li><li>PR 长期未 rebase 且存在冲突，能否先同步主线并拆分 csrc/fused_moe 等无关改动？</li></ul></div>
-  <p class="rec"><b>建议动作：</b>先修 build 脚本的 set -u 展开并 rebase 拆 scope，再让作者确认 v1/v2 双路径与 **kwargs 语义后细看。</p>
+  <p class="summary">capture 前调用 upstream warmup_kernels 预热 V2 prefill/decode Triton kernel，并受双重开关保护。</p>
+  <p class="intent"><b>为什么改：</b>缺该调用时 V2 Triton kernel 要等首个真实请求才编译：冷缓存首 token 46.7s、首内容 token 87.0s，预热后 28.5s。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>1159-1164 行：guard 读 self.use_v2_model_runner（__init__ 270 行赋值）与 vllm_config.kernel_config.enable_jit_warmup；调用点在 kernel_warmup(self) 之后、capture_model() 之前，实参 (model_runner, execute_model, sample_tokens)。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>warmup_kernels 与 kernel_config.enable_jit_warmup 都来自 upstream，本仓库内无其它引用可交叉验证；新增 UT 用 SimpleNamespace 伪造 kernel_config 且 mock 掉 warmup_kernels，形参签名/字段名写错只能靠 e2e 暴露。</li><li class="risk-medium"><b>MEDIUM</b>分支未按 runner_type/PP 过滤：池化模型与 PP 非末 rank 也会进入，sample_tokens 可能返回 None（worker.py 1053 行显示池化有专门处理），upstream warmup_kernels 在该场景是否安全未验证。</li><li class="risk-low"><b>LOW</b>懒 import vllm.v1.worker.gpu.warmup 已把影响限制在 V2+enable_jit_warmup，但若上游 lane 无该模块，V2 启动会直接 ImportError，当前没有版本 gate。</li><li class="risk-low"><b>LOW</b>enable_jit_warmup 默认开启时所有 V2 部署多付一轮 dummy prefill+decode 启动时间；顺序符合 body 所述（先 warmup 再 capture，避免 workspace 被锁）。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增 UT 用 attach_mock 断言 warmup_kernels 先于 capture_model 且实参正确，3 个既有 compile_or_warm_up UT 显式置 use_v2_model_runner=False；CI 9 项成功、4 skipped。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：warmup_kernels(model_runner, execute_model, sample_tokens) 的签名与 upstream 一致（UT 里被 mock，签名错误测不出）。</li><li>需要作者确认：池化/embedding 模型与 PP 非末 rank 下该调用是否安全（sample_tokens 可能返回 None）。</li><li>需要作者确认：enforce_eager=True 时 enable_jit_warmup 是否确实为 False，还是应在代码里显式跳过。</li></ul></div>
+  <p class="rec"><b>建议动作：</b>可以批准；合并前用一次真实 V2 启动（含池化模型）确认 warmup_kernels 调用成功。</p>
 </article>
-  <h2>其余新增（49）</h2>
+<article class="card v-look" id="pr-20758">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/20758" target="_blank" rel="noopener">#20758</a>
+    <h3>[Refactor][V2] Move kernel block handling into AttentionGroup</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@yxk-fdu</span>
+    <span class="b b-wait">CI 进行中 · 11</span>
+    <span class="b b-ok">已有 5 人批准</span>
+    
+    <span>我负责 4/43 个文件 · +72/-60</span>
+    <span>已排队 19.9 天</span>
+    <span class="tag">作者有新提交</span>
+    
+  </div>
+  <p class="summary">kernel block 映射下沉到 AttentionGroup，块表/slot 保持 manager 粒度，metadata 按 group 级映射。</p>
+  <p class="intent"><b>为什么改：</b>对齐 vLLM #57169：同 KV cache group 内各 attention group 可用不同 kernel block size，块表不再提前扩行，PCP/DFlash/DSpark 统一消费 manager 块表。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>新增 initialize_kernel_block_table_buffers 的行扩容（shape[1]=请求行，只在需要时替换并保留旧值）；build_attn_metadata 中非 capture 走 attn_group.build_metadata、capture 显式 _with_kernel_block_table 的不对称；_get_cache_attention_groups 新增 EncoderOnlyAttentionSpec skip 与 select_common_block_size 选择。</span></li><li><code>vllm_ascend/worker/v2/block_table.py</code><span>删除 kernel_block_sizes/blocks_per_kv_block 与扩行，__init__ 透传 manager 粒度 max_num_blocks_per_group；compute_slot_mappings 用 manager block size 计算 slot，确认与 kernel 粒度 cache 视图的物理布局一致。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>initialize_kv_cache 内以 pcp_manager.max_num_local_reqs（PCPManager 内建 _input_buffers=2×max_num_reqs）或 max_num_reqs 再 +1 作为行容量，目标+draft 组统一扩容；确认 max_num_local_reqs 的 assert 在调用点成立。</span></li><li><code>vllm_ascend/worker/v2/model_states/default.py</code><span>dummy_inputs_embeds 仅新增一行注释（input_ids 非空时由 upstream 负责 TP collective），无行为变化。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>kernel_block_sizes 下标可能错位：上游 prepare_kernel_block_sizes（以及 worker/utils.py prepare_ascend_kernel_block_sizes 的注释）会丢弃 encoder-only 组，而 _get_cache_attention_groups、create_kv_cache_runtime_views、_reshape_kv_cache_v2 仍用原始 kv_cache_group_id 索引；encoder-only 组不在末尾时后续组会取到错误 kernel size，且 `&gt;= len` 分支直接 continue 会漏建该组 cache view。</li><li class="risk-medium"><b>MEDIUM</b>capture 与非 capture 路径映射责任不对称：capture 显式 attn_group._with_kernel_block_table(variant_common) 再交 build_for_cudagraph_capture，非 capture 交给 attn_group.build_metadata 内部映射；capture 仍固定 get_metadata_builder(0)，多 builder 的 group 在 capture 下每个 variant 是否都覆盖所有 layer 需确认。</li><li class="risk-medium"><b>MEDIUM</b>CI 采样时 11 项 pending、mergeable_state=blocked；本 head 无 PR 级 e2e，只有 nightly 单算子用例与 A3 手工精度/性能，PCP 全链路仍未在 PR CI 覆盖。</li><li class="risk-low"><b>LOW</b>initialize_kernel_block_table_buffers 依赖 pcp_manager.max_num_local_reqs，该 property 断言 _input_buffers 非 None；若某个上游 lane 以 max_num_reqs=None 构造 PCP manager，会在 initialize_kv_cache 直接 AssertionError。</li><li class="risk-low"><b>LOW</b>PCP 映射 scratch 走 torch.empty_like 并按 id(attn_group) 缓存在 pcp_manager._kernel_block_table_groups，其容量在 init 时固定；新 UT 已断言重复 init 地址不变，但若后续运行期再 resize 会破坏 graph 地址。</li></ul></div>
+  <p class="tests"><b>测试：</b>新增/更新 UT 覆盖 per-backend kernel block size 选择、kernel_block_table 容量与地址稳定性（test_attn_utils_v2）、PCP for_attention_group（test_pcp_manager_v2）；CI 50 项中 11 pending、17 skipped，尚未全绿。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：若 kv_cache_groups 含 encoder-only 组且不在末尾，用原始 group_id 取 kernel_block_sizes 是否与上游过滤后的列表对齐？`kgv &gt;= len` 分支会跳过该组 cache view 构建。</li><li>需要作者确认：capture 路径的 _with_kernel_block_table 只传默认 ubatch_idx=0 且 builder 固定 get_metadata_builder(0)，多 builder group 在 graph capture 时是否所有 layer 都按各自 kernel block 映射？</li><li>需要作者确认：所有支持的上游 lane 构造 PCP manager 时都会传 max_num_reqs/max_num_tokens 吗（否则 max_num_local_reqs 断言会在 initialize_kv_cache 触发）？</li><li>需要作者确认：本 head 把 kv_trace_runner 的 configure() 改为按 group.kernel_block_size 校验，per-group kernel block 拆分时会直接 ValueError（KV Trace 在该配置下不可用），这是有意限制还是后续要补映射？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>建议细看：先澄清 encoder-only 组的 kernel_block_sizes 下标对齐与 capture 多 builder 映射，并等 CI 全绿后再批准。</p>
+</article>
+<article class="card v-look" id="pr-19212">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/19212" target="_blank" rel="noopener">#19212</a>
+    <h3>[Feature][KVTransfer] Support Mooncake V2 with SFA-managed Host KV</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@linjinghan0</span>
+    <span class="b b-ok">CI 通过 · 9</span>
+    
+    
+    <span>我负责 3/66 个文件 · +80/-2</span>
+    <span>已排队 34.5 天</span>
+    <span class="tag">作者有新提交</span>
+    
+  </div>
+  <p class="summary">Mooncake V2 接入 SFA offload manager：Host KV 归 manager，transport 借用视图并按 rank 分区。</p>
+  <p class="intent"><b>为什么改：</b>让 MRV2 的 Mooncake Pull 把稀疏注意力 KV 收进现有 SFA offload manager（Host KV/热行/落盘等待），默认仍走原 Mooncake 行为并拒绝不支持的组合。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/ascend_config.py</code><span>MooncakeStagingConfig（StrictInt window_chunks/bank_count + max(1,value) 归一化、frozen）作为普通 additional_config 字段经 kwargs 进入 pydantic；_validate_removed_dsa_host_config 在 from_additional_config 中无条件执行（init 时总会调用）；_validate_preconditions 对 MultiConnector/MooncakePullConnector/use_layerwise/dspark/failure-policy 的拒绝是否覆盖所有非法组合。</span></li><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>execute_model 在 handle_preemptions 之后新增可选 prepare_sparse_kv_offload(metadata)，需与 worker.start_load_kv 内的同名调用共存（adapter.bind_metadata 以 metadata 身份幂等）；确认 dummy/profile 步骤也走到该 hook 且不会覆盖已绑定状态。</span></li><li><code>vllm_ascend/worker/v2/model_states/default.py</code><span>SFA 分支里 prepare_copy_sfa_decode 的返回值（restore_tails/dense_fills/complete 回调）与 dense_fill_copy_sfa_rows 的重复执行；restored 标志只在找到 copy_sfa_copy_src_offsets metadata 时置真，complete(False) 会触发 commit 的 tail 校验。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>新 hook 在 model_runner.execute_model 中对所有 has_kv_transfer_group() 的步骤执行（未排除 dummy_run/is_profile），而 MooncakeSFAPDState.bind_metadata→update 会以本步 metadata.copy_sfa_slots 整体替换 self.bindings 并 intersection_update pending；若某步（dummy/DP 空闲/未调度）metadata 为空，已等待接收的 pending 预留会被静默丢弃，后续 decode 不再初始化热行。</li><li class="risk-medium"><b>MEDIUM</b>complete_copy_sfa_decode(restored) 只在一次 metadata 循环里找第一个带 copy_sfa_copy_src_offsets 的 metadata，且只在 prepare_copy_sfa_decode 返回 initialized 非空时存在；若 SFA 需要 tail 恢复而该 metadata 未生成，commit 会 RuntimeError（fail-fast 合理，但错误定位在 decode 阶段而非配置期）。</li><li class="risk-medium"><b>MEDIUM</b>MooncakeStagingConfig 的 window_chunks/bank_count 用 StrictInt 且 max(1, value) 静默钳位，非法输入（0/负数）不会报错而是被改成 1，也没有上限；staging 显存/句柄规模完全由该值决定，建议显式范围校验。</li><li class="risk-low"><b>LOW</b>本轮 head 只是 merge upstream main（body 表格 b4e5e11a），SFA 主体与 typed staging 配置与上一 head 相同；但由于该 PR 体量 8996+/66 文件，非我负责的 transport/Host 分区/注册生命周期无法在本轮逐一核对。</li></ul></div>
+  <p class="tests"><b>测试：</b>PR 自带 SFA staging/planning/regression 单测与 native smoke 工具，CI 9 项成功、4 skipped；但 staging 窗口的实际 Host 显存行为与 RC/大集群路径无我可见的专项用例。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：bind_metadata 在 dummy/profile execute_model 且 metadata.requests 为空时会把 bindings/pending 清空，这是否会让等待接收中的请求丢失热行预留？该 hook 是否应跳过 dummy/profile？</li><li>需要作者确认：window_chunks/bank_count 取 0 或负数时静默钳到 1 是否符合预期，是否应改为 ValueError 并给出上限？</li><li>需要作者确认：本轮相对上一 head 是否只有 merge upstream main（SFA 逻辑未变），能否确认 merge 后 SFA 相关单测仍全绿？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>建议细看：先澄清 dummy/空 metadata 对 SFA bindings 的影响与 staging 配置校验，再批准。</p>
+</article>
+<article class="card v-look" id="pr-20205">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/20205" target="_blank" rel="noopener">#20205</a>
+    <h3>[Feature] Support draft model weight updates over HCCL</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@wang2001-hust</span>
+    <span class="b b-ok">CI 通过 · 9</span>
+    
+    
+    <span>我负责 1/15 个文件 · +65/-10</span>
+    <span>已排队 25 天</span>
+    <span class="tag">作者有新提交</span>
+    
+  </div>
+  <p class="summary">为 draft model 增加 HCCL 权重更新：新增 start_draft_weight_update 与失败回退，target 生命周期保持不变。</p>
+  <p class="intent"><b>为什么改：</b>复用引擎 set/reset_weight_update_target 让 trainer 能更新 draft 权重，同时保留 Ascend 现有 target 更新流程，并把能力限制在 V2/HCCL。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>supports_draft_weight_updates 的短路顺序与字段（prefill_context_kv_only 直接取属性、未查 backend 是否为 hccl）；start_draft_weight_update 的 set→start 事务与 except 中 reset；update_weights/finish_weight_update 的 draft 分支是否漏做 target 的 on_target_weights_replaced/LoRA reset；_start_weight_update 抛 NotImplementedError 是否只是防误用。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-high"><b>HIGH</b>body 明确新生命周期（start_draft_weight_update）未在硬件上重跑 HCCL eager/ACLGraph e2e，之前四模型结果来自 revision 49d4727 的旧 worker 生命周期，不能作为本 revision 证据；checklist 里该项仍未勾选。</li><li class="risk-medium"><b>MEDIUM</b>supports_draft_weight_updates 直接访问 speculative_config.prefill_context_kv_only，而 _set_draft_weight_update_target 用 getattr(..., False) 兜底；若某兼容 lane 没有该字段，能力查询会 AttributeError 而不是返回 False。</li><li class="risk-medium"><b>MEDIUM</b>worker 侧没有 backend 判断，能力完全跟随 engine.supports_draft_weight_update（UT 甚至断言 npu_ipc + engine 支持 = True）；body 声称 draft 仅限 HCCL，需确认 IPC 的拒绝确实落在引擎/工厂层而不会因引擎标志为真而被放行。</li><li class="risk-medium"><b>MEDIUM</b>supports_draft_weight_updates 依赖 self.weight_transfer_engine，而该引擎在 load_model 中才创建；若引擎在 load_model 之前查询能力，会因仍为 None 返回 False（或属性不存在抛异常），导致 draft 更新被永久判为不支持。</li><li class="risk-low"><b>LOW</b>start_draft_weight_update 的失败路径对未成功 set 的引擎也调用 reset_weight_update_target()，可能产生二次异常掩盖原始错误；另 _start_weight_update 的 NotImplementedError 在 base 调用链里是硬失败点。</li></ul></div>
+  <p class="tests"><b>测试：</b>tests/ut/worker/test_worker_v2.py 覆盖 draft→target 连续更新、start/update/finish 三处失败回退、PP/NZ/无 draft 模型拒绝与能力判定（24 passed）；无新生命周期 HCCL 硬件 e2e。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：能否在本 revision 重跑 HCCL eager/ACLGraph 四模型 e2e（body 自述旧结果是 revision 49d4727 的，不适用）？</li><li>需要作者确认：IPC 的拒绝落在哪一层？worker 只读 engine.supports_draft_weight_update，未见 backend 等于 hccl 的校验，UT 甚至断言 npu_ipc+engine 支持=True。</li><li>需要作者确认：supports_draft_weight_updates 是否可能早于 load_model 被调用（此时 weight_transfer_engine 仍为 None）？prefill_context_kv_only 是否在 0.33.0 lane 一定存在？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>建议细看：先补新生命周期的 HCCL 硬件 e2e，并澄清 IPC 拒绝层与能力查询时序后再批准。</p>
+</article>
+<article class="card v-look" id="pr-18389">
+  <div class="card-head">
+    <a class="num" href="https://github.com/vllm-project/vllm-ascend/pull/18389" target="_blank" rel="noopener">#18389</a>
+    <h3>[BugFix][Worker] Validate KV cache sizing when free NPU memory is unchanged</h3>
+    <span class="b v-look">需细看</span>
+  </div>
+  <div class="meta">
+    <span>@xrwang8</span>
+    <span class="b b-ok">CI 通过 · 12</span>
+    
+    
+    <span>我负责 1/7 个文件 · +44/-11</span>
+    <span>已排队 41.9 天</span>
+    <span class="tag">仍在队列</span>
+    
+  </div>
+  <p class="summary">profiling 前后 free NPU memory 相等时，改为按设备总量/分配器预留核验后接受，或报可操作错误；free 增加显式报错。</p>
+  <p class="intent"><b>为什么改：</b>旧 assert 在读数相等时直接崩溃且可能把权重成本抵消后虚增 KV 预算；改为区分权重装进已有预留与设备漏报新预留，后者引导用户用 --kv-cache-memory-bytes。</p>
+  <div class="block"><h4>我负责部分的改动</h4><ul class="focus"><li><code>vllm_ascend/worker/worker.py</code><span>866-897 行：HiSparse 相等读数提前 ValueError、非 HiSparse 相等读数走 _fits_initial_reserve + non_kv&gt;=allocated_increase；916-928 行 _check_profile_free_memory(&gt; 才报错) 与 _fits_initial_reserve 的四个条件（total/torch_memory 不变、初始预留自洽、weights&lt;=allocated_increase&lt;=unused_reserve）。</span></li></ul></div>
+  <div class="block"><h4>风险</h4><ul class="risks"><li class="risk-medium"><b>MEDIUM</b>接受相等读数的判据完全信任 allocator 计数（torch_allocated/torch_memory）与设备 total；若虚拟化层同时漏报设备与预留变化，只能靠 non_kv&gt;=allocated_increase 兜底，仍可能给出偏大的自动预算（此前失效模式未被完全排除，只是加了自洽性门槛）。</li><li class="risk-medium"><b>MEDIUM</b>HiSparse 在相等读数下改为硬失败，错误文案直接要求 --kv-cache-memory-bytes；若某些驱动常态返回相等读数，原本能启动的 HiSparse 用户会被拦住（行为变更有意，但需 release note 明确）。</li><li class="risk-medium"><b>MEDIUM</b>body 描述的 310P EP/RC 分支（retained bytes、host available memory、source=host）不在我负责的 worker.py 段落内，无法核对；body 也自述 RC 硬件与按本 PR pin 的 vLLM main 构建未测。</li><li class="risk-low"><b>LOW</b>body 承认直接本地 pytest worker 文件被已安装 vLLM 缺 validate_worker_profiler_config 阻断，A2/A3 硬件与对齐仓库套件留给 CI；CI 12 项成功但 6 skipped。</li></ul></div>
+  <p class="tests"><b>测试：</b>tests/ut/worker/test_worker_multi_instance.py 新增 6 个相等读数场景（接受 1 个、拒绝 5 个）与 HiSparse 拒绝用例，mock 设备/分配器计数；310P RC 硬件与 exact-pin 构建未测。</p>
+  <div class="block"><h4>要问作者</h4><ul class="questions"><li>需要作者确认：310P EP/RC 的相等读数处理实现/单测在哪些文件？我只在 worker.py 看到通用分支，未见 retained bytes 与 host 指标的落地代码。</li><li>需要作者确认：HiSparse 相等读数从崩溃改为 ValueError 是否会拦住正常驱动；release note 是否已说明必须显式给 --kv-cache-memory-bytes？</li><li>需要作者确认：_fits_initial_reserve 要求 profiled.total_memory == initial.total_memory，在多进程/虚拟化设备上是否会出现 total 抖动导致误判？</li></ul></div>
+  <p class="rec"><b>建议动作：</b>建议细看：确认 310P EP/RC 分支与 HiSparse 行为变更的文档，再等 CI 全绿后批准。</p>
+</article>
+  <h2>其余新增（67）</h2>
   <input type="search" id="q" placeholder="按编号 / 标题 / 作者筛选……">
   <table id="all">
     <thead><tr><th>PR</th><th>标题</th><th>作者</th><th>我负责/全部</th><th>改动</th><th>CI</th><th>已有批准</th><th>排队</th><th>结论</th></tr></thead>
     <tbody><tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22688" target="_blank" rel="noopener">#22688</a></td>
-  <td class="t">[BugFix][Quantization] Use CEIL MXFP8 scale_alg for Qwen3.5 on Ascend 950</td>
-  <td>@CZT0</td>
-  <td class="num2">1/6</td>
-  <td class="num2">+1/-1</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">2.3d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/13219" target="_blank" rel="noopener">#13219</a></td>
-  <td class="t">[Bugfix] Classify ACL stream synchronize timeout (107020/107027) during aclgraph replay</td>
-  <td>@sicnuyudidi</td>
-  <td class="num2">68/292</td>
-  <td class="num2">+11594/-1909</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">115d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/12453" target="_blank" rel="noopener">#12453</a></td>
-  <td class="t">[Feature] vLLM Ascend adaptation to support Elastic Expert Parallelism Milestone 2</td>
-  <td>@1542305589</td>
-  <td class="num2">13/31</td>
-  <td class="num2">+1667/-21</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">124.9d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/14036" target="_blank" rel="noopener">#14036</a></td>
-  <td class="t">[BugFix] Fix non-streaming response in load balance proxy server</td>
-  <td>@billsysu</td>
-  <td class="num2">6/12</td>
-  <td class="num2">+224/-674</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">103.4d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20311" target="_blank" rel="noopener">#20311</a></td>
-  <td class="t">[Feature][Model] Enable Qwen3.8 Flash Next PP and SP</td>
-  <td>@Lethobenthos20</td>
-  <td class="num2">6/34</td>
-  <td class="num2">+502/-74</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21831" target="_blank" rel="noopener">#21831</a></td>
+  <td class="t">[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP</td>
+  <td>@Zhaocen</td>
+  <td class="num2">1/5</td>
+  <td class="num2">+0/-29</td>
   <td>failure</td>
   <td class="num2">3</td>
-  <td class="num2">23.9d</td>
+  <td class="num2">9.8d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21587" target="_blank" rel="noopener">#21587</a></td>
-  <td class="t">[Feature] Fuse GatingTopK with EPLB expert mapping</td>
-  <td>@Liamup777</td>
-  <td class="num2">11/17</td>
-  <td class="num2">+176/-18</td>
-  <td>failure</td>
-  <td class="num2">5</td>
-  <td class="num2">11.6d</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22538" target="_blank" rel="noopener">#22538</a></td>
+  <td class="t">[Performance][Model] Reuse Qwen4Exp HC block output across streams</td>
+  <td>@diaochengxi</td>
+  <td class="num2">1/8</td>
+  <td class="num2">+4/-0</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">3.5d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22540" target="_blank" rel="noopener">#22540</a></td>
+  <td class="t">[Feature] Support HY4 Flash FP8 on Ascend 950DT</td>
+  <td>@lengrongfu</td>
+  <td class="num2">1/7</td>
+  <td class="num2">+10/-0</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">3.3d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22822" target="_blank" rel="noopener">#22822</a></td>
+  <td class="t">[Feature] Integrate Ascend sleep mode backend</td>
+  <td>@floatlibai</td>
+  <td class="num2">2/7</td>
+  <td class="num2">+15/-11</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">0.2d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22375" target="_blank" rel="noopener">#22375</a></td>
+  <td class="t">[Performance][Qwen4Exp] Write GBSA results directly to caller output</td>
+  <td>@shaopeng-666</td>
+  <td class="num2">4/7</td>
+  <td class="num2">+186/-3</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">4.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22853" target="_blank" rel="noopener">#22853</a></td>
+  <td class="t">[Performance] Overlap fused Kimi RecoverSSM commits with DSpark on A5</td>
+  <td>@MAyang38</td>
+  <td class="num2">1/14</td>
+  <td class="num2">+8/-1</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">0d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22198" target="_blank" rel="noopener">#22198</a></td>
+  <td class="t">[Misc] Main2Main v0.34.0</td>
+  <td>@jixuanlu</td>
+  <td class="num2">12/181</td>
+  <td class="num2">+60/-117</td>
+  <td>pending</td>
+  <td class="num2">2</td>
+  <td class="num2">5.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22757" target="_blank" rel="noopener">#22757</a></td>
+  <td class="t">[Feature][NPU] Add process-shared multimodal embedding cache</td>
+  <td>@zhujianwei-ops</td>
+  <td class="num2">1/8</td>
+  <td class="num2">+26/-0</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">1.6d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
@@ -685,381 +712,326 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td class="num2">+245/-1</td>
   <td>failure</td>
   <td class="num2">1</td>
-  <td class="num2">20.8d</td>
+  <td class="num2">21d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22761" target="_blank" rel="noopener">#22761</a></td>
-  <td class="t">[BugFix][Attention] Keep SFA draft cache formats consistent with owner specs</td>
-  <td>@recky-c</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22253" target="_blank" rel="noopener">#22253</a></td>
+  <td class="t">[Feature] Enable Qwen3.8 Flash Next DFlash2 on Ascend TP</td>
+  <td>@sunny-rain-63</td>
+  <td class="num2">2/19</td>
+  <td class="num2">+35/-3</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">5.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22343" target="_blank" rel="noopener">#22343</a></td>
+  <td class="t">[Feature][Draft]MoonEP</td>
+  <td>@RainyStone</td>
+  <td class="num2">5/14</td>
+  <td class="num2">+145/-0</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">4.6d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22405" target="_blank" rel="noopener">#22405</a></td>
+  <td class="t">[BugFix] Honor per-layer SwiGLU limits in Ascend MoE</td>
+  <td>@wei-yubo</td>
+  <td class="num2">1/13</td>
+  <td class="num2">+18/-0</td>
+  <td>pending</td>
+  <td class="num2">5</td>
+  <td class="num2">4.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22495" target="_blank" rel="noopener">#22495</a></td>
+  <td class="t">[BugFix][Device] Bind visible NPUs to the --device-ids selection</td>
+  <td>@shiqiangA</td>
   <td class="num2">1/3</td>
-  <td class="num2">+3/-7</td>
+  <td class="num2">+122/-0</td>
+  <td>pending</td>
+  <td class="num2">1</td>
+  <td class="num2">3.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22493" target="_blank" rel="noopener">#22493</a></td>
+  <td class="t">[Feature] support direct reload for BF16 Qwen on Ascend</td>
+  <td>@wuruiyun</td>
+  <td class="num2">1/11</td>
+  <td class="num2">+28/-11</td>
   <td>success</td>
   <td class="num2">0</td>
-  <td class="num2">0.9d</td>
+  <td class="num2">3.7d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22275" target="_blank" rel="noopener">#22275</a></td>
-  <td class="t">[Feature][Attention] Add B1 paged verify for Gemma4 512-dim MTP verify</td>
-  <td>@JinGuoju001</td>
-  <td class="num2">3/11</td>
-  <td class="num2">+89/-0</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">4.7d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22779" target="_blank" rel="noopener">#22779</a></td>
-  <td class="t">[BugFix][Quantization] Route native Kimi-K3 MXFP4 checkpoints through Ascend</td>
-  <td>@hust17yixuan</td>
-  <td class="num2">1/7</td>
-  <td class="num2">+2/-0</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">0.6d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22777" target="_blank" rel="noopener">#22777</a></td>
-  <td class="t">[Performance][Qwen4Exp] Optimize QSA preparation and Indexer pipeline</td>
-  <td>@shaopeng-666</td>
-  <td class="num2">1/47</td>
-  <td class="num2">+0/-1</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">0.6d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21851" target="_blank" rel="noopener">#21851</a></td>
-  <td class="t">[Feature] Port RecoverSSM, PP/SP, Decode-PP and PCP stack to main</td>
-  <td>@Lethobenthos20</td>
-  <td class="num2">6/141</td>
-  <td class="num2">+126/-75</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">9.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22045" target="_blank" rel="noopener">#22045</a></td>
-  <td class="t">[Feature][2/N] [Spec Decode][Qwen GDN] Enable Qwen GDN RecoverSSM on Ascend</td>
-  <td>@hanxi-java</td>
-  <td class="num2">1/57</td>
-  <td class="num2">+2/-2</td>
-  <td>failure</td>
-  <td class="num2">7</td>
-  <td class="num2">6.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22131" target="_blank" rel="noopener">#22131</a></td>
-  <td class="t">[Attention][Feature] Enable PCP decode request sharding for GLM-5.3-Flash</td>
-  <td>@HXL0024</td>
-  <td class="num2">3/30</td>
-  <td class="num2">+14/-5</td>
-  <td>failure</td>
-  <td class="num2">9</td>
-  <td class="num2">5.8d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22207" target="_blank" rel="noopener">#22207</a></td>
-  <td class="t">[Feature][MoE] Fuse the shared expert into the A3 MegaMoe operator for W8A8 (enable_fused_mc2=3)</td>
-  <td>@gaoyuan777</td>
-  <td class="num2">2/8</td>
-  <td class="num2">+19/-13</td>
-  <td>failure</td>
-  <td class="num2">2</td>
-  <td class="num2">5.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21727" target="_blank" rel="noopener">#21727</a></td>
-  <td class="t">[BugFix][MoE] Share DSpark MegaMoE contexts across CANN buffer APIs</td>
-  <td>@rikakuhi</td>
-  <td class="num2">0/6</td>
-  <td class="num2">+0/-0</td>
-  <td>unknown</td>
-  <td class="num2">2</td>
-  <td class="num2">10.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22772" target="_blank" rel="noopener">#22772</a></td>
-  <td class="t">[Feature][HiSparse] Support GLM-5.3-Flash on Ascend A5</td>
-  <td>@LZZhang-HW</td>
-  <td class="num2">5/43</td>
-  <td class="num2">+186/-27</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">0.7d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22793" target="_blank" rel="noopener">#22793</a></td>
-  <td class="t">[Performance] Publish A3 FSA KV plans via shared DDR and Notify</td>
-  <td>@zmc1997</td>
-  <td class="num2">10/26</td>
-  <td class="num2">+1191/-92</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">0.4d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22792" target="_blank" rel="noopener">#22792</a></td>
-  <td class="t">[Performance][Attention] Avoid query concatenation in fused sparse KV offload</td>
-  <td>@zmc1997</td>
-  <td class="num2">3/7</td>
-  <td class="num2">+93/-0</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">0.4d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22624" target="_blank" rel="noopener">#22624</a></td>
-  <td class="t">[Refactor]use upstream KV planning for DeepSeek V4.1</td>
-  <td>@Angazenn</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/16145" target="_blank" rel="noopener">#16145</a></td>
+  <td class="t">[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU</td>
+  <td>@fangyuchu</td>
   <td class="num2">4/21</td>
-  <td class="num2">+43/-2</td>
+  <td class="num2">+171/-10</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">74.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22278" target="_blank" rel="noopener">#22278</a></td>
+  <td class="t">[Feature] Add native INT8 C8 support for Qwen3.8-Flash-Next</td>
+  <td>@ffggs</td>
+  <td class="num2">2/24</td>
+  <td class="num2">+20/-1</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">4.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21627" target="_blank" rel="noopener">#21627</a></td>
+  <td class="t">[Performance] Integrate union GBSA prefill for Qwen4Exp</td>
+  <td>@Dean11879</td>
+  <td class="num2">16/27</td>
+  <td class="num2">+1455/-4</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">11.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21037" target="_blank" rel="noopener">#21037</a></td>
+  <td class="t">[Performance][GDN] Overlap Qwen input projections on Ascend</td>
+  <td>@HF-001</td>
+  <td class="num2">3/10</td>
+  <td class="num2">+92/-10</td>
+  <td>failure</td>
+  <td class="num2">4</td>
+  <td class="num2">18d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22128" target="_blank" rel="noopener">#22128</a></td>
+  <td class="t">[Feature][A3] Support W4A8 MegaMoe shared-expert fusion</td>
+  <td>@pgzddxx</td>
+  <td class="num2">3/19</td>
+  <td class="num2">+21/-10</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">6d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21456" target="_blank" rel="noopener">#21456</a></td>
+  <td class="t">[Refactor][CP] Decouple PCP/DCP metadata, topology and backend selection</td>
+  <td>@cn-sys</td>
+  <td class="num2">2/42</td>
+  <td class="num2">+62/-72</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">12.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/12574" target="_blank" rel="noopener">#12574</a></td>
+  <td class="t">华为淬火行动部署报告</td>
+  <td>@danaodai</td>
+  <td class="num2">5/17</td>
+  <td class="num2">+69/-27</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">123.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22656" target="_blank" rel="noopener">#22656</a></td>
+  <td class="t">[BugFix][PCP] Use rank-local target batches for DFlash and DSpark profiling</td>
+  <td>@wzx0726</td>
+  <td class="num2">1/14</td>
+  <td class="num2">+3/-5</td>
+  <td>failure</td>
+  <td class="num2">2</td>
+  <td class="num2">2.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22670" target="_blank" rel="noopener">#22670</a></td>
+  <td class="t">[BugFix] Rename sparse_flash_attention to sparse_flash_attention_vllm</td>
+  <td>@yanhao5023</td>
+  <td class="num2">27/27</td>
+  <td class="num2">+213/-213</td>
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">2.7d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10905" target="_blank" rel="noopener">#10905</a></td>
-  <td class="t">[Feature] Add Zero-Buffer MoE (ZB) Support for Expert Parallel on Ascend A3</td>
-  <td>@TianlunHu</td>
-  <td class="num2">35/48</td>
-  <td class="num2">+6977/-20</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">151.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8401" target="_blank" rel="noopener">#8401</a></td>
-  <td class="t">[Feature] quarot: support qwen3 modelslim descriptors with fused fast hadamard transformation</td>
-  <td>@egretwAlker</td>
-  <td class="num2">4/11</td>
-  <td class="num2">+1843/-0</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">219.4d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10488" target="_blank" rel="noopener">#10488</a></td>
-  <td class="t">[Feature] Add fused W4A4 INT4 MoE &quot;mega&quot; kernel for Qwen3.x-MoE (Ascend 910B)</td>
-  <td>@Mocchibird</td>
-  <td class="num2">4/13</td>
-  <td class="num2">+1906/-0</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">160.7d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8762" target="_blank" rel="noopener">#8762</a></td>
-  <td class="t">[CI] [v0.18] Fix nightly 0427</td>
-  <td>@aipaes</td>
-  <td class="num2">14/379</td>
-  <td class="num2">+474/-145</td>
-  <td>success</td>
-  <td class="num2">0</td>
-  <td class="num2">209.6d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22592" target="_blank" rel="noopener">#22592</a></td>
-  <td class="t">[BugFix][Ops] Retire eager packaged MLA stream uses on Ascend A5</td>
-  <td>@rikakuhi</td>
-  <td class="num2">1/3</td>
-  <td class="num2">+14/-1</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/19805" target="_blank" rel="noopener">#19805</a></td>
+  <td class="t">[Feature][1/N] Support upstream preload on Ascend Model Runner V2 (ND)</td>
+  <td>@lio1226</td>
+  <td class="num2">4/31</td>
+  <td class="num2">+38/-15</td>
   <td>failure</td>
   <td class="num2">1</td>
-  <td class="num2">2.8d</td>
+  <td class="num2">27.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22198" target="_blank" rel="noopener">#22198</a></td>
-  <td class="t">[Misc] Main2Main v0.34.0</td>
-  <td>@jixuanlu</td>
-  <td class="num2">12/181</td>
-  <td class="num2">+60/-117</td>
-  <td>failure</td>
-  <td class="num2">1</td>
-  <td class="num2">5.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22756" target="_blank" rel="noopener">#22756</a></td>
-  <td class="t">[Feature][Ops] Add A5 grouped matmul SwiGLU OAI MX quantization</td>
-  <td>@grandolantow</td>
-  <td class="num2">18/23</td>
-  <td class="num2">+1414/-0</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22666" target="_blank" rel="noopener">#22666</a></td>
+  <td class="t">[Performance] Vectorise the A3 HiSparse resolver union and merge the emit pass</td>
+  <td>@hoyoho</td>
+  <td class="num2">1/9</td>
+  <td class="num2">+385/-29</td>
   <td>success</td>
   <td class="num2">0</td>
-  <td class="num2">1.4d</td>
+  <td class="num2">2.7d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/15837" target="_blank" rel="noopener">#15837</a></td>
-  <td class="t">[Bugfix][MoE] Add BF16 MegaMoe regression coverage</td>
-  <td>@BESzk</td>
-  <td class="num2">0/2</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22274" target="_blank" rel="noopener">#22274</a></td>
+  <td class="t">[Feature] Add HBM UCE recovery on Ascend</td>
+  <td>@WZN-JJB</td>
+  <td class="num2">5/36</td>
+  <td class="num2">+169/-10</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">4.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22322" target="_blank" rel="noopener">#22322</a></td>
+  <td class="t">[Feature] Support MegaMoe shared-expert fusion (enable_fused_mc2=3) on A3</td>
+  <td>@ZT-AIA</td>
+  <td class="num2">2/11</td>
+  <td class="num2">+16/-15</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">4.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22539" target="_blank" rel="noopener">#22539</a></td>
+  <td class="t">[Performance][MoE] Fuse All2AllV INT8 quantization with token routing</td>
+  <td>@diaochengxi</td>
+  <td class="num2">1/5</td>
+  <td class="num2">+4/-0</td>
+  <td>pending</td>
+  <td class="num2">0</td>
+  <td class="num2">3.5d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21903" target="_blank" rel="noopener">#21903</a></td>
+  <td class="t">[Refactor][MRV2] Reuse unified KV cache allocation for Kimi K3</td>
+  <td>@yxk-fdu</td>
+  <td class="num2">2/10</td>
+  <td class="num2">+47/-30</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">8.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/17579" target="_blank" rel="noopener">#17579</a></td>
+  <td class="t">[Performance][EPLB] Optimize expert mapping and load recording</td>
+  <td>@ShyRa1n</td>
+  <td class="num2">0/8</td>
   <td class="num2">+0/-0</td>
   <td>unknown</td>
   <td class="num2">1</td>
-  <td class="num2">78.7d</td>
+  <td class="num2">56.6d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/15076" target="_blank" rel="noopener">#15076</a></td>
-  <td class="t">[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend</td>
-  <td>@Liuchenbing-2026</td>
-  <td class="num2">4/31</td>
-  <td class="num2">+56/-11</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22761" target="_blank" rel="noopener">#22761</a></td>
+  <td class="t">[BugFix][Attention] Keep SFA draft cache formats consistent with owner specs</td>
+  <td>@recky-c</td>
+  <td class="num2">1/4</td>
+  <td class="num2">+3/-7</td>
   <td>failure</td>
+  <td class="num2">1</td>
+  <td class="num2">1.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22793" target="_blank" rel="noopener">#22793</a></td>
+  <td class="t">[Performance] Publish A3 FSA KV plans via shared DDR and Notify</td>
+  <td>@zmc1997</td>
+  <td class="num2">10/27</td>
+  <td class="num2">+1191/-92</td>
+  <td>success</td>
   <td class="num2">0</td>
-  <td class="num2">87.8d</td>
+  <td class="num2">0.6d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21708" target="_blank" rel="noopener">#21708</a></td>
-  <td class="t">[Feature][LoRA] Extend DeepSeek-V4 LoRA target mapping and quantized MoE support</td>
-  <td>@Liuchenbing-2026</td>
-  <td class="num2">4/33</td>
-  <td class="num2">+56/-11</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">10.6d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21924" target="_blank" rel="noopener">#21924</a></td>
-  <td class="t">[Feature][HiSparse] Enable bulk AscendStore pooling in colocated serving</td>
-  <td>@Esir98</td>
-  <td class="num2">3/50</td>
-  <td class="num2">+18/-2</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">6.9d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/14670" target="_blank" rel="noopener">#14670</a></td>
-  <td class="t">[Feature][Attention][SpecDecode] Support 512-dim paged MTP verify and decode on Model Runner V2</td>
-  <td>@Liuchenbing-2026</td>
-  <td class="num2">2/12</td>
-  <td class="num2">+116/-26</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">94.6d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8966" target="_blank" rel="noopener">#8966</a></td>
-  <td class="t">[Feature]: Ascend Support Gemma4 Model</td>
-  <td>@Alex-stack-hub</td>
-  <td class="num2">2/8</td>
-  <td class="num2">+32/-0</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">198.9d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10547" target="_blank" rel="noopener">#10547</a></td>
-  <td class="t">fix Moe graph</td>
-  <td>@Alex-stack-hub</td>
-  <td class="num2">2/11</td>
-  <td class="num2">+43/-4</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">159.7d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22545" target="_blank" rel="noopener">#22545</a></td>
-  <td class="t">[BugFix][Worker] Preserve measured non-KV memory when sizing the KV cache</td>
-  <td>@YujianGuo</td>
-  <td class="num2">1/5</td>
-  <td class="num2">+11/-26</td>
-  <td>failure</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22625" target="_blank" rel="noopener">#22625</a></td>
+  <td class="t">[Performance][MoE] Avoid redundant token ID preprocessing before hash TopK</td>
+  <td>@pgzddxx</td>
+  <td class="num2">1/7</td>
+  <td class="num2">+3/-0</td>
+  <td>success</td>
   <td class="num2">0</td>
   <td class="num2">2.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/12131" target="_blank" rel="noopener">#12131</a></td>
-  <td class="t">[BugFix] Minimax m3 0716 m</td>
-  <td>@Bill845514379</td>
-  <td class="num2">93/133</td>
-  <td class="num2">+19488/-13</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21680" target="_blank" rel="noopener">#21680</a></td>
+  <td class="t">[Feature][MoE] Add opt-in DSpark expert-pool routing for single-device expert offload</td>
+  <td>@jiemeng6</td>
+  <td class="num2">3/22</td>
+  <td class="num2">+23/-2</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">129.9d</td>
+  <td class="num2">10.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22695" target="_blank" rel="noopener">#22695</a></td>
-  <td class="t">[BugFix][Attention] Unfold causal speculative verification into single-query TND FIA</td>
-  <td>@CZT0</td>
-  <td class="num2">2/8</td>
-  <td class="num2">+6/-1</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21668" target="_blank" rel="noopener">#21668</a></td>
+  <td class="t">[Feature] Support draft_lm_head_quantization on Ascend NPU (mxfp8/int8)</td>
+  <td>@zhaomingyu13</td>
+  <td class="num2">1/9</td>
+  <td class="num2">+21/-0</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">2d</td>
+  <td class="num2">11d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20345" target="_blank" rel="noopener">#20345</a></td>
-  <td class="t">[Performance][Worker] Reuse V2 attention metadata across cache groups and batch GDN state writes</td>
-  <td>@JRHan729</td>
-  <td class="num2">3/26</td>
-  <td class="num2">+684/-13</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21442" target="_blank" rel="noopener">#21442</a></td>
+  <td class="t">[Performance][Model] Fuse rotated Engram gate on Ascend A3</td>
+  <td>@GDzhu01</td>
+  <td class="num2">1/6</td>
+  <td class="num2">+7/-1</td>
   <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">23.7d</td>
+  <td class="num2">2</td>
+  <td class="num2">12.8d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22757" target="_blank" rel="noopener">#22757</a></td>
-  <td class="t">[Feature][NPU] Add process-shared multimodal embedding cache</td>
-  <td>@zhujianwei-ops</td>
-  <td class="num2">1/5</td>
-  <td class="num2">+7/-0</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22720" target="_blank" rel="noopener">#22720</a></td>
+  <td class="t">[Performance] Reuse A5 FP8 C8 indexer metadata across layers</td>
+  <td>@danziheng1024</td>
+  <td class="num2">1/8</td>
+  <td class="num2">+48/-14</td>
   <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">1.4d</td>
+  <td class="num2">1</td>
+  <td class="num2">1.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/11656" target="_blank" rel="noopener">#11656</a></td>
-  <td class="t">[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend</td>
-  <td>@yooooo00</td>
-  <td class="num2">0/18</td>
-  <td class="num2">+0/-0</td>
-  <td>unknown</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22603" target="_blank" rel="noopener">#22603</a></td>
+  <td class="t">[Misc] Upgrade PyTorch and TorchNPU to 2.14.0</td>
+  <td>@tangdafu</td>
+  <td class="num2">1/8</td>
+  <td class="num2">+5/-5</td>
+  <td>pending</td>
   <td class="num2">0</td>
-  <td class="num2">137.3d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/18102" target="_blank" rel="noopener">#18102</a></td>
-  <td class="t">[Performance] Use GateLinear for DeepSeek V4 routers</td>
-  <td>@weijinqian0</td>
-  <td class="num2">0/8</td>
-  <td class="num2">+0/-0</td>
-  <td>unknown</td>
-  <td class="num2">0</td>
-  <td class="num2">44.7d</td>
+  <td class="num2">2.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
@@ -1069,52 +1041,283 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td class="num2">0/10</td>
   <td class="num2">+0/-0</td>
   <td>unknown</td>
-  <td class="num2">0</td>
-  <td class="num2">10.4d</td>
+  <td class="num2">1</td>
+  <td class="num2">10.6d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22774" target="_blank" rel="noopener">#22774</a></td>
-  <td class="t">[BugFix][Attention] Allocate contiguous KV for sink attention graphs</td>
-  <td>@YujianGuo</td>
-  <td class="num2">1/5</td>
-  <td class="num2">+2/-2</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/19555" target="_blank" rel="noopener">#19555</a></td>
+  <td class="t">[Performance] Tile DCP rank reduction on A2/A3</td>
+  <td>@foraxe</td>
+  <td class="num2">0/9</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">3</td>
+  <td class="num2">31.1d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20434" target="_blank" rel="noopener">#20434</a></td>
+  <td class="t">[BugFix][Sample] Restore MRV2 NPU score bindings and custom token scores</td>
+  <td>@iwantknow1</td>
+  <td class="num2">0/11</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">1</td>
+  <td class="num2">22.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22673" target="_blank" rel="noopener">#22673</a></td>
+  <td class="t">[Performance][Ops] Restore A3 HC kernel optimizations with the workspace minimum</td>
+  <td>@xingcanlee</td>
+  <td class="num2">6/9</td>
+  <td class="num2">+225/-674</td>
+  <td>failure</td>
+  <td class="num2">1</td>
+  <td class="num2">2.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21381" target="_blank" rel="noopener">#21381</a></td>
+  <td class="t">[Ops][BugFix] Gate Triton kernels before worker initialization on 310P</td>
+  <td>@unicorn1125</td>
+  <td class="num2">15/80</td>
+  <td class="num2">+165/-88</td>
+  <td>pending</td>
+  <td class="num2">0</td>
+  <td class="num2">13.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22658" target="_blank" rel="noopener">#22658</a></td>
+  <td class="t">[Feature][MoE] Add A3 MegaMoe declarative shared-expert registry and TP AllGather fusion</td>
+  <td>@KeyanHu-git</td>
+  <td class="num2">4/20</td>
+  <td class="num2">+208/-31</td>
+  <td>success</td>
+  <td class="num2">0</td>
+  <td class="num2">2.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20949" target="_blank" rel="noopener">#20949</a></td>
+  <td class="t">[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules</td>
+  <td>@cocobronie2333-dot</td>
+  <td class="num2">2/17</td>
+  <td class="num2">+6/-1</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">0.7d</td>
+  <td class="num2">18.7d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22440" target="_blank" rel="noopener">#22440</a></td>
-  <td class="t">[Refactor][MRV2] Reuse descriptor allocation for GLM SFA cache views</td>
-  <td>@recky-c</td>
-  <td class="num2">2/17</td>
-  <td class="num2">+94/-88</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22215" target="_blank" rel="noopener">#22215</a></td>
+  <td class="t">[Feature] Shard SFA LightningIndexer caches across DCP ranks</td>
+  <td>@tangdafu</td>
+  <td class="num2">4/49</td>
+  <td class="num2">+10/-27</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">5.6d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/18559" target="_blank" rel="noopener">#18559</a></td>
+  <td class="t">[CI] kv_pool cases</td>
+  <td>@guxin108</td>
+  <td class="num2">0/4</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">40.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22655" target="_blank" rel="noopener">#22655</a></td>
+  <td class="t">[Performance][Ops] Enable fused engram_gate on A2/A3 for unrotated checkpoints</td>
+  <td>@Cold-E</td>
+  <td class="num2">1/4</td>
+  <td class="num2">+2/-0</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">2.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/18131" target="_blank" rel="noopener">#18131</a></td>
+  <td class="t">[Performance][Model] Remove TensorMove after DeepSeek V4.1 MXFP8 o_proj</td>
+  <td>@weijinqian0</td>
+  <td class="num2">2/5</td>
+  <td class="num2">+61/-0</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">44.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22742" target="_blank" rel="noopener">#22742</a></td>
+  <td class="t">[Feature][KV Pool] Enable prefill KV offload for GLM-5.3</td>
+  <td>@bowgneo</td>
+  <td class="num2">1/5</td>
+  <td class="num2">+19/-0</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">1.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20633" target="_blank" rel="noopener">#20633</a></td>
+  <td class="t">[CI] add test cases for Qwen3.6-35B-w8a8</td>
+  <td>@weixinAc</td>
+  <td class="num2">0/6</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">20.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/14036" target="_blank" rel="noopener">#14036</a></td>
+  <td class="t">[BugFix] Fix non-streaming response in load balance proxy server</td>
+  <td>@billsysu</td>
+  <td class="num2">0/4</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">103.6d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22505" target="_blank" rel="noopener">#22505</a></td>
+  <td class="t">[BugFix][LoRA] Apply DeepSeek V4 compressor and wo_a adapters</td>
+  <td>@Hartwell666</td>
+  <td class="num2">1/23</td>
+  <td class="num2">+6/-0</td>
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">3.7d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10203" target="_blank" rel="noopener">#10203</a></td>
-  <td class="t">[Feature] Support Container Snapshot and Restore (GRUS) on Ascend NPU</td>
-  <td>@lbr711</td>
-  <td class="num2">3/19</td>
-  <td class="num2">+162/-6</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22627" target="_blank" rel="noopener">#22627</a></td>
+  <td class="t">[BugFix] Fix EPLB compatibility with newer vLLM interfaces</td>
+  <td>@lengrongfu</td>
+  <td class="num2">1/9</td>
+  <td class="num2">+10/-0</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">167.3d</td>
+  <td class="num2">2.9d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22629" target="_blank" rel="noopener">#22629</a></td>
-  <td class="t">[Feature] Integrate Ascend sleep-mode backend</td>
-  <td>@floatlibai</td>
-  <td class="num2">1/12</td>
-  <td class="num2">+39/-64</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22634" target="_blank" rel="noopener">#22634</a></td>
+  <td class="t">[BugFix][v0.32.0rc][EPLB] Rebuild Gloo NZ receives with destination cast recipes</td>
+  <td>@dragondream-chen</td>
+  <td class="num2">1/17</td>
+  <td class="num2">+12/-0</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">2.6d</td>
+  <td class="num2">2.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/13620" target="_blank" rel="noopener">#13620</a></td>
+  <td class="t">[Performance][Ops] Add tensor-level AllGatherMatmul and MM reduce-scatter fusion</td>
+  <td>@Bill845514379</td>
+  <td class="num2">4/13</td>
+  <td class="num2">+922/-266</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">109.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20234" target="_blank" rel="noopener">#20234</a></td>
+  <td class="t">[BugFix][MoE] Share MegaMoE symmetric storage with the DSpark draft</td>
+  <td>@linfeng-yuan</td>
+  <td class="num2">0/5</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">24.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/11507" target="_blank" rel="noopener">#11507</a></td>
+  <td class="t">[Feature] Support w8a16-fp8 quantization</td>
+  <td>@Jinxiao0302</td>
+  <td class="num2">0/8</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">139.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/11075" target="_blank" rel="noopener">#11075</a></td>
+  <td class="t">[BugFix][MoE] Fall back to native experts selection when CANN rejects renorm=1</td>
+  <td>@Ray-RP</td>
+  <td class="num2">0/2</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">147.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21837" target="_blank" rel="noopener">#21837</a></td>
+  <td class="t">[Feature] add  deferred KDA RecoverSSM</td>
+  <td>@10onrats</td>
+  <td class="num2">0/4</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">9.8d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22212" target="_blank" rel="noopener">#22212</a></td>
+  <td class="t">[Test][feat]: add getter methods for max_num_reqs and max_num_tokens</td>
+  <td>@wenjinhust</td>
+  <td class="num2">1/5</td>
+  <td class="num2">+6/-0</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">5.6d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22602" target="_blank" rel="noopener">#22602</a></td>
+  <td class="t">[Refactor][Model] Retire MiniMax-M3 K2Q custom operators</td>
+  <td>@yingyingzizi</td>
+  <td class="num2">94/99</td>
+  <td class="num2">+1/-11773</td>
+  <td>failure</td>
+  <td class="num2">0</td>
+  <td class="num2">2.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21625" target="_blank" rel="noopener">#21625</a></td>
+  <td class="t">[Performance] Fuse DeepSeek V4.1 indexer K cache writes and C2 RMSNorm</td>
+  <td>@lcg1215</td>
+  <td class="num2">0/12</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">11.7d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22640" target="_blank" rel="noopener">#22640</a></td>
+  <td class="t">[BugFix][v0.32.0rc][MoE] Mask graph padding in MC2 and refresh draft masks</td>
+  <td>@dragondream-chen</td>
+  <td class="num2">0/6</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">2.8d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
@@ -1125,34 +1328,34 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td class="num2">+60/-117</td>
   <td>failure</td>
   <td class="num2">0</td>
-  <td class="num2">0.8d</td>
+  <td class="num2">1.1d</td>
   <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22502" target="_blank" rel="noopener">#22502</a></td>
-  <td class="t">[Feature] Opt-in owner-sharded PCP KV cache for DeepSeek V4.1 Flash on A3</td>
-  <td>@foraxe</td>
-  <td class="num2">2/20</td>
-  <td class="num2">+300/-45</td>
-  <td>failure</td>
-  <td class="num2">0</td>
-  <td class="num2">3.5d</td>
-  <td><span class="muted">—</span></td>
-</tr>
-<tr data-verdict="pending">
-  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8391" target="_blank" rel="noopener">#8391</a></td>
-  <td class="t">[BugFix] Fix incorrect DeprecationWarning usage</td>
-  <td>@ivyilike</td>
-  <td class="num2">0/2</td>
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21417" target="_blank" rel="noopener">#21417</a></td>
+  <td class="t">[Performance][Model] Skip DeepSeek V4.1 AllGather MoE padding by default with PCP=1</td>
+  <td>@liuyao0</td>
+  <td class="num2">0/14</td>
   <td class="num2">+0/-0</td>
   <td>unknown</td>
   <td class="num2">0</td>
-  <td class="num2">219.6d</td>
+  <td class="num2">12.9d</td>
+  <td><span class="muted">—</span></td>
+</tr>
+<tr data-verdict="pending">
+  <td><a href="https://github.com/vllm-project/vllm-ascend/pull/19679" target="_blank" rel="noopener">#19679</a></td>
+  <td class="t">[Performance][Model] Reuse DeepSeek V4.1 routing input IDs across DP/PCP</td>
+  <td>@liuyao0</td>
+  <td class="num2">0/8</td>
+  <td class="num2">+0/-0</td>
+  <td>unknown</td>
+  <td class="num2">0</td>
+  <td class="num2">30.5d</td>
   <td><span class="muted">—</span></td>
 </tr></tbody>
   </table>
   <footer>
-    <p>数据源：GitHub REST API · 检视范围：CODEOWNERS 中 @zzzzwwjj 负责的 175 条规则 · 本次调用 280 次</p>
+    <p>数据源：GitHub REST API · 检视范围：CODEOWNERS 中 @zzzzwwjj 负责的 175 条规则 · 本次调用 353 次</p>
     <p>仅收录「显式请求我检视」且我尚未在当前提交上给出结论的 PR；草稿与已批准的自有 PR 不计入。本页仅含公开信息。</p>
   </footer>
 </div>
