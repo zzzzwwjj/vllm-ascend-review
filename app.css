@@ -82,3 +82,9 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   header,.content{padding-left:14px;padding-right:14px}
   td.t{max-width:none}
 }
+body.loading::before{content:'';position:fixed;top:0;left:0;height:2px;width:100%;z-index:60;background:linear-gradient(90deg,transparent,var(--blue),transparent);animation:loadbar .9s linear infinite}
+@keyframes loadbar{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.sk{background:var(--card);border:1px solid var(--line);border-radius:10px;height:86px;margin-bottom:12px;position:relative;overflow:hidden}
+.sk::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(127,127,127,.10),transparent);animation:shimmer 1.2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+a.ed{transition:background .12s ease}

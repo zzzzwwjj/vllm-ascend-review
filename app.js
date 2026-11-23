@@ -1,9 +1,11 @@
 // Client-side renderer for the review board.
-// The HTML shell is static; everything below is rebuilt from data/*.json on every load,
-// so an edition page can never carry a stale sidebar.
+// The HTML shell is static; everything is rebuilt from data/*.json.
+// Edition switches are client-side (history.pushState) and editions are immutable,
+// so revisiting one is served from memory or the HTTP cache instead of the network.
 (function () {
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map() };
   const params = new URLSearchParams(location.search);
-  const want = params.get('e');
+  const app = () => document.getElementById('app');
 
   const esc = (s) => String(s ?? '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -30,25 +32,24 @@
     return '<span class="b b-wait">CI 进行中 · ' + (ci.pending || 0) + '</span>';
   };
 
-  function sidebar(editions, currentId) {
+  function sidebar() {
     let lastDay = '';
-    const items = editions.map((e) => {
+    const items = state.editions.map((e) => {
       const v = e.verdicts || {};
       const day = dayOf(e.at);
       const head = day !== lastDay ? '<div class="ed-day">' + esc(day) + '</div>' : '';
       lastDay = day;
-      return head + '<a class="ed' + (e.id === currentId ? ' active' : '') + '" href="?e=' + encodeURIComponent(e.id) + '">' +
+      return head + '<a class="ed' + (e.id === state.current ? ' active' : '') + '" data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">' +
         '<span class="ed-when">' + esc(tz(e.at).slice(6)) + '</span>' +
         '<span class="ed-nums">新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0) + '</span>' +
         '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
     }).join('');
-    return '<aside class="side"><div class="side-head"><a href="./" class="brand">vLLM-Ascend<br><span>待我检视</span></a>' +
-      '<p class="side-sub">@' + esc(data_user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
-      '<div class="side-title">历史记录 <span>' + editions.length + '</span></div>' +
+    const user = state.idx?.user || '';
+    return '<aside class="side"><div class="side-head"><a href="./" class="brand" data-nav="' + esc(state.idx?.current || '') + '">vLLM-Ascend<br><span>待我检视</span></a>' +
+      '<p class="side-sub">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
+      '<div class="side-title">历史记录 <span>' + state.editions.length + '</span></div>' +
       '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav></aside>';
   }
-
-  let data_user = '';
 
   function card(p) {
     const r = p.review || null;
@@ -94,6 +95,8 @@
       '<td>' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>' : '<span class="muted">—</span>') + '</td></tr>';
   }
 
+  const skeleton = '<h2>本期精读</h2><div class="sk"></div><div class="sk"></div><div class="sk"></div><h2>其余新增</h2><div class="sk"></div>';
+
   function content(data) {
     if (data.legacy_content_html) return data.legacy_content_html;
     const deep = (data.deep || []).map(card).join('');
@@ -106,6 +109,22 @@
       '<tbody>' + (rest || '<tr><td colspan="9" class="muted">无</td></tr>') + '</tbody></table>';
   }
 
+  function header(data, meta, isLatest) {
+    const stats = data?.stats || meta.stats || {};
+    const v = meta.verdicts || {};
+    const w = data?.window || meta.window || {};
+    const at = data?.at || meta.at;
+    return '<header><h1>vLLM-Ascend 待我检视 <span class="at">@' + esc(data?.user || state.idx?.user || '') + '</span>' +
+      (isLatest ? '<span class="b b-ok" style="margin-left:8px">最新</span>' : '') + '</h1>' +
+      '<p class="sub">窗口 ' + tz(w.start) + ' → ' + tz(w.end) + (w.hours != null ? '（' + w.hours + ' 小时）' : '') +
+      (w.reason ? ' · ' + esc(w.reason) : '') + ' · 生成于 ' + tz(at) + '（Asia/Shanghai）</p>' +
+      '<div class="stats"><span>本期新增 ' + (stats.fresh ?? 0) + '</span><span>精读 ' + (stats.deep ?? 0) + '</span>' +
+      '<span>列表 ' + (stats.rest ?? 0) + '</span>' +
+      (stats.skipped != null ? '<span>跳过 ' + stats.skipped + '</span>' : '') +
+      (stats.owned_prs != null ? '<span>我负责的 PR ' + stats.owned_prs + '</span>' : '') +
+      '<span>可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0) + '</span></div></header>';
+  }
+
   function wireFilter() {
     const q = document.getElementById('q');
     if (!q) return;
@@ -116,48 +135,118 @@
     });
   }
 
-  async function getJson(url) {
-    const r = await fetch(url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now(), { cache: 'no-store' });
-    if (!r.ok) throw new Error(url + ' -> ' + r.status);
-    return r.json();
+  function render(id, data) {
+    const meta = state.editions.find((e) => e.id === id) || state.editions[0];
+    const isLatest = id === (state.idx.current || state.editions[0].id);
+    document.title = (isLatest ? '最新一期' : tz(meta.at)) + ' · vLLM-Ascend 待我检视 · @' + (data?.user || state.idx?.user || '');
+    app().innerHTML = '<div class="layout">' + sidebar() + '<main>' + header(data, meta, isLatest) +
+      '<div class="content">' + (data ? content(data) : skeleton) + '</div></main></div>';
+    if (data) wireFilter();
   }
 
-  function fail(msg) {
-    document.getElementById('app').innerHTML = '<div style="padding:40px;max-width:720px;margin:0 auto">' +
-      '<h1 style="font-size:18px">看板数据加载失败</h1><p class="muted">' + esc(msg) + '</p>' +
-      '<p class="muted">数据在 <a href="data/index.json">data/index.json</a>，可稍后重试。</p></div>';
+  async function loadIndex() {
+    const r = await fetch('data/index.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('index ' + r.status);
+    const idx = await r.json();
+    state.idx = idx;
+    state.editions = (idx.editions || []).slice().sort((a, b) => new Date(b.at) - new Date(a.at));
   }
 
-  async function main() {
-    const idx = await getJson('data/index.json');
-    const editions = (idx.editions || []).slice().sort((a, b) => new Date(b.at) - new Date(a.at));
-    if (!editions.length) return fail('还没有任何一期数据');
-    const id = want && editions.some((e) => e.id === want) ? want : idx.current || editions[0].id;
-    const meta = editions.find((e) => e.id === id) || editions[0];
-    const data = await getJson('data/runs/' + encodeURIComponent(id) + '.json');
-    data_user = data.user || idx.user || '';
-    const isLatest = id === (idx.current || editions[0].id);
-
-    document.title = (isLatest ? '最新一期' : tz(meta.at)) + ' · vLLM-Ascend 待我检视 · @' + data_user;
-
-    const stats = data.stats || meta.stats || {};
-    const v = meta.verdicts || {};
-    const w = data.window || {};
-    const header =
-      '<header><h1>vLLM-Ascend 待我检视 <span class="at">@' + esc(data_user) + '</span>' +
-      (isLatest ? '<span class="b b-ok" style="margin-left:8px">最新</span>' : '') + '</h1>' +
-      '<p class="sub">窗口 ' + tz(w.start) + ' → ' + tz(w.end) + (w.hours != null ? '（' + w.hours + ' 小时）' : '') +
-      (w.reason ? ' · ' + esc(w.reason) : '') + ' · 生成于 ' + tz(data.at || meta.at) + '（Asia/Shanghai）</p>' +
-      '<div class="stats"><span>本期新增 ' + (stats.fresh ?? 0) + '</span><span>精读 ' + (stats.deep ?? 0) + '</span>' +
-      '<span>列表 ' + (stats.rest ?? 0) + '</span>' +
-      (stats.skipped != null ? '<span>跳过 ' + stats.skipped + '</span>' : '') +
-      (stats.owned_prs != null ? '<span>我负责的 PR ' + stats.owned_prs + '</span>' : '') +
-      '<span>可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0) + '</span></div></header>';
-
-    document.getElementById('app').innerHTML = '<div class="layout">' + sidebar(editions, id) +
-      '<main>' + header + '<div class="content">' + content(data) + '</div></main></div>';
-    wireFilter();
+  function editionUrl(id) {
+    const meta = state.editions.find((e) => e.id === id);
+    return 'data/runs/' + encodeURIComponent(id) + '.json' + (meta?.v ? '?v=' + meta.v : '');
   }
 
-  main().catch((e) => fail(e.message || String(e)));
+  async function loadEdition(id) {
+    if (state.cache.has(id)) return state.cache.get(id);
+    if (state.pending.has(id)) return state.pending.get(id);
+    const p = fetch(editionUrl(id))
+      .then((r) => { if (!r.ok) throw new Error('edition ' + r.status); return r.json(); })
+      .then((d) => { state.cache.set(id, d); state.pending.delete(id); return d; })
+      .catch((e) => { state.pending.delete(id); throw e; });
+    state.pending.set(id, p);
+    return p;
+  }
+
+  function prefetch(id) {
+    if (!id || state.cache.has(id)) return;
+    loadEdition(id).catch(() => {});
+  }
+
+  let loadingTimer = null;
+  function setLoading(on) {
+    if (on) {
+      if (loadingTimer) return;
+      loadingTimer = setTimeout(() => document.body.classList.add('loading'), 120);
+    } else {
+      clearTimeout(loadingTimer);
+      loadingTimer = null;
+      document.body.classList.remove('loading');
+    }
+  }
+
+  async function go(id, push) {
+    if (!state.editions.some((e) => e.id === id)) id = state.idx.current || state.editions[0].id;
+    state.current = id;
+    if (push) history.pushState({ id }, '', '?e=' + encodeURIComponent(id));
+    const cached = state.cache.get(id);
+    render(id, cached || null);
+    if (!cached) {
+      window.scrollTo(0, 0);
+      setLoading(true);
+      try {
+        const data = await loadEdition(id);
+        if (state.current === id) render(id, data);
+      } catch (e) {
+        app().innerHTML = '<div style="padding:40px;max-width:720px;margin:0 auto"><h1 style="font-size:18px">加载失败</h1>' +
+          '<p class="muted">' + esc(e.message) + '</p><p><a href="./">返回最新一期</a></p></div>';
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[data-nav]');
+    if (!a) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    go(a.dataset.nav, true);
+  });
+
+  document.addEventListener('pointerover', (e) => {
+    const a = e.target.closest('a[data-nav]');
+    if (a) prefetch(a.dataset.nav);
+  });
+  document.addEventListener('focusin', (e) => {
+    const a = e.target.closest('a[data-nav]');
+    if (a) prefetch(a.dataset.nav);
+  });
+
+  window.addEventListener('popstate', () => {
+    const id = new URLSearchParams(location.search).get('e') || state.idx.current;
+    go(id, false);
+  });
+
+  function idlePrefetch() {
+    const run = () => state.editions.slice(0, 3).forEach((e) => prefetch(e.id));
+    if (window.requestIdleCallback) window.requestIdleCallback(run, { timeout: 2500 });
+    else setTimeout(run, 1200);
+  }
+
+  (async function main() {
+    try {
+      await loadIndex();
+      if (!state.editions.length) throw new Error('还没有任何一期数据');
+      const want = params.get('e');
+      const id = want && state.editions.some((e) => e.id === want) ? want : state.idx.current || state.editions[0].id;
+      await go(id, false);
+      idlePrefetch();
+    } catch (e) {
+      app().innerHTML = '<div style="padding:40px;max-width:720px;margin:0 auto"><h1 style="font-size:18px">看板数据加载失败</h1>' +
+        '<p class="muted">' + esc(e.message || String(e)) + '</p><p class="muted">数据在 <a href="data/index.json">data/index.json</a>。</p></div>';
+    }
+  })();
 })();
