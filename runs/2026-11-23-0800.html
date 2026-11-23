@@ -25,6 +25,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,
 .ed-dots{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-left:4px}
 .ed-day{font-size:11px;color:var(--muted);margin:8px 0 2px;letter-spacing:.3px}
+.update-bar{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;background:#fff7e6;color:#7a4b00;border-bottom:1px solid #f0c36d;padding:8px 14px;font-size:13px}
+@media (prefers-color-scheme:dark){.update-bar{background:#2a2114;color:#f5c76a;border-bottom-color:#5a4620}}
+.update-bar a{color:inherit;font-weight:600}
+.update-bar button{background:none;border:0;color:inherit;font-size:16px;cursor:pointer;line-height:1}
 .dot.ok{background:var(--ok)}.dot.look{background:var(--blue)}.dot.push{background:var(--bad)}
 main{min-width:0}
 header{padding:26px 26px 12px}
@@ -87,7 +91,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
 }
 </style>
 </head>
-<body>
+<body data-base="../" data-edition="2026-11-23-0800" data-latest="0">
 <div class="layout">
 <aside class="side">
   <div class="side-head">
@@ -614,7 +618,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">2.3d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/13219" target="_blank" rel="noopener">#13219</a></td>
@@ -625,7 +629,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">115d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/12453" target="_blank" rel="noopener">#12453</a></td>
@@ -636,7 +640,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">124.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/14036" target="_blank" rel="noopener">#14036</a></td>
@@ -647,7 +651,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">103.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20311" target="_blank" rel="noopener">#20311</a></td>
@@ -658,7 +662,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">3</td>
   <td class="num2">23.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21587" target="_blank" rel="noopener">#21587</a></td>
@@ -669,7 +673,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">5</td>
   <td class="num2">11.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20613" target="_blank" rel="noopener">#20613</a></td>
@@ -680,7 +684,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">1</td>
   <td class="num2">20.8d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22761" target="_blank" rel="noopener">#22761</a></td>
@@ -691,7 +695,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22275" target="_blank" rel="noopener">#22275</a></td>
@@ -702,7 +706,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">4.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22779" target="_blank" rel="noopener">#22779</a></td>
@@ -713,7 +717,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22777" target="_blank" rel="noopener">#22777</a></td>
@@ -724,7 +728,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21851" target="_blank" rel="noopener">#21851</a></td>
@@ -735,7 +739,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">9.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22045" target="_blank" rel="noopener">#22045</a></td>
@@ -746,7 +750,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">7</td>
   <td class="num2">6.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22131" target="_blank" rel="noopener">#22131</a></td>
@@ -757,7 +761,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">9</td>
   <td class="num2">5.8d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22207" target="_blank" rel="noopener">#22207</a></td>
@@ -768,7 +772,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">2</td>
   <td class="num2">5.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21727" target="_blank" rel="noopener">#21727</a></td>
@@ -779,7 +783,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">2</td>
   <td class="num2">10.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22772" target="_blank" rel="noopener">#22772</a></td>
@@ -790,7 +794,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22793" target="_blank" rel="noopener">#22793</a></td>
@@ -801,7 +805,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22792" target="_blank" rel="noopener">#22792</a></td>
@@ -812,7 +816,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">0.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22624" target="_blank" rel="noopener">#22624</a></td>
@@ -823,7 +827,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">2.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10905" target="_blank" rel="noopener">#10905</a></td>
@@ -834,7 +838,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">151.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8401" target="_blank" rel="noopener">#8401</a></td>
@@ -845,7 +849,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">219.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10488" target="_blank" rel="noopener">#10488</a></td>
@@ -856,7 +860,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">160.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8762" target="_blank" rel="noopener">#8762</a></td>
@@ -867,7 +871,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">209.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22592" target="_blank" rel="noopener">#22592</a></td>
@@ -878,7 +882,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">1</td>
   <td class="num2">2.8d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22198" target="_blank" rel="noopener">#22198</a></td>
@@ -889,7 +893,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">1</td>
   <td class="num2">5.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22756" target="_blank" rel="noopener">#22756</a></td>
@@ -900,7 +904,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>success</td>
   <td class="num2">0</td>
   <td class="num2">1.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/15837" target="_blank" rel="noopener">#15837</a></td>
@@ -911,7 +915,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">1</td>
   <td class="num2">78.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/15076" target="_blank" rel="noopener">#15076</a></td>
@@ -922,7 +926,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">87.8d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21708" target="_blank" rel="noopener">#21708</a></td>
@@ -933,7 +937,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">10.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21924" target="_blank" rel="noopener">#21924</a></td>
@@ -944,7 +948,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">6.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/14670" target="_blank" rel="noopener">#14670</a></td>
@@ -955,7 +959,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">94.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8966" target="_blank" rel="noopener">#8966</a></td>
@@ -966,7 +970,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">198.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10547" target="_blank" rel="noopener">#10547</a></td>
@@ -977,7 +981,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">159.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22545" target="_blank" rel="noopener">#22545</a></td>
@@ -988,7 +992,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">2.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/12131" target="_blank" rel="noopener">#12131</a></td>
@@ -999,7 +1003,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">129.9d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22695" target="_blank" rel="noopener">#22695</a></td>
@@ -1010,7 +1014,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">2d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/20345" target="_blank" rel="noopener">#20345</a></td>
@@ -1021,7 +1025,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">23.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22757" target="_blank" rel="noopener">#22757</a></td>
@@ -1032,7 +1036,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">1.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/11656" target="_blank" rel="noopener">#11656</a></td>
@@ -1043,7 +1047,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">0</td>
   <td class="num2">137.3d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/18102" target="_blank" rel="noopener">#18102</a></td>
@@ -1054,7 +1058,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">0</td>
   <td class="num2">44.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/21730" target="_blank" rel="noopener">#21730</a></td>
@@ -1065,7 +1069,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">0</td>
   <td class="num2">10.4d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22774" target="_blank" rel="noopener">#22774</a></td>
@@ -1076,7 +1080,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">0.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22440" target="_blank" rel="noopener">#22440</a></td>
@@ -1087,7 +1091,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">3.7d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/10203" target="_blank" rel="noopener">#10203</a></td>
@@ -1098,7 +1102,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">167.3d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22629" target="_blank" rel="noopener">#22629</a></td>
@@ -1109,7 +1113,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">2.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22768" target="_blank" rel="noopener">#22768</a></td>
@@ -1120,7 +1124,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">0.8d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/22502" target="_blank" rel="noopener">#22502</a></td>
@@ -1131,7 +1135,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>failure</td>
   <td class="num2">0</td>
   <td class="num2">3.5d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr>
 <tr data-verdict="pending">
   <td><a href="https://github.com/vllm-project/vllm-ascend/pull/8391" target="_blank" rel="noopener">#8391</a></td>
@@ -1142,7 +1146,7 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
   <td>unknown</td>
   <td class="num2">0</td>
   <td class="num2">219.6d</td>
-  <td><span class="b v-pending sm">精读未完成</span></td>
+  <td><span class="muted">—</span></td>
 </tr></tbody>
   </table>
   <footer>
@@ -1153,6 +1157,59 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
 </main>
 </div>
 <script>
+(function () {
+  const inRuns = /\/runs\//.test(location.pathname);
+  const base = inRuns ? '../' : '';
+  const m = location.pathname.match(/runs\/([\d-]+)\.html/);
+  const cur = document.body.dataset.edition || (m ? m[1] : '');
+  const isLatest = location.pathname.indexOf('/runs/') === -1;
+  const tz = (iso) => new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso));
+  const esc = (x) => String(x ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  async function refreshSidebar() {
+    const nav = document.querySelector('nav.eds');
+    if (!nav) return;
+    try {
+      const r = await fetch(base + 'data/index.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const idx = await r.json();
+      const eds = (idx.editions || []).slice().sort((a, b) => new Date(b.at) - new Date(a.at));
+      if (!eds.length || eds.length <= document.querySelectorAll('a.ed').length) return;
+      let lastDay = '';
+      nav.innerHTML = eds.map((e) => {
+        const v = e.verdicts || {};
+        const when = tz(e.at);
+        const day = when.slice(0, 5);
+        const head = day !== lastDay ? '<div class="ed-day">' + esc(day) + '</div>' : '';
+        lastDay = day;
+        return head + '<a class="ed' + (e.id === cur ? ' active' : '') + '" href="' + base + 'runs/' + esc(e.id) + '.html">' +
+          '<span class="ed-when">' + esc(when.slice(6)) + '</span>' +
+          '<span class="ed-nums">新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0) + '</span>' +
+          '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
+      }).join('');
+    } catch (e) { /* keep the static sidebar */ }
+  }
+
+  async function checkNewer() {
+    if (!isLatest) return;
+    try {
+      const r = await fetch('data/latest.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const latest = await r.json();
+      if (!latest.edition || latest.edition === cur) return;
+      const bar = document.createElement('div');
+      bar.className = 'update-bar';
+      bar.innerHTML = '站点已有更新的一期（<b>' + tz(latest.at) + '</b>，新增 ' + (latest.stats?.fresh ?? 0) +
+        '）· <a href="runs/' + encodeURIComponent(latest.edition) + '.html">查看新一期</a> <button type="button" aria-label="关闭">×</button>';
+      bar.querySelector('button').onclick = () => bar.remove();
+      document.body.prepend(bar);
+    } catch (e) { /* offline: ignore */ }
+  }
+
+  refreshSidebar();
+  checkNewer();
+})();
+
 const q = document.getElementById('q');
 const rows = [...document.querySelectorAll('#all tbody tr')];
 q?.addEventListener('input', () => {
