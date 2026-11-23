@@ -1,0 +1,133 @@
+{
+  "edition": {
+    "id": "2026-11-23-1300",
+    "at": "2026-11-23T05:00:15.179Z",
+    "window": {
+      "start": "2026-11-23T00:00:23.033Z",
+      "end": "2026-11-23T05:00:15.179Z",
+      "hours": 5
+    },
+    "stats": {
+      "fresh": 87,
+      "deep": 20,
+      "rest": 67,
+      "skipped": 4
+    },
+    "verdicts": {
+      "approve": 5,
+      "look": 15,
+      "pushback": 0,
+      "pending": 0
+    },
+    "api_calls": 353
+  },
+  "window": {
+    "start": "2026-11-23T00:00:23.033Z",
+    "end": "2026-11-23T05:00:15.179Z",
+    "reason": "自上次运行 11-23 08:00",
+    "hours": 5
+  },
+  "deep": [
+    {
+      "number": 21697,
+      "title": "[BugFix][CI] Add Qwen3.8-Flash-Next TP2 IPC coverage for A3 and A5",
+      "verdict": "look"
+    },
+    {
+      "number": 21019,
+      "title": "[Refactor] Migrate MLA DCP graph parameter updates to UpdatableGraph",
+      "verdict": "look"
+    },
+    {
+      "number": 20796,
+      "title": "[BugFix] Support batch-shared with adaptive verification",
+      "verdict": "approve"
+    },
+    {
+      "number": 21658,
+      "title": "[Performance][DSV4.1] Shard DeepSeek V4.1 indexer query rows across TP ranks",
+      "verdict": "approve"
+    },
+    {
+      "number": 21444,
+      "title": "[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts",
+      "verdict": "look"
+    },
+    {
+      "number": 15883,
+      "title": "[Feature] Add decode Mooncake host DRAM allocation for sparse KV offload",
+      "verdict": "look"
+    },
+    {
+      "number": 21624,
+      "title": "[Feature][Model] Add Kimi fine-grained projection and shared-expert TP",
+      "verdict": "look"
+    },
+    {
+      "number": 22135,
+      "title": "[BugFix][Upstream] Guard hf_config.model_type accesses with getattr",
+      "verdict": "look"
+    },
+    {
+      "number": 20479,
+      "title": "[Refactor][KV Cache] Remove DSV4 exclusion from hybrid allocation",
+      "verdict": "look"
+    },
+    {
+      "number": 21675,
+      "title": "[Feature] support MLA attention mode for Kimi-K3.1 DFlash2 draft models",
+      "verdict": "look"
+    },
+    {
+      "number": 16335,
+      "title": "[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family",
+      "verdict": "look"
+    },
+    {
+      "number": 21935,
+      "title": "[Feature] Support Qwen4-Exp batch-invariant execution on Ascend",
+      "verdict": "look"
+    },
+    {
+      "number": 16219,
+      "title": "[Feature][Sparse KV Offload] Support non-memfabric fused-overlap membership staging and d2h graph writeback",
+      "verdict": "look"
+    },
+    {
+      "number": 22045,
+      "title": "[Feature][2/N] [Spec Decode][Qwen GDN] Enable Qwen GDN RecoverSSM on Ascend",
+      "verdict": "approve"
+    },
+    {
+      "number": 22412,
+      "title": "[Refactor][xlite] XliteWorker inherits NPUWorker.init_device via a _make_model_runner hook",
+      "verdict": "approve"
+    },
+    {
+      "number": 17556,
+      "title": "[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard",
+      "verdict": "approve"
+    },
+    {
+      "number": 20758,
+      "title": "[Refactor][V2] Move kernel block handling into AttentionGroup",
+      "verdict": "look"
+    },
+    {
+      "number": 19212,
+      "title": "[Feature][KVTransfer] Support Mooncake V2 with SFA-managed Host KV",
+      "verdict": "look"
+    },
+    {
+      "number": 20205,
+      "title": "[Feature] Support draft model weight updates over HCCL",
+      "verdict": "look"
+    },
+    {
+      "number": 18389,
+      "title": "[BugFix][Worker] Validate KV cache sizing when free NPU memory is unchanged",
+      "verdict": "look"
+    }
+  ],
+  "rest_count": 67
+}
