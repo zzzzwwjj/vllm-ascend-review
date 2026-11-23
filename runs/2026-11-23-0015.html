@@ -95,7 +95,12 @@ footer{margin-top:26px;color:var(--muted);font-size:12px}
     <p class="side-sub">@zzzzwwjj · 每工作日 08:00 / 13:00 / 18:00</p>
   </div>
   <div class="side-title">历史记录 <span>1</span></div>
-  <nav class="eds"><div class="ed-day">11-23</div><a class="ed active" href="../runs/2026-11-23-0015.html">
+  <nav class="eds"><div class="ed-day">11-23</div><a class="ed" href="../runs/2026-11-23-0800.html">
+  <span class="ed-when">08:00</span>
+  <span class="ed-nums">新增 69 · 精读 20</span>
+  <span class="ed-dots"><i class="dot ok"></i>6<i class="dot look"></i>12<i class="dot push"></i>2</span>
+</a>
+<a class="ed active" href="../runs/2026-11-23-0015.html">
   <span class="ed-when">00:15</span>
   <span class="ed-nums">新增 226 · 精读 20</span>
   <span class="ed-dots"><i class="dot ok"></i>5<i class="dot look"></i>15<i class="dot push"></i>0</span>
@@ -2881,6 +2886,59 @@ q?.addEventListener('input', () => {
   const v = q.value.trim().toLowerCase();
   for (const r of rows) r.style.display = !v || r.textContent.toLowerCase().includes(v) ? '' : 'none';
 });
+</script>
+<script>
+(function () {
+  const inRuns = /\/runs\//.test(location.pathname);
+  const base = inRuns ? '../' : '';
+  const m = location.pathname.match(/runs\/([\d-]+)\.html/);
+  const cur = document.body.dataset.edition || (m ? m[1] : '');
+  const isLatest = location.pathname.indexOf('/runs/') === -1;
+  const tz = (iso) => new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso));
+  const esc = (x) => String(x ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  async function refreshSidebar() {
+    const nav = document.querySelector('nav.eds');
+    if (!nav) return;
+    try {
+      const r = await fetch(base + 'data/index.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const idx = await r.json();
+      const eds = (idx.editions || []).slice().sort((a, b) => new Date(b.at) - new Date(a.at));
+      if (!eds.length || eds.length <= document.querySelectorAll('a.ed').length) return;
+      let lastDay = '';
+      nav.innerHTML = eds.map((e) => {
+        const v = e.verdicts || {};
+        const when = tz(e.at);
+        const day = when.slice(0, 5);
+        const head = day !== lastDay ? '<div class="ed-day">' + esc(day) + '</div>' : '';
+        lastDay = day;
+        return head + '<a class="ed' + (e.id === cur ? ' active' : '') + '" href="' + base + 'runs/' + esc(e.id) + '.html">' +
+          '<span class="ed-when">' + esc(when.slice(6)) + '</span>' +
+          '<span class="ed-nums">新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0) + '</span>' +
+          '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
+      }).join('');
+    } catch (e) { /* keep the static sidebar */ }
+  }
+
+  async function checkNewer() {
+    if (!isLatest) return;
+    try {
+      const r = await fetch('data/latest.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const latest = await r.json();
+      if (!latest.edition || latest.edition === cur) return;
+      const bar = document.createElement('div');
+      bar.className = 'update-bar';
+      bar.innerHTML = '站点已有更新的一期（<b>' + tz(latest.at) + '</b>，新增 ' + (latest.stats?.fresh ?? 0) +
+        '）· <a href="runs/' + encodeURIComponent(latest.edition) + '.html">查看新一期</a> <button type="button" aria-label="关闭">×</button>';
+      bar.querySelector('button').onclick = () => bar.remove();
+      document.body.prepend(bar);
+    } catch (e) { /* offline: ignore */ }
+  }
+
+  refreshSidebar();
+  checkNewer();
 </script>
 </body>
 </html>
