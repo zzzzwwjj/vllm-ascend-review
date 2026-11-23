@@ -1,0 +1,133 @@
+{
+  "edition": {
+    "id": "2026-11-23-0800",
+    "at": "2026-11-23T00:00:23.033Z",
+    "window": {
+      "start": "2026-11-22T16:15:12.516Z",
+      "end": "2026-11-23T00:00:23.033Z",
+      "hours": 7.8
+    },
+    "stats": {
+      "fresh": 69,
+      "deep": 20,
+      "rest": 49,
+      "skipped": 0
+    },
+    "verdicts": {
+      "approve": 6,
+      "look": 12,
+      "pushback": 2,
+      "pending": 0
+    },
+    "api_calls": 280
+  },
+  "window": {
+    "start": "2026-11-22T16:15:12.516Z",
+    "end": "2026-11-23T00:00:23.033Z",
+    "reason": "自上次运行 2026-11-22T16:15:12.516Z",
+    "hours": 7.8
+  },
+  "deep": [
+    {
+      "number": 22089,
+      "title": "[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PCP",
+      "verdict": "approve"
+    },
+    {
+      "number": 20796,
+      "title": "[BugFix] Support batch-shared with adaptive verification",
+      "verdict": "look"
+    },
+    {
+      "number": 22307,
+      "title": "refactor: make Ascend code paths Model Runner V2 only",
+      "verdict": "approve"
+    },
+    {
+      "number": 17556,
+      "title": "[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard",
+      "verdict": "approve"
+    },
+    {
+      "number": 21831,
+      "title": "[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP",
+      "verdict": "look"
+    },
+    {
+      "number": 22495,
+      "title": "[BugFix][Device] Bind visible NPUs to the --device-ids selection",
+      "verdict": "look"
+    },
+    {
+      "number": 22539,
+      "title": "[Performance][MoE] Fuse All2AllV INT8 quantization with token routing",
+      "verdict": "approve"
+    },
+    {
+      "number": 12651,
+      "title": "[BugFix]refresh Ascend MoE comm state after L2 wake to fix ep+sleep level2 precision issue",
+      "verdict": "look"
+    },
+    {
+      "number": 12069,
+      "title": "[Refactor]update permute/unpermute to init_routing/finalize_routing",
+      "verdict": "pushback"
+    },
+    {
+      "number": 16335,
+      "title": "[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family",
+      "verdict": "look"
+    },
+    {
+      "number": 21675,
+      "title": "[Feature] support MLA attention mode for DFlash2 draft models",
+      "verdict": "look"
+    },
+    {
+      "number": 20949,
+      "title": "[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules",
+      "verdict": "look"
+    },
+    {
+      "number": 21444,
+      "title": "[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts",
+      "verdict": "look"
+    },
+    {
+      "number": 22538,
+      "title": "[Performance][Model] Reuse Qwen4Exp HC block output across streams",
+      "verdict": "approve"
+    },
+    {
+      "number": 22808,
+      "title": "[Feature][KV Cache] Support HND for GLM-MoE-DSA with DFlash",
+      "verdict": "look"
+    },
+    {
+      "number": 11906,
+      "title": "[Feature] Integrate speculative dynamic top-k in speculative decoding",
+      "verdict": "look"
+    },
+    {
+      "number": 12574,
+      "title": "华为淬火行动部署报告",
+      "verdict": "pushback"
+    },
+    {
+      "number": 16336,
+      "title": "[Ops][Feature] Fused Triton Qwen vision QKV, RoPE, and FIA padding",
+      "verdict": "approve"
+    },
+    {
+      "number": 21456,
+      "title": "[Refactor][CP] Decouple PCP/DCP metadata, topology and backend selection",
+      "verdict": "look"
+    },
+    {
+      "number": 7964,
+      "title": "[Attention][Feature] Support Llama-4-Scout-17B-16E-Instruct",
+      "verdict": "look"
+    }
+  ],
+  "rest_count": 49
+}
