@@ -110,7 +110,8 @@
           "本轮新提交按 body 说明把早期 revision 的 descriptor-driven layout builder 与 reshape refactor 移出范围，请确认当前 head 只剩 patch 中的这些改动；body 仍写 model_type == \"deepseek_v4\"，与代码含 deepseek_v41 不一致，也请一并对齐。"
         ],
         "recommend": "先让作者澄清 deepseek_v41_text 与 hf_config/hf_text_config 取值，并补一个缺失 model_type 的失败用例，再批准。"
-      }
+      },
+      "review_sha": "987ea7003a1e"
     },
     {
       "number": 19805,
@@ -230,7 +231,8 @@
           "PR 标记“作者有新提交”，但采集到的 body 是截断版；请说明本轮新提交的范围（仅 rebase/文档，还是 loader/transport/daemon 也有改动），以便判断原有 changes_requested 是否已解决。"
         ],
         "recommend": "方向合理且默认关闭、作用域已由 validate_preload_config 收紧；先让作者确认版本兼容与内存记账单测，并解决冲突后再细看。"
-      }
+      },
+      "review_sha": "8af201676b7e"
     },
     {
       "number": 21658,
@@ -307,7 +309,8 @@
           "DSpark/draft 模型是否也走同一个 model_state 钩子，还是仍用 ModelAclGraphManager？"
         ],
         "recommend": "让作者指出专用 graph manager 的实现位置、确认构造签名与单测覆盖后再批准。"
-      }
+      },
+      "review_sha": "d46cb615deb9"
     },
     {
       "number": 21019,
@@ -385,7 +388,8 @@
           "是否忘记同步更新 tests/ut/test_utils.py L45-48 的 DCP 断言（world_size=2 时应改为 True 或删掉该分支）？CI 是在哪个提交上运行的？"
         ],
         "recommend": "先修正 tests/ut/test_utils.py 与实现的矛盾（该断言按 head 实现必失败），补充 DCP 图重放验证后再批准。"
-      }
+      },
+      "review_sha": "5c71bda8bf80"
     },
     {
       "number": 22135,
@@ -496,7 +500,8 @@
           "缺省 None 的静默降级在真实配置的 model_type 变体上是否会误跳过专用逻辑？有无日志或断言兜底？"
         ],
         "recommend": "机械修复方向正确；请作者确认 hf_config 残留直读与回归用例后即可批准。"
-      }
+      },
+      "review_sha": "f1c6764b24ec"
     },
     {
       "number": 21624,
@@ -643,7 +648,8 @@
           "需要作者确认：v1 model runner 是否也需要同样的 fine-grained TP 图形化/eager 校验，还是该特性明确只支持 v2？"
         ],
         "recommend": "方向正确，先补一个显式 group 传入 Merged KDA 线性（或说明不会发生）的确认，并让作者给出 requires_graph 各开关的单测与模型类型覆盖说明后再批准。"
-      }
+      },
+      "review_sha": "23e35ef5b41b"
     },
     {
       "number": 21680,
@@ -741,7 +747,8 @@
           "需要作者确认：dspark_* 的成对/范围校验在引擎启动阶段是否必经（validate_expert_offload_config 的调用点），而不是等到 worker/load_model 才报错。"
         ],
         "recommend": "先让作者澄清 uniform_token_count=None 的下游契约与 capture/replay 判定等价性，并补配置校验调用点证据；其余设计自洽，可继续细看。"
-      }
+      },
+      "review_sha": "d1a6ec3dd8ed"
     },
     {
       "number": 16012,
@@ -814,7 +821,8 @@
           "需要作者确认：混合 batch 中只有 1 个 prefill 且它不在 seq_lens_list[num_decodes] 位置时，eligibility 的索引假设是否成立（代码假设 prefill 总是在 decode 之后）。"
         ],
         "recommend": "配置项本身可接受；建议等 attention owner 对 BNSD mask/布局等价性与阈值给出确认后再批准。"
-      }
+      },
+      "review_sha": "9b561dfc86ff"
     },
     {
       "number": 22147,
@@ -922,7 +930,8 @@
           "需要作者确认：Chunk32 索引在空序列（cu_seqlens 存在重复值、keep_meta 非空）时与 cu_seqlens_kern 的 seq 编号是否严格一致？builder 注释称 prepare_chunk_indices 只对非空序列编号，请给出对应用例。"
         ],
         "recommend": "建议暂缓合并：先补 A5 Chunk32 vs Chunk64 的匹配精度/状态对照，并澄清 A3 的 2.02pp 回归归属，再考虑放行。"
-      }
+      },
+      "review_sha": "e71866731a59"
     },
     {
       "number": 22670,
@@ -1188,7 +1197,8 @@
           "需要作者确认：直接 ACLNN 使用者的兼容策略只有 release note 吗？是否需要保留旧头文件/符号一段时间做别名？"
         ],
         "recommend": "改名方向与抽查结果一致；建议拿到算子真实编译通过的证据、补齐 release note（或说明其位置）后再批准。"
-      }
+      },
+      "review_sha": "a2489d525ffa"
     },
     {
       "number": 22085,
@@ -1286,7 +1296,8 @@
           "需要作者确认：本轮新提交是否就是加了 A5 显式值校验、MXFP8 32 MiB 回退和 per-TP 表？此前 changes_requested 的意见是否已全部解决？（deep JSON 未保留旧 patch，无法对比）"
         ],
         "recommend": "数据与实现都较扎实，先请作者回答 A5 破坏性变更与非 TP 组门限语义，再决定批准。"
-      }
+      },
+      "review_sha": "9098bc5c8ae7"
     },
     {
       "number": 21300,
@@ -1364,7 +1375,8 @@
           "mergeable_state=dirty，作者计划如何 rebase？是否有 NPU 上的 PLE checkpoint 精度/命中率对比数据？"
         ],
         "recommend": "先请作者补描述、解决冲突，并把两个字段改为独立传播（缺失需告警）；确认字段版本可用性后可放行这 8 行。"
-      }
+      },
+      "review_sha": "a19eae4cfded"
     },
     {
       "number": 16335,
@@ -1442,7 +1454,8 @@
           "融合 inline 路径如何判断 inv_freq is None（scaled）并回退到 cos_sin_cache？partial RoPE / interleaved 的取频率规则在哪里验证？"
         ],
         "recommend": "owned 的 8 行是合理的最小使能改动，但需在当前 vLLM main 上复跑 e2e 并确认基类属性与同名 buffer 依赖后再批准。"
-      }
+      },
+      "review_sha": "cc41d9303bda"
     },
     {
       "number": 21456,
@@ -1535,7 +1548,8 @@
           "需要作者确认：本轮新提交从 body 看主要是 2026-11-23 的 rebase 状态说明与缩小 scope 提案，owned 文件已改为 import context_parallel.topology/registry，但 deep JSON 未保留旧 patch，无法逐行确认之前 review 的意见是否已解决。"
         ],
         "recommend": "owned 两处改动本身与旧逻辑等价，可先给 rebase/缩小 scope 的明确结论，再在 NPU 上跑一遍 PCP/DCP 回归后批准。"
-      }
+      },
+      "review_sha": "1c5fd383beb9"
     },
     {
       "number": 18389,
@@ -1617,7 +1631,8 @@
           "310P EP/RC 的平行实现（body 提到 retained 扣除与 host 指标）是否全部复用这两个 helper？本 PR 的 6 个非 owned 文件是否覆盖所有 worker 变体？"
         ],
         "recommend": "方向与单测都到位，等 A2/A3（含 310P RC）实机回归和驱动一致误报的兜底方案确认后可批准。"
-      }
+      },
+      "review_sha": "5d6f319bee31"
     },
     {
       "number": 17556,
@@ -1690,7 +1705,8 @@
           "V2 + enforce_eager 组合下这段热身是否也会执行？若会，是否接受额外的启动开销？"
         ],
         "recommend": "改动小、有单测、CI 全绿且有真机收益，可批准；建议把配置访问改为防御式并注明依赖的上游 vLLM 版本。"
-      }
+      },
+      "review_sha": "125e69d9cbe6"
     },
     {
       "number": 22666,
@@ -1768,7 +1784,8 @@
           "是否有针对 emitFits 不成立、vecScan 关闭、topk 非 kTile 倍数等回退组合的数值等价性测试？"
         ],
         "recommend": "思路与既有常驻快路径一致、注释充分，建议细看并可要求补 hot/resident 上界断言与边界等价性用例后再批。"
-      }
+      },
+      "review_sha": "e698ba333d6d"
     },
     {
       "number": 21935,
@@ -1856,7 +1873,8 @@
           "需要作者确认：A5 上仅 FUSED_MC2 支持的量化布局（含 MTP draft）在批不变模式下会走哪条路径，ALLTOALL 是否覆盖这些权重布局？"
         ],
         "recommend": "方向正确且有 CPU 用例，建议细看；先确认 310P/无 BI 算子环境不会误走 ALLTOALL，并说明 GDN 能力声明的依据后再批。"
-      }
+      },
+      "review_sha": "8337d2adf885"
     },
     {
       "number": 22867,
@@ -1943,7 +1961,8 @@
           "需要作者确认：npu_profiler_config（含实验子项）的未知键在 --additional-config 解析阶段是否会报错，extra=\"forbid\" 是否覆盖嵌套配置类？"
         ],
         "recommend": "改动小、有单测和文档、CI 全绿，可批准；建议补 output_dir 校验并让活跃会话下的重复 start 显式报错。"
-      }
+      },
+      "review_sha": "bce99292fd13"
     },
     {
       "number": 22892,
@@ -2041,7 +2060,8 @@
           "是否有覆盖\"预填充 worker 不跑 draft 步、不分配 draft 图缓冲\"的单测或 NPU CI 用例？"
         ],
         "recommend": "owned 三处都是保守守卫、方向正确，建议补 metadata_builders 契约说明并确认配置字段读取时机与用例后再批。"
-      }
+      },
+      "review_sha": "58983911d87c"
     }
   ],
   "rest": [

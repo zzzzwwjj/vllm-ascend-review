@@ -3,7 +3,9 @@
 // Edition switches are client-side (history.pushState) and editions are immutable,
 // so revisiting one is served from memory or the HTTP cache instead of the network.
 (function () {
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map() };
+  const TOKEN_KEY = 'gh-feedback-token';
+  const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {} };
   const params = new URLSearchParams(location.search);
   const app = () => document.getElementById('app');
 
@@ -48,7 +50,7 @@
     return '<aside class="side"><div class="side-head"><a href="./" class="brand" data-nav="' + esc(state.idx?.current || '') + '">vLLM-Ascend<br><span>待我检视</span></a>' +
       '<p class="side-sub">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
       '<div class="side-title">历史记录 <span>' + state.editions.length + '</span></div>' +
-      '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav></aside>';
+      '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav>' + ghBox() + '</aside>';
   }
 
   function card(p) {
@@ -78,6 +80,7 @@
         (questions ? '<div class="block"><h4>要问作者</h4><ul class="questions">' + questions + '</ul></div>' : '') +
         (r.recommend ? '<p class="rec"><b>建议动作：</b>' + esc(r.recommend) + '</p>' : '')
         : '<p class="summary muted">该 PR 的精读未生成。</p>') +
+      fbBlock(p) +
       '</article>';
   }
 
@@ -96,6 +99,154 @@
   }
 
   const skeleton = '<h2>本期精读</h2><div class="sk"></div><div class="sk"></div><div class="sk"></div><h2>其余新增</h2><div class="sk"></div>';
+
+
+  const draftKey = (pr) => 'fb-draft:' + state.editionId + ':' + pr;
+
+  function defaultHint() {
+    return state.token ? '点击后直接提交到 GitHub（本仓库 issue）' : '提交会在新标签打开预填好的 issue，点 Submit 即可';
+  }
+
+  function fbBlock(p) {
+    const entries = state.feedback[String(p.number)] || [];
+    const list = entries.map((e) => {
+      const ack = e.ack && e.ack.note
+        ? '<div class="fb-ack">' + esc(e.ack.status === 'accepted' ? '已采纳' : e.ack.status === 'rejected' ? '未采纳' : '回应') + '：' + esc(e.ack.note) + '</div>'
+        : '';
+      return '<div class="fb-item"><span class="fb-time">' + esc(tz(e.at)) + '</span><div class="fb-text">' + esc(e.text) + '</div>' + ack + '</div>';
+    }).join('');
+    return '<details class="fb" data-pr="' + p.number + '">' +
+      '<summary>✎ 我的批注' + (entries.length ? '（' + entries.length + '）' : '') + '</summary>' +
+      (list ? '<div class="fb-list">' + list + '</div>' : '') +
+      '<textarea data-fb-input="' + p.number + '" data-sha="' + esc(p.review_sha || '') + '" rows="3" ' +
+      'placeholder="哪里判断错了 / 漏了什么关键点？写在这里，下一期定时任务会读到。"></textarea>' +
+      '<div class="fb-actions"><button type="button" data-fb-submit="' + p.number + '">提交到 GitHub</button>' +
+      '<span class="fb-hint" data-fb-hint="' + p.number + '">' + esc(state.fbStatus[p.number] || defaultHint()) + '</span></div>' +
+      '</details>';
+  }
+
+  function lessonsSection() {
+    if (!state.lessons.length) return '';
+    return '<details class="lessons"><summary>检视规则（' + state.lessons.length + '）— 从你的批注里学到的</summary><ol>' +
+      state.lessons.map((l) => '<li><b>' + esc(l.rule) + '</b>' + (l.why ? '<span class="muted"> — ' + esc(l.why) + '</span>' : '') + '</li>').join('') +
+      '</ol></details>';
+  }
+
+  function attachLegacyFeedback() {
+    document.querySelectorAll('article.card').forEach((art) => {
+      if (art.querySelector('details.fb')) return;
+      const num = Number((art.id || '').replace('pr-', ''));
+      if (!num) return;
+      const title = art.querySelector('h3')?.textContent || '';
+      art.insertAdjacentHTML('beforeend', fbBlock({ number: num, title, review_sha: '' }));
+    });
+  }
+
+  function restoreDrafts() {
+    document.querySelectorAll('textarea[data-fb-input]').forEach((ta) => {
+      try {
+        const v = localStorage.getItem(draftKey(ta.dataset.fbInput));
+        if (v) ta.value = v;
+      } catch (e) { /* private mode */ }
+    });
+  }
+
+  function ghBox() {
+    const on = !!state.token;
+    return '<div class="gh"><button type="button" data-gh-open class="gh-toggle">' + (on ? '● GitHub 已连接' : '○ 连接 GitHub（页面内提交）') + '</button>' +
+      '<div class="gh-panel" hidden><p class="gh-note">填入仅本仓库 Issues 读写权限的 fine-grained token；只存在本浏览器，不会上传到站点。</p>' +
+      '<input type="password" data-gh-input placeholder="github_pat_..." autocomplete="off" spellcheck="false">' +
+      '<div class="gh-actions"><button type="button" data-gh-save>保存并验证</button><button type="button" data-gh-clear>清除</button></div>' +
+      '<p class="gh-msg" data-gh-msg></p></div></div>';
+  }
+
+  function ghMsg(text) {
+    const el = document.querySelector('[data-gh-msg]');
+    if (el) el.textContent = text;
+  }
+
+  async function saveToken() {
+    const input = document.querySelector('[data-gh-input]');
+    const v = (input?.value || '').trim();
+    if (!v) { ghMsg('请先粘贴 token'); return; }
+    ghMsg('验证中…');
+    try {
+      const r = await fetch('https://api.github.com/user', { headers: { authorization: 'Bearer ' + v, accept: 'application/vnd.github+json' } });
+      if (!r.ok) { ghMsg('token 无效或已过期（HTTP ' + r.status + '）'); return; }
+      const u = await r.json();
+      state.token = v;
+      try { localStorage.setItem(TOKEN_KEY, v); } catch (e) { /* ignore */ }
+      ghMsg('已连接 @' + u.login + (u.login !== 'zzzzwwjj' ? '（注意：不是 zzzzwwjj）' : ''));
+      const btn = document.querySelector('[data-gh-open]');
+      if (btn) btn.textContent = '● GitHub 已连接';
+    } catch (e) {
+      ghMsg('网络错误：' + e.message);
+    }
+  }
+
+  function clearToken() {
+    state.token = '';
+    try { localStorage.removeItem(TOKEN_KEY); } catch (e) { /* ignore */ }
+    ghMsg('已清除');
+    const btn = document.querySelector('[data-gh-open]');
+    if (btn) btn.textContent = '○ 连接 GitHub（页面内提交）';
+  }
+
+  async function createIssue(title, body) {
+    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const r = await fetch('https://api.github.com/repos/' + site + '/issues', {
+      method: 'POST',
+      headers: { authorization: 'Bearer ' + state.token, accept: 'application/vnd.github+json', 'content-type': 'application/json' },
+      body: JSON.stringify({ title, body, labels: ['review-feedback'] }),
+    });
+    if (r.status === 401 || r.status === 403) {
+      state.token = '';
+      try { localStorage.removeItem(TOKEN_KEY); } catch (e) { /* ignore */ }
+      throw new Error('token 无效或没有 issues 写权限（HTTP ' + r.status + '）');
+    }
+    if (!r.ok) throw new Error('GitHub HTTP ' + r.status);
+    return r.json();
+  }
+
+  function submitFeedback(pr) {
+    const ta = document.querySelector('textarea[data-fb-input="' + pr + '"]');
+    const hint = document.querySelector('[data-fb-hint="' + pr + '"]');
+    const text = (ta?.value || '').trim();
+    if (!text) { if (hint) hint.textContent = '请先写点内容'; return; }
+    const edition = state.editionId || '';
+    const data = state.cache.get(edition);
+    const prMeta = (data?.deep || []).find((x) => x.number === pr) || {};
+    const domTitle = document.querySelector('#pr-' + pr + ' h3')?.textContent || '';
+    const title = ('[feedback] PR #' + pr + ' · ' + (prMeta.title || domTitle || '')).slice(0, 140);
+    const body = '<!-- review-feedback v1\npr: ' + pr + '\nedition: ' + edition + '\nreview_sha: ' + (ta?.dataset.sha || '') +
+      '\n-->\n\n**我的批注**\n\n' + text + '\n\n---\n提交自 ' + location.origin + location.pathname + '?e=' + encodeURIComponent(edition) + '#pr-' + pr + '\n';
+    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const openPrefilled = () => {
+      const url = 'https://github.com/' + site + '/issues/new?labels=review-feedback' +
+        '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+      try { navigator.clipboard?.writeText(text); } catch (e) { /* ignore */ }
+      window.open(url, '_blank', 'noopener');
+      state.fbStatus[pr] = '未连接 GitHub，已打开预填 issue；点 Submit 即可。';
+      if (hint) hint.textContent = state.fbStatus[pr];
+    };
+    if (!state.token) { openPrefilled(); return; }
+    if (hint) hint.textContent = '提交中…';
+    createIssue(title, body).then((issue) => {
+      const entry = { id: issue.number, at: new Date().toISOString(), text, edition, review_sha: ta?.dataset.sha || '', pending: true, url: issue.html_url };
+      (state.feedback[String(pr)] ||= []).unshift(entry);
+      try { localStorage.removeItem(draftKey(pr)); } catch (e) { /* ignore */ }
+      const details = ta?.closest('details');
+      if (details) details.open = false;
+      render(state.editionId, state.cache.get(state.editionId) || null);
+      state.fbStatus[pr] = '已提交；下一期任务收录后会显示我的回应。';
+      const h2 = document.querySelector('[data-fb-hint="' + pr + '"]');
+      if (h2) h2.textContent = state.fbStatus[pr];
+    }).catch((e) => {
+      state.fbStatus[pr] = '提交失败：' + e.message + '（已改为打开预填页）';
+      if (hint) hint.textContent = state.fbStatus[pr];
+      openPrefilled();
+    });
+  }
 
   function content(data) {
     if (data.legacy_content_html) return data.legacy_content_html;
@@ -137,11 +288,12 @@
 
   function render(id, data) {
     const meta = state.editions.find((e) => e.id === id) || state.editions[0];
+    state.editionId = id;
     const isLatest = id === (state.idx.current || state.editions[0].id);
     document.title = (isLatest ? '最新一期' : tz(meta.at)) + ' · vLLM-Ascend 待我检视 · @' + (data?.user || state.idx?.user || '');
     app().innerHTML = '<div class="layout">' + sidebar() + '<main>' + header(data, meta, isLatest) +
-      '<div class="content">' + (data ? content(data) : skeleton) + '</div></main></div>';
-    if (data) wireFilter();
+      '<div class="content">' + (data ? content(data) + lessonsSection() : skeleton) + '</div></main></div>';
+    if (data) { attachLegacyFeedback(); wireFilter(); restoreDrafts(); }
   }
 
   async function loadIndex() {
@@ -216,6 +368,26 @@
     go(a.dataset.nav, true);
   });
 
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-gh-open]')) {
+      const panel = document.querySelector('.gh-panel');
+      if (panel) panel.hidden = !panel.hidden;
+      return;
+    }
+    if (e.target.closest('[data-gh-save]')) { e.preventDefault(); saveToken(); return; }
+    if (e.target.closest('[data-gh-clear]')) { e.preventDefault(); clearToken(); return; }
+    const btn = e.target.closest('[data-fb-submit]');
+    if (!btn) return;
+    e.preventDefault();
+    submitFeedback(Number(btn.dataset.fbSubmit));
+  });
+
+  document.addEventListener('input', (e) => {
+    const ta = e.target.closest('textarea[data-fb-input]');
+    if (!ta) return;
+    try { localStorage.setItem(draftKey(Number(ta.dataset.fbInput)), ta.value); } catch (err) { /* ignore */ }
+  });
+
   document.addEventListener('pointerover', (e) => {
     const a = e.target.closest('a[data-nav]');
     if (a) prefetch(a.dataset.nav);
@@ -240,6 +412,12 @@
     try {
       await loadIndex();
       if (!state.editions.length) throw new Error('还没有任何一期数据');
+      await Promise.all([
+        fetch('data/feedback/all.json?ts=' + Date.now(), { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.feedback = j.entries || {}; }).catch(() => {}),
+        fetch('data/lessons.json?ts=' + Date.now(), { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.lessons = j.lessons || []; }).catch(() => {}),
+      ]);
       const want = params.get('e');
       const id = want && state.editions.some((e) => e.id === want) ? want : state.idx.current || state.editions[0].id;
       await go(id, false);

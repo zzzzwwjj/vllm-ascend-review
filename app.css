@@ -88,3 +88,29 @@ body.loading::before{content:'';position:fixed;top:0;left:0;height:2px;width:100
 .sk::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(127,127,127,.10),transparent);animation:shimmer 1.2s infinite}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 a.ed{transition:background .12s ease}
+
+/* feedback + connection */
+.fb{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
+.fb summary{cursor:pointer;font-size:12.5px;color:var(--muted);list-style:none}
+.fb summary::-webkit-details-marker{display:none}
+.fb-list{margin:8px 0}
+.fb-item{background:rgba(127,127,127,.07);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.fb-time{font-size:11px;color:var(--muted);margin-right:6px}
+.fb-text{white-space:pre-wrap;font-size:13.5px}
+.fb-ack{margin-top:4px;font-size:12.5px;color:var(--blue)}
+.fb textarea{width:100%;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;resize:vertical}
+.fb-actions{display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.fb-actions button,.gh button{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:5px 12px;color:var(--ink);font:inherit;cursor:pointer}
+.fb-actions button:hover,.gh button:hover{border-color:var(--blue);color:var(--blue)}
+.fb-hint{font-size:11.5px;color:var(--muted)}
+.gh{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.gh-toggle{width:100%;text-align:left;background:none;border:0;color:var(--muted);font:inherit;font-size:12px;cursor:pointer;padding:4px 0}
+.gh-panel{margin-top:6px}
+.gh-note{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 6px}
+.gh input{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);font:inherit;font-size:12px}
+.gh-actions{display:flex;gap:6px;margin-top:6px}
+.gh-msg{font-size:11px;color:var(--muted);margin:6px 0 0;min-height:14px}
+.lessons{margin-top:24px;border-top:1px solid var(--line);padding-top:10px}
+.lessons summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.lessons ol{margin:8px 0 0;padding-left:20px;font-size:13.5px}
+.lessons li{margin:4px 0}
