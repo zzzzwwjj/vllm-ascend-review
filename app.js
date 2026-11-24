@@ -5,7 +5,8 @@
 (function () {
   const TOKEN_KEY = 'gh-feedback-token';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null };
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
+    highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })() };
   const params = new URLSearchParams(location.search);
   const app = () => document.getElementById('app');
 
@@ -49,6 +50,7 @@
     const user = state.idx?.user || '';
     return '<aside class="side"><div class="side-head"><a href="./" class="brand" data-nav="' + esc(state.idx?.current || '') + '">vLLM-Ascend<br><span>待我检视</span></a>' +
       '<p class="side-sub">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
+      highlightsSection() +
       '<div class="side-title">历史记录 <span>' + state.editions.length + '</span></div>' +
       '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav>' + ghBox() + '</aside>';
   }
@@ -132,8 +134,10 @@
       : '';
     return (r?.tests ? '<p class="rc-tests"><b>测试</b>' + esc(r.tests) + '</p>' : '') + q +
       '<div class="rc-foot"><span class="rec"><b>建议</b>' + esc(r?.recommend || '—') + '</span>' +
-      '<a class="btn" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">打开 PR</a>' +
-      '<button type="button" data-fb-open="' + p.number + '">写批注</button></div>';
+      '<span class="acts">' +
+      '<button type="button" class="act" data-act="remind" data-pr="' + p.number + '">提醒检视</button>' +
+      '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">刷新检视</button>' +
+      '</span></div>';
   }
 
   function card(p) {
@@ -178,7 +182,8 @@
       '<td>' + esc(p.ci?.state || 'unknown') + '</td>' +
       '<td class="num2">' + (p.reviews?.approvals ?? 0) + '</td>' +
       '<td class="num2">' + p.age_days + 'd</td>' +
-      '<td>' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>' : '<span class="muted">—</span>') + '</td></tr>';
+      '<td>' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>'
+        : '<button type="button" class="mini" data-act="refresh" data-pr="' + p.number + '">需要检视</button>') + '</td></tr>';
   }
 
   const skeleton = '<h2>本期精读</h2><div class="sk"></div><div class="sk"></div><div class="sk"></div><h2>其余新增</h2><div class="sk"></div>';
@@ -275,12 +280,12 @@
     if (btn) btn.textContent = '○ 连接 GitHub（页面内提交）';
   }
 
-  async function createIssue(title, body) {
+  async function createIssue(title, body, labels) {
     const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
     const r = await fetch('https://api.github.com/repos/' + site + '/issues', {
       method: 'POST',
       headers: { authorization: 'Bearer ' + state.token, accept: 'application/vnd.github+json', 'content-type': 'application/json' },
-      body: JSON.stringify({ title, body, labels: ['review-feedback'] }),
+      body: JSON.stringify({ title, body, labels: labels || ['review-feedback'] }),
     });
     if (r.status === 401 || r.status === 403) {
       state.token = '';
@@ -451,6 +456,62 @@
     app().innerHTML = shell(authorView(login, recs));
   }
 
+
+  function highlightsSection() {
+    const items = (state.highlights || []).slice();
+    for (const p of state.pendingHl || []) {
+      if (!items.some((x) => x.pr === p.pr && x.kind === p.kind)) items.unshift({ ...p, pending: true });
+    }
+    if (!items.length) return '';
+    const rows = items.slice(0, 12).map((h) => {
+      const kind = h.kind === 'remind' ? '提醒' : '已刷新';
+      const bump = h.pending ? ' · 待处理' : '';
+      return '<a class="ed hl" data-pr-nav="' + h.pr + '" href="?pr=' + h.pr + '">' +
+        '<span class="ed-when">#' + h.pr + ' · ' + kind + bump + '</span>' +
+        '<span class="ed-nums">' + esc(h.title || '') + '</span></a>';
+    }).join('');
+    return '<div class="side-title hl-title">高优检视 <span>' + items.length + '</span></div><nav class="eds">' + rows + '</nav>';
+  }
+
+  function findRecord(n) {
+    for (const d of state.cache.values()) {
+      const hit = (d.deep || []).concat(d.rest || []).find((x) => x.number === n);
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  async function requestAction(kind, pr) {
+    const p = findRecord(pr) || (state.searchIndex || []).find((x) => x.n === pr) || {};
+    const label = kind === 'remind' ? '[remind]' : '[refresh]';
+    const title = label + ' PR #' + pr + (p.title ? ' · ' + p.title : '');
+    const body = '<!-- review-action v1\nkind: ' + kind + '\npr: ' + pr + '\nedition: ' + (state.editionId || '') + '\n-->\n\n' +
+      (kind === 'remind' ? '**提醒我优先检视**' : '**请求重新精读**') + ' PR #' + pr +
+      (p.html_url ? '\n\n' + p.html_url : '') + '\n';
+    const labels = kind === 'remind' ? ['review-remind'] : ['review-refresh'];
+    const openFallback = () => {
+      const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+      const url = 'https://github.com/' + site + '/issues/new?labels=' + labels.join(',') +
+        '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+      window.open(url, '_blank', 'noopener');
+      addPending(kind, pr, p.title);
+    };
+    if (!state.token) { openFallback(); return; }
+    try {
+      await createIssue(title, body, labels);
+      addPending(kind, pr, p.title);
+    } catch (e) {
+      openFallback();
+    }
+  }
+
+  function addPending(kind, pr, title) {
+    state.pendingHl = (state.pendingHl || []).filter((x) => !(x.pr === pr && x.kind === kind));
+    state.pendingHl.unshift({ pr, kind, title: title || '', at: new Date().toISOString() });
+    try { localStorage.setItem('board-pending-hl', JSON.stringify(state.pendingHl.slice(0, 30))); } catch (e) { /* ignore */ }
+    if (state.view && state.view.type === 'edition') render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
+  }
+
   function topbar() {
     return '<div class="topbar"><input id="gs" type="search" autocomplete="off" spellcheck="false" placeholder="搜索 PR 编号（如 20758）或 GitHub ID（如 stdjhs）" value="' + esc(state.query || '') + '">' +
       '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button>' +
@@ -590,6 +651,18 @@
       else render(state.current || state.idx.current, state.cache.get(state.current) || null);
       return;
     }
+    const act = e.target.closest('[data-act]');
+    if (act) {
+      e.preventDefault();
+      requestAction(act.dataset.act, Number(act.dataset.pr));
+      return;
+    }
+    const hl = e.target.closest('[data-pr-nav]');
+    if (hl) {
+      e.preventDefault();
+      doSearch(hl.dataset.prNav, true);
+      return;
+    }
     if (e.target.closest('[data-fb-open]')) {
       e.preventDefault();
       const n = e.target.closest('[data-fb-open]').dataset.fbOpen;
@@ -665,6 +738,8 @@
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.feedback = j.entries || {}; }).catch(() => {}),
         fetch('data/db/lessons.json?ts=' + Date.now(), { cache: 'no-store' })
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.lessons = j.lessons || []; }).catch(() => {}),
+        fetch('data/db/highlights.json?ts=' + Date.now(), { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.highlights = j.items || []; }).catch(() => {}),
       ]);
       if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
