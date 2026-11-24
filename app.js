@@ -310,13 +310,26 @@
     return 'data/db/editions/' + encodeURIComponent(id) + '.json' + (meta?.v ? '?v=' + meta.v : '');
   }
 
+
+  async function fetchJson(url, tries = 3) {
+    let lastErr;
+    for (let i = 0; i < tries; i++) {
+      try {
+        const r = await fetch(url);
+        if (r.ok) return await r.json();
+        lastErr = new Error(url + ' -> ' + r.status);
+        if (r.status === 404) break;
+      } catch (e) { lastErr = e; }
+      await new Promise((res) => setTimeout(res, 250 * (i + 1)));
+    }
+    throw lastErr || new Error('fetch failed: ' + url);
+  }
+
   const shardCache = new Map();
   function loadShard(name, ver) {
     const key = name + ':' + (ver || '');
     if (shardCache.has(key)) return shardCache.get(key);
-    const p = fetch('data/db/prs/' + name + '.json' + (ver ? '?v=' + ver : ''))
-      .then((r) => (r.ok ? r.json() : { items: {} }))
-      .catch(() => ({ items: {} }));
+    const p = fetchJson('data/db/prs/' + name + '.json' + (ver ? '?v=' + ver : ''));
     shardCache.set(key, p);
     return p;
   }
@@ -324,8 +337,7 @@
   async function loadEdition(id) {
     if (state.cache.has(id)) return state.cache.get(id);
     if (state.pending.has(id)) return state.pending.get(id);
-    const p = fetch(editionUrl(id))
-      .then((r) => { if (!r.ok) throw new Error('edition ' + r.status); return r.json(); })
+    const p = fetchJson(editionUrl(id))
       .then(async (meta) => {
         let d;
         if (meta.legacy_html) {
