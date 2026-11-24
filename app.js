@@ -110,7 +110,7 @@
     if (!owned.length) {
       const areas = (p.areas || []).map((a) => '<span class="area">' + esc(a.p) + ' · ' + a.n + '</span>').join('');
       return '<section class="rc-panel"><h4>改动位置 <b>0</b></h4>' +
-        '<p class="muted small">本次为显式请求：改动没有落在你的 CODEOWNERS 路径。共 ' + p.changed_files +
+        '<p class="muted small">本次为显式请求：改动没有落在 @' + (state.idx?.user || '') + ' 的 CODEOWNERS 路径。共 ' + p.changed_files +
         ' 个文件 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b>。</p>' +
         '<div class="scrollarea">' + (areas ? '<div class="areas">' + areas + '</div>' : '<p class="muted small">建议直接看 PR 描述与 CI。</p>') + '</div></section>';
     }
@@ -229,7 +229,7 @@
 
   function lessonsSection() {
     if (!state.lessons.length) return '';
-    return '<details class="lessons"><summary>检视规则（' + state.lessons.length + '）— 从你的批注里学到的</summary><ol>' +
+    return '<details class="lessons"><summary>检视规则（' + state.lessons.length + '）— 从 @' + (state.idx?.user || '') + ' 的批注里学到的</summary><ol>' +
       state.lessons.map((l) => '<li><b>' + esc(l.rule) + '</b>' + (l.why ? '<span class="muted"> — ' + esc(l.why) + '</span>' : '') + '</li>').join('') +
       '</ol></details>';
   }
@@ -414,10 +414,12 @@
   function notFoundHtml(kind, q) {
     const reasons = kind === 'pr'
       ? ['在上一次定时任务之后才提交或更新（会进下一期）', '仍是 draft（草稿）', '已合入或已关闭', '不涉及 @' + state.idx.user + ' 在 CODEOWNERS 中负责的文件', '没有显式请求 @' + state.idx.user + ' 检视']
-      : ['这个账号的 PR 从未进入过检视范围', 'GitHub ID 拼写或大小写不一致', '相关 PR 仍是 draft、已合入，或未涉及你的责任田'];
+      : ['这个账号的 PR 从未进入过检视范围', 'GitHub ID 拼写或大小写不一致', '相关 PR 仍是 draft、已合入，或未涉及 @' + state.idx.user + ' 的责任田'];
     return '<div class="content"><div class="nf"><h2>' + (kind === 'pr' ? '未找到 PR #' + esc(q) : '未找到 @' + esc(q) + ' 的 PR') +
       '</h2><p>可能的情况：</p><ul>' + reasons.map((r) => '<li>' + r + '</li>').join('') + '</ul>' +
-      '<p class="muted">搜索范围是看板数据库，即已经进入过检视范围的 PR。</p><p><a href="./" data-nav="' + esc(state.idx.current) + '">返回最新一期</a></p></div></div>';
+      '<p class="muted">搜索范围是看板数据库，即已经进入过检视范围的 PR。</p>' +
+      (kind === 'pr' ? '<div class="nf-actions"><button type="button" class="act primary" data-act="refresh" data-pr="' + esc(q) + '">需要检视</button><span class="muted small">提交后会进入下一期精读，并加入高优检视</span></div>' : '') +
+      '<p><a href="./" data-nav="' + esc(state.idx.current) + '">返回最新一期</a></p></div></div>';
   }
 
   function prView(rec, hit) {
@@ -592,7 +594,8 @@
   }
 
   function reRender() {
-    if (state.view && state.view.type === 'highlights') doHighlights(false);
+    if (state.view && state.view.type === 'home') renderHome();
+    else if (state.view && state.view.type === 'highlights') doHighlights(false);
     else if (state.view && (state.view.type === 'pr' || state.view.type === 'author')) doSearch(state.view.q, false);
     else render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
   }
@@ -645,7 +648,79 @@
       state.pendingHl.unshift({ pr, kind, title: title || '', at: new Date().toISOString() });
       try { localStorage.setItem('board-pending-hl', JSON.stringify(state.pendingHl.slice(0, 30))); } catch (e) { /* ignore */ }
     }
-    if (state.view && state.view.type === 'edition') render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
+    reRender();
+  }
+
+
+  function homeNotFound(n, login) {
+    const user = state.idx?.user || '';
+    const reasons = n
+      ? ['在上一次定时任务之后才提交或更新（会进下一期）', '仍是 draft（草稿）', '已合入或已关闭',
+         '不涉及 @' + user + ' 在 CODEOWNERS 中负责的文件', '没有显式请求 @' + user + ' 检视']
+      : ['这个账号的 PR 从未进入过检视范围', 'GitHub ID 拼写或大小写不一致',
+         '相关 PR 仍是 draft、已合入，或未涉及 @' + user + ' 的责任田'];
+    return '<div class="nf"><h2>' + (n ? '未找到 PR #' + esc(n) : '未找到 @' + esc(login) + ' 的 PR') + '</h2>' +
+      '<ul>' + reasons.map((r) => '<li>' + r + '</li>').join('') + '</ul>' +
+      (n ? '<div class="nf-actions"><button type="button" class="act primary" data-act="refresh" data-pr="' + n + '">需要检视</button>' +
+        '<span class="muted small">提交后会进入下一期精读，并加入高优检视</span></div>' : '') +
+      '<p class="muted small">搜索范围是看板数据库，即已经进入过检视范围的 PR。</p></div>';
+  }
+
+  function homeHtml() {
+    const user = state.idx?.user || '';
+    return '<div class="home">' +
+      '<section class="home-left">' +
+        '<h1>PR 检视看板</h1>' +
+        '<p class="muted">输入 PR 编号或 GitHub ID，查看 @' + esc(user) + ' 的精读结论。</p>' +
+        '<div class="home-search"><input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
+        '<button type="button" data-home-search>搜索</button></div>' +
+        '<div id="home-results"></div>' +
+      '</section>' +
+      '<aside class="home-right">' +
+        '<h2>这是什么</h2>' +
+        '<p>@' + esc(user) + ' 在 vLLM-Ascend 的 PR 检视看板。每个工作日 08:00 / 13:00 / 18:00 自动收集需要 @' + esc(user) +
+        ' 检视的 PR，按 CODEOWNERS 责任田做精读，并按期次归档。</p>' +
+        '<ul>' +
+          '<li>按 PR 编号搜索；尚未收录的 PR 可以直接点「需要检视」请求，下一期会精读并进入高优。</li>' +
+          '<li>每张卡片给出结论（可批准 / 需细看 / 建议打回）、风险、以及要追问作者的问题。</li>' +
+          '<li>侧栏按期次浏览历史，也可以按 GitHub ID 查看某位作者的全部 PR。</li>' +
+        '</ul>' +
+        '<div class="home-stats"><span>期次 ' + state.editions.length + '</span><span>高优 ' + activeHighlights().length + '</span></div>' +
+        '<p class="home-links"><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></p>' +
+      '</aside>' +
+    '</div>';
+  }
+
+  function renderHome() {
+    state.view = { type: 'home' };
+    state.query = '';
+    document.title = 'vLLM-Ascend 待我检视 · @' + (state.idx?.user || '');
+    app().innerHTML = '<div class="layout">' + sidebar() + '<main>' + homeHtml() + '</main></div>';
+  }
+
+  async function homeSearch(raw) {
+    const box = document.getElementById('home-results');
+    const q = (raw || '').trim();
+    if (!box) return;
+    if (!q) { box.innerHTML = ''; return; }
+    box.innerHTML = '<p class="muted small">搜索中…</p>';
+    await loadSearchIndex();
+    if (/^\d+$/.test(q)) {
+      const n = Number(q);
+      const rec = await loadRecord(n).catch(() => null);
+      if (!rec) { box.innerHTML = homeNotFound(n); return; }
+      box.innerHTML = '<h2>' + (rec.review ? '精读' : '未精读') + '</h2>' + (rec.review ? card(rec) : tableBlock(row(rec), ''));
+      return;
+    }
+    const login = q.replace(/^@/, '');
+    const hits = state.searchIndex.filter((x) => x.a.toLowerCase() === login.toLowerCase());
+    if (!hits.length) { box.innerHTML = homeNotFound(null, login); return; }
+    const recs = (await Promise.all(hits.map(async (h) => loadRecord(h.n).catch(() => null)))).filter(Boolean);
+    const deep = recs.filter((r) => r.review);
+    const rest = recs.filter((r) => !r.review);
+    box.innerHTML = '<h2>@' + esc(login) + ' 的 PR（' + recs.length + '）</h2>' +
+      (deep.length ? deep.map(card).join('') : '') +
+      (rest.length ? tableBlock(rest.map(row).join(''), '未精读（' + rest.length + '）') : '');
   }
 
   function topbar() {
@@ -811,6 +886,11 @@
       if (d) { d.open = true; d.scrollIntoView({ block: 'center' }); const ta = d.querySelector('textarea'); if (ta) ta.focus(); }
       return;
     }
+    if (e.target.closest('[data-home-search]')) {
+      e.preventDefault();
+      homeSearch(document.getElementById('hs')?.value || '');
+      return;
+    }
     if (e.target.closest('[data-search-btn]')) {
       e.preventDefault();
       doSearch(document.getElementById('gs')?.value || '', true);
@@ -846,6 +926,10 @@
       e.preventDefault();
       doSearch(e.target.value, true);
     }
+    if (e.target && e.target.id === 'hs' && e.key === 'Enter') {
+      e.preventDefault();
+      homeSearch(e.target.value);
+    }
   });
 
   document.addEventListener('pointerover', (e) => {
@@ -862,7 +946,8 @@
     if (p.get('hl')) { doHighlights(false); return; }
     if (p.get('pr')) { doSearch(p.get('pr'), false); return; }
     if (p.get('author')) { doSearch(p.get('author'), false); return; }
-    go(p.get('e') || state.idx.current, false);
+    if (p.get('e')) { go(p.get('e'), false); return; }
+    renderHome();
   });
 
   function idlePrefetch() {
@@ -896,10 +981,12 @@
       if (params.get('hl')) { await doHighlights(false); }
       else if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
-      else {
+      else if (params.get('e')) {
         const want = params.get('e');
-        const id = want && state.editions.some((e) => e.id === want) ? want : state.idx.current || state.editions[0].id;
+        const id = state.editions.some((e) => e.id === want) ? want : state.idx.current || state.editions[0].id;
         await go(id, false);
+      } else {
+        renderHome();
       }
       idlePrefetch();
     } catch (e) {

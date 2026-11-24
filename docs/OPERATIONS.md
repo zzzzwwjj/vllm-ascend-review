@@ -39,13 +39,9 @@ vllm-ascend-review/
 ```bash
 cd /workspace/project/vllm-ascend-review
 rm -rf work/reviews && mkdir -p work/reviews
-node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、排序
-node scripts/ingest-feedback.mjs    # 收录批注 / 提醒 / 刷新 / 完成标记
-# 若有 work/refresh.json：逐条精读并应用
-#   node scripts/collect-prs.mjs --numbers <pr>
-#   子代理按 RULES 精读 -> work/reviews/<pr>.json
-#   node scripts/apply-refresh.mjs --pr <pr>
-node scripts/split-deep.mjs         # 本期 Top20 精读输入（如有）
+node scripts/ingest-feedback.mjs    # 先收录批注 / 提醒 / 刷新 / 完成标记（决定本期优先级）
+node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、请求优先排序
+node scripts/split-deep.mjs         # 拆分本期精读输入（请求 PR + 新增 PR）
 # 子代理写 work/reviews/<n>.json
 node scripts/render.mjs             # 合并远端 marks、写库、骨架、搜索索引、文档
 node scripts/publish.mjs            # 单次提交
@@ -72,6 +68,7 @@ node scripts/publish.mjs            # 单次提交
 
 ## 5. 发布机制
 
+- 页面默认进入**首页**（左搜索 + 右介绍）；`?e=` 看期次、`?pr=` / `?author=` 看单条/作者、`?hl=1` 看高优；
 - `publish.mjs` 用 Git Data API 把所有变更合并成**一次提交**，只触发一次 Pages 构建；
 - `state/published.json` 记录文件 sha256，未变更文件跳过；`--force` 可强制重传；
 - 分片带 `?v=<hash>` 版本，浏览器可长期缓存；
