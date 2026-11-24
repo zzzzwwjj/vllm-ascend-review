@@ -80,9 +80,9 @@
 
 
   function markState(p) {
-    if ((state.pendingMarks || []).some((x) => x.pr === p.number)) return { label: '已完成 · 待同步', cls: 'pending' };
     const m = state.marks[String(p.number)];
     if (m && m.at) return { label: '已检视 ' + tz(m.at).slice(6), cls: 'yes' };
+    if ((state.pendingMarks || []).some((x) => x.pr === p.number)) return { label: '已完成 · 待同步', cls: 'pending' };
     const mine = p.reviews?.mine;
     if (mine && mine.commit_id === p.head_sha && ['APPROVED', 'CHANGES_REQUESTED', 'COMMENTED'].includes(mine.state)) return { label: '已检视（GitHub）', cls: 'yes' };
     return { label: '未检视', cls: 'no' };
@@ -539,6 +539,8 @@
 
   function watchMark(pr) {
     let tries = 0;
+    const onVisible = () => { if (document.visibilityState === 'visible') tick(); };
+    document.addEventListener('visibilitychange', onVisible, { once: true });
     const tick = async () => {
       tries++;
       try {
@@ -553,7 +555,7 @@
           }
         }
       } catch (e) { /* keep polling */ }
-      if (tries < 18) setTimeout(tick, 5000);
+      if (tries < 60) setTimeout(tick, 5000);
     };
     setTimeout(tick, 4000);
   }
@@ -843,7 +845,15 @@
         fetch('data/db/highlights.json?ts=' + Date.now(), { cache: 'no-store' })
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.highlights = j.items || []; }).catch(() => {}),
         fetch('data/db/marks.json?ts=' + Date.now(), { cache: 'no-store' })
-          .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.marks = j.marks || {}; }).catch(() => {}),
+          .then((r) => (r.ok ? r.json() : null)).then((j) => {
+            if (!j) return;
+            state.marks = j.marks || {};
+            const before = (state.pendingMarks || []).length;
+            state.pendingMarks = (state.pendingMarks || []).filter((x) => !state.marks[String(x.pr)]);
+            if (state.pendingMarks.length !== before) {
+              try { localStorage.setItem('board-pending-marks', JSON.stringify(state.pendingMarks)); } catch (e) { /* ignore */ }
+            }
+          }).catch(() => {}),
       ]);
       if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
