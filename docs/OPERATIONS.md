@@ -10,7 +10,9 @@ vllm-ascend-review/
 │   ├── collect.mjs             采集 + 去重 + 排序（每期入口）
 │   ├── split-deep.mjs          拆分精读输入
 │   ├── fetch-file.mjs          取 head 处文件内容
-│   ├── ingest-feedback.mjs     收录 [feedback]/[remind]/[refresh]/[done] issue
+│   ├── ingest-feedback.mjs     收录 [feedback]/[remind]/[refresh]/[done] issue（按提交人区分批注/回复）
+│   ├── reply-feedback.mjs      把回应写回看板并回复 issue
+│   ├── apply-review-update.mjs 原地更新某 PR 的精读结论
 │   ├── apply-refresh.mjs       应用一次“重新精读”结果并迁移期次
 │   ├── render.mjs              写库 + 合并远端 marks + 骨架 + 搜索索引 + 文档
 │   ├── publish.mjs             单次提交发布到 GitHub Pages

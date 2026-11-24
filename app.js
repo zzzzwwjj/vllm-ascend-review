@@ -212,17 +212,20 @@
   function fbBlock(p) {
     const entries = state.feedback[String(p.number)] || [];
     const list = entries.map((e) => {
+      const who = e.author ? (e.author === (state.idx?.user || '') ? '我' : '@' + e.author) : '我';
       const ack = e.ack && e.ack.note
         ? '<div class="fb-ack">' + esc(e.ack.status === 'accepted' ? '已采纳' : e.ack.status === 'rejected' ? '未采纳' : '回应') + '：' + esc(e.ack.note) + '</div>'
         : '';
-      return '<div class="fb-item"><span class="fb-time">' + esc(tz(e.at)) + '</span><div class="fb-text">' + esc(e.text) + '</div>' + ack + '</div>';
+      return '<div class="fb-item' + (e.kind === 'reply' ? ' reply' : '') + '">' +
+        '<span class="fb-who">' + esc(who) + '</span><span class="fb-time">' + esc(tz(e.at)) + '</span>' +
+        '<div class="fb-text">' + esc(e.text) + '</div>' + ack + '</div>';
     }).join('');
     return '<details class="fb" data-pr="' + p.number + '">' +
-      '<summary>✎ 我的批注' + (entries.length ? '（' + entries.length + '）' : '') + '</summary>' +
+      '<summary>✎ 回复' + (entries.length ? '（' + entries.length + '）' : '') + '</summary>' +
       (list ? '<div class="fb-list">' + list + '</div>' : '') +
       '<textarea data-fb-input="' + p.number + '" data-sha="' + esc(p.review_sha || '') + '" rows="3" ' +
-      'placeholder="哪里判断错了 / 漏了什么关键点？写在这里，下一期定时任务会读到。"></textarea>' +
-      '<div class="fb-actions"><button type="button" data-fb-submit="' + p.number + '">提交到 GitHub</button>' +
+      'placeholder="写下回复或对精读的疑问；@' + esc(state.idx?.user || '') + ' 的回复会当作批注改进规则。"></textarea>' +
+      '<div class="fb-actions"><button type="button" data-fb-submit="' + p.number + '">提交回复</button>' +
       '<span class="fb-hint" data-fb-hint="' + p.number + '">' + esc(state.fbStatus[p.number] || defaultHint()) + '</span></div>' +
       '</details>';
   }
@@ -321,7 +324,7 @@
     const domTitle = document.querySelector('#pr-' + pr + ' h3')?.textContent || '';
     const title = ('[feedback] PR #' + pr + ' · ' + (prMeta.title || domTitle || '')).slice(0, 140);
     const body = '<!-- review-feedback v1\npr: ' + pr + '\nedition: ' + edition + '\nreview_sha: ' + (ta?.dataset.sha || '') +
-      '\n-->\n\n**我的批注**\n\n' + text + '\n\n---\n提交自 ' + location.origin + location.pathname + '?e=' + encodeURIComponent(edition) + '#pr-' + pr + '\n';
+      '\n-->\n\n**回复**\n\n' + text + '\n\n---\n提交自 ' + location.origin + location.pathname + '?e=' + encodeURIComponent(edition) + '#pr-' + pr + '\n';
     const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
     const openPrefilled = () => {
       const url = 'https://github.com/' + site + '/issues/new?labels=review-feedback' +

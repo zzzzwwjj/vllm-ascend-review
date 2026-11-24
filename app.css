@@ -309,3 +309,5 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
   .lp-nav-right .lp-link{display:none}
   .landing{padding:0 14px 50px}
 }
+.fb-who{font-size:11.5px;color:var(--blue);font-weight:600;margin-right:6px}
+.fb-item.reply{border-left:2px solid var(--blue);padding-left:8px}
