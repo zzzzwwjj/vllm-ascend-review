@@ -11,6 +11,7 @@ vllm-ascend-review/
 │   ├── split-deep.mjs          拆分精读输入
 │   ├── fetch-file.mjs          取 head 处文件内容
 │   ├── refresh-states.mjs      刷新所有 PR 状态（open/draft/closed/merged，GraphQL 批量）
+│   ├── merge-threads.mjs       合并同一 PR 的重复 issue（无 token 用户造成）
 │   ├── ingest-feedback.mjs     处理每 PR 一个 issue 的评论线程（动作/批注/回复）
 │   ├── reply-feedback.mjs      把回应写回看板并回复 issue
 │   ├── apply-review-update.mjs 原地更新某 PR 的精读结论
@@ -43,6 +44,7 @@ vllm-ascend-review/
 cd /workspace/project/vllm-ascend-review
 rm -rf work/reviews && mkdir -p work/reviews
 node scripts/refresh-states.mjs     # 先刷新 PR 状态（决定按钮可用性与请求是否受理）
+node scripts/merge-threads.mjs      # 合并重复 issue（无 token 用户会新建 issue）
 node scripts/ingest-feedback.mjs    # 处理 issue 评论线程（动作/批注/回复，决定本期优先级）
 node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、请求优先排序
 node scripts/split-deep.mjs         # 拆分本期精读输入（请求 PR + 新增 PR）
