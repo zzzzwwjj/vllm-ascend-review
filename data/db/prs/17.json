@@ -68,7 +68,7 @@
       "changed_files": 4,
       "additions": 187,
       "deletions": 1,
-      "age_days": 64,
+      "age_days": 64.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -105,7 +105,7 @@
       "changed_files": 4,
       "additions": 194,
       "deletions": 39,
-      "age_days": 64,
+      "age_days": 64.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -135,7 +135,7 @@
       "changed_files": 8,
       "additions": 366,
       "deletions": 19,
-      "age_days": 64,
+      "age_days": 64.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -165,7 +165,7 @@
       "changed_files": 27,
       "additions": 6055,
       "deletions": 12,
-      "age_days": 63.8,
+      "age_days": 63.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -202,7 +202,7 @@
       "changed_files": 9,
       "additions": 407,
       "deletions": 2,
-      "age_days": 63.8,
+      "age_days": 63.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -239,7 +239,7 @@
       "changed_files": 3,
       "additions": 95,
       "deletions": 1,
-      "age_days": 63.8,
+      "age_days": 63.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -318,7 +318,7 @@
       "changed_files": 33,
       "additions": 1575,
       "deletions": 256,
-      "age_days": 63.7,
+      "age_days": 63.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -373,7 +373,7 @@
       "changed_files": 10,
       "additions": 588,
       "deletions": 3,
-      "age_days": 63.7,
+      "age_days": 63.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -422,7 +422,7 @@
       "changed_files": 53,
       "additions": 7183,
       "deletions": 51,
-      "age_days": 63.6,
+      "age_days": 63.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -537,7 +537,7 @@
       "changed_files": 3,
       "additions": 172,
       "deletions": 8,
-      "age_days": 63,
+      "age_days": 63.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -610,7 +610,7 @@
       "changed_files": 12,
       "additions": 522,
       "deletions": 101,
-      "age_days": 62.9,
+      "age_days": 63,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -677,7 +677,7 @@
       "changed_files": 2,
       "additions": 100,
       "deletions": 0,
-      "age_days": 62.8,
+      "age_days": 62.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -707,7 +707,7 @@
       "changed_files": 53,
       "additions": 7226,
       "deletions": 59,
-      "age_days": 62.8,
+      "age_days": 62.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -762,7 +762,7 @@
       "changed_files": 59,
       "additions": 1164,
       "deletions": 230,
-      "age_days": 62.7,
+      "age_days": 62.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -926,7 +926,7 @@
       "changed_files": 28,
       "additions": 2002,
       "deletions": 280,
-      "age_days": 62.6,
+      "age_days": 62.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -963,7 +963,7 @@
       "changed_files": 4,
       "additions": 198,
       "deletions": 2,
-      "age_days": 62.6,
+      "age_days": 62.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1000,7 +1000,7 @@
       "changed_files": 2,
       "additions": 57,
       "deletions": 4,
-      "age_days": 62.6,
+      "age_days": 62.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1030,7 +1030,7 @@
       "changed_files": 48,
       "additions": 10570,
       "deletions": 117,
-      "age_days": 62.6,
+      "age_days": 62.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1067,7 +1067,7 @@
       "changed_files": 49,
       "additions": 15824,
       "deletions": 790,
-      "age_days": 62.6,
+      "age_days": 62.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1096,6 +1096,55 @@
       "review": null,
       "review_sha": null
     },
+    "17295": {
+      "number": 17295,
+      "title": "[Feature] Support PrefixLM pooling with Model Runner V2",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17295",
+      "changed_files": 8,
+      "additions": 300,
+      "deletions": 1,
+      "age_days": 62.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/default.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/mamba_hybrid.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 14,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17297": {
       "number": 17297,
       "title": "[Performance][Attention] Optimize DCP output pack and merge",
@@ -1104,7 +1153,7 @@
       "changed_files": 9,
       "additions": 1045,
       "deletions": 6,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1134,7 +1183,7 @@
       "changed_files": 5,
       "additions": 453,
       "deletions": 1,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1164,7 +1213,7 @@
       "changed_files": 81,
       "additions": 17590,
       "deletions": 16,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1201,7 +1250,7 @@
       "changed_files": 17,
       "additions": 1101,
       "deletions": 26,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1244,7 +1293,7 @@
       "changed_files": 12,
       "additions": 454,
       "deletions": 3,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1281,7 +1330,7 @@
       "changed_files": 24,
       "additions": 3235,
       "deletions": 19,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1318,7 +1367,7 @@
       "changed_files": 120,
       "additions": 19105,
       "deletions": 46,
-      "age_days": 62.5,
+      "age_days": 62.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1477,7 +1526,7 @@
       "changed_files": 7,
       "additions": 553,
       "deletions": 4,
-      "age_days": 61.8,
+      "age_days": 61.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1514,7 +1563,7 @@
       "changed_files": 7,
       "additions": 303,
       "deletions": 18,
-      "age_days": 61.8,
+      "age_days": 61.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1551,7 +1600,7 @@
       "changed_files": 5,
       "additions": 438,
       "deletions": 0,
-      "age_days": 61.8,
+      "age_days": 61.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1581,7 +1630,7 @@
       "changed_files": 2,
       "additions": 145,
       "deletions": 54,
-      "age_days": 61.8,
+      "age_days": 61.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1654,7 +1703,7 @@
       "changed_files": 17,
       "additions": 913,
       "deletions": 69,
-      "age_days": 61.7,
+      "age_days": 61.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1684,7 +1733,7 @@
       "changed_files": 85,
       "additions": 17586,
       "deletions": 204,
-      "age_days": 61.5,
+      "age_days": 61.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1721,7 +1770,7 @@
       "changed_files": 10,
       "additions": 676,
       "deletions": 18,
-      "age_days": 61.1,
+      "age_days": 61.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1764,7 +1813,7 @@
       "changed_files": 8,
       "additions": 666,
       "deletions": 0,
-      "age_days": 61,
+      "age_days": 61.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1794,7 +1843,7 @@
       "changed_files": 31,
       "additions": 904,
       "deletions": 719,
-      "age_days": 61,
+      "age_days": 61.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1831,7 +1880,7 @@
       "changed_files": 8,
       "additions": 719,
       "deletions": 20,
-      "age_days": 61,
+      "age_days": 61.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1880,7 +1929,7 @@
       "changed_files": 9,
       "additions": 1577,
       "deletions": 75,
-      "age_days": 60.9,
+      "age_days": 61,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2077,7 +2126,7 @@
       "changed_files": 11,
       "additions": 1172,
       "deletions": 443,
-      "age_days": 60.6,
+      "age_days": 60.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2107,7 +2156,7 @@
       "changed_files": 8,
       "additions": 317,
       "deletions": 18,
-      "age_days": 60.5,
+      "age_days": 60.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2137,7 +2186,7 @@
       "changed_files": 3,
       "additions": 239,
       "deletions": 9,
-      "age_days": 59.9,
+      "age_days": 60,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2167,7 +2216,7 @@
       "changed_files": 2,
       "additions": 38,
       "deletions": 7,
-      "age_days": 58.8,
+      "age_days": 58.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2196,6 +2245,43 @@
       "review": null,
       "review_sha": null
     },
+    "17556": {
+      "number": 17556,
+      "title": "[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard",
+      "author": "mashuiping",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17556",
+      "changed_files": 2,
+      "additions": 54,
+      "deletions": 0,
+      "age_days": 58.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 7,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17568": {
       "number": 17568,
       "title": "[BugFix] Preserve stacked MoE weights and fall back to non-fused paths when MegaMoe/DFC is unavailable",
@@ -2204,7 +2290,7 @@
       "changed_files": 9,
       "additions": 220,
       "deletions": 129,
-      "age_days": 57.7,
+      "age_days": 57.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2239,6 +2325,36 @@
       "review": null,
       "review_sha": null
     },
+    "17579": {
+      "number": 17579,
+      "title": "[Performance][EPLB] Optimize expert mapping and load recording",
+      "author": "ShyRa1n",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17579",
+      "changed_files": 8,
+      "additions": 419,
+      "deletions": 36,
+      "age_days": 57.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 5,
+        "changes_requested": 0,
+        "total": 10,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17581": {
       "number": 17581,
       "title": "[Feature][MRV2] Self-pad fine-grained TP exchanges to tolerate eager steps",
@@ -2247,7 +2363,7 @@
       "changed_files": 9,
       "additions": 379,
       "deletions": 141,
-      "age_days": 57.5,
+      "age_days": 57.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2302,7 +2418,7 @@
       "changed_files": 5,
       "additions": 438,
       "deletions": 0,
-      "age_days": 57,
+      "age_days": 57.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2324,6 +2440,36 @@
       "review": null,
       "review_sha": null
     },
+    "17602": {
+      "number": 17602,
+      "title": "[Performance][Triton] Optimize gated LayerNorm row tiling and parameter reuse",
+      "author": "c5566b",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17602",
+      "changed_files": 8,
+      "additions": 1263,
+      "deletions": 48,
+      "age_days": 57.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17604": {
       "number": 17604,
       "title": "[Performance][GDN] Introduce fused GDN prepare Triton kernel for Ascend",
@@ -2332,7 +2478,7 @@
       "changed_files": 6,
       "additions": 1159,
       "deletions": 56,
-      "age_days": 57,
+      "age_days": 57.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2375,7 +2521,7 @@
       "changed_files": 23,
       "additions": 398,
       "deletions": 97,
-      "age_days": 57,
+      "age_days": 57.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2435,7 +2581,7 @@
       "changed_files": 217,
       "additions": 23603,
       "deletions": 1881,
-      "age_days": 56.9,
+      "age_days": 57,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2561,6 +2707,36 @@
       "review": null,
       "review_sha": null
     },
+    "17640": {
+      "number": 17640,
+      "title": "[Performance][BugFix][310P] Optimize GDN prefill and fix numerical stability and causal masking",
+      "author": "GruntovDima",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17640",
+      "changed_files": 40,
+      "additions": 5523,
+      "deletions": 1903,
+      "age_days": 56.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 5,
+        "changes_requested": 0,
+        "total": 19,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17641": {
       "number": 17641,
       "title": "[Performance][310P] Add custom QuantBatchMatmulV3 for W8A8 linear layers",
@@ -2655,7 +2831,7 @@
       "changed_files": 2,
       "additions": 16,
       "deletions": 1,
-      "age_days": 56.7,
+      "age_days": 56.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2692,7 +2868,7 @@
       "changed_files": 11,
       "additions": 662,
       "deletions": 20,
-      "age_days": 56.7,
+      "age_days": 56.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2722,7 +2898,7 @@
       "changed_files": 9,
       "additions": 273,
       "deletions": 9,
-      "age_days": 56.7,
+      "age_days": 56.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2759,7 +2935,7 @@
       "changed_files": 2,
       "additions": 57,
       "deletions": 1,
-      "age_days": 56.6,
+      "age_days": 56.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2825,6 +3001,36 @@
       "review": null,
       "review_sha": null
     },
+    "17670": {
+      "number": 17670,
+      "title": "[Performance][MoE] Eliminate host-bound sync in AlltoAllv dispatch preprocess",
+      "author": "Levi-JQ",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17670",
+      "changed_files": 2,
+      "additions": 145,
+      "deletions": 26,
+      "age_days": 56.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "17674": {
       "number": 17674,
       "title": "Feat: Add low-rank W4A8 inference for DeepSeek-V3 MoE",
@@ -2833,7 +3039,7 @@
       "changed_files": 21,
       "additions": 1626,
       "deletions": 2,
-      "age_days": 56.5,
+      "age_days": 56.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2863,7 +3069,7 @@
       "changed_files": 11,
       "additions": 388,
       "deletions": 6,
-      "age_days": 56,
+      "age_days": 56.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2906,7 +3112,7 @@
       "changed_files": 8,
       "additions": 194,
       "deletions": 1119,
-      "age_days": 56,
+      "age_days": 56.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2943,7 +3149,7 @@
       "changed_files": 18,
       "additions": 684,
       "deletions": 603,
-      "age_days": 55.8,
+      "age_days": 55.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2973,7 +3179,7 @@
       "changed_files": 52,
       "additions": 7224,
       "deletions": 65,
-      "age_days": 55.8,
+      "age_days": 55.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3028,7 +3234,7 @@
       "changed_files": 15,
       "additions": 3,
       "deletions": 1619,
-      "age_days": 55.8,
+      "age_days": 55.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3089,7 +3295,7 @@
       "changed_files": 12,
       "additions": 1378,
       "deletions": 12,
-      "age_days": 55.7,
+      "age_days": 55.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3138,7 +3344,7 @@
       "changed_files": 2,
       "additions": 64,
       "deletions": 46,
-      "age_days": 55.7,
+      "age_days": 55.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3248,7 +3454,7 @@
       "changed_files": 1,
       "additions": 6,
       "deletions": 1,
-      "age_days": 55,
+      "age_days": 55.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3278,7 +3484,7 @@
       "changed_files": 1,
       "additions": 5,
       "deletions": 0,
-      "age_days": 55,
+      "age_days": 55.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3308,7 +3514,7 @@
       "changed_files": 1,
       "additions": 4,
       "deletions": 2,
-      "age_days": 55,
+      "age_days": 55.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3338,7 +3544,7 @@
       "changed_files": 9,
       "additions": 162,
       "deletions": 24,
-      "age_days": 54.8,
+      "age_days": 54.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3381,7 +3587,7 @@
       "changed_files": 13,
       "additions": 484,
       "deletions": 10,
-      "age_days": 54.8,
+      "age_days": 54.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3430,7 +3636,7 @@
       "changed_files": 16,
       "additions": 634,
       "deletions": 16,
-      "age_days": 54.8,
+      "age_days": 54.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3479,7 +3685,7 @@
       "changed_files": 8,
       "additions": 189,
       "deletions": 1110,
-      "age_days": 54.8,
+      "age_days": 54.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3516,7 +3722,7 @@
       "changed_files": 6,
       "additions": 104,
       "deletions": 19,
-      "age_days": 54.6,
+      "age_days": 54.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3559,7 +3765,7 @@
       "changed_files": 4,
       "additions": 83,
       "deletions": 11,
-      "age_days": 54.6,
+      "age_days": 54.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -4830,7 +5036,7 @@
       "changed_files": 1,
       "additions": 18,
       "deletions": 1,
-      "age_days": 49.9,
+      "age_days": 50,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -4860,7 +5066,7 @@
       "changed_files": 41,
       "additions": 329,
       "deletions": 2585,
-      "age_days": 49.8,
+      "age_days": 49.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -4921,7 +5127,7 @@
       "changed_files": 4,
       "additions": 247,
       "deletions": 70,
-      "age_days": 49.6,
+      "age_days": 49.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -5049,7 +5255,7 @@
       "changed_files": 2,
       "additions": 95,
       "deletions": 4,
-      "age_days": 46.9,
+      "age_days": 47,
       "ci": {
         "state": "unknown",
         "total": 0,

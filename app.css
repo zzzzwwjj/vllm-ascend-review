@@ -115,3 +115,13 @@ a.ed{transition:background .12s ease}
 .lessons ol{margin:8px 0 0;padding-left:20px;font-size:13.5px}
 .lessons li{margin:4px 0}
 .backlog-note{margin:10px 0 0;padding:10px 14px;background:rgba(127,127,127,.07);border-radius:8px;font-size:13px;color:var(--muted)}
+
+/* global search */
+.topbar{display:flex;gap:8px;align-items:center;padding:16px 26px 0;max-width:1500px}
+.topbar input{flex:1;max-width:520px;padding:9px 13px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;box-shadow:var(--shadow)}
+.topbar button{padding:8px 14px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.topbar button:hover{border-color:var(--blue);color:var(--blue)}
+.nf{max-width:720px}
+.nf h2{font-size:17px;border:0;margin-bottom:8px}
+.nf ul{margin:8px 0 12px;padding-left:20px}
+@media(max-width:900px){.topbar{padding:12px 14px 0}.topbar input{max-width:none}}

@@ -8,7 +8,7 @@
       "changed_files": 27,
       "additions": 3029,
       "deletions": 635,
-      "age_days": 89.8,
+      "age_days": 89.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -38,7 +38,7 @@
       "changed_files": 11,
       "additions": 272,
       "deletions": 55,
-      "age_days": 89.8,
+      "age_days": 89.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -87,7 +87,7 @@
       "changed_files": 400,
       "additions": 33982,
       "deletions": 0,
-      "age_days": 89.8,
+      "age_days": 89.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -244,7 +244,7 @@
       "changed_files": 19,
       "additions": 993,
       "deletions": 317,
-      "age_days": 89.7,
+      "age_days": 89.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -416,7 +416,7 @@
       "changed_files": 9,
       "additions": 759,
       "deletions": 50,
-      "age_days": 89,
+      "age_days": 89.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -453,7 +453,7 @@
       "changed_files": 61,
       "additions": 17916,
       "deletions": 50,
-      "age_days": 89,
+      "age_days": 89.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -488,6 +488,49 @@
       "review": null,
       "review_sha": null
     },
+    "15076": {
+      "number": 15076,
+      "title": "[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15076",
+      "changed_files": 30,
+      "additions": 4084,
+      "deletions": 215,
+      "age_days": 89,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 12,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 33,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 55,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "15090": {
       "number": 15090,
       "title": "[BugFix][Kernel] Fix CANN 9.2 build compatibility for GDN chunk operators",
@@ -496,7 +539,7 @@
       "changed_files": 6,
       "additions": 2,
       "deletions": 7,
-      "age_days": 88.8,
+      "age_days": 88.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -533,7 +576,7 @@
       "changed_files": 7,
       "additions": 873,
       "deletions": 1,
-      "age_days": 88.8,
+      "age_days": 88.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -563,7 +606,7 @@
       "changed_files": 3,
       "additions": 209,
       "deletions": 4,
-      "age_days": 88.7,
+      "age_days": 88.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -593,7 +636,7 @@
       "changed_files": 243,
       "additions": 49988,
       "deletions": 1943,
-      "age_days": 88.7,
+      "age_days": 88.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -733,7 +776,7 @@
       "changed_files": 3,
       "additions": 62,
       "deletions": 3,
-      "age_days": 88,
+      "age_days": 88.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -776,7 +819,7 @@
       "changed_files": 4,
       "additions": 2,
       "deletions": 448,
-      "age_days": 88,
+      "age_days": 88.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -819,7 +862,7 @@
       "changed_files": 8,
       "additions": 482,
       "deletions": 97,
-      "age_days": 87.8,
+      "age_days": 87.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -856,7 +899,7 @@
       "changed_files": 58,
       "additions": 3034,
       "deletions": 177,
-      "age_days": 87.8,
+      "age_days": 87.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -923,7 +966,7 @@
       "changed_files": 2,
       "additions": 73,
       "deletions": 3,
-      "age_days": 87.8,
+      "age_days": 87.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -983,7 +1026,7 @@
       "changed_files": 27,
       "additions": 4219,
       "deletions": 0,
-      "age_days": 87.7,
+      "age_days": 87.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1056,7 +1099,7 @@
       "changed_files": 45,
       "additions": 10232,
       "deletions": 2,
-      "age_days": 87.5,
+      "age_days": 87.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1471,7 +1514,7 @@
       "changed_files": 5,
       "additions": 1413,
       "deletions": 1,
-      "age_days": 86.8,
+      "age_days": 86.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1501,7 +1544,7 @@
       "changed_files": 1,
       "additions": 50,
       "deletions": 0,
-      "age_days": 86.8,
+      "age_days": 86.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1531,7 +1574,7 @@
       "changed_files": 1,
       "additions": 51,
       "deletions": 0,
-      "age_days": 86.8,
+      "age_days": 86.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1561,7 +1604,37 @@
       "changed_files": 1,
       "additions": 60,
       "deletions": 0,
-      "age_days": 86.8,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "15313": {
+      "number": 15313,
+      "title": "[Doc][Ops] Add standard, multimodal, and TP QKV RMSNorm RoPE operator descriptions",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15313",
+      "changed_files": 3,
+      "additions": 231,
+      "deletions": 0,
+      "age_days": 86.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1591,7 +1664,7 @@
       "changed_files": 8,
       "additions": 1727,
       "deletions": 109,
-      "age_days": 86.6,
+      "age_days": 86.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1628,7 +1701,7 @@
       "changed_files": 359,
       "additions": 63185,
       "deletions": 139,
-      "age_days": 86.2,
+      "age_days": 86.3,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1689,7 +1762,7 @@
       "changed_files": 23,
       "additions": 3962,
       "deletions": 3076,
-      "age_days": 86,
+      "age_days": 86.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1732,7 +1805,7 @@
       "changed_files": 17,
       "additions": 827,
       "deletions": 5,
-      "age_days": 85.9,
+      "age_days": 86,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1787,7 +1860,7 @@
       "changed_files": 13,
       "additions": 376,
       "deletions": 6,
-      "age_days": 85.9,
+      "age_days": 86,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1842,7 +1915,7 @@
       "changed_files": 9,
       "additions": 929,
       "deletions": 41,
-      "age_days": 84.9,
+      "age_days": 85,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1885,7 +1958,7 @@
       "changed_files": 1,
       "additions": 3,
       "deletions": 0,
-      "age_days": 84.9,
+      "age_days": 85,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1915,7 +1988,7 @@
       "changed_files": 7,
       "additions": 18,
       "deletions": 61,
-      "age_days": 84.8,
+      "age_days": 84.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1945,7 +2018,7 @@
       "changed_files": 2,
       "additions": 1168,
       "deletions": 0,
-      "age_days": 84.6,
+      "age_days": 84.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1982,7 +2055,7 @@
       "changed_files": 1,
       "additions": 356,
       "deletions": 0,
-      "age_days": 84.6,
+      "age_days": 84.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2012,7 +2085,7 @@
       "changed_files": 8,
       "additions": 1877,
       "deletions": 109,
-      "age_days": 84.6,
+      "age_days": 84.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2049,7 +2122,7 @@
       "changed_files": 54,
       "additions": 10594,
       "deletions": 4,
-      "age_days": 84.1,
+      "age_days": 84.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2098,7 +2171,7 @@
       "changed_files": 36,
       "additions": 3083,
       "deletions": 100,
-      "age_days": 84,
+      "age_days": 84.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2147,7 +2220,7 @@
       "changed_files": 3,
       "additions": 36,
       "deletions": 18,
-      "age_days": 84,
+      "age_days": 84.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2177,7 +2250,7 @@
       "changed_files": 7,
       "additions": 366,
       "deletions": 80,
-      "age_days": 83.8,
+      "age_days": 83.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2310,7 +2383,7 @@
       "changed_files": 8,
       "additions": 156,
       "deletions": 7,
-      "age_days": 83,
+      "age_days": 83.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2359,7 +2432,7 @@
       "changed_files": 2,
       "additions": 13,
       "deletions": 2,
-      "age_days": 82.9,
+      "age_days": 83,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2474,7 +2547,7 @@
       "changed_files": 6,
       "additions": 693,
       "deletions": 13,
-      "age_days": 82.8,
+      "age_days": 82.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2504,7 +2577,7 @@
       "changed_files": 127,
       "additions": 27474,
       "deletions": 0,
-      "age_days": 82.8,
+      "age_days": 82.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2607,7 +2680,7 @@
       "changed_files": 2,
       "additions": 45,
       "deletions": 7,
-      "age_days": 82.6,
+      "age_days": 82.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2637,7 +2710,7 @@
       "changed_files": 4,
       "additions": 42,
       "deletions": 28,
-      "age_days": 82.5,
+      "age_days": 82.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2680,7 +2753,7 @@
       "changed_files": 2,
       "additions": 17,
       "deletions": 19,
-      "age_days": 82.5,
+      "age_days": 82.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2717,7 +2790,7 @@
       "changed_files": 1,
       "additions": 36,
       "deletions": 12,
-      "age_days": 82.4,
+      "age_days": 82.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2747,7 +2820,7 @@
       "changed_files": 6,
       "additions": 113,
       "deletions": 74,
-      "age_days": 82,
+      "age_days": 82.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2777,7 +2850,7 @@
       "changed_files": 11,
       "additions": 686,
       "deletions": 0,
-      "age_days": 82,
+      "age_days": 82.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2929,7 +3002,7 @@
       "changed_files": 15,
       "additions": 652,
       "deletions": 0,
-      "age_days": 81.6,
+      "age_days": 81.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3026,7 +3099,7 @@
       "changed_files": 4,
       "additions": 20,
       "deletions": 7,
-      "age_days": 81.2,
+      "age_days": 81.3,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3093,7 +3166,7 @@
       "changed_files": 2,
       "additions": 336,
       "deletions": 0,
-      "age_days": 81,
+      "age_days": 81.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3123,7 +3196,7 @@
       "changed_files": 31,
       "additions": 2047,
       "deletions": 40,
-      "age_days": 81,
+      "age_days": 81.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3160,7 +3233,7 @@
       "changed_files": 2,
       "additions": 72,
       "deletions": 2,
-      "age_days": 81,
+      "age_days": 81.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3190,7 +3263,7 @@
       "changed_files": 5,
       "additions": 230,
       "deletions": 12,
-      "age_days": 81,
+      "age_days": 81.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3233,7 +3306,7 @@
       "changed_files": 5,
       "additions": 599,
       "deletions": 45,
-      "age_days": 81,
+      "age_days": 81.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3355,7 +3428,7 @@
       "changed_files": 11,
       "additions": 461,
       "deletions": 18,
-      "age_days": 80.3,
+      "age_days": 80.4,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3398,7 +3471,7 @@
       "changed_files": 3,
       "additions": 86,
       "deletions": 6,
-      "age_days": 79.9,
+      "age_days": 80,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3427,6 +3500,36 @@
       "review": null,
       "review_sha": null
     },
+    "15837": {
+      "number": 15837,
+      "title": "[Bugfix][MoE] Add BF16 MegaMoe regression coverage",
+      "author": "BESzk",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15837",
+      "changed_files": 2,
+      "additions": 6,
+      "deletions": 1,
+      "age_days": 79.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "15839": {
       "number": 15839,
       "title": "[Performance][Backport v0.27.1rc] Backport #15416",
@@ -3435,7 +3538,7 @@
       "changed_files": 4,
       "additions": 597,
       "deletions": 52,
-      "age_days": 79.8,
+      "age_days": 79.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3465,7 +3568,7 @@
       "changed_files": 6,
       "additions": 375,
       "deletions": 10,
-      "age_days": 78.9,
+      "age_days": 79,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3538,7 +3641,7 @@
       "changed_files": 4,
       "additions": 55,
       "deletions": 3,
-      "age_days": 78.8,
+      "age_days": 78.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3575,7 +3678,7 @@
       "changed_files": 6,
       "additions": 333,
       "deletions": 50,
-      "age_days": 78.6,
+      "age_days": 78.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3798,7 +3901,7 @@
       "changed_files": 1,
       "additions": 0,
       "deletions": 5,
-      "age_days": 78.1,
+      "age_days": 78.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3872,7 +3975,7 @@
       "changed_files": 26,
       "additions": 2715,
       "deletions": 121,
-      "age_days": 78,
+      "age_days": 78.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3957,7 +4060,7 @@
       "changed_files": 17,
       "additions": 524,
       "deletions": 116,
-      "age_days": 77,
+      "age_days": 77.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3987,7 +4090,7 @@
       "changed_files": 4,
       "additions": 129,
       "deletions": 8,
-      "age_days": 77,
+      "age_days": 77.1,
       "ci": {
         "state": "unknown",
         "total": 0,

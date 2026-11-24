@@ -8,7 +8,7 @@
       "changed_files": 3,
       "additions": 121,
       "deletions": 7,
-      "age_days": 198.9,
+      "age_days": 199,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -38,7 +38,7 @@
       "changed_files": 10,
       "additions": 261,
       "deletions": 38,
-      "age_days": 196.9,
+      "age_days": 197,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -75,7 +75,7 @@
       "changed_files": 50,
       "additions": 7081,
       "deletions": 0,
-      "age_days": 196.9,
+      "age_days": 197,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -97,6 +97,43 @@
       "review": null,
       "review_sha": null
     },
+    "9061": {
+      "number": 9061,
+      "title": "[Feature][EPLB] Distinguishing the hotness of prefill and decode in hybrid deployment scenarios.",
+      "author": "shenchuxiaofugui",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9061",
+      "changed_files": 4,
+      "additions": 29,
+      "deletions": 7,
+      "age_days": 196.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "9067": {
       "number": 9067,
       "title": "[feature]add custom op 'scatter_pa_kv_cache_vllm'、'gather_pa_kv_cache_vllm'",
@@ -105,7 +142,7 @@
       "changed_files": 38,
       "additions": 5337,
       "deletions": 0,
-      "age_days": 196.6,
+      "age_days": 196.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -165,7 +202,7 @@
       "changed_files": 2,
       "additions": 45,
       "deletions": 8,
-      "age_days": 195.6,
+      "age_days": 195.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -231,6 +268,36 @@
       "review": null,
       "review_sha": null
     },
+    "9231": {
+      "number": 9231,
+      "title": "[WIP][BugFix] adapt calling funciton of op:Fused-MC2 for glm5.1-w4a8",
+      "author": "MarinaMiao",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9231",
+      "changed_files": 5,
+      "additions": 28,
+      "deletions": 7,
+      "age_days": 190.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "9307": {
       "number": 9307,
       "title": "[Bugfix] camem_allocator: release GIL on my_free early returns, fix py_ptr refleak, check malloc NULL",
@@ -239,7 +306,7 @@
       "changed_files": 1,
       "additions": 12,
       "deletions": 0,
-      "age_days": 189,
+      "age_days": 189.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -269,7 +336,7 @@
       "changed_files": 5,
       "additions": 100,
       "deletions": 26,
-      "age_days": 187.8,
+      "age_days": 187.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -299,7 +366,7 @@
       "changed_files": 3,
       "additions": 65,
       "deletions": 0,
-      "age_days": 187.8,
+      "age_days": 187.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -329,7 +396,7 @@
       "changed_files": 12,
       "additions": 47,
       "deletions": 17,
-      "age_days": 186,
+      "age_days": 186.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -359,7 +426,7 @@
       "changed_files": 16,
       "additions": 281,
       "deletions": 183,
-      "age_days": 185.7,
+      "age_days": 185.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -418,6 +485,55 @@
       "review": null,
       "review_sha": null
     },
+    "9520": {
+      "number": 9520,
+      "title": "[Feature]Enable hierarchical MC2 communication on A2 by default",
+      "author": "hwhaokun",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9520",
+      "changed_files": 8,
+      "additions": 161,
+      "deletions": 40,
+      "age_days": 182.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 9
+        }
+      ],
+      "owned_add": 17,
+      "owned_del": 15,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "9569": {
       "number": 9569,
       "title": "Enable Mega Moe For A5",
@@ -463,7 +579,7 @@
       "changed_files": 3,
       "additions": 276,
       "deletions": 0,
-      "age_days": 181.8,
+      "age_days": 181.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -493,7 +609,7 @@
       "changed_files": 2,
       "additions": 17,
       "deletions": 14,
-      "age_days": 180.8,
+      "age_days": 180.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -530,7 +646,7 @@
       "changed_files": 78,
       "additions": 10488,
       "deletions": 178,
-      "age_days": 180.1,
+      "age_days": 180.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -627,7 +743,7 @@
       "changed_files": 28,
       "additions": 1581,
       "deletions": 824,
-      "age_days": 179.5,
+      "age_days": 179.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -657,7 +773,7 @@
       "changed_files": 53,
       "additions": 10146,
       "deletions": 9130,
-      "age_days": 179,
+      "age_days": 179.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -712,7 +828,7 @@
       "changed_files": 2,
       "additions": 107,
       "deletions": 34,
-      "age_days": 178.9,
+      "age_days": 179,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -772,7 +888,7 @@
       "changed_files": 1,
       "additions": 5,
       "deletions": 1,
-      "age_days": 175.9,
+      "age_days": 176,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -819,6 +935,43 @@
       "owned": [],
       "owned_add": 0,
       "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "9945": {
+      "number": 9945,
+      "title": "[Feature] Support MTP speculative decoding for Bailing hybrid models",
+      "author": "alex101-ops",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9945",
+      "changed_files": 6,
+      "additions": 171,
+      "deletions": 30,
+      "age_days": 173.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/bailing_moe_linear_attn.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 1,
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
@@ -881,7 +1034,7 @@
       "changed_files": 7,
       "additions": 560,
       "deletions": 1,
-      "age_days": 172.9,
+      "age_days": 173,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -911,7 +1064,7 @@
       "changed_files": 1,
       "additions": 4,
       "deletions": 1,
-      "age_days": 172.9,
+      "age_days": 173,
       "ci": {
         "state": "unknown",
         "total": 0,

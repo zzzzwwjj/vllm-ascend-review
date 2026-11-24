@@ -87,7 +87,7 @@
       "changed_files": 8,
       "additions": 302,
       "deletions": 34,
-      "age_days": 38,
+      "age_days": 38.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -147,7 +147,7 @@
       "changed_files": 11,
       "additions": 1406,
       "deletions": 12,
-      "age_days": 37.4,
+      "age_days": 37.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -214,7 +214,7 @@
       "changed_files": 154,
       "additions": 22351,
       "deletions": 147,
-      "age_days": 36.8,
+      "age_days": 36.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -437,6 +437,55 @@
       "review": null,
       "review_sha": null
     },
+    "19212": {
+      "number": 19212,
+      "title": "[Feature][KVTransfer] Support Mooncake V2 with SFA-managed Host KV",
+      "author": "linjinghan0",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19212",
+      "changed_files": 66,
+      "additions": 8996,
+      "deletions": 91,
+      "age_days": 35.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 59,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/default.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 80,
+      "owned_del": 2,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "19218": {
       "number": 19218,
       "title": "[Doc] Add GLM-4.6V deployment tutorial",
@@ -445,7 +494,7 @@
       "changed_files": 4,
       "additions": 193,
       "deletions": 0,
-      "age_days": 35.1,
+      "age_days": 35.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -475,7 +524,7 @@
       "changed_files": 23,
       "additions": 2553,
       "deletions": 26,
-      "age_days": 35.1,
+      "age_days": 35.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -518,7 +567,7 @@
       "changed_files": 30,
       "additions": 2460,
       "deletions": 25,
-      "age_days": 34.8,
+      "age_days": 34.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -573,7 +622,7 @@
       "changed_files": 19,
       "additions": 520,
       "deletions": 28,
-      "age_days": 34.7,
+      "age_days": 34.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -622,7 +671,7 @@
       "changed_files": 12,
       "additions": 493,
       "deletions": 1,
-      "age_days": 34,
+      "age_days": 34.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -644,6 +693,134 @@
       "review": null,
       "review_sha": null
     },
+    "19394": {
+      "number": 19394,
+      "title": "[Feature][SpecDecode] Add suffix decoding for Model Runner V2 on Ascend",
+      "author": "982945902",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19394",
+      "changed_files": 45,
+      "additions": 7981,
+      "deletions": 280,
+      "age_days": 33.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/activation.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 27,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 50,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/worker/v2/block_table.py",
+          "status": "modified",
+          "additions": 225,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/input_batch.py",
+          "status": "modified",
+          "additions": 167,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 263,
+          "deletions": 133
+        }
+      ],
+      "owned_add": 775,
+      "owned_del": 150,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "19396": {
+      "number": 19396,
+      "title": "[BugFix] Preserve configured KV transfer engine IDs",
+      "author": "nwpu-zxr",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19396",
+      "changed_files": 1,
+      "additions": 1,
+      "deletions": 6,
+      "age_days": 33.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "19400": {
       "number": 19400,
       "title": "[v0.30.0][BugFix][Ops] Build GDN recurrent state indices in metadata",
@@ -652,7 +829,7 @@
       "changed_files": 4,
       "additions": 132,
       "deletions": 4,
-      "age_days": 33.5,
+      "age_days": 33.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -695,7 +872,7 @@
       "changed_files": 20,
       "additions": 2535,
       "deletions": 15,
-      "age_days": 33,
+      "age_days": 33.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -725,7 +902,7 @@
       "changed_files": 19,
       "additions": 1060,
       "deletions": 4,
-      "age_days": 32.8,
+      "age_days": 32.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -762,7 +939,7 @@
       "changed_files": 18,
       "additions": 1622,
       "deletions": 230,
-      "age_days": 32.8,
+      "age_days": 32.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -866,7 +1043,7 @@
       "changed_files": 6,
       "additions": 717,
       "deletions": 0,
-      "age_days": 32.5,
+      "age_days": 32.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -896,7 +1073,7 @@
       "changed_files": 7,
       "additions": 1047,
       "deletions": 0,
-      "age_days": 32.4,
+      "age_days": 32.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -956,7 +1133,7 @@
       "changed_files": 5,
       "additions": 1747,
       "deletions": 1,
-      "age_days": 32,
+      "age_days": 32.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1077,7 +1254,7 @@
       "changed_files": 8,
       "additions": 88,
       "deletions": 5,
-      "age_days": 31.8,
+      "age_days": 31.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1120,7 +1297,7 @@
       "changed_files": 13,
       "additions": 220,
       "deletions": 15,
-      "age_days": 31.8,
+      "age_days": 31.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1169,7 +1346,7 @@
       "changed_files": 2,
       "additions": 148,
       "deletions": 11,
-      "age_days": 31.6,
+      "age_days": 31.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1206,7 +1383,7 @@
       "changed_files": 3,
       "additions": 893,
       "deletions": 8,
-      "age_days": 31.5,
+      "age_days": 31.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1236,7 +1413,7 @@
       "changed_files": 7,
       "additions": 240,
       "deletions": 34,
-      "age_days": 31.5,
+      "age_days": 31.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1279,7 +1456,7 @@
       "changed_files": 6,
       "additions": 236,
       "deletions": 33,
-      "age_days": 31.5,
+      "age_days": 31.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1322,7 +1499,7 @@
       "changed_files": 8,
       "additions": 721,
       "deletions": 0,
-      "age_days": 31.5,
+      "age_days": 31.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1352,7 +1529,7 @@
       "changed_files": 7,
       "additions": 253,
       "deletions": 0,
-      "age_days": 31.5,
+      "age_days": 31.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1374,6 +1551,36 @@
       "review": null,
       "review_sha": null
     },
+    "19679": {
+      "number": 19679,
+      "title": "[Performance][Model] Reuse DeepSeek V4.1 routing input IDs across DP/PCP",
+      "author": "liuyao0",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19679",
+      "changed_files": 8,
+      "additions": 683,
+      "deletions": 11,
+      "age_days": 31.5,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "19680": {
       "number": 19680,
       "title": "[BugFix][Quantization] Honor W4A4 MXFP4 SwiGLU limits with unfused activation",
@@ -1382,7 +1589,7 @@
       "changed_files": 3,
       "additions": 69,
       "deletions": 1,
-      "age_days": 31.4,
+      "age_days": 31.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1412,7 +1619,7 @@
       "changed_files": 2,
       "additions": 65,
       "deletions": 1,
-      "age_days": 31.4,
+      "age_days": 31.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1442,7 +1649,7 @@
       "changed_files": 225,
       "additions": 39064,
       "deletions": 113,
-      "age_days": 31.1,
+      "age_days": 31.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1533,7 +1740,7 @@
       "changed_files": 7,
       "additions": 350,
       "deletions": 2,
-      "age_days": 30.8,
+      "age_days": 30.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1563,7 +1770,7 @@
       "changed_files": 7,
       "additions": 1263,
       "deletions": 0,
-      "age_days": 30.8,
+      "age_days": 30.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1593,7 +1800,7 @@
       "changed_files": 12,
       "additions": 818,
       "deletions": 58,
-      "age_days": 30.7,
+      "age_days": 30.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1866,7 +2073,7 @@
       "changed_files": 33,
       "additions": 14379,
       "deletions": 0,
-      "age_days": 29.7,
+      "age_days": 29.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1896,7 +2103,7 @@
       "changed_files": 216,
       "additions": 37621,
       "deletions": 112,
-      "age_days": 29.6,
+      "age_days": 29.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1987,7 +2194,7 @@
       "changed_files": 9,
       "additions": 353,
       "deletions": 1,
-      "age_days": 29.5,
+      "age_days": 29.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2024,7 +2231,7 @@
       "changed_files": 12,
       "additions": 1905,
       "deletions": 0,
-      "age_days": 29.1,
+      "age_days": 29.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2059,6 +2266,67 @@
       "review": null,
       "review_sha": null
     },
+    "19805": {
+      "number": 19805,
+      "title": "[Feature][1/N] Support upstream preload on Ascend Model Runner V2 (ND)",
+      "author": "lio1226",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19805",
+      "changed_files": 34,
+      "additions": 2638,
+      "deletions": 23,
+      "age_days": 29,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 20,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 97,
+          "deletions": 14
+        }
+      ],
+      "owned_add": 165,
+      "owned_del": 16,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "19837": {
       "number": 19837,
       "title": "Qwen38 qsa fused mask fix triton",
@@ -2067,7 +2335,7 @@
       "changed_files": 216,
       "additions": 37624,
       "deletions": 112,
-      "age_days": 28.8,
+      "age_days": 28.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2195,7 +2463,7 @@
       "changed_files": 218,
       "additions": 35726,
       "deletions": 109,
-      "age_days": 28.7,
+      "age_days": 28.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2347,7 +2615,7 @@
       "changed_files": 2,
       "additions": 147,
       "deletions": 52,
-      "age_days": 28.5,
+      "age_days": 28.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2390,7 +2658,7 @@
       "changed_files": 64,
       "additions": 9658,
       "deletions": 96,
-      "age_days": 28.5,
+      "age_days": 28.6,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2461,6 +2729,49 @@
       "review": null,
       "review_sha": null
     },
+    "19884": {
+      "number": 19884,
+      "title": "[Feature] Decoder Append-Prefill for Agentic Scenario Prefiller Offloading",
+      "author": "Ydr-pku",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19884",
+      "changed_files": 13,
+      "additions": 6192,
+      "deletions": 2,
+      "age_days": 28.2,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 7,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 95,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 99,
+      "owned_del": 2,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "19886": {
       "number": 19886,
       "title": "[Feature][Attention] Gemma4 MTP k=3 FULL_DECODE_ONLY on v0.30.0 Support A2",
@@ -2469,7 +2780,7 @@
       "changed_files": 21,
       "additions": 713,
       "deletions": 224,
-      "age_days": 28.1,
+      "age_days": 28.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2586,7 +2897,7 @@
       "changed_files": 19,
       "additions": 1867,
       "deletions": 423,
-      "age_days": 28,
+      "age_days": 28.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2677,7 +2988,7 @@
       "changed_files": 9,
       "additions": 594,
       "deletions": 0,
-      "age_days": 28,
+      "age_days": 28.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2756,7 +3067,7 @@
       "changed_files": 11,
       "additions": 621,
       "deletions": 11,
-      "age_days": 27.9,
+      "age_days": 28,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2793,7 +3104,7 @@
       "changed_files": 213,
       "additions": 37206,
       "deletions": 105,
-      "age_days": 27.9,
+      "age_days": 28,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2872,7 +3183,7 @@
       "changed_files": 16,
       "additions": 668,
       "deletions": 15,
-      "age_days": 27.9,
+      "age_days": 28,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2902,7 +3213,7 @@
       "changed_files": 4,
       "additions": 213,
       "deletions": 6,
-      "age_days": 27.8,
+      "age_days": 27.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2932,7 +3243,7 @@
       "changed_files": 2,
       "additions": 97,
       "deletions": 24,
-      "age_days": 27.7,
+      "age_days": 27.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2962,7 +3273,7 @@
       "changed_files": 7,
       "additions": 71,
       "deletions": 50,
-      "age_days": 27.6,
+      "age_days": 27.7,
       "ci": {
         "state": "unknown",
         "total": 0,

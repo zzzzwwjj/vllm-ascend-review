@@ -4,26 +4,787 @@
   "user": "zzzzwwjj",
   "window": {
     "start": null,
-    "end": "2026-11-24T00:00:11.065Z",
+    "end": "2026-11-24T05:00:04.677Z",
     "reason": "历史积压：尚未合入且待我检视（排除近四期与今早新增）"
   },
   "stats": {
-    "fresh": 774,
+    "fresh": 962,
     "deep": 0,
-    "rest": 774,
+    "rest": 962,
     "skipped": 22,
     "skipped_seen": 0,
     "skipped_other": 22,
-    "owned_prs": 431
+    "owned_prs": 574
   },
   "verdicts": {
     "approve": 0,
     "look": 0,
     "pushback": 0,
-    "pending": 774
+    "pending": 962
   },
   "backlog": true,
+  "label": "历史积压",
   "members": [
+    {
+      "n": 21483,
+      "role": "rest"
+    },
+    {
+      "n": 22695,
+      "role": "rest"
+    },
+    {
+      "n": 22698,
+      "role": "rest"
+    },
+    {
+      "n": 22655,
+      "role": "rest"
+    },
+    {
+      "n": 22541,
+      "role": "rest"
+    },
+    {
+      "n": 22495,
+      "role": "rest"
+    },
+    {
+      "n": 22492,
+      "role": "rest"
+    },
+    {
+      "n": 22440,
+      "role": "rest"
+    },
+    {
+      "n": 22363,
+      "role": "rest"
+    },
+    {
+      "n": 22275,
+      "role": "rest"
+    },
+    {
+      "n": 22249,
+      "role": "rest"
+    },
+    {
+      "n": 22201,
+      "role": "rest"
+    },
+    {
+      "n": 22135,
+      "role": "rest"
+    },
+    {
+      "n": 22071,
+      "role": "rest"
+    },
+    {
+      "n": 21924,
+      "role": "rest"
+    },
+    {
+      "n": 21838,
+      "role": "rest"
+    },
+    {
+      "n": 21658,
+      "role": "rest"
+    },
+    {
+      "n": 22742,
+      "role": "rest"
+    },
+    {
+      "n": 20528,
+      "role": "rest"
+    },
+    {
+      "n": 19805,
+      "role": "rest"
+    },
+    {
+      "n": 21394,
+      "role": "rest"
+    },
+    {
+      "n": 15076,
+      "role": "rest"
+    },
+    {
+      "n": 20386,
+      "role": "rest"
+    },
+    {
+      "n": 21688,
+      "role": "rest"
+    },
+    {
+      "n": 14670,
+      "role": "rest"
+    },
+    {
+      "n": 22603,
+      "role": "rest"
+    },
+    {
+      "n": 22602,
+      "role": "rest"
+    },
+    {
+      "n": 22172,
+      "role": "rest"
+    },
+    {
+      "n": 22670,
+      "role": "rest"
+    },
+    {
+      "n": 19679,
+      "role": "rest"
+    },
+    {
+      "n": 21903,
+      "role": "rest"
+    },
+    {
+      "n": 21675,
+      "role": "rest"
+    },
+    {
+      "n": 22231,
+      "role": "rest"
+    },
+    {
+      "n": 19394,
+      "role": "rest"
+    },
+    {
+      "n": 17579,
+      "role": "rest"
+    },
+    {
+      "n": 22052,
+      "role": "rest"
+    },
+    {
+      "n": 22493,
+      "role": "rest"
+    },
+    {
+      "n": 15837,
+      "role": "rest"
+    },
+    {
+      "n": 20633,
+      "role": "rest"
+    },
+    {
+      "n": 20949,
+      "role": "rest"
+    },
+    {
+      "n": 21429,
+      "role": "rest"
+    },
+    {
+      "n": 22595,
+      "role": "rest"
+    },
+    {
+      "n": 22511,
+      "role": "rest"
+    },
+    {
+      "n": 16335,
+      "role": "rest"
+    },
+    {
+      "n": 21417,
+      "role": "rest"
+    },
+    {
+      "n": 22756,
+      "role": "rest"
+    },
+    {
+      "n": 22757,
+      "role": "rest"
+    },
+    {
+      "n": 22467,
+      "role": "rest"
+    },
+    {
+      "n": 22089,
+      "role": "rest"
+    },
+    {
+      "n": 21624,
+      "role": "rest"
+    },
+    {
+      "n": 21638,
+      "role": "rest"
+    },
+    {
+      "n": 22609,
+      "role": "rest"
+    },
+    {
+      "n": 22545,
+      "role": "rest"
+    },
+    {
+      "n": 20291,
+      "role": "rest"
+    },
+    {
+      "n": 21177,
+      "role": "rest"
+    },
+    {
+      "n": 22612,
+      "role": "rest"
+    },
+    {
+      "n": 17556,
+      "role": "rest"
+    },
+    {
+      "n": 22385,
+      "role": "rest"
+    },
+    {
+      "n": 21745,
+      "role": "rest"
+    },
+    {
+      "n": 22247,
+      "role": "rest"
+    },
+    {
+      "n": 21037,
+      "role": "rest"
+    },
+    {
+      "n": 20613,
+      "role": "rest"
+    },
+    {
+      "n": 21680,
+      "role": "rest"
+    },
+    {
+      "n": 22212,
+      "role": "rest"
+    },
+    {
+      "n": 21444,
+      "role": "rest"
+    },
+    {
+      "n": 21708,
+      "role": "rest"
+    },
+    {
+      "n": 22322,
+      "role": "rest"
+    },
+    {
+      "n": 17295,
+      "role": "rest"
+    },
+    {
+      "n": 20138,
+      "role": "rest"
+    },
+    {
+      "n": 22593,
+      "role": "rest"
+    },
+    {
+      "n": 22590,
+      "role": "rest"
+    },
+    {
+      "n": 22779,
+      "role": "rest"
+    },
+    {
+      "n": 22087,
+      "role": "rest"
+    },
+    {
+      "n": 19212,
+      "role": "rest"
+    },
+    {
+      "n": 22646,
+      "role": "rest"
+    },
+    {
+      "n": 22650,
+      "role": "rest"
+    },
+    {
+      "n": 20254,
+      "role": "rest"
+    },
+    {
+      "n": 21851,
+      "role": "rest"
+    },
+    {
+      "n": 16145,
+      "role": "rest"
+    },
+    {
+      "n": 22274,
+      "role": "rest"
+    },
+    {
+      "n": 22668,
+      "role": "rest"
+    },
+    {
+      "n": 22502,
+      "role": "rest"
+    },
+    {
+      "n": 20345,
+      "role": "rest"
+    },
+    {
+      "n": 16336,
+      "role": "rest"
+    },
+    {
+      "n": 22665,
+      "role": "rest"
+    },
+    {
+      "n": 22793,
+      "role": "rest"
+    },
+    {
+      "n": 22777,
+      "role": "rest"
+    },
+    {
+      "n": 22772,
+      "role": "rest"
+    },
+    {
+      "n": 22681,
+      "role": "rest"
+    },
+    {
+      "n": 22509,
+      "role": "rest"
+    },
+    {
+      "n": 22085,
+      "role": "rest"
+    },
+    {
+      "n": 22538,
+      "role": "rest"
+    },
+    {
+      "n": 22540,
+      "role": "rest"
+    },
+    {
+      "n": 22768,
+      "role": "rest"
+    },
+    {
+      "n": 22215,
+      "role": "rest"
+    },
+    {
+      "n": 22666,
+      "role": "rest"
+    },
+    {
+      "n": 10203,
+      "role": "rest"
+    },
+    {
+      "n": 22722,
+      "role": "rest"
+    },
+    {
+      "n": 10905,
+      "role": "rest"
+    },
+    {
+      "n": 8401,
+      "role": "rest"
+    },
+    {
+      "n": 10488,
+      "role": "rest"
+    },
+    {
+      "n": 22658,
+      "role": "rest"
+    },
+    {
+      "n": 21456,
+      "role": "rest"
+    },
+    {
+      "n": 22505,
+      "role": "rest"
+    },
+    {
+      "n": 18389,
+      "role": "rest"
+    },
+    {
+      "n": 22343,
+      "role": "rest"
+    },
+    {
+      "n": 21625,
+      "role": "rest"
+    },
+    {
+      "n": 21730,
+      "role": "rest"
+    },
+    {
+      "n": 18131,
+      "role": "rest"
+    },
+    {
+      "n": 22278,
+      "role": "rest"
+    },
+    {
+      "n": 22627,
+      "role": "rest"
+    },
+    {
+      "n": 22625,
+      "role": "rest"
+    },
+    {
+      "n": 22792,
+      "role": "rest"
+    },
+    {
+      "n": 7964,
+      "role": "rest"
+    },
+    {
+      "n": 22688,
+      "role": "rest"
+    },
+    {
+      "n": 22624,
+      "role": "rest"
+    },
+    {
+      "n": 22774,
+      "role": "rest"
+    },
+    {
+      "n": 8966,
+      "role": "rest"
+    },
+    {
+      "n": 10547,
+      "role": "rest"
+    },
+    {
+      "n": 8391,
+      "role": "rest"
+    },
+    {
+      "n": 8762,
+      "role": "rest"
+    },
+    {
+      "n": 8235,
+      "role": "rest"
+    },
+    {
+      "n": 8081,
+      "role": "rest"
+    },
+    {
+      "n": 8384,
+      "role": "rest"
+    },
+    {
+      "n": 9945,
+      "role": "rest"
+    },
+    {
+      "n": 9520,
+      "role": "rest"
+    },
+    {
+      "n": 20797,
+      "role": "rest"
+    },
+    {
+      "n": 8970,
+      "role": "rest"
+    },
+    {
+      "n": 9231,
+      "role": "rest"
+    },
+    {
+      "n": 9061,
+      "role": "rest"
+    },
+    {
+      "n": 7444,
+      "role": "rest"
+    },
+    {
+      "n": 21014,
+      "role": "rest"
+    },
+    {
+      "n": 17670,
+      "role": "rest"
+    },
+    {
+      "n": 21917,
+      "role": "rest"
+    },
+    {
+      "n": 10208,
+      "role": "rest"
+    },
+    {
+      "n": 20145,
+      "role": "rest"
+    },
+    {
+      "n": 7519,
+      "role": "rest"
+    },
+    {
+      "n": 17640,
+      "role": "rest"
+    },
+    {
+      "n": 22203,
+      "role": "rest"
+    },
+    {
+      "n": 22084,
+      "role": "rest"
+    },
+    {
+      "n": 15313,
+      "role": "rest"
+    },
+    {
+      "n": 8632,
+      "role": "rest"
+    },
+    {
+      "n": 21183,
+      "role": "rest"
+    },
+    {
+      "n": 21570,
+      "role": "rest"
+    },
+    {
+      "n": 14409,
+      "role": "rest"
+    },
+    {
+      "n": 14235,
+      "role": "rest"
+    },
+    {
+      "n": 22657,
+      "role": "rest"
+    },
+    {
+      "n": 22340,
+      "role": "rest"
+    },
+    {
+      "n": 22619,
+      "role": "rest"
+    },
+    {
+      "n": 22276,
+      "role": "rest"
+    },
+    {
+      "n": 22142,
+      "role": "rest"
+    },
+    {
+      "n": 18440,
+      "role": "rest"
+    },
+    {
+      "n": 18211,
+      "role": "rest"
+    },
+    {
+      "n": 21605,
+      "role": "rest"
+    },
+    {
+      "n": 21945,
+      "role": "rest"
+    },
+    {
+      "n": 21246,
+      "role": "rest"
+    },
+    {
+      "n": 21802,
+      "role": "rest"
+    },
+    {
+      "n": 22470,
+      "role": "rest"
+    },
+    {
+      "n": 22496,
+      "role": "rest"
+    },
+    {
+      "n": 22317,
+      "role": "rest"
+    },
+    {
+      "n": 21841,
+      "role": "rest"
+    },
+    {
+      "n": 21845,
+      "role": "rest"
+    },
+    {
+      "n": 21502,
+      "role": "rest"
+    },
+    {
+      "n": 21748,
+      "role": "rest"
+    },
+    {
+      "n": 20854,
+      "role": "rest"
+    },
+    {
+      "n": 14659,
+      "role": "rest"
+    },
+    {
+      "n": 21190,
+      "role": "rest"
+    },
+    {
+      "n": 21849,
+      "role": "rest"
+    },
+    {
+      "n": 21655,
+      "role": "rest"
+    },
+    {
+      "n": 22113,
+      "role": "rest"
+    },
+    {
+      "n": 21500,
+      "role": "rest"
+    },
+    {
+      "n": 22059,
+      "role": "rest"
+    },
+    {
+      "n": 22564,
+      "role": "rest"
+    },
+    {
+      "n": 22548,
+      "role": "rest"
+    },
+    {
+      "n": 22503,
+      "role": "rest"
+    },
+    {
+      "n": 8988,
+      "role": "rest"
+    },
+    {
+      "n": 14240,
+      "role": "rest"
+    },
+    {
+      "n": 21830,
+      "role": "rest"
+    },
+    {
+      "n": 19396,
+      "role": "rest"
+    },
+    {
+      "n": 19884,
+      "role": "rest"
+    },
+    {
+      "n": 21603,
+      "role": "rest"
+    },
+    {
+      "n": 18972,
+      "role": "rest"
+    },
+    {
+      "n": 22130,
+      "role": "rest"
+    },
+    {
+      "n": 20194,
+      "role": "rest"
+    },
+    {
+      "n": 22421,
+      "role": "rest"
+    },
+    {
+      "n": 17602,
+      "role": "rest"
+    },
+    {
+      "n": 18531,
+      "role": "rest"
+    },
+    {
+      "n": 22101,
+      "role": "rest"
+    },
+    {
+      "n": 21896,
+      "role": "rest"
+    },
+    {
+      "n": 21188,
+      "role": "rest"
+    },
     {
       "n": 22217,
       "role": "rest"
@@ -82,10 +843,6 @@
     },
     {
       "n": 22195,
-      "role": "rest"
-    },
-    {
-      "n": 21838,
       "role": "rest"
     },
     {
@@ -246,10 +1003,6 @@
     },
     {
       "n": 21473,
-      "role": "rest"
-    },
-    {
-      "n": 20528,
       "role": "rest"
     },
     {

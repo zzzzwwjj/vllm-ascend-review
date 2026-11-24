@@ -8,7 +8,7 @@
       "changed_files": 26,
       "additions": 1876,
       "deletions": 175,
-      "age_days": 77,
+      "age_days": 77.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -45,7 +45,7 @@
       "changed_files": 60,
       "additions": 7303,
       "deletions": 115,
-      "age_days": 77,
+      "age_days": 77.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -414,7 +414,7 @@
       "changed_files": 32,
       "additions": 4382,
       "deletions": 309,
-      "age_days": 76.6,
+      "age_days": 76.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -444,7 +444,7 @@
       "changed_files": 21,
       "additions": 1185,
       "deletions": 58,
-      "age_days": 76.6,
+      "age_days": 76.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -557,6 +557,61 @@
       "review": null,
       "review_sha": null
     },
+    "16145": {
+      "number": 16145,
+      "title": "[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU",
+      "author": "fangyuchu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16145",
+      "changed_files": 21,
+      "additions": 1767,
+      "deletions": 71,
+      "age_days": 75.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 12,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+          "status": "modified",
+          "additions": 81,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 67,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 168,
+      "owned_del": 10,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "16150": {
       "number": 16150,
       "title": "[Refactor][MoE] Remove MegaMoE package availability checks",
@@ -565,7 +620,7 @@
       "changed_files": 16,
       "additions": 148,
       "deletions": 62,
-      "age_days": 75.8,
+      "age_days": 75.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -614,7 +669,7 @@
       "changed_files": 5,
       "additions": 290,
       "deletions": 15,
-      "age_days": 75.8,
+      "age_days": 75.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -644,7 +699,7 @@
       "changed_files": 1,
       "additions": 6,
       "deletions": 5,
-      "age_days": 75.7,
+      "age_days": 75.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -991,7 +1046,7 @@
       "changed_files": 5,
       "additions": 284,
       "deletions": 17,
-      "age_days": 74.7,
+      "age_days": 74.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1028,7 +1083,7 @@
       "changed_files": 2,
       "additions": 75,
       "deletions": 1,
-      "age_days": 74.6,
+      "age_days": 74.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1095,7 +1150,7 @@
       "changed_files": 11,
       "additions": 1654,
       "deletions": 2,
-      "age_days": 74.1,
+      "age_days": 74.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1175,7 +1230,7 @@
       "changed_files": 1,
       "additions": 1,
       "deletions": 1,
-      "age_days": 73.9,
+      "age_days": 74,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1192,6 +1247,80 @@
       "owned": [],
       "owned_add": 0,
       "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "16335": {
+      "number": 16335,
+      "title": "[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family",
+      "author": "YujianGuo",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16335",
+      "changed_files": 8,
+      "additions": 999,
+      "deletions": 305,
+      "age_days": 73.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 10,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 8,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "16336": {
+      "number": 16336,
+      "title": "[Ops][Feature] Fused Triton Qwen vision QKV, RoPE, and FIA padding",
+      "author": "YujianGuo",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16336",
+      "changed_files": 12,
+      "additions": 1231,
+      "deletions": 5,
+      "age_days": 73.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 6,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mm_encoder_attention.py",
+          "status": "modified",
+          "additions": 90,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 90,
+      "owned_del": 1,
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
@@ -1302,7 +1431,7 @@
       "changed_files": 4,
       "additions": 158,
       "deletions": 32,
-      "age_days": 73.8,
+      "age_days": 73.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1332,7 +1461,7 @@
       "changed_files": 7,
       "additions": 266,
       "deletions": 20,
-      "age_days": 73.8,
+      "age_days": 73.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1369,7 +1498,7 @@
       "changed_files": 8,
       "additions": 849,
       "deletions": 81,
-      "age_days": 73.8,
+      "age_days": 73.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1539,7 +1668,7 @@
       "changed_files": 3,
       "additions": 157,
       "deletions": 9,
-      "age_days": 73.3,
+      "age_days": 73.4,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1569,7 +1698,7 @@
       "changed_files": 2,
       "additions": 105,
       "deletions": 0,
-      "age_days": 72.8,
+      "age_days": 72.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1606,7 +1735,7 @@
       "changed_files": 308,
       "additions": 59076,
       "deletions": 2049,
-      "age_days": 72.6,
+      "age_days": 72.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1692,7 +1821,7 @@
       "changed_files": 5,
       "additions": 287,
       "deletions": 60,
-      "age_days": 72.3,
+      "age_days": 72.4,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1729,7 +1858,7 @@
       "changed_files": 1,
       "additions": 7,
       "deletions": 10,
-      "age_days": 71.8,
+      "age_days": 71.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1759,7 +1888,7 @@
       "changed_files": 1,
       "additions": 7,
       "deletions": 10,
-      "age_days": 71.8,
+      "age_days": 71.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1789,7 +1918,7 @@
       "changed_files": 2,
       "additions": 66,
       "deletions": 6,
-      "age_days": 71.7,
+      "age_days": 71.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1826,7 +1955,7 @@
       "changed_files": 6,
       "additions": 208,
       "deletions": 106,
-      "age_days": 71.6,
+      "age_days": 71.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1875,7 +2004,7 @@
       "changed_files": 4,
       "additions": 83,
       "deletions": 23,
-      "age_days": 71.6,
+      "age_days": 71.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1905,7 +2034,7 @@
       "changed_files": 2,
       "additions": 261,
       "deletions": 6,
-      "age_days": 71,
+      "age_days": 71.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1935,7 +2064,7 @@
       "changed_files": 3,
       "additions": 75,
       "deletions": 10,
-      "age_days": 71,
+      "age_days": 71.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1965,7 +2094,7 @@
       "changed_files": 1,
       "additions": 3,
       "deletions": 2,
-      "age_days": 70.9,
+      "age_days": 71,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -1995,7 +2124,7 @@
       "changed_files": 15,
       "additions": 688,
       "deletions": 110,
-      "age_days": 70.8,
+      "age_days": 70.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2082,7 +2211,7 @@
       "changed_files": 13,
       "additions": 753,
       "deletions": 126,
-      "age_days": 70.7,
+      "age_days": 70.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2119,7 +2248,7 @@
       "changed_files": 2,
       "additions": 32,
       "deletions": 10,
-      "age_days": 70.6,
+      "age_days": 70.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2149,7 +2278,7 @@
       "changed_files": 7,
       "additions": 480,
       "deletions": 16,
-      "age_days": 70.1,
+      "age_days": 70.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2186,7 +2315,7 @@
       "changed_files": 2,
       "additions": 21,
       "deletions": 12,
-      "age_days": 70,
+      "age_days": 70.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2253,7 +2382,7 @@
       "changed_files": 35,
       "additions": 10176,
       "deletions": 0,
-      "age_days": 69.7,
+      "age_days": 69.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2290,7 +2419,7 @@
       "changed_files": 20,
       "additions": 2898,
       "deletions": 123,
-      "age_days": 69.6,
+      "age_days": 69.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2430,7 +2559,7 @@
       "changed_files": 3,
       "additions": 4,
       "deletions": 67,
-      "age_days": 69,
+      "age_days": 69.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2520,7 +2649,7 @@
       "changed_files": 3,
       "additions": 317,
       "deletions": 1,
-      "age_days": 68,
+      "age_days": 68.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2550,7 +2679,7 @@
       "changed_files": 3,
       "additions": 903,
       "deletions": 24,
-      "age_days": 67.9,
+      "age_days": 68,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2654,7 +2783,7 @@
       "changed_files": 2,
       "additions": 61,
       "deletions": 73,
-      "age_days": 67.6,
+      "age_days": 67.7,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2684,7 +2813,7 @@
       "changed_files": 8,
       "additions": 297,
       "deletions": 6,
-      "age_days": 67.1,
+      "age_days": 67.2,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2781,7 +2910,7 @@
       "changed_files": 19,
       "additions": 696,
       "deletions": 1055,
-      "age_days": 66.9,
+      "age_days": 67,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2830,7 +2959,7 @@
       "changed_files": 25,
       "additions": 776,
       "deletions": 2416,
-      "age_days": 66.9,
+      "age_days": 67,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -2971,7 +3100,7 @@
       "changed_files": 13,
       "additions": 22,
       "deletions": 1734,
-      "age_days": 66.8,
+      "age_days": 66.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3031,7 +3160,7 @@
       "changed_files": 161,
       "additions": 315,
       "deletions": 35907,
-      "age_days": 66.7,
+      "age_days": 66.8,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3061,7 +3190,7 @@
       "changed_files": 13,
       "additions": 778,
       "deletions": 17,
-      "age_days": 66.4,
+      "age_days": 66.5,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3243,7 +3372,7 @@
       "changed_files": 3,
       "additions": 7,
       "deletions": 0,
-      "age_days": 65,
+      "age_days": 65.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3280,7 +3409,7 @@
       "changed_files": 7,
       "additions": 268,
       "deletions": 13,
-      "age_days": 65,
+      "age_days": 65.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3323,7 +3452,7 @@
       "changed_files": 6,
       "additions": 156,
       "deletions": 15,
-      "age_days": 65,
+      "age_days": 65.1,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3390,7 +3519,7 @@
       "changed_files": 82,
       "additions": 10882,
       "deletions": 876,
-      "age_days": 64.8,
+      "age_days": 64.9,
       "ci": {
         "state": "unknown",
         "total": 0,
@@ -3445,7 +3574,7 @@
       "changed_files": 4,
       "additions": 368,
       "deletions": 0,
-      "age_days": 64.8,
+      "age_days": 64.9,
       "ci": {
         "state": "unknown",
         "total": 0,
