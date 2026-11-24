@@ -495,6 +495,74 @@
     return null;
   }
 
+  // ---- direct commit: mark a PR as reviewed (token needs Contents RW) ----
+  function b64encode(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (const b of bytes) bin += String.fromCharCode(b);
+    return btoa(bin);
+  }
+  function b64decode(b64) {
+    const bin = atob(String(b64 || '').replace(/\s/g, ''));
+    const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  }
+
+  async function commitMark(pr) {
+    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const api = 'https://api.github.com/repos/' + site + '/contents/data/db/marks.json';
+    const headers = { authorization: 'Bearer ' + state.token, accept: 'application/vnd.github+json' };
+    const cur = await fetch(api + '?ref=main', { headers });
+    let sha = null;
+    let data = { marks: {} };
+    if (cur.ok) {
+      const j = await cur.json();
+      sha = j.sha;
+      try { data = JSON.parse(b64decode(j.content)); } catch (e) { data = { marks: {} }; }
+    } else if (cur.status !== 404) {
+      throw new Error('读取 marks.json 失败（HTTP ' + cur.status + '）');
+    }
+    data.marks = data.marks || {};
+    data.marks[String(pr)] = { at: new Date().toISOString(), source: 'web' };
+    const body = {
+      message: 'chore: mark PR #' + pr + ' as reviewed',
+      content: b64encode(JSON.stringify(data, null, 2) + '\n'),
+      branch: 'main',
+      ...(sha ? { sha } : {}),
+    };
+    const put = await fetch(api, { method: 'PUT', headers: { ...headers, 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    if ([401, 403, 404].includes(put.status)) throw new Error('token 缺少 Contents 写权限（HTTP ' + put.status + '）');
+    if (put.status === 409) throw new Error('文件冲突，请重试');
+    if (!put.ok) throw new Error('提交失败（HTTP ' + put.status + '）');
+    return put.json();
+  }
+
+  function watchMark(pr) {
+    let tries = 0;
+    const tick = async () => {
+      tries++;
+      try {
+        const r = await fetch('data/db/marks.json?ts=' + Date.now(), { cache: 'no-store' });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.marks && j.marks[String(pr)]) {
+            state.marks = j.marks;
+            state.pendingMarks = (state.pendingMarks || []).filter((x) => x.pr !== pr);
+            reRender();
+            return;
+          }
+        }
+      } catch (e) { /* keep polling */ }
+      if (tries < 18) setTimeout(tick, 5000);
+    };
+    setTimeout(tick, 4000);
+  }
+
+  function reRender() {
+    if (state.view && (state.view.type === 'pr' || state.view.type === 'author')) doSearch(state.view.q, false);
+    else render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
+  }
+
   async function requestAction(kind, pr) {
     const p = findRecord(pr) || (state.searchIndex || []).find((x) => x.n === pr) || {};
     const label = kind === 'remind' ? '[remind]' : kind === 'done' ? '[done]' : '[refresh]';
@@ -503,20 +571,34 @@
       (kind === 'remind' ? '**提醒我优先检视**' : kind === 'done' ? '**已完成检视**' : '**请求重新精读**') + ' PR #' + pr +
       (p.html_url ? '\n\n' + p.html_url : '') + '\n';
     const labels = kind === 'remind' ? ['review-remind'] : kind === 'done' ? ['review-done'] : ['review-refresh'];
-    const openFallback = () => {
+
+    const issuePath = async () => {
       const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
-      const url = 'https://github.com/' + site + '/issues/new?labels=' + labels.join(',') +
-        '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
-      window.open(url, '_blank', 'noopener');
-      addPending(kind, pr, p.title);
+      const openPrefilled = () => {
+        const url = 'https://github.com/' + site + '/issues/new?labels=' + labels.join(',') +
+          '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+        window.open(url, '_blank', 'noopener');
+        addPending(kind, pr, p.title);
+      };
+      if (!state.token) { openPrefilled(); return; }
+      try { await createIssue(title, body, labels); addPending(kind, pr, p.title); }
+      catch (e) { openPrefilled(); }
     };
-    if (!state.token) { openFallback(); return; }
-    try {
-      await createIssue(title, body, labels);
-      addPending(kind, pr, p.title);
-    } catch (e) {
-      openFallback();
+
+    if (kind === 'done' && state.token) {
+      addPending('done', pr, p.title);
+      try {
+        await commitMark(pr);
+        watchMark(pr);
+      } catch (e) {
+        state.pendingMarks = (state.pendingMarks || []).filter((x) => x.pr !== pr);
+        state.fbStatus[pr] = '直接提交失败：' + e.message + '（已改用 issue 方式）';
+        await issuePath();
+        reRender();
+      }
+      return;
     }
+    await issuePath();
   }
 
   function addPending(kind, pr, title) {
