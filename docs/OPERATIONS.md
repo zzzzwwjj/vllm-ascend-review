@@ -93,7 +93,8 @@ node scripts/publish.mjs            # 单次提交
 | Pages 构建失败 | 多为并发提交；publish 已是单提交，重试一次即可 |
 | 搜索查不到 | 数字会尝试直接读分片；作者搜索只覆盖库内已出现的 PR |
 | 「完成检视」一直“待同步” | 看仓库是否出现 `chore: mark PR #n as reviewed`；有则是页面缓存，硬刷即可（已做加载对账） |
-| 完成检视提示权限不足 | token 缺 `Contents: RW`，换 token 或改用 issue 方式 |
+| 完成检视提示“仅限本人操作” | 没有填 token，或 token 属于其他账号；只有 `@zzzzwwjj` 的 token 可用（不回退 issue） |
+| 完成检视提示权限不足 | token 缺 `Contents: RW`，换成本人且带该权限的 token |
 | token 失效 | 重新填写；页面“GitHub 已连接”会提示 401 |
 
 ## 8. 状态与恢复

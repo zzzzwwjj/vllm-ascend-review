@@ -92,8 +92,9 @@
 
 ## 9. 完成检视（marks）
 
-- 页面「完成检视」按钮默认**直接提交仓库**：浏览器 `PUT data/db/marks.json`（需要 Contents 写权限的 token）；
-- 提交后页面轮询到站点更新（约 30–60 秒）即变成“已检视”；失败自动退回 issue 方式；
+- 「完成检视」**仅限 @zzzzwwjj 本人**：必须先在页面里填入本人 token（Contents 写权限），
+  且 token 对应账号必须是 @zzzzwwjj，否则直接报错；不做 issue 回退；
+- 点击后浏览器直接 `PUT data/db/marks.json`，页面轮询到站点更新（约 30–60 秒）即变成“已检视”；
 - 每次发布前 `render.mjs` 会先从远端合并 marks，避免本地状态覆盖网页上的标记；
 - issue 方式（无 token 或权限不足）会在下一期被 `[done]` 收录后生效。
 

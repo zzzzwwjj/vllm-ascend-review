@@ -4,8 +4,10 @@
 // so revisiting one is served from memory or the HTTP cache instead of the network.
 (function () {
   const TOKEN_KEY = 'gh-feedback-token';
+  const LOGIN_KEY = 'gh-token-login';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
+  const readLogin = () => { try { return localStorage.getItem(LOGIN_KEY) || ''; } catch (e) { return ''; } };
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), tokenLogin: readLogin(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
     highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })(),
     marks: {}, pendingMarks: (() => { try { return JSON.parse(localStorage.getItem('board-pending-marks') || '[]'); } catch (e) { return []; } })() };
   const params = new URLSearchParams(location.search);
@@ -284,7 +286,8 @@
       if (!r.ok) { ghMsg('token 无效或已过期（HTTP ' + r.status + '）'); return; }
       const u = await r.json();
       state.token = v;
-      try { localStorage.setItem(TOKEN_KEY, v); } catch (e) { /* ignore */ }
+      state.tokenLogin = u.login;
+      try { localStorage.setItem(TOKEN_KEY, v); localStorage.setItem(LOGIN_KEY, u.login); } catch (e) { /* ignore */ }
       ghMsg('已连接 @' + u.login + (u.login !== 'zzzzwwjj' ? '（注意：不是 zzzzwwjj）' : ''));
       const btn = document.querySelector('[data-gh-open]');
       if (btn) btn.textContent = '● GitHub 已连接';
@@ -295,7 +298,8 @@
 
   function clearToken() {
     state.token = '';
-    try { localStorage.removeItem(TOKEN_KEY); } catch (e) { /* ignore */ }
+    state.tokenLogin = '';
+    try { localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(LOGIN_KEY); } catch (e) { /* ignore */ }
     ghMsg('已清除');
     const btn = document.querySelector('[data-gh-open]');
     if (btn) btn.textContent = '○ 连接 GitHub（页面内提交）';
@@ -600,6 +604,25 @@
     setTimeout(tick, 4000);
   }
 
+  function toast(message) {
+    let el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove('show'), 5000);
+  }
+
+  async function verifyTokenLogin() {
+    if (state.tokenLogin) return state.tokenLogin;
+    const r = await fetch('https://api.github.com/user', { headers: { authorization: 'Bearer ' + state.token, accept: 'application/vnd.github+json' } });
+    if (!r.ok) throw new Error('token 无效（HTTP ' + r.status + '）');
+    const u = await r.json();
+    state.tokenLogin = u.login;
+    try { localStorage.setItem(LOGIN_KEY, u.login); } catch (e) { /* ignore */ }
+    return u.login;
+  }
+
   function reRender() {
     if (state.view && state.view.type === 'home') renderHome();
     else if (state.view && state.view.type === 'highlights') doHighlights(false);
@@ -629,16 +652,25 @@
       catch (e) { openPrefilled(); }
     };
 
-    if (kind === 'done' && state.token) {
-      addPending('done', pr, p.title);
+    if (kind === 'done') {
+      const owner = state.idx?.user || '';
+      if (!state.token) {
+        toast('「完成检视」仅限 @' + owner + ' 本人操作：请先在左侧「连接 GitHub」填入你本人的 token。');
+        return;
+      }
       try {
+        const login = await verifyTokenLogin();
+        if (login !== owner) {
+          toast('当前 token 属于 @' + login + '，只有 @' + owner + ' 可以标记完成检视。');
+          return;
+        }
+        addPending('done', pr, p.title);
         await commitMark(pr);
         watchMark(pr);
       } catch (e) {
         state.pendingMarks = (state.pendingMarks || []).filter((x) => x.pr !== pr);
-        state.fbStatus[pr] = '直接提交失败：' + e.message + '（已改用 issue 方式）';
-        await issuePath();
         reRender();
+        toast('提交失败：' + e.message);
       }
       return;
     }
