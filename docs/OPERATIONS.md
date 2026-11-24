@@ -25,6 +25,15 @@ vllm-ascend-review/
 └── out/                        发布产物（data/db、app.js、app.css、index.html、docs）
 ```
 
+### 一次性脚本（历史迁移用，正常流程不需要）
+
+| 脚本 | 用途 |
+|---|---|
+| `migrate-legacy.mjs` | 把骨架化之前的旧期次 HTML 转成数据 JSON |
+| `db-migrate.mjs` | 把按期次 JSON 迁成规范化库（prs 分片 + editions + manifest） |
+| `rebuild-plan.mjs` / `apply-rebuild.mjs` | 按“只保留首次出现”的规则重算历史期次（先算计划，再应用） |
+| `backfill-head-sha.mjs` | 给旧记录补 `head_sha`，让文件链接能指向具体提交 |
+
 ## 2. 一期的标准流程
 
 ```bash
