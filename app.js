@@ -53,7 +53,8 @@
       '<p class="side-sub">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
       highlightsSection() +
       '<div class="side-title">历史记录 <span>' + state.editions.length + '</span></div>' +
-      '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav>' + ghBox() + '</aside>';
+      '<nav class="eds side-scroll">' + (items || '<p class="muted">暂无</p>') + '</nav>' +
+      '<div class="side-foot">' + ghBox() + '</div></aside>';
   }
 
   const fmtNum = (n) => (n == null ? '0' : Number(n).toLocaleString('en-US'));
@@ -477,14 +478,15 @@
       if (!items.some((x) => x.pr === p.pr && x.kind === p.kind)) items.unshift({ ...p, pending: true });
     }
     if (!items.length) return '';
-    const rows = items.slice(0, 12).map((h) => {
+    const rows = items.slice(0, 20).map((h) => {
       const kind = h.kind === 'remind' ? '提醒' : '已刷新';
       const bump = h.pending ? ' · 待处理' : '';
       return '<a class="ed hl" data-pr-nav="' + h.pr + '" href="?pr=' + h.pr + '">' +
         '<span class="ed-when">#' + h.pr + ' · ' + kind + bump + '</span>' +
         '<span class="ed-nums">' + esc(h.title || '') + '</span></a>';
     }).join('');
-    return '<div class="side-title hl-title">高优检视 <span>' + items.length + '</span></div><nav class="eds">' + rows + '</nav>';
+    const more = items.length > 20 ? '<p class="hl-more">仅显示最近 20 条，其余 ' + (items.length - 20) + ' 条已折叠</p>' : '';
+    return '<div class="side-title hl-title">高优检视 <span>' + items.length + '</span></div><nav class="eds hl-eds">' + rows + '</nav>' + more;
   }
 
   function findRecord(n) {
