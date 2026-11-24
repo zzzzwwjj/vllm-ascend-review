@@ -246,3 +246,5 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .done.pending{color:var(--wait);border-color:var(--wait)}
 .rc-foot .act.ok{border-color:var(--ok);color:var(--ok)}
 .rc-foot .act.ok:hover{background:rgba(15,123,63,.08)}
+.ed.hl-batch{margin-bottom:6px}
+.ed.hl-batch .ed-when{color:var(--bad);font-weight:600}

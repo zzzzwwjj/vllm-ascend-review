@@ -472,21 +472,43 @@
   }
 
 
-  function highlightsSection() {
+  function activeHighlights() {
     const items = (state.highlights || []).slice();
     for (const p of state.pendingHl || []) {
       if (!items.some((x) => x.pr === p.pr && x.kind === p.kind)) items.unshift({ ...p, pending: true });
     }
-    if (!items.length) return '';
-    const rows = items.slice(0, 20).map((h) => {
-      const kind = h.kind === 'remind' ? '提醒' : '已刷新';
-      const bump = h.pending ? ' · 待处理' : '';
-      return '<a class="ed hl" data-pr-nav="' + h.pr + '" href="?pr=' + h.pr + '">' +
-        '<span class="ed-when">#' + h.pr + ' · ' + kind + bump + '</span>' +
-        '<span class="ed-nums">' + esc(h.title || '') + '</span></a>';
-    }).join('');
-    const more = items.length > 20 ? '<p class="hl-more">仅显示最近 20 条，其余 ' + (items.length - 20) + ' 条已折叠</p>' : '';
-    return '<div class="side-title hl-title">高优检视 <span>' + items.length + '</span></div><nav class="eds hl-eds">' + rows + '</nav>' + more;
+    return items.filter((h) => !(state.marks && state.marks[String(h.pr)]));
+  }
+
+  function highlightsSection() {
+    const n = activeHighlights().length;
+    if (!n) return '';
+    return '<a class="ed hl-batch' + (state.view && state.view.type === 'highlights' ? ' active' : '') + '" data-hl-nav="1" href="?hl=1">' +
+      '<span class="ed-when">高优检视</span><span class="ed-nums">' + n + ' 个待处理</span></a>';
+  }
+
+  async function doHighlights(push) {
+    if (push) history.pushState({ hl: 1 }, '', '?hl=1');
+    state.view = { type: 'highlights' };
+    const items = activeHighlights();
+    document.title = '高优检视 · vLLM-Ascend 待我检视';
+    if (!items.length) {
+      app().innerHTML = shell('<header><h1>高优检视</h1></header><div class="content"><p class="muted">暂无待处理的高优 PR。</p></div>');
+      return;
+    }
+    const recs = (await Promise.all(items.map(async (h) => {
+      const r = await loadRecord(h.pr).catch(() => null);
+      return r ? { ...r, _hl: h } : null;
+    }))).filter(Boolean).filter((r) => markState(r).cls !== 'yes');
+    const deep = recs.filter((r) => r.review);
+    const rest = recs.filter((r) => !r.review);
+    const header = '<header><h1>高优检视 <span class="at">' + recs.length + ' 个待处理</span></h1>' +
+      '<p class="sub">提醒检视 / 已刷新的 PR；标记完成检视后会自动移出</p></header>';
+    const body = '<div class="content">' +
+      (deep.length ? '<h2>精读（' + deep.length + '）</h2>' + deep.map(card).join('') : '') +
+      (rest.length ? tableBlock(rest.map(row).join(''), '未精读（' + rest.length + '）') : '') +
+      '</div>';
+    app().innerHTML = shell(header + body);
   }
 
   function findRecord(n) {
@@ -563,7 +585,8 @@
   }
 
   function reRender() {
-    if (state.view && (state.view.type === 'pr' || state.view.type === 'author')) doSearch(state.view.q, false);
+    if (state.view && state.view.type === 'highlights') doHighlights(false);
+    else if (state.view && (state.view.type === 'pr' || state.view.type === 'author')) doSearch(state.view.q, false);
     else render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
   }
 
@@ -763,6 +786,11 @@
       requestAction(act.dataset.act, Number(act.dataset.pr));
       return;
     }
+    if (e.target.closest('[data-hl-nav]')) {
+      e.preventDefault();
+      doHighlights(true);
+      return;
+    }
     const hl = e.target.closest('[data-pr-nav]');
     if (hl) {
       e.preventDefault();
@@ -824,6 +852,7 @@
 
   window.addEventListener('popstate', () => {
     const p = new URLSearchParams(location.search);
+    if (p.get('hl')) { doHighlights(false); return; }
     if (p.get('pr')) { doSearch(p.get('pr'), false); return; }
     if (p.get('author')) { doSearch(p.get('author'), false); return; }
     go(p.get('e') || state.idx.current, false);
@@ -857,7 +886,8 @@
             }
           }).catch(() => {}),
       ]);
-      if (params.get('pr')) { await doSearch(params.get('pr'), false); }
+      if (params.get('hl')) { await doHighlights(false); }
+      else if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
       else {
         const want = params.get('e');
