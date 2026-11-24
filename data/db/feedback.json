@@ -1,4 +1,61 @@
 {
-  "updated_at": "2026-11-24T03:03:06.100Z",
-  "entries": {}
+  "updated_at": "2026-11-24T05:12:37.626Z",
+  "entries": {
+    "20244": [
+      {
+        "id": 2,
+        "at": "2026-11-24T04:14:43Z",
+        "text": "这个pr的根本原因是megamoe算子对token数存在限制导致的，修改本质上是在框架侧做合理的、不影响功能的规避，代码逻辑没有问题，但是vllm-ascend做为vllm的插件仓，NPUModelRunner做为GPUModelRunner的子类，我们的代码与上游差异越大，代码的维护成本就越高。所以这种非框架侧自身原因导致的问题，暂时在框架侧做规避可以，但需要加TODO(github id)注释说明这只是临时的规避方案，防止规避代码在vllm-ascend内长期存在无人处理。TODO里需要写明问题根因、规避方案和日落计划。",
+        "edition": "2026-11-24-0800",
+        "review_sha": "551e3870f86d",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/2",
+        "ack": {
+          "status": "accepted",
+          "note": "接受。原精读只评了规避逻辑本身，没要求标注临时性。规避上游缺陷的代码应加 TODO(github id)，写明根因、规避方案与日落计划。"
+        }
+      }
+    ],
+    "21535": [
+      {
+        "id": 3,
+        "at": "2026-11-24T04:40:17Z",
+        "text": "disconnect_kv_transfer_peers作为worker的新增函数，我并没有在pr修改中找到这个函数的调用点，这种看起来比较奇怪的代码，可以在检视结果里说明一下。如果你没注意到这一点，之后的检视需要注意一下。",
+        "edition": "2026-11-24-0800",
+        "review_sha": "bb410731e8ff",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/3",
+        "ack": {
+          "status": "accepted",
+          "note": "部分接受：该点在 risks 里写过“worker.py 内只定义不调用”，但埋在中等风险里不够显眼，等于没起到提醒作用。今后“新增函数找不到调用点”要单独列为问题并置顶。"
+        }
+      }
+    ],
+    "21937": [
+      {
+        "id": 4,
+        "at": "2026-11-24T04:53:34Z",
+        "text": "对外接口的变更一定要严格把控，因为接口新增后，后面再想要删除或改动就会涉及非兼容变更，用户存量的服务部署在版本更新时就需要做兼容性适配，代价非常大，所以我们需要考虑变更的合理性。比如这个pr新增的AscendConfig.av_score_tolerance，为什么上游的adaptive verification逻辑无法满足我们的诉求，是上游的算法写的不够好，还是硬件差异导致我们需要差异化实现？前者的话，我们应该去优化vLLM的adaptive verification算法代码，而不应该在vLLM Ascend中做workaround；后者的话，可以考虑让上游针对adaptive verification暴露platform插件化接口，让我们在vllm-ascend上可以自由实现，这样既不用暴露对外接口，也可以降低我们后续的代码维护成本。",
+        "edition": "2026-11-24-0800",
+        "review_sha": "d94f92a4b13a",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/4",
+        "ack": {
+          "status": "accepted",
+          "note": "接受。原精读只评了字段与注入点是否正确，没质疑“是否该在 vllm-ascend 新增对外配置”。应先判断上游 adaptive verification 能否满足，硬件差异应推动上游开插件接口，而不是新增 AscendConfig 字段。"
+        }
+      }
+    ],
+    "22567": [
+      {
+        "id": 5,
+        "at": "2026-11-24T04:58:02Z",
+        "text": "pr标题不符合规范，需要作者添加诸如[performance]、[bugfix]的标签；\n另外为什么不直接在forward_oot中判断residual非空时走融合算子，而是新增了一个函数，还要对上游的模型脚本打patch？实现方案非常不合理。",
+        "edition": "2026-11-24-0800",
+        "review_sha": "37ad7308b2be",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/5",
+        "ack": {
+          "status": "accepted",
+          "note": "确实漏了：标题缺 [Feature]/[Performance] 这类规范前缀，且没有质疑“新增函数 + 给上游模型脚本打 patch”相对“在 forward_oot 内判断 residual”的必要性。下期起这两点都按硬性检查项写进结论。"
+        }
+      }
+    ]
+  }
 }

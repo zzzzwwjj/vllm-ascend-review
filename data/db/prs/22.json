@@ -111,6 +111,99 @@
       "review": null,
       "review_sha": null
     },
+    "22109": {
+      "number": 22109,
+      "title": "[Feature][HiSparse] Mooncake MemFabric Pull into shared Offload Host",
+      "author": "LifeOfCoffee",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22109",
+      "changed_files": 24,
+      "additions": 1984,
+      "deletions": 158,
+      "age_days": 7.1,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 2,
+        "total": 23,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22109,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "硬件 profile 新增 MemFabric 稀疏拷贝批量上限（A3=47、A5=63），支撑 HiSparse/Mooncake Pull。",
+        "intent": "MemFabric paired-copy 在 A3/A5 的 48/64 批量阈值附近会退化；新增字段让 HiSparse→Resident 的批量拷贝保持在阈值之下。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "新字段默认 None、A3/A5 赋值 47/63 与『stay below 48/64』的边界是否一致；frozen slots dataclass 末尾加默认字段的兼容性。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/kv_p2p/mooncake/pull_worker.py",
+            "point": "MemFabric Pull 的拷贝批次构造处是否读取该字段；None 分支与每批 pair/行数折算。"
+          },
+          {
+            "file": "tests/ut/device/test_hardware_profile.py",
+            "point": "新字段没有断言，A3/A5 取值与 None 分支均无单测。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "未找到该字段的消费点：我核对了 hardware_profile 测试、mooncake connector、hisparse_pd、pull_worker、memfabric_transfer_engine、base_worker，均未检索到 memfabric_sparse_copy_batch_limit 的读取；若消费端不在本 PR，则规则3 的生效路径不成立，字段只是悬空配置。"
+          },
+          {
+            "level": "medium",
+            "text": "A3=47 不在 body 的 A5 E2E 验证范围内；47/63 是对 MemFabric『48/64 阈值』的硬编码规避，注释没有跟踪 issue、MemFabric 版本或移除计划，不满足规则2 的可追溯要求。"
+          },
+          {
+            "level": "medium",
+            "text": "字段为 int|None 且默认 None，A2/310P 或未配置硬件若走同一拷贝路径必须显式处理 None；未看到对应测试或 guard。"
+          },
+          {
+            "level": "low",
+            "text": "47/63 与 48/64 的边界（< 还是 <=）没写清，错一则仍可能落在阈值上。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 部分适用：硬件阈值放进 HardwareProfile 合理；但本 PR 新增用户可见的 transfer_backend=memfabric 选择，建议确认能否通过上游 TransferEngine 插件接口承载，避免长期分叉。"
+          },
+          {
+            "level": "medium",
+            "text": "整体风险高：24 文件/1984 行，body 的 E2E 验证标在 820de494，与 head 1ecd746 不是同一提交，无法确认覆盖 head 全部改动；prefill PCP>1 仍未经 E2E，且 reviews 里仍有 2 条 changes_requested。"
+          }
+        ],
+        "tests": "CI 6 项中 0 失败、3 skipped；E2E 为 A5 单点验证（820de494）；owned 的 hardware_profile 新字段无单测，tests/ut/device/test_hardware_profile.py 未新增断言。",
+        "questions": [
+          "memfabric_sparse_copy_batch_limit 的读取文件/函数在哪里？为什么在上述文件中都没有检索到？",
+          "A3=47 的实测依据是什么？48/64 阈值对应哪个 MemFabric 版本，tracking issue 与移除计划？",
+          "None 分支（A2/310P/未配置）在消费端如何处理？",
+          "head 1ecd746 与验证 commit 820de494 之间的差异是否需要重跑 E2E？prefill PCP>1 的 E2E 何时补？",
+          "2 条 changes_requested 是否已全部解决？"
+        ],
+        "recommend": "先补消费点、None 处理、A3 依据与阈值 tracking issue，并清掉 changes_requested；大特性建议拆分验证后再合。"
+      },
+      "review_sha": "d2234b45e8a3"
+    },
     "22147": {
       "number": 22147,
       "title": "[Performance] Integrate A5 Chunk32 and validate A3 Chunk64 GDN prefill",
@@ -851,6 +944,109 @@
       },
       "review_sha": "50a563471a11"
     },
+    "22447": {
+      "number": 22447,
+      "title": "[Refactor][Worker] Reuse inherited weight transfer helpers",
+      "author": "Ronald1995",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22447",
+      "changed_files": 4,
+      "additions": 199,
+      "deletions": 115,
+      "age_days": 4.9,
+      "ci": {
+        "total": 52,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 1,
+        "skipped": 20,
+        "state": "pending"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 98
+        }
+      ],
+      "owned_add": 22,
+      "owned_del": 98,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22447,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "删除权重传输与 checksum 前缀的重复 override，改用 GPUWorker 继承实现，仅保留 Ascend 启动校验。",
+        "intent": "这些方法基本是 GPUWorker 的等价拷贝，长期保留会重复维护并漂移；跟进 #20865 改为继承，同时用局部 mypy suppression 处理上游类型不可见。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "删除 start/update/finish_weight_update、init_weight_transfer_engine、_weight_checksum_prefix 后，基类 start_weight_update 是否调用 self._start_weight_update()，_check_nz_disabled 是否仍在生效路径上。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "原 _weight_checksum_prefix 注释称 dense worker 的 data_parallel_rank 会归零、只有 data_parallel_index 能保证 DP key 唯一；确认 pin 的上游实现已如此。"
+          },
+          {
+            "file": "tests/ut/worker/",
+            "point": "body 称已 patch 上游 parallel-group helpers；需确认 checksum 测试覆盖多 DP replica 前缀唯一，而不只是单 rank 字符串。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "_weight_checksum_prefix override 删除后完全依赖上游实现；被删注释明确警告 dense worker 的 data_parallel_rank 会归零、只有 data_parallel_index 能保证 DP key 唯一。若 pin 的 c410543 未改用 index，多 DP replica 的 checksum key 会碰撞。"
+          },
+          {
+            "level": "medium",
+            "text": "新 override _start_weight_update 的调用点在上游 GPUWorker.start_weight_update；若上游没有该钩子，本方法变死代码、NZ 校验失效。作者注释称继承生命周期，但需给出 pin 版本代码或测试证据。"
+          },
+          {
+            "level": "low",
+            "text": "错误优先级变化：旧实现先判断 _weight_update_active 再查 NZ，新实现先查 NZ 再进基类；依赖错误消息或异常顺序的测试需同步。"
+          },
+          {
+            "level": "low",
+            "text": "删除 annotation-only 声明后改用 # type: ignore[has-type]，会弱化 mypy 对 self.profiler 等属性的检查；建议尽量改为局部变量或 assert。"
+          },
+          {
+            "level": "low",
+            "text": "标题为 [Refactor]，不在本次要求的 [Feature]/[BugFix]/[Performance] 三类中，请确认仓库是否接受该前缀。"
+          },
+          {
+            "level": "low",
+            "text": "同族路径：worker.py 是 v1/v2 共用的 NPUWorker（vllm_ascend/worker/v2/worker.py 不存在），不存在漏改的 v2 分支，但 v2 下走同一继承路径，需由同一批测试覆盖。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：没有新增对外配置/公开接口；相反是删除 Ascend 分叉、复用上游实现，方向正确。"
+          },
+          {
+            "level": "low",
+            "text": "规则2 不适用：未新增对上游缺陷的规避，本次是移除旧 override。"
+          },
+          {
+            "level": "medium",
+            "text": "规则3 部分满足：_start_weight_update / _check_nz_disabled 的调用依赖基类动态分派，PR 内没有直接调用点；需要上游代码或测试证明生效路径，否则不满足『新增分支必须可找到调用点』。"
+          }
+        ],
+        "tests": "作者报告 190 passed + 16 subtests（Windows CPU mock，含 Worker V1/V2、HCCL、checksum、sleep、KV 分配）；CI 52 项中 0 失败、1 pending、20 skipped；我未能定位更新后的 checksum 测试文件，无法核实断言内容。",
+        "questions": [
+          "请给出 pin 的 c410543 中 GPUWorker._weight_checksum_prefix、start_weight_update、_start_weight_update 的代码片段，证明 (a) 前缀用 data_parallel_index 保证 DP 唯一，(b) start_weight_update 会调用 self._start_weight_update()。",
+          "更新后的 checksum 测试文件路径是什么？是否 patch 的真实 parallel-group helper，且覆盖多 DP replica？",
+          "标题用 [Refactor] 是否符合本仓库规范？"
+        ],
+        "recommend": "继承方向正确；补上游实现引用和测试文件路径、确认 checksum DP 前缀语义后即可批准。"
+      },
+      "review_sha": "82d40476d14d"
+    },
     "22539": {
       "number": 22539,
       "title": "[Performance][MoE] Fuse All2AllV INT8 quantization with token routing",
@@ -1499,6 +1695,80 @@
         "recommend": "owned 改动逻辑与测试可批准；建议先 rebase 解除 merge-conflicts，并确认 PP 非末 rank 的 scope no-op 行为。"
       },
       "review_sha": "b89d91a66b23"
+    },
+    "22856": {
+      "number": 22856,
+      "title": "[Doc][CSRC] Restore canonical ACLNN and Sparse Flash MLA documentation references",
+      "author": "doubinfx",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22856",
+      "changed_files": 7,
+      "additions": 26,
+      "deletions": 26,
+      "age_days": 1,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22856,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "恢复 7 个 CSRC 算子文档中失效的 ops-transformer 规范引用链接。",
+        "intent": "文档里指向 ops-transformer 的仓库内引用已失效；改为 CANN ops-transformer 的权威文档、Golden 与单测源码链接，共恢复 29 处，不改代码/API/构建。",
+        "focus": [
+          {
+            "file": "csrc/attention/sparse_flash_mla/docs/design.md",
+            "point": "非我负责文件。核对 gitcode 规范链接与仓库内相对链接并存，无死链、无接口语义改动"
+          },
+          {
+            "file": "csrc/attention/quant_lightning_indexer_v2/docs/aclnnQuantLightningIndexerV2.md",
+            "point": "非我负责文件。aclnn 两段式接口等外部链接指向 ops-transformer docs/zh，未改接口约束"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "纯文档改动，不涉及算子代码/API/构建；残余风险仅为外部链接固定到 gitcode master 分支，后续目录调整会再次失效。"
+          },
+          {
+            "level": "low",
+            "text": "规则1不适用：未新增对外配置或公开接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则2不适用：无上游缺陷临时规避，无需 TODO。"
+          },
+          {
+            "level": "low",
+            "text": "规则3不适用：未新增函数、开关或分支。"
+          },
+          {
+            "level": "low",
+            "text": "标题用 [Doc][CSRC]，不属于 [Feature]/[BugFix]/[Performance]；文档类 PR 常见，但按规范需确认仓库是否允许该前缀。"
+          }
+        ],
+        "tests": "无单测/CI 用例（纯文档）；PR 称 8 个链接目标 HTTP 200、git diff --check 通过；CI 显示 0 个 check。",
+        "questions": [
+          "外部链接固定到 ops-transformer master 分支，是否需要改为 tag/commit 固定以避免再次失效？",
+          "是否同目录其他文档（如 metadata 目录）也存在同类失效引用，只是本 PR 未覆盖？"
+        ],
+        "recommend": "文档改动正确可批准；建议后续统一使用固定版本链接。"
+      },
+      "review_sha": "f5b4405fe98c"
     },
     "22865": {
       "number": 22865,
@@ -2749,6 +3019,339 @@
         "recommend": "utils.py 侧可批准：上界与运行时切分自洽、边界有 UT；建议顺手把 2P 例外收进 helper，并补 PCP8/DCP8 资源数据。"
       },
       "review_sha": "a71165d9ac9e"
+    },
+    "22984": {
+      "number": 22984,
+      "title": "[Feature][Ascend A3] Add general MegaMHC seam dispatch, Ozaki weight packing, and lifecycle support",
+      "author": "KeyanHu-git",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22984",
+      "changed_files": 9,
+      "additions": 1543,
+      "deletions": 0,
+      "age_days": 0.2,
+      "ci": {
+        "total": 11,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 8,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/__init__.py",
+          "status": "added",
+          "additions": 60,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/contracts.py",
+          "status": "added",
+          "additions": 131,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/lifecycle.py",
+          "status": "added",
+          "additions": 204,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/packing.py",
+          "status": "added",
+          "additions": 98,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/reference.py",
+          "status": "added",
+          "additions": 42,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mhc/registry.py",
+          "status": "added",
+          "additions": 531,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 1077,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22984,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 A3 MegaMHC seam 派发、Ozaki 权重打包与权重生命周期框架。",
+        "intent": "Delayed-mHC 解码每层跨子层 seam 要跑 3 个算子，HBM 激活放大 3.8x 且有 208MiB FP32 workspace；本 PR 接配套 CANN 融合算子，在框架侧做多架构派发、离线打包与生命周期管理。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/mhc/registry.py",
+            "point": "select_backend 的 A5→A3 解耦→A3 融合→A2→fallback 顺序与守卫；核对 prepare/run 对 spec.T、write_kv、SuperKernel 的校验和 op 参数"
+          },
+          {
+            "file": "vllm_ascend/ops/mhc/lifecycle.py",
+            "point": "prepare_layer 在 packed 后释放 canonical、generation/validate_graph、on_sleep/on_wake/on_device_move/on_weight_update 的状态迁移"
+          },
+          {
+            "file": "vllm_ascend/ops/mhc/packing.py",
+            "point": "Ozaki NZ/ND 打包与解包是否互逆、c4_weight_nbytes 与真实 byte 数一致、408 项 C4 索引表是否自洽"
+          },
+          {
+            "file": "vllm_ascend/ops/mhc/contracts.py",
+            "point": "hc_base/hc_scale 布局契约、PreparedMhcWeights 的 source_released/index_map_ready 语义"
+          },
+          {
+            "file": "vllm_ascend/ops/mhc/reference.py",
+            "point": "hc_base 按 (pre,post,comb) 切分与 Sinkhorn 迭代次序；作为 CPU fallback 需与算子语义一致"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "is_mega_mhc_supported 的 torch.ops 探测与 is_mega_moe_supported 风格一致，且未新增用户开关"
+          },
+          {
+            "file": "vllm_ascend/ops/mhc/__init__.py",
+            "point": "公开导出面较大，确认这些符号是否应视为内部 API 以免形成长期兼容承诺"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "规则3：本 PR 可见改动中 vllm_ascend/ops/mhc 无生产 import，select_backend/MhcWeightLifecycleManager 仅包内自洽，is_mega_mhc_supported 与 build_c4_index_map 在 owned 文件无调用方；若另外 2 个改动文件只是单测，1.5k 行没有生效路径。"
+          },
+          {
+            "level": "high",
+            "text": "设备常量只 prepare 不 release：registry 调 torch.ops._C_ascend.prepare_device_constants，但包内无 release_device_constants 调用，invalidate_device_constants 回调默认 None 且本 PR 未接线；sleep/权重更新后常量表可能残留。"
+          },
+          {
+            "level": "medium",
+            "text": "packed 后 layer.canonical 置 None，依赖模型侧同时释放 alias；否则 FP32 权重仍驻留，零重复权重内存不成立，本 PR 无模型侧代码可验证。"
+          },
+          {
+            "level": "medium",
+            "text": "A3DecoupledMhcBackend.supports 经 super().supports() 间接要求 has_a3_fused_op=True；只注册解耦算子时会被误判不支持，守卫应拆分。"
+          },
+          {
+            "level": "medium",
+            "text": "reference 以 (pre,post,comb) 顺序切分 hc_base 且 Sinkhorn 先归一化 source 维；需与模型 checkpoint 布局及 CANN 算子语义核对，否则 CPU fallback 与 NPU 结果不一致。"
+          },
+          {
+            "level": "low",
+            "text": "C4 索引表 post 段用 j % 4 让 8 项重复映射 4 个字（sigmoid/comb 段均为顺序映射），需确认是算子 gather 宽度要求还是笔误。"
+          },
+          {
+            "level": "low",
+            "text": "规则1：新增包与 is_mega_mhc_supported 属插件内部、上游无 mHC 算子，无法上游化；建议明确内部 API 定位并避免对外兼容承诺。"
+          },
+          {
+            "level": "low",
+            "text": "规则2不适用：未规避上游 vLLM 缺陷，无临时 patch/TODO 需求。"
+          }
+        ],
+        "tests": "CI 11 项 0 失败、8 跳过；deep JSON 未包含另外 2 个改动文件（推测含单测）的 patch，未核实 registry/lifecycle 单测；无 NPU 端到端或精度对比。",
+        "questions": [
+          "需要作者确认：本 PR 另外 2 个改动文件是什么（是否仅单测）？这决定 mhc 包在 PR 内是否有任何生效路径。",
+          "需要作者确认：配套模型接入 PR 在哪？本 PR 内 select_backend 与 MhcWeightLifecycleManager 由谁调用、何时接线？",
+          "需要作者确认：prepare_device_constants 的释放路径——是否计划接线 release_device_constants？sleep/on_weight_update 后常量为何可保留？",
+          "需要作者确认：hc_base 的 (pre,post,comb) 顺序与 Sinkhorn 迭代次数是否与模型权重布局和 CANN 算子一致？",
+          "需要作者确认：只注册 npu_mega_mhc_main 时解耦后端是否应可用（当前间接要求 fused op 已注册）？",
+          "需要作者确认：build_c4_index_map 的 post 段 j % 4 重复映射及 408 项布局是否有对应单测或算子文档依据？"
+        ],
+        "recommend": "先补齐模型接入调用点与设备常量释放路径并给出单测位置，再评估合入。"
+      },
+      "review_sha": "8b1d2e55fb88"
+    },
+    "22997": {
+      "number": 22997,
+      "title": "[Misc][Refactor] Remove leftover DeepSeek V4 legacy KV cache allocation code",
+      "author": "Angazenn",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22997",
+      "changed_files": 7,
+      "additions": 73,
+      "deletions": 121,
+      "age_days": 0.1,
+      "ci": {
+        "total": 43,
+        "failed": 4,
+        "failed_names": [
+          "ci-gate",
+          "cpu-ut (vllm@v0.33.0) / cpu-ut card-",
+          "cpu-ut (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / cpu-ut card-",
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 27,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 53
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 53,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22997,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "删除 attn_utils.py 里 DSV4 遗留的 _is_dsv4_model 与不可达共享 backing 分支，并同步单测。",
+        "intent": "跟进 #21083/#21053：DSV4/V4.1 KV cache 已改走 unified_allocate_kv_cache，遗留分支与 _is_dsv4_model 成了死代码，清理并同步单测。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "删除分支后 _allocate_kv_cache（L941 起）是否还有不可达代码，DSV4 是否已全部由 allocate_kv_cache_main 分流"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "唯一分流判据是 hf_text_config.model_type（L1488），与被删 _is_dsv4_model 用的 hf_config.model_type 不一致"
+          },
+          {
+            "file": "tests/ut/worker/test_attn_utils_v2.py",
+            "point": "DSV4 用例是否全部改走 allocate_kv_cache_main，残留 _allocate_kv_cache 用例是否都是非 DSV4"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "CI 有两个 cpu-ut job 失败（vllm@v0.33.0 与 vllm@c410543d9），而本 PR 改的正是这些 worker UT 模块，不能排除是本 PR 的测试迁移引入（例如断言随新入口变化）。仅凭元数据无法定位，需作者贴日志。"
+          },
+          {
+            "level": "medium",
+            "text": "分流判据变化：allocate_kv_cache_main 用 hf_text_config.model_type in (deepseek_v4, deepseek_v41, deepseek_v41_text) 判断，而被删的 _is_dsv4_model 用的是 hf_config.model_type。若某 DSV4 配置没有 hf_text_config（或 text config 的 model_type 不同），会落回 _allocate_kv_cache，而那里已无 DSV4 共享 backing 分支，可能静默按普通层重复分配或触发 reshape 报错。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：本 PR 纯删除，未新增对外配置或公开接口，也没有引入需要上游开插件的硬件差异路径。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：没有新增对上游缺陷的临时规避，只是删除失效兜底；规则 3 适用且基本满足：_is_dsv4_model 已无任何引用，DSV4 唯一入口为 allocate_kv_cache_main。"
+          }
+        ],
+        "tests": "单测已迁移：test_attn_utils_v2.py 的 DSV4 用例 test_main_dsv4_materializes_real_planner_geometry_once（L969/L1063）改走 allocate_kv_cache_main；5 个相关测试文件已无 _is_dsv4_model 引用，残留 _allocate_kv_cache 直接调用（L350/440/557/2182）经核对是非 DSV4（L2177 model_type=qwen3）。但 cpu-ut 两个 job 失败需日志确认。标题 [Misc][Refactor] 有标签，但不属于 [Feature]/[BugFix]/[Performance] 三类。",
+        "questions": [
+          "需要作者确认：cpu-ut (vllm@v0.33.0) 与 cpu-ut (vllm@c410543d9) 两个失败 job 的日志，是否由本次 UT 迁移引入？",
+          "所有 DSV4/V4.1 配置是否都保证 populate hf_text_config？否则分流会落到已删除共享 backing 逻辑的 _allocate_kv_cache，是否有防御措施？",
+          "删掉分支后，若 DSV4 描述符误入 _allocate_kv_cache，现在没有任何校验能拦住重复分配；是否保留一个 assert/ValueError 更稳妥？",
+          "标题用 [Misc][Refactor]，是否需要改成仓库规定的标签？"
+        ],
+        "recommend": "方向正确；请作者补 cpu-ut 失败日志并确认 hf_text_config 判据覆盖所有 DSV4 配置后再批准。"
+      },
+      "review_sha": "2531381b248a"
+    },
+    "22998": {
+      "number": 22998,
+      "title": "[Performance] Defer V2 host sequence-length synchronization until attention metadata",
+      "author": "Nothing-98",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22998",
+      "changed_files": 2,
+      "additions": 89,
+      "deletions": 39,
+      "age_days": 0.1,
+      "ci": {
+        "total": 34,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "refresh-ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 24,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 28,
+          "deletions": 32
+        }
+      ],
+      "owned_add": 28,
+      "owned_del": 32,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 22998,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "把 V2 runner 的 host seq_lens 同步推迟到 attention metadata 消费前，改用 NumPy 视图。",
+        "intent": "原实现在输入准备开头就等上一步投机验证的 D2H 快照，阻塞 request 索引与 device position 提交；改为首个 attention metadata 消费前再同步，保留拒绝修正与 adaptive FIA 覆盖。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_update_seq_lens_cpu 移到 combine_sampled_and_draft_tokens 之后（L1097），中间是否还有 seq_lens_cpu/num_computed_tokens_cpu 的消费者"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "build_attn_state 的入参改为 num_scheduled_tokens_upper_bound（L1098-1107），与 base 的 pre-compaction 计数语义是否一致"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/input_batch.py",
+            "point": "seq_lens_np 与 seq_lens_cpu 共享内存（L56-63），是本次 numpy 改写可见性的前提"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "adaptive+FIA 时 build_attn_state 先看到 computed+scheduled 长度，之后 L1109-1110 才用 device seq_lens 覆盖"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "异步时序改动范围大：sync 从 _prepare_inputs_impl 最前面（base L933）移到 device 输入提交之后（head L1097），依赖“旧位置到新位置之间没有 host 长度消费者”这一事实。已核对 head 中 seq_lens_cpu/num_computed_tokens_cpu 只在该函数与 _copy_num_computed_tokens_to_cpu 出现（L1517-1553），当前成立；但后续若在中间新增消费者会静默读到过期长度。"
+          },
+          {
+            "level": "medium",
+            "text": "perf 收益未在 NPU 上量化：描述只给了 B16 CPU 微基准（127.25→6.38µs / 87.13→3.95µs）和“字段对齐”的 CPU 对比，明确写了 end-to-end throughput 与 NPU latency 仍需测量；合入前最好有 NPU 数据。"
+          },
+          {
+            "level": "low",
+            "text": "build_attn_state 现在收到 num_scheduled_tokens_upper_bound（compaction 前）、而 device query_start_loc 用 compaction 后的计数，只有 adaptive+FIA 分支用 device 长度覆盖 host。已对照 base：base 的 build_attn_state 同样在 compaction 前调用，语义未变；新增测试 test_capacity_limited_adaptive_fia_... 也锁住了这一步。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：无新增对外配置/公开接口，cudagraph 与 capability 决策沿用原逻辑。规则 2 不适用：未新增对上游缺陷的规避。规则 3 满足：没有新增函数，_update_seq_lens_cpu 在 base 已存在（L1537），唯一调用点 L1097 生效。"
+          }
+        ],
+        "tests": "有单测：tests/ut/worker/test_model_runner_v2.py 新增 test_prepare_inputs_submits_mtp_inputs_before_host_length_sync（L2018，skip_sync 参数化，断言 combine 阶段无 wait、wait 次数与 cached/new 长度 [9,9]/[12,9]）和 test_capacity_limited_adaptive_fia_...（L2037，断言 classify 收到 [3,4] 与 scheduled [2,2]，返回的 seq_lens_np 为 device 精确值 [2,4]）。CI 失败项仅 ci-gate 与 refresh-ci-gate 两个门禁，未出现 cpu-ut/e2e 失败，判断非本 PR 代码引入；标题 [Performance] 合规。",
+        "questions": [
+          "需要作者确认：NPU 上是否有 end-to-end 吞吐/延迟数据可以补到 PR 描述里？当前只有 CPU 微基准。",
+          "deferred sync 后，若后续在 combine_sampled_and_draft_tokens 之前新增 host 长度消费者，是否会破坏这个隐式顺序约束？是否值得加注释/断言固化？",
+          "refresh-ci-gate 失败的具体原因是什么，是门禁审批还是需要 rebase？"
+        ],
+        "recommend": "代码语义与 base 一致、测试覆盖到位，可在补 NPU 实测数据并解决 ci-gate/refresh-ci-gate 后批准。"
+      },
+      "review_sha": "1af436b83b36"
     }
   }
 }

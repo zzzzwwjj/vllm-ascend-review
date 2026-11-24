@@ -978,6 +978,97 @@
       "review": null,
       "review_sha": null
     },
+    "19602": {
+      "number": 19602,
+      "title": "[Perf] Speed up Qwen GDN decode and MRV2 attention metadata",
+      "author": "HF-001",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19602",
+      "changed_files": 1,
+      "additions": 10,
+      "deletions": 5,
+      "age_days": 31.9,
+      "ci": {
+        "total": 11,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "pre-commit"
+        ],
+        "pending": 0,
+        "skipped": 7,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 10,
+      "owned_del": 5,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 19602,
+        "verdict": "pushback",
+        "confidence": "medium",
+        "summary": "GDN forward 优先调用上游 project_input 取 qkvz/ba，缺失时回退两次 in_proj，以减少投影开销。",
+        "intent": "复用上游投影接口及其 device/LoRA/量化判定；但作者注释称 NPU 上仍是两次 GEMM，收益来源与实测均未给出。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "forward 里 hasattr(self, \"project_input\") 新分支与回退分支、gqa_interleaved_layout 两路是否完全等价"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "project_input 的返回值约定（是否恰为二元组）与上游版本依赖；b/a.contiguous() 仍保留，投影合并是否真能加速"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "无任何测试：body 的 “How was this patch tested?” 只写 todo，也没有 module:tests 标签；同时标题声称优化 “MRV2 attention metadata”，但 diff 只有 gdn.py 一个文件（other_files=0），标题与实现范围不符。"
+          },
+          {
+            "level": "high",
+            "text": "性能收益不成立或未证明：新增注释自称 “On NPU it keeps the original two GEMMs”，若 project_input 在 NPU 上仍拆成两次 GEMM，decode 不会变快；PR 未提供任何 benchmark 或 profiler 数据。"
+          },
+          {
+            "level": "medium",
+            "text": "hasattr 属版本嗅探：依赖的 vLLM 提交（body 写 c0b6f74）是否含 project_input、其返回是否恰为 (qkvz, ba) 未在本 PR 内验证；仓库 requirements.txt/pyproject 未钉 vLLM 版本，缺失时静默回退，收益不可见且无法回归。"
+          },
+          {
+            "level": "medium",
+            "text": "与同批 #21466/#21467 改同一段 forward（contiguous/zeros），且 base_sha 63a5c08 比它们旧，mergeable_state=dirty；无论谁先合都会冲突，需明确合并顺序并重跑验证。"
+          },
+          {
+            "level": "medium",
+            "text": "规则2 不满足：`# vLLM 0.31 predates project_input.` 是对上游 API 缺口的临时规避，按规则必须写 TODO(github id/上游提交)、根因与日落计划（依赖升级后删除该分支），当前只有一行注释。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 满足：未新增对外配置或公开接口，复用上游 project_input 是向收敛方向走；规则3 部分不满足：新增分支的生效依赖外部 vLLM 版本，PR 内找不到可验证的生效路径，且两个分支重复实现投影，未用单一入口收敛。"
+          }
+        ],
+        "tests": "PR 描述 “How was this patch tested?” 为 todo，无单测无 benchmark；CI 11 项中 ci-gate 与 pre-commit 失败（其余 2 通过、7 跳过），pre-commit 对改动文件跑 lint，可能由本 PR 引入，需作者确认。",
+        "questions": [
+          "本 PR 依赖哪个 vLLM 提交/版本？该版本是否已有 project_input，其返回约定与 (qkvz, ba) 顺序如何确认？",
+          "既然注释说 NPU 上仍是两次 GEMM，decode 的加速从哪来？能否给出 benchmark？",
+          "标题里的 MRV2 attention metadata 改动是否在重基时被裁掉？若已放弃请改标题与范围。",
+          "hasattr 回退能否换成显式版本判断并加 TODO(上游 issue/提交) 与删除计划？"
+        ],
+        "recommend": "建议打回：补测试与性能数据、修正标题范围，并给 hasattr 回退加版本判断和 TODO 后再提交。"
+      },
+      "review_sha": "4557096de626"
+    },
     "19603": {
       "number": 19603,
       "title": "[Feature]Add a registry for out-of-tree speculative methods and a linear-attention verify extension",

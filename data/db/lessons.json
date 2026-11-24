@@ -1,3 +1,28 @@
 {
-  "lessons": []
+  "lessons": [
+    {
+      "id": "lesson-001",
+      "rule": "新增对外配置或公开接口前，先判断能否在上游 vLLM 解决；硬件差异应推动上游开插件接口，避免长期分叉。",
+      "why": "批注指出 AscendConfig 新增字段一旦对外就难以删除，会造成用户升级时的非兼容变更。",
+      "source_pr": 21937,
+      "created_at": "2026-11-24T05:01:53.592Z",
+      "status": "active"
+    },
+    {
+      "id": "lesson-002",
+      "rule": "框架侧对上游缺陷的临时规避必须加 TODO(github id)，写明根因、规避方案与日落计划。",
+      "why": "批注要求插件仓与上游的差异可追踪、可回收，避免规避代码长期滞留。",
+      "source_pr": 20244,
+      "created_at": "2026-11-24T05:01:53.592Z",
+      "status": "active"
+    },
+    {
+      "id": "lesson-003",
+      "rule": "新增函数、开关或分支必须能在本 PR 内找到调用点与生效路径；能用既有入口解决时不要新增函数并给上游打 patch。",
+      "why": "批注指出 disconnect_kv_transfer_peers 只定义不调用，并质疑用新函数+上游 patch 替代 forward_oot 内判断。",
+      "source_pr": 21535,
+      "created_at": "2026-11-24T05:01:53.592Z",
+      "status": "active"
+    }
+  ]
 }

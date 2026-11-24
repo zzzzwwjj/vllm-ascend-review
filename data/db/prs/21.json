@@ -439,6 +439,93 @@
       "review": null,
       "review_sha": null
     },
+    "21138": {
+      "number": 21138,
+      "title": "[BugFix] Prevent MooncakeConnectorV1 from silently failing with kv_role='kv_both'",
+      "author": "mcmc79",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21138",
+      "changed_files": 3,
+      "additions": 77,
+      "deletions": 0,
+      "age_days": 18.1,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 31,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 31,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21138,
+        "verdict": "look",
+        "confidence": "high",
+        "summary": "在平台启动校验中拒绝 MooncakeConnectorV1 的 kv_role='kv_both'，避免只启动接收线程、P→D 传输静默失效，并补回归测试。",
+        "intent": "MooncakeConnectorV1 的 worker 只按 producer/consumer 分支，kv_both 会静默只起接收线程；PR 启动期 fail fast，提示改用 producer/consumer。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "新增校验在 _fix_incompatible_config 之后执行，确认此时 kv_connector/kv_role 仍是原始字符串；MultiConnector 只遍历 children，单 connector 用顶层 role。"
+          },
+          {
+            "file": "tests/ut/test_platform.py",
+            "point": "仅覆盖单 connector 的 kv_both，未覆盖 MultiConnector 子项省略/显式 kv_both 的路径。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/kv_p2p/mooncake_connector.py",
+            "point": "head 全文未见 kv_both 拦截；确认 body 所称 MooncakeConnectorWorker 构造器 guard 是否仍在，以及直接构造 worker 的入口。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "PR 描述称在 MooncakeConnectorWorker 构造器加了同样的拦截，但 head 的 vllm_ascend/distributed/kv_transfer/kv_p2p/mooncake_connector.py 全文未见 kv_both 相关代码；若存在绕过平台校验直接构造 worker 的路径，仍会静默失败。"
+          },
+          {
+            "level": "medium",
+            "text": "MultiConnector 分支无测试；若子项省略 kv_role、vLLM 默认成 kv_both，当前只比较显式字符串 'kv_both' 会漏检，需要确认 vLLM 的子项默认/继承语义。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：未新增对外配置或公开接口，只是对既有 Ascend 专有 connector 的非法角色做 fail-fast；MooncakeConnectorV1 的实现由 vllm-ascend 本地注册，不属于上游通用接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则2 不适用：这是配置错误的启动期校验，不是对上游缺陷的临时规避，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则3：新增函数在 platform._check_ascend_config 有明确调用点并带回归测试，生效路径成立；但 MultiConnector 子项分支未覆盖，建议补齐。"
+          }
+        ],
+        "tests": "新增 test_check_and_update_config_rejects_mooncake_v1_kv_both（无 MultiConnector/worker 用例）；CI 6 项中 0 失败、3 skipped。",
+        "questions": [
+          "PR 描述称 guard 了 MooncakeConnectorWorker 构造器，但 head 的 mooncake_connector.py 全文没有 kv_both 校验；是已在后续 commit 移除，还是 guard 落在别的文件？直接构造 worker 的入口还会不会绕过？",
+          "MultiConnector 子项若省略 kv_role，vLLM 会默认或继承成 kv_both 吗？该情况当前检查是否会漏？请补一条 MultiConnector 用例。",
+          "是否需要按 PR 描述在 worker 侧保留防御，而不只依赖平台层？"
+        ],
+        "recommend": "补 MultiConnector 子项用例并澄清 worker 侧 guard 的落地位置后再批准。"
+      },
+      "review_sha": "5d77b6d51b75"
+    },
     "21153": {
       "number": 21153,
       "title": "[Refactor][Model] Pass strided projection views to MiniMax-M3 fused sparse prepare",
@@ -578,6 +665,102 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null
+    },
+    "21259": {
+      "number": 21259,
+      "title": "[Performance][Model] Capture DeepSeek V4 decode metadata in full graphs",
+      "author": "zzt93",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21259",
+      "changed_files": 10,
+      "additions": 416,
+      "deletions": 50,
+      "age_days": 16.6,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21259,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "DSV4 全图 decode 启用 full_graph_only 的设备元数据捕获，减少 SAS/QLI 每步 host 开销。",
+        "intent": "SAS/QLI 元数据每步在 host 重建 executor 并准备标量，约 1.2ms/step；PR 在 PCP/DCP=1、全图、无视觉/TurboQuant/压缩缓存时改用图内生产者。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "新增赋值位于 _initialize_kv_cache_upstream 和既有 TargetDeviceMetadata() 赋值之后，确认 graph 捕获前生效，且与 A5 V4.1/Kimi 分支不互相覆盖。"
+          },
+          {
+            "file": "vllm_ascend/attention/dsa_attn_kv_plan.py",
+            "point": "supports_dsa_target_metadata_graph 的门控：DSV4 架构、PCP/DCP=1、has_full_cudagraphs、无 vision/TurboQuant、无 DSV4_COMPRESSED_CACHE。"
+          },
+          {
+            "file": "vllm_ascend/worker/device_metadata.py",
+            "point": "full_graph_only=True 时 eager/piecewise 直接同步 build，仅全图挂 executor；确认 replay 前 persistent input 刷新与 executor 生命周期。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "谓词用 not _supports_dsv4_compressed_cache() 代替显式硬件门控，所有非 A5（A2/A3 等）DSV4 全图配置都会进入新路径；A2 是否验证过、无压缩缓存能力是否等价于支持该捕获契约，需要确认。"
+          },
+          {
+            "level": "medium",
+            "text": "图捕获/重放的正确性主要靠新增 NPU 用例，而 CI 只有 6 项且 3 skipped，CI 通过不能证明该路径；作者 checklist 的 Full model accuracy A/B 仍未完成。"
+          },
+          {
+            "level": "low",
+            "text": "同一函数里已有一次 device_metadata 赋值，本 PR 再无条件覆盖；当前两个条件（V4.1/Kimi vs V4）互斥，但未来若重叠会丢弃前一个 executor，建议注释或断言互斥。"
+          },
+          {
+            "level": "low",
+            "text": "同族路径：v1 model runner 未同步该优化；DeviceMetadataExecutor 注释明确 MRV1 保持图外 producer 协议，属于有意保留而非漏改，建议 PR 描述里点明。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：未新增对外配置/公开接口，纯内部性能优化；SAS/QLI 是 Ascend 专有内核，无法在上游 vLLM 解决。"
+          },
+          {
+            "level": "low",
+            "text": "规则2 不适用：未引入对上游缺陷的规避或新 patch，full_graph_only 是仓库已有的本地机制。"
+          },
+          {
+            "level": "low",
+            "text": "规则3 满足：supports_dsa_target_metadata_graph 在 initialize_kv_cache 有唯一调用点，生效路径明确，并有 NPU 用例；建议在 docstring 写明非 A5 的适用边界。"
+          }
+        ],
+        "tests": "作者报告新增 test_dsa_metadata_graph.py（16 个 NPU 用例、112 次动态 replay）；head 的 tests/ut/worker/test_device_metadata.py 已有 full_graph_only 的 eager/full-graph 两分支用例；CI 6 项中 0 失败、3 skipped，无法证明 NPU 用例在 CI 执行。",
+        "questions": [
+          "A2 也会满足该谓词，是否有对应 NPU 用例或 E2E 数据？not _supports_dsv4_compressed_cache() 是否等价于『支持 DSA 图内生产者』？",
+          "新增 test_dsa_metadata_graph.py 的具体路径和 NPU marker 是什么？CI 的 3 个 skipped 是否包含它？",
+          "KV cache 重新初始化（sleep/wake、重配、profiling）时旧的 TargetDeviceMetadata executor 是否需要显式回收？",
+          "准确率 A/B 未完成（checklist 未勾选），计划何时补？"
+        ],
+        "recommend": "门控与生命周期基本合理；补 A2 边界证据、让 NPU 图捕获用例进 CI，并完成准确率 A/B 后再合。"
+      },
+      "review_sha": "ad7e06d1c565"
     },
     "21272": {
       "number": 21272,
@@ -1021,6 +1204,95 @@
       "review": null,
       "review_sha": null
     },
+    "21388": {
+      "number": 21388,
+      "title": "[Performance] Stage mixed spec query start loc cumsum on cpu",
+      "author": "mohmedmm",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21388",
+      "changed_files": 2,
+      "additions": 27,
+      "deletions": 20,
+      "age_days": 14.3,
+      "ci": {
+        "total": 17,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 10,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 20
+        }
+      ],
+      "owned_add": 5,
+      "owned_del": 20,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21388,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "混合 spec 分支改为在 CPU 上由 query_start_loc_cpu 算 cumsum，再非阻塞拷贝到设备，替代两次 aclnnCumsum。",
+        "intent": "小请求数组的设备侧 cumsum launch 开销大于计算本身；复用已有 CPU query offsets 计算并 staging，减少 device launch 与同步。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "918-940 段替换后，spec_query_lens_cpu / non_spec_query_lens_cpu 的选取长度与顺序是否与旧 index_select 等价"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "num_spec_decodes 与 bool 掩码求和、query_lens_cpu 长度三者是否恒等；query_lens 设备张量是否仍被后续 repeat_interleave 使用"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "copy_(non_blocking=True) 之后 spec_query_start_loc 被 _materialize_graph_query_start_loc 拷入图缓冲，流顺序与源临时张量生命周期"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "non_blocking=True 的源是新建的 pageable CPU 临时张量，实际仍会同步，所谓“异步 staging”的收益可能明显小于描述；若后续改成 pinned 内存，必须补 stream 同步。当前与 _materialize_graph_query_start_loc 内既有的 copy_ 在同一 stream，顺序可接受。"
+          },
+          {
+            "level": "low",
+            "text": "长度与顺序已核对一致：num_spec_decodes = int(spec_sequence_masks_cpu.sum()) 与掩码求和恒等，且掩码索引与旧路径 nonzero(spec_sequence_masks_cpu) 同为升序，因此 cumsum 数值逐个相同，不会出现静默错位。"
+          },
+          {
+            "level": "low",
+            "text": "dtype 无风险：query_start_loc_cpu 为 int32，CPU cumsum 保持 int32，copy_ 目标也是 int32；即使上游改成 int64 也只多一次 cast，token 数远小于 2^31，无截断。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：无新增对外配置或公开接口，纯粹替换内部实现；规则2 不适用：不是规避上游缺陷，无需 TODO(github id)；规则3 满足：未新增函数，改动落在既有 build() 内，结果随后被 _materialize_graph_query_start_loc 拷入图缓冲，生效路径 PR 内闭合。"
+          },
+          {
+            "level": "medium",
+            "text": "只改了 num_prefills/num_decodes 非 0 的混合 spec 分支，num_prefills==0 and num_decodes==0 的纯 spec 分支仍直接切 query_start_loc；两分支现在对 start_loc 的来源不同（CPU 计算 vs 设备切片），后续维护需保持一致。"
+          }
+        ],
+        "tests": "PR 描述没有任何测试说明（仅一句 vLLM main 链接）；CI 17 项中仅 ci-gate 失败（其余 6 通过、10 跳过），日志不可见，无法确认是否本 PR 引入。",
+        "questions": [
+          "是否做了新旧实现 cumsum 的逐元素数值对比（含 spec 与非 spec 交错、纯 spec、空 batch）？",
+          "non_blocking=True 是有意保留待 pinned 化，还是误用？请说明后续计划。",
+          "ci-gate 失败的具体 job 是什么？"
+        ],
+        "recommend": "等价性我已按代码核对通过，但缺任何验证证据，补一组新旧实现对比测试后再批。"
+      },
+      "review_sha": "d73ce9662ab8"
+    },
     "21400": {
       "number": 21400,
       "title": "[Ops][BugFix] Clamp Engram lookback offsets to fix masked-lane OOB (aivec 507035)",
@@ -1267,6 +1539,189 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null
+    },
+    "21466": {
+      "number": 21466,
+      "title": "[Performance] Consume strided BA inputs directly in GDN gating",
+      "author": "Sizhe-Yang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21466",
+      "changed_files": 7,
+      "additions": 273,
+      "deletions": 9,
+      "age_days": 13.8,
+      "ci": {
+        "total": 19,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 12,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 4
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 4,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21466,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "删除 GDN 门控前 b/a 的两次 contiguous 拷贝，改由 Triton kernel 按行/头 stride 直接读视图。",
+        "intent": "BA 投影拆成视图后又整块拷成连续内存，白付两次 device 拷贝；保持原数学/精度/grid，只加 stride 寻址以省掉 materialize。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "两处删除 b/a.contiguous()（in_proj_qkv 分支、in_proj_qkvz 非 interleaved 分支）后，b/a 在 _forward_core 里是否只有 fused_gdn_gating 一个消费点"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/fused_gdn_gating.py",
+            "point": "CONTIGUOUS_INPUTS / UNIT_HEAD_STRIDES / 通用 stride 三类寻址，以及 g、beta_output 仍按 dense off 写回是否与输入寻址解耦"
+          },
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "BaseDeviceAdaptor 与 A5DeviceAdaptor 的 fused_gdn_gating 都转调 fused_gdn_gating_patch；Ascend310PDeviceAdaptor 未覆写该方法"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "没有任何 NPU 侧 CI 验证：新增布局矩阵与 benchmark 只在本机 CPU 跑过，作者自述 rebase 后未重跑 NPU；transposed/expanded/单头等布局下 stride 寻址若错会静默算错，不会报错。"
+          },
+          {
+            "level": "medium",
+            "text": "mergeable_state=dirty 且带 merge-conflicts 标签，ci-gate 失败；冲突解决/重基后 head 上的 kernel 是否仍等于其测量的 SHA256 版本需重新确认。"
+          },
+          {
+            "level": "medium",
+            "text": "310P 一致性存疑：device_op.py 中 Ascend310PDeviceAdaptor(BaseDeviceAdaptor) 未覆写 fused_gdn_gating，继承 Base 的同一 Triton patch，因此“删除 contiguous”对 310P 同样生效，与描述“separate 310P path is unchanged”不符（若 310P 实际不走 GDN 则无影响）。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：未新增对外配置或公开接口，CONTIGUOUS_INPUTS/UNIT_HEAD_STRIDES 只是 kernel 内部 constexpr；但该 kernel 本身是下游实现，建议把 stride 支持一并推动到上游 qwen3_next 的 gdn gating，避免长期分叉。"
+          },
+          {
+            "level": "low",
+            "text": "规则2 不适用：本 PR 是删除下游拷贝而非规避上游缺陷，无需 TODO(github id)；规则3 满足：新增 constexpr 分支由 patch 内 is_contiguous()/stride(1) 决定，调用点就是 gdn.py 删除拷贝后的 fused_gdn_gating，PR 内闭合。"
+          },
+          {
+            "level": "low",
+            "text": "b/a 之后确实无其它消费点（_forward_core 内只在 fused_gdn_gating 使用），但 kernel 仍按 a.shape 解包 2D；若 split_ba 自定义实现返回非 2D 或带负 stride 的张量会直接失败。"
+          }
+        ],
+        "tests": "新增 160 例布局/dtype/shape 用例与 benchmark，但仅本地 CPU 跑；CI 19 项中仅 ci-gate 失败（其余 6 通过、12 跳过），日志不可见，无法确认由本 PR 引入。",
+        "questions": [
+          "160 例布局矩阵能否在 NPU CI 里跑一遍并贴出结果？尤其 transposed、expanded、单头以及 M 跨 BLK_BATCHES 尾块。",
+          "310P 是否真的走另一套 GDN kernel？若共用 fused_gdn_gating_patch，请修正描述并确认 310P 也在验证范围内。",
+          "ci-gate 失败的具体 job 与日志是什么，是否只是 merge-conflicts 导致？"
+        ],
+        "recommend": "方向与寻址实现自洽，先解冲突、补 NPU 侧布局验证与 ci-gate 说明，再批准。"
+      },
+      "review_sha": "63f9e110e240"
+    },
+    "21467": {
+      "number": 21467,
+      "title": "[Performance] Avoid pre-zeroing fully overwritten GDN output rows",
+      "author": "Sizhe-Yang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21467",
+      "changed_files": 5,
+      "additions": 155,
+      "deletions": 10,
+      "age_days": 13.8,
+      "ci": {
+        "total": 16,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "pre-commit"
+        ],
+        "pending": 0,
+        "skipped": 11,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 4
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 4,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21467,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "GDN core 输出缓冲由 torch.zeros 改为 torch.empty，只在 profiling 与 graph padding 后缀显式清零。",
+        "intent": "core 会写满所有真实 token 行，预清零白费带宽；只对不会被覆盖的区域（profiling、padding 后缀）清零，同时保持 padding 正确性。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "forward 改 torch.empty 后，_forward_core 中 attn_metadata is None 的全文清零与 num_actual_tokens 后缀清零是否覆盖全部未写入区间"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "末尾三路合并（spec+non_spec、仅 spec、仅 non_spec）是否保证真实 token 行全部被写，尤其 merged_out 本身仍是 torch.empty"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "num_actual_tokens 来源（m.unpadded(m.num_actual_tokens, num_actual_reqs) 后的 Python int）与 graph padding 的关系"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "full CUDA graph 下 num_actual_tokens 是 build 时 Python int，capture 后 core_attn_out[num_actual_tokens:] 的边界被固化；若同一 graph 以更少真实 token 重放，padding 行可能保留上一轮数值。作者自述做过 NaN 注入+图重放验证，需说明 capture/replay 两处 num_actual_tokens 的取值关系。"
+          },
+          {
+            "level": "medium",
+            "text": "正确性完全押在“所有真实行都会被合并覆盖”上；merged_out 由 torch.empty 分配再 index_copy，若 spec/non_spec token 索引不能完整划分全部行，未初始化行会被直接写进 core_attn_out。这是既有写法，但本次 empty 化让它更容易暴露。"
+          },
+          {
+            "level": "low",
+            "text": "profiling 路径（attn_metadata is None）改为 core 内 zero_()，与旧 zeros 等价；但它是唯一显式全清零的入口，将来若新增 early return 必须同步补零。"
+          },
+          {
+            "level": "low",
+            "text": "规则1 不适用：无新增对外配置或公开接口；规则2 不适用：本 PR 是撤销规避而非新增规避，无需 TODO(github id)，但注释里删掉了 vllm#28182 链接，padding 约束的根因出处丢失，建议保留一行引用。"
+          },
+          {
+            "level": "low",
+            "text": "规则3 满足：未新增函数或开关，只新增一个 if num_actual_tokens < core_attn_out.shape[0] 分支，生效路径在 _forward_core 内闭合；不过该分支在 eager 下永不触发，实际生效只在 padding/graph 场景，测试需按此覆盖。"
+          }
+        ],
+        "tests": "作者自述 11 个 CPU 单测 + 22 个 NPU 聚焦用例（含 NaN 注入、padding 0/7、graph replay）；CI 16 项中 ci-gate 与 pre-commit 失败，pre-commit 对改动文件跑 lint，倾向由本 PR 引入，需作者确认。",
+        "questions": [
+          "pre-commit 失败的具体 hook 与文件是什么？是否本 PR 新增代码引入？",
+          "full CUDA graph 里 core_attn_out[num_actual_tokens:] 的边界是 capture 时固化的吗？若 replay 时请求数变化，padding 行由谁清零？",
+          "自适应 draft / 混合批下是否有真实 kernel（非 mock）的 NaN 注入回归用例？"
+        ],
+        "recommend": "思路正确且边界处理到位，需补齐 CI 失败原因与图重放边界说明后再批。"
+      },
+      "review_sha": "6d68d5b03a8a"
     },
     "21473": {
       "number": 21473,
@@ -2280,6 +2735,104 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null
+    },
+    "21715": {
+      "number": 21715,
+      "title": "[Performance] Fuse matmul-collective ops for dense sequence parallelism (MC2)",
+      "author": "yeatschou0-ui",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21715",
+      "changed_files": 4,
+      "additions": 898,
+      "deletions": 6,
+      "age_days": 11.8,
+      "ci": {
+        "total": 28,
+        "failed": 6,
+        "failed_names": [
+          "ci-gate",
+          "codeowner-approval",
+          "ci-gate",
+          "cpu-ut (vllm@v0.33.0) / cpu-ut card-"
+        ],
+        "pending": 0,
+        "skipped": 18,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 72,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 72,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 21715,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "为 Qwen3.5 dense SP 增加 MC2 融合：在 device_op 包出 all_gather+MM 与 MM+reduce_scatter。",
+        "intent": "dense SP 下 all-gather/reduce-scatter 与 GEMM 分离、通信未与计算重叠；作者按形状/dtype/TP/token 数做纯结构判定，把边界通信融进 GEMM 以提升预填充吞吐。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "新增 npu_all_gather_base_mm（L420-452 Base / L1350-1383 A5）的返回值解包与 kwargs 是否匹配真实 torch_npu 签名"
+          },
+          {
+            "file": "vllm_ascend/patch/worker/patch_qwen3_5.py",
+            "point": "_dense_sp_can_fuse（L66-99）的 dtype/阈值判据与 _DENSE_SP_FUSED_DTYPES 含 fp16 是否被 CANN 算子支持"
+          },
+          {
+            "file": "vllm_ascend/patch/worker/patch_qwen3_5.py",
+            "point": "_install_dense_sp_fused_op（L263-288）只检查 torch_npu 属性是否存在，未检查硬件能力"
+          },
+          {
+            "file": "tests/ut/patch/worker/test_patch_qwen3_5_sp.py",
+            "point": "测试用 _FakeDeviceOperator 替换 DeviceOperator（L408-434），device_op.py 新增代码本身无覆盖"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "新增的 72 行 device_op 包装没有任何直接单测：UT 用 _FakeDeviceOperator 顶替 DeviceOperator（L408-434），因此 `output, _ = torch_npu.npu_all_gather_base_mm(...)` 的二元组返回约定、以及 comm_mode/output_dtype/x1_scale/gather_index 等 kwargs 是否与所装 torch_npu 版本匹配，只在 NPU 首次融合 prefill 时才会暴露；若不匹配是直接 TypeError/解包错误。"
+          },
+          {
+            "level": "medium",
+            "text": "fp16 被列入 _DENSE_SP_FUSED_DTYPES（patch L59），但融合算子是 CANN 侧实现，fp16 支持未在本 PR 中给出验证；同仓库 #16359 刚出现 npu_chunk_gated_delta_rule 只支持 bf16 的问题，fp16 模型首次 prefill 可能直接报错而不是回退。"
+          },
+          {
+            "level": "medium",
+            "text": "融合调用把 weight.t() 直接传给算子（patch L118/L163），x1 只在列并行路径 .contiguous()，行并行路径仅按需 F.pad，未保证 x 连续；CANN MM 类算子对非连续/私有格式输入较敏感，可能出现隐式拷贝或运行时报错。"
+          },
+          {
+            "level": "medium",
+            "text": "安装守卫只检查 callable(getattr(torch_npu, fused_op_name)) 与 TP size（patch L286/L275），不检查 hardware profile；非 A5 硬件走 BaseDeviceAdaptor 的 comm_mode=\"aiv\" 分支，若算子存在但该 SoC/版本不支持对应 comm_mode，会在运行期失败。A5 分支的 HCCL_OP_EXPANSION_MODE→ccu 逻辑与既有 npu_mm_reduce_scatter_base 一致，这部分没问题。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增用户开关或公开接口，复用 FlashComm1；MC2 是 NPU 专属算子，上游 vLLM 无法承载。规则 3 满足：两个新方法在本 PR 内有调用点（patch L115/L160），custom op 注册与 _install_dense_sp_fused_op（L582-588）齐全。规则 2 部分不满足：DENSE_SP_FUSED_TP_SIZES 注释只说“installed torch_npu builds 拒绝更大 TP”，未按 lesson-002 写 TODO(github id)+日落计划。"
+          }
+        ],
+        "tests": "有单测但只覆盖调用方：TestDenseSpFusedColumnOp/RowOp 覆盖融合、dtype/TP/gather_output/量化回退、bias 只加一次、zero-pad 对齐与 fused/fallback 数值对齐；DeviceOperator 被 fake 替换，device_op.py 新增代码零覆盖。CI 失败项为 ci-gate、codeowner-approval、cpu-ut (vllm@v0.33.0) 等：codeowner-approval 属等待审批的预期失败；cpu-ut 无法确认是否本 PR 引入（新模块 import 时即注册 PrivateUse1 custom op），需日志。标题 [Performance] 合规。",
+        "questions": [
+          "需要作者确认：所装 torch_npu 的 npu_all_gather_base_mm 在 gather_output=False 时确实返回 (output, gathered_x1) 二元组？kwargs（comm_mode/output_dtype/gather_index）在该版本都支持吗？建议加一个 mock torch_npu 的 device_op 单测锁住契约。",
+          "npu_all_gather_base_mm / npu_mm_reduce_scatter_base 在目标 CANN 版本上支持 fp16 吗？若只支持 bf16，是否应把 fp16 从 _DENSE_SP_FUSED_DTYPES 移除或先做 probe？",
+          "weight.t() 和行并行的 x 未做 contiguous/格式转换，实际 NPU 上是否已验证可用？是否需要在包装层统一 .contiguous()？",
+          "安装守卫是否需要结合 get_current_hardware_profile() 限定 A5/A3，避免在 A2/310P 上装上一个存在但不可用的算子？",
+          "DENSE_SP_FUSED_TP_SIZES 的 16+ 限制是否来自可跟踪的 torch_npu issue？按规则 2 请补 TODO(github id) 与解除条件。"
+        ],
+        "recommend": "方向合理，但请补 device_op 包装层单测、确认 fp16/连续性与硬件守卫，并解决 cpu-ut 失败后再细看合入。"
+      },
+      "review_sha": "40b08a29bb28"
     },
     "21724": {
       "number": 21724,

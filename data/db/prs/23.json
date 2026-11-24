@@ -1,0 +1,97 @@
+{
+  "items": {
+    "23000": {
+      "number": 23000,
+      "title": "[Feature] Capture msprobe weight statistics during startup profiling",
+      "author": "Tjh-UKN",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23000",
+      "changed_files": 8,
+      "additions": 119,
+      "deletions": 7,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 4
+        }
+      ],
+      "owned_add": 22,
+      "owned_del": 4,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 23000,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "为 MRv2 启动 profile 增加可选 msprobe 权重统计窗口，复用既有 step 过滤。",
+        "intent": "RL dummy 权重场景需对比权重转移前后的参数统计，而现有 msprobe 只能在首个请求开窗；故在启动 profile 前后开/关 dump 窗口，使 step0 抓启动、step1 抓首个请求。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "新增 dump_on_profile_run 默认关闭；derive_and_validate 校验 dump 配置存在且为 MRv2，确认 dump_config 内联 dict 已被工厂物化为 dump_config_path"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "profile_run 在 super() 前 _start_dump_data、finally 中 _finalize_dump_data；核对 dump=False 在 execute_model/_dummy_run 的早退语义及 load_model、sample_tokens、pool 既有调用不回归"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "profile_run 的 finally 在父类抛异常时仍 stop()+step()，启动失败会写出半截 step0 统计；需确认 msprobe 对异常窗口的预期。"
+          },
+          {
+            "level": "low",
+            "text": "新增 dump=False 早退依赖 AclGraphDumper 没有 stop；若 msprobe 提供 stop，graph 模式 dummy flush 会被跳过。"
+          },
+          {
+            "level": "low",
+            "text": "若启动阶段 profile_run 被调用两次，step0 会被二次消费，首个真实请求落到 step2，与文档 step[0,1] 不符。"
+          },
+          {
+            "level": "low",
+            "text": "规则1：dump_on_profile_run 是永久对外 additional_config 字段；属 Ascend msprobe 专用、上游无等价能力，但建议标注调试用途并确认长期保留。"
+          },
+          {
+            "level": "low",
+            "text": "规则2不适用：未规避上游 vLLM 缺陷，无临时 patch 或 TODO 需求。"
+          },
+          {
+            "level": "low",
+            "text": "规则3满足：新字段在 derive_and_validate、__init__、profile_run 均有调用点，dump=False 在 execute_model 与 _dummy_run 有调用。"
+          }
+        ],
+        "tests": "CI 9 项 0 失败 4 跳过；body 称新增 5 个 CPU 生命周期用例（默认关闭、开启、MC2 排除、异常清理、后续请求捕获、graph dumper 转发），但 deep JSON 未含测试文件路径，未逐行核对。",
+        "questions": [
+          "需要作者确认：AclGraphDumper 是否确实没有 stop()，且其 step 接受 dump=False？否则新的早退/转发会改变 graph 模式行为。",
+          "需要作者确认：启动阶段 profile_run 是否保证只调用一次？若可能重复，step 过滤如何保证首个请求仍为 step1？",
+          "需要作者确认：父类 profile_run 异常时 stop()+step() 写出半截 step0 是否可接受，还是应改为 dump=False 仅关窗？"
+        ],
+        "recommend": "建议批准；请作者回答 AclGraphDumper 接口与 profile_run 调用次数，并在 msprobe 文档标注该开关为调试用途。"
+      },
+      "review_sha": "d7828bac7b52"
+    }
+  }
+}

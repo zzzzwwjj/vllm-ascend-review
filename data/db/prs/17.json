@@ -1983,6 +1983,92 @@
       },
       "review_sha": "fd5b47ceeae1"
     },
+    "17486": {
+      "number": 17486,
+      "title": "[BugFix][Ops] Cast q/k/v/beta to bf16 around npu_chunk_gated_delta_rule for fp16 models",
+      "author": "bjptw",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/17486",
+      "changed_files": 3,
+      "additions": 130,
+      "deletions": 3,
+      "age_days": 60.9,
+      "ci": {
+        "total": 15,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 8,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 16,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 17486,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "在 npu_chunk_gated_delta_rule 前后把 q/k/v/beta 转 bf16 再转回，想修 fp16 模型报错。",
+        "intent": "ColQwen3.5 等 fp16 模型走融合 prefill 时，CANN 算子只支持 bf16 而报错；作者照 initial_state 的先例在调用前后转换 dtype。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "新增 cast 是否可达：_forward_core 的 use_fused_chunk 由 supports_fused_dtype(dtype==bf16) 把门"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "fused 分支 scatter_ssm_states_ 传 last_recurrent_state 未转 ssm_state.dtype"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/mamba/state_index.py",
+            "point": "scatter_ssm_states_ 是 Triton 裸写内存，source/state dtype 不一致时行为需确认"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "新增 cast 在 head 不可达：唯一调用点 _forward_core 用 supports_fused_dtype = (query_non_spec.dtype == torch.bfloat16) 把门（head L803-812），fp16 直接走 Triton 回退，不会进入 _chunk_gated_delta_rule_fused；且 base 535e2a12 同样已有该门（L791-803），说明该兜底已先于本 PR 存在。PR 想修的 DT_FLOAT16 报错在当前代码上不会从这个函数出现。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 描述称 final_state 由调用方 .to(ssm_state.dtype) 处理，但 fused 分支实际是 scatter_ssm_states_(ssm_state, prefill_state_indices, last_recurrent_state)（head L867），没有转换；fla 分支 L843 与 Triton 分支 L889 才有。若将来移除 dtype 门，fp16 模型的 ssm_state 会收到 bf16 final_state，而 scatter 是 Triton 裸写内存，语义未定义。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照：这是对 CANN 算子只支持 bf16 的规避，注释引用了 #16359/#14456，但没有按 lesson-002 写 TODO(github id) 和日落计划；当前主线上真正的修法是 dtype 门回退而不是强转，两种策略并存会让人误解哪条是正解。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：改动落在既有函数内，没有新增对外接口（规则 1 不适用），但新增分支缺少可达调用点，属于“改动无法在 PR 内生效”的典型情况。"
+          }
+        ],
+        "tests": "仅声称 ruff 通过、NPU 运行时验证交给 CI；tests/ut/ops/test_gdn.py 未见 fp16/cast 用例，新增约 114 行在另外两个不可见文件中，无法确认是测试；CI 唯一失败项 ci-gate 是合并门禁（PR 带 merge-conflicts、mergeable_state=dirty），无 cpu-ut 失败，判断非本 PR 代码引入。标题 [BugFix][Ops] 合规。",
+        "questions": [
+          "需要作者确认：base 535e2a12 与 head 都已含 supports_fused_dtype==bfloat16 门，fp16 不再进入融合 prefill，这个 cast 还有哪条生效路径？",
+          "#16359 是否已被该 dtype 门修复？如果仍有 fp16 报错，请给出报错栈与进入 _chunk_gated_delta_rule_fused 的调用路径。",
+          "fused 分支的 scatter 并未 .to(ssm_state.dtype)，与描述不符；若保留 cast，是否应一并补上 final_state 的 dtype 转换？",
+          "若确认要保留，能否补一个单测（mock npu_chunk_gated_delta_rule，断言入参 bf16、返回 dtype 还原为 fp16）？"
+        ],
+        "recommend": "建议打回：先与作者确认 #16359 是否已由 bf16 门修复；不可达则关闭，或改为“删除 dtype 门 + 补 final_state 转换”并附 TODO 与单测。"
+      },
+      "review_sha": "7edaeb498915"
+    },
     "17515": {
       "number": 17515,
       "title": "[CI] test",

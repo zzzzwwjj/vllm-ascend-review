@@ -727,6 +727,81 @@
       "review": null,
       "review_sha": null
     },
+    "20331": {
+      "number": 20331,
+      "title": "[BugFix][Ops] Skip Triton RoPE when rope_dim is zero",
+      "author": "holykie",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20331",
+      "changed_files": 2,
+      "additions": 39,
+      "deletions": 0,
+      "age_days": 24.9,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1300",
+      "review": {
+        "number": 20331,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Triton RoPE 在 rope_dim 为 0 时直接返回 q/k，避免零宽 arange 崩溃。",
+        "intent": "NoPE 层（qk_rope_head_dim=0）走非 MLA Triton 路径时 next_power_of_2(0)=0，kernel 的 tl.arange(0,0) 抛错；本 PR 在 tile 计算与 launch 前短路。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/triton/rope.py",
+            "point": "非我负责文件。新增 rope_dim==0 早退位于 FP8 分发之后，只覆盖非 FP8 主路径；检查 rope_dim=-1 由零宽 cos/cos_sin_cache 推断的情形及 siso 入口"
+          },
+          {
+            "file": "tests/ut/ops/test_rope_nope.py",
+            "point": "非我负责文件。新 UT 只覆盖显式 rope_dim=0 且非 FP8 路径，patch _triton_rope 后断言未启动 kernel"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "零宽 guard 位于 out_dtype==float8_e4m3fn 的早退之后，NoPE + FP8 输出仍会进入 _rope_forward_triton_fp8，pad_half=next_power_of_2(0)=0，同类崩溃仍存在。"
+          },
+          {
+            "level": "medium",
+            "text": "rope_forward_triton_siso/_triton_rope_siso 完全没有 rope_dim==0 保护；若该入口仍被 NoPE 配置使用，问题未修全（同族路径）。"
+          },
+          {
+            "level": "low",
+            "text": "规则1不适用：未新增对外配置或公开接口，只是在既有函数加短路。"
+          },
+          {
+            "level": "low",
+            "text": "规则2不适用：不是对上游 vLLM 缺陷的规避，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则3：主路径新增分支有调用点与生效路径，但 FP8、siso 两个同族入口未覆盖，生效面不完整。"
+          }
+        ],
+        "tests": "新增 NPU-free UT tests/ut/ops/test_rope_nope.py（1 passed），只覆盖显式 rope_dim=0 的非 FP8 主路径；CI 显示 0 个 check。",
+        "questions": [
+          "需要作者确认：NoPE 层是否会走 out_dtype=float8_e4m3fn？若是，guard 需前移到 FP8 分发之前。",
+          "需要作者确认：rope_forward_triton_siso 是否有生产调用方？若有，是否也需要同样的零宽短路？",
+          "能否补一个 rope_dim=-1 且 cos/cos_sin_cache 零宽的用例，覆盖 body 描述的推断路径？"
+        ],
+        "recommend": "先确认 FP8/siso 入口可达性并把零宽判断前移，再批准。"
+      },
+      "review_sha": "456b7146dbac"
+    },
     "20346": {
       "number": 20346,
       "title": "[Performance][SpecDecode] Capture DFlash context KV in the FULL draft graph and stage batch inputs",
