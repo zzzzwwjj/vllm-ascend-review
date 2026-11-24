@@ -268,3 +268,44 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .home-left .nf{margin-top:6px}
 .nf-actions{display:flex;gap:10px;align-items:center;margin:12px 0 8px;flex-wrap:wrap}
 @media(max-width:900px){.home{grid-template-columns:1fr;padding:16px 14px 40px}.home-search input{max-width:none}}
+
+/* landing page */
+.landing{max-width:1060px;margin:0 auto;padding:0 22px 70px}
+.lp-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
+.lp-brand{font-weight:700;text-decoration:none;color:var(--ink);font-size:15px;white-space:nowrap}
+.lp-brand span{color:var(--muted);font-weight:400}
+.lp-nav-right{display:flex;gap:16px;align-items:center}
+.lp-link{color:var(--muted);text-decoration:none;font-size:13px}
+.lp-link:hover{color:var(--blue)}
+.lp-cta{background:var(--ink);color:var(--bg);padding:8px 15px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap}
+.lp-cta:hover{opacity:.88}
+.lp-hero{text-align:center;padding:66px 0 26px}
+.lp-eyebrow{font-size:11.5px;letter-spacing:.8px;color:var(--muted);text-transform:uppercase;margin:0 0 14px}
+.lp-hero h1{font-size:42px;line-height:1.15;margin:0 0 14px;letter-spacing:-.6px}
+.lp-sub{color:var(--muted);font-size:15px;line-height:1.75;margin:0 0 28px}
+.lp-search{display:flex;gap:6px;max-width:620px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(16,24,40,.07)}
+.lp-search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;padding:10px 12px;outline:none}
+.lp-search button{border:0;background:var(--ink);color:var(--bg);border-radius:10px;padding:10px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.lp-quick{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:18px 0 0;color:var(--muted);font-size:12.5px}
+.lp-quick b{color:var(--ink);font-variant-numeric:tabular-nums}
+.lp-results{max-width:840px;margin:26px auto 0}
+.lp-results:empty{display:none}
+.lp-results h2{text-align:left}
+.lp-features,.lp-steps{margin-top:66px}
+.lp-features h2,.lp-steps h2{font-size:13px;margin:0 0 14px;color:var(--muted);border:0;padding:0;text-align:left;letter-spacing:.4px;text-transform:uppercase}
+.lp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.lp-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.lp-card h3{margin:0 0 6px;font-size:14px}
+.lp-card p{margin:0;font-size:13px;color:var(--muted);line-height:1.65}
+.lp-steps ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.95;color:var(--muted)}
+.lp-steps b{color:var(--ink)}
+.lp-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:58px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+.lp-foot a{color:var(--muted);text-decoration:none}
+.lp-foot a:hover{color:var(--blue)}
+@media(max-width:760px){
+  .lp-hero{padding:42px 0 20px}
+  .lp-hero h1{font-size:31px}
+  .lp-cards{grid-template-columns:1fr}
+  .lp-nav-right .lp-link{display:none}
+  .landing{padding:0 14px 50px}
+}

@@ -668,26 +668,57 @@
 
   function homeHtml() {
     const user = state.idx?.user || '';
-    return '<div class="home">' +
-      '<section class="home-left">' +
+    const cur = state.idx?.current || state.editions[0]?.id || '';
+    const hl = activeHighlights().length;
+    return '<div class="landing">' +
+      '<header class="lp-nav">' +
+        '<a class="lp-brand" href="./">vLLM-Ascend <span>待我检视</span></a>' +
+        '<nav class="lp-nav-right">' +
+          '<a class="lp-link" href="docs/RULES.md">规则</a>' +
+          '<a class="lp-link" href="docs/OPERATIONS.md">运维</a>' +
+          '<a class="lp-cta" data-nav="' + esc(cur) + '" href="?e=' + encodeURIComponent(cur) + '">进入检视列表 →</a>' +
+        '</nav>' +
+      '</header>' +
+
+      '<section class="lp-hero">' +
+        '<p class="lp-eyebrow">每个工作日 08:00 · 13:00 · 18:00 自动更新</p>' +
         '<h1>PR 检视看板</h1>' +
-        '<p class="muted">输入 PR 编号或 GitHub ID，查看 @' + esc(user) + ' 的精读结论。</p>' +
-        '<div class="home-search"><input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
-        '<button type="button" data-home-search>搜索</button></div>' +
-        '<div id="home-results"></div>' +
+        '<p class="lp-sub">@' + esc(user) + ' 对 vLLM-Ascend 待检视 PR 的精读结论，按 CODEOWNERS 责任田聚焦。<br>输入 PR 编号或 GitHub ID 开始。</p>' +
+        '<div class="lp-search">' +
+          '<input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
+          '<button type="button" data-home-search>搜索</button>' +
+        '</div>' +
+        '<div class="lp-quick">' +
+          '<span><b>' + state.editions.length + '</b> 期次归档</span>' +
+          '<span><b>' + hl + '</b> 个高优先处理</span>' +
+          '<span>数据来自 GitHub 公开信息</span>' +
+        '</div>' +
       '</section>' +
-      '<aside class="home-right">' +
-        '<h2>这是什么</h2>' +
-        '<p>@' + esc(user) + ' 在 vLLM-Ascend 的 PR 检视看板。每个工作日 08:00 / 13:00 / 18:00 自动收集需要 @' + esc(user) +
-        ' 检视的 PR，按 CODEOWNERS 责任田做精读，并按期次归档。</p>' +
-        '<ul>' +
-          '<li>按 PR 编号搜索；尚未收录的 PR 可以直接点「需要检视」请求，下一期会精读并进入高优。</li>' +
-          '<li>每张卡片给出结论（可批准 / 需细看 / 建议打回）、风险、以及要追问作者的问题。</li>' +
-          '<li>侧栏按期次浏览历史，也可以按 GitHub ID 查看某位作者的全部 PR。</li>' +
-        '</ul>' +
-        '<div class="home-stats"><span>期次 ' + state.editions.length + '</span><span>高优 ' + activeHighlights().length + '</span></div>' +
-        '<p class="home-links"><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></p>' +
-      '</aside>' +
+
+      '<section id="home-results" class="lp-results"></section>' +
+
+      '<section class="lp-features">' +
+        '<h2>能做什么</h2>' +
+        '<div class="lp-cards">' +
+          '<div class="lp-card"><h3>精读结论</h3><p>每张卡片给出可批准 / 需细看 / 建议打回，列出我负责文件的改动与风险，以及要追问作者的问题。</p></div>' +
+          '<div class="lp-card"><h3>请求检视</h3><p>作者搜索不到自己的 PR 时，可直接点「需要检视」，下一期会精读并进入高优检视。</p></div>' +
+          '<div class="lp-card"><h3>按期归档</h3><p>每个工作日三次，历史期次永久保留；可按作者查看全部 PR，也能按编号直达单条。</p></div>' +
+        '</div>' +
+      '</section>' +
+
+      '<section class="lp-steps">' +
+        '<h2>怎么用</h2>' +
+        '<ol>' +
+          '<li><b>搜索</b>：输入 PR 编号查单条，或输入 GitHub ID 查该作者的全部 PR。</li>' +
+          '<li><b>请求</b>：没有收录时点「需要检视」，提交 issue 即可。</li>' +
+          '<li><b>浏览</b>：点右上角「进入检视列表」，按批次查看精读结果。</li>' +
+        '</ol>' +
+      '</section>' +
+
+      '<footer class="lp-foot">' +
+        '<span>@' + esc(user) + ' · vLLM-Ascend</span>' +
+        '<span><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></span>' +
+      '</footer>' +
     '</div>';
   }
 
@@ -695,7 +726,7 @@
     state.view = { type: 'home' };
     state.query = '';
     document.title = 'vLLM-Ascend 待我检视 · @' + (state.idx?.user || '');
-    app().innerHTML = '<div class="layout">' + sidebar() + '<main>' + homeHtml() + '</main></div>';
+    app().innerHTML = homeHtml();
   }
 
   async function homeSearch(raw) {
@@ -704,6 +735,7 @@
     if (!box) return;
     if (!q) { box.innerHTML = ''; return; }
     box.innerHTML = '<p class="muted small">搜索中…</p>';
+    if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     await loadSearchIndex();
     if (/^\d+$/.test(q)) {
       const n = Number(q);

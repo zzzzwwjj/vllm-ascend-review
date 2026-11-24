@@ -68,7 +68,7 @@ node scripts/publish.mjs            # 单次提交
 
 ## 5. 发布机制
 
-- 页面默认进入**首页**（左搜索 + 右介绍）；`?e=` 看期次、`?pr=` / `?author=` 看单条/作者、`?hl=1` 看高优；
+- 页面默认进入**首页**（hero 搜索 + 功能卡，无侧栏；右上角进入批次视图）；`?e=` 看期次、`?pr=` / `?author=` 看单条/作者、`?hl=1` 看高优；
 - `publish.mjs` 用 Git Data API 把所有变更合并成**一次提交**，只触发一次 Pages 构建；
 - `state/published.json` 记录文件 sha256，未变更文件跳过；`--force` 可强制重传；
 - 分片带 `?v=<hash>` 版本，浏览器可长期缓存；
