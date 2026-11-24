@@ -1,9 +1,32 @@
 {
-  "updated_at": "2026-11-23T10:00:06.555Z",
-  "current": "2026-11-23-1800",
+  "updated_at": "2026-11-24T00:00:11.065Z",
+  "current": "2026-11-24-0800",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
   "editions": [
+    {
+      "id": "2026-11-24-0800",
+      "at": "2026-11-24T00:00:11.065Z",
+      "window": {
+        "start": "2026-11-23T10:00:06.555Z",
+        "end": "2026-11-24T00:00:11.065Z",
+        "hours": 14
+      },
+      "stats": {
+        "fresh": 163,
+        "deep": 20,
+        "rest": 143,
+        "skipped": 7
+      },
+      "verdicts": {
+        "approve": 1,
+        "look": 18,
+        "pushback": 1,
+        "pending": 0
+      },
+      "api_calls": 664,
+      "v": "1efaf58d9872"
+    },
     {
       "id": "2026-11-23-1800",
       "at": "2026-11-23T10:00:06.555Z",

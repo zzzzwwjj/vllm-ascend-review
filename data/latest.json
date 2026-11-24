@@ -1,21 +1,21 @@
 {
-  "edition": "2026-11-23-1800",
-  "at": "2026-11-23T10:00:06.555Z",
+  "edition": "2026-11-24-0800",
+  "at": "2026-11-24T00:00:11.065Z",
   "window": {
-    "start": "2026-11-23T05:00:15.179Z",
-    "end": "2026-11-23T10:00:06.555Z",
-    "hours": 5
+    "start": "2026-11-23T10:00:06.555Z",
+    "end": "2026-11-24T00:00:11.065Z",
+    "hours": 14
   },
   "stats": {
-    "fresh": 130,
+    "fresh": 163,
     "deep": 20,
-    "rest": 110,
-    "skipped": 4
+    "rest": 143,
+    "skipped": 7
   },
   "verdicts": {
-    "approve": 3,
-    "look": 15,
-    "pushback": 2,
+    "approve": 1,
+    "look": 18,
+    "pushback": 1,
     "pending": 0
   }
 }
