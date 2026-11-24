@@ -28,7 +28,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "805147c8f0429c63e56138aaa1580988ba189909"
     },
     "17017": {
       "number": 17017,
@@ -58,7 +59,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "14aee4112c0710ea70c0cd60ba70e9855be9229e"
     },
     "17048": {
       "number": 17048,
@@ -95,7 +97,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "eb41e7ef790be055f0a71bce7757336d950a5ff4"
     },
     "17054": {
       "number": 17054,
@@ -125,7 +128,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "33bfef419bc4dbe679582011104beca9112373be"
     },
     "17057": {
       "number": 17057,
@@ -155,7 +159,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3b771e4bee57339c70206509e1f06a96b6f1b1f8"
     },
     "17090": {
       "number": 17090,
@@ -192,7 +197,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2d67f7a8e5b693cae36ea3ab078eb709f2f167ba"
     },
     "17098": {
       "number": 17098,
@@ -229,7 +235,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a026934c91506a08564b6e2781e9fab42737a216"
     },
     "17109": {
       "number": 17109,
@@ -259,7 +266,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "15abc3c8189b0c930d321c5661664760de92aa06"
     },
     "17114": {
       "number": 17114,
@@ -308,7 +316,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bede432a5d553b7f39a63e0bf39429197273db78"
     },
     "17122": {
       "number": 17122,
@@ -363,7 +372,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d247796b7740a1e0aa783f3bde62175a1a29ab1d"
     },
     "17127": {
       "number": 17127,
@@ -412,7 +422,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7ab6350c51e205a563859f1ace491deb27886598"
     },
     "17144": {
       "number": 17144,
@@ -467,7 +478,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "25817f0af2756337265d77ed63eddfaad2e49aa4"
     },
     "17175": {
       "number": 17175,
@@ -497,7 +509,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "84e67ff5dd7e3aa5d9761b377ad19af0cd282a89"
     },
     "17177": {
       "number": 17177,
@@ -527,7 +540,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7faaf24fc47a3ab0b2a91dd99c6491ce38cd2dcb"
     },
     "17190": {
       "number": 17190,
@@ -557,7 +571,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7a845deb15aa6036fa7c401256878280817f9f22"
     },
     "17198": {
       "number": 17198,
@@ -600,7 +615,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "77cff82c55b1c7d360754ff9d6bb3610cda5b666"
     },
     "17205": {
       "number": 17205,
@@ -630,7 +646,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bc82eba05f48945ca4b31ecaab3e12d9a1dd490a"
     },
     "17211": {
       "number": 17211,
@@ -667,7 +684,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9874b96572c22d108a87a33673b1b135142fc665"
     },
     "17215": {
       "number": 17215,
@@ -697,7 +715,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5c6b8d6be3f8067c27036ab7cb779c38995f4abf"
     },
     "17224": {
       "number": 17224,
@@ -752,7 +771,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9fee71db0c7d68287d60835746b0dcd40847956d"
     },
     "17244": {
       "number": 17244,
@@ -807,7 +827,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1bcbb65a9c079e91dec81b75316c6e794247242a"
     },
     "17249": {
       "number": 17249,
@@ -886,7 +907,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7176108a0cc72e0b8983e194ba1e148c1bf78b64"
     },
     "17250": {
       "number": 17250,
@@ -916,7 +938,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ccc0a8887a73ab556675fd67ff14098b447b4e9d"
     },
     "17259": {
       "number": 17259,
@@ -953,7 +976,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a9c8d7e0e3f909b25f91d94fb3c84821f2bfaa2b"
     },
     "17262": {
       "number": 17262,
@@ -990,7 +1014,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ecb5b7be5c2e1bff5c3b19550a0e8cc9bafd774e"
     },
     "17269": {
       "number": 17269,
@@ -1020,7 +1045,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f558c5f0384c0cad84a05c4f4412a2931faca94c"
     },
     "17280": {
       "number": 17280,
@@ -1057,7 +1083,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8f38812b47f83fd6a4eda4b35350e2ca0e2a8c6b"
     },
     "17282": {
       "number": 17282,
@@ -1094,7 +1121,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "340d0ac9a783d034054623269e3028cec3a9617d"
     },
     "17295": {
       "number": 17295,
@@ -1143,7 +1171,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f47101dbccd5de244ad5dfb300fe56a70b6fcb9b"
     },
     "17297": {
       "number": 17297,
@@ -1173,7 +1202,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4560d25352ddaac21ec59d214faa5b4a318da2a4"
     },
     "17298": {
       "number": 17298,
@@ -1203,7 +1233,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "17ebd699e382f963bd4a1a946ae31f111cf823fd"
     },
     "17299": {
       "number": 17299,
@@ -1240,7 +1271,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "520df5dc0d45e992b268aed170f76a70f52359e4"
     },
     "17300": {
       "number": 17300,
@@ -1283,7 +1315,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "19eb9513a6c2d93c2e981eae5530519f92c14798"
     },
     "17301": {
       "number": 17301,
@@ -1320,7 +1353,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "faaf86c32c21a02dd927440868c30a177635e0f3"
     },
     "17302": {
       "number": 17302,
@@ -1357,7 +1391,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ffc7250fd168cd95ceebda0f8c9a1f52ddc0f1f6"
     },
     "17304": {
       "number": 17304,
@@ -1442,7 +1477,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "59a8a6b22475cdf5576128aecc8153c38f842ad1"
     },
     "17363": {
       "number": 17363,
@@ -1479,7 +1515,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "24b2e0606bc7fdaef4e009b4ebc64d2675cefe05"
     },
     "17365": {
       "number": 17365,
@@ -1516,7 +1553,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bc68921540159fc5478847ce88b8bc308cd23c70"
     },
     "17371": {
       "number": 17371,
@@ -1553,7 +1591,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d75e348779c63303bfe3a6b3f2b8c55bd9f14bc0"
     },
     "17372": {
       "number": 17372,
@@ -1590,7 +1629,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "6e7c141b2103b00e549c21087b82e5868fc13f50"
     },
     "17376": {
       "number": 17376,
@@ -1620,7 +1660,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f9fccc9db0c4d6cbd35a61e27a5b072d0ed907d5"
     },
     "17382": {
       "number": 17382,
@@ -1650,7 +1691,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a5f59ac73640ed6a57ead9dc1ea8382ee9381aed"
     },
     "17393": {
       "number": 17393,
@@ -1693,7 +1735,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "766517c78821ddc0edf9131bef39ee0825f407fb"
     },
     "17406": {
       "number": 17406,
@@ -1723,7 +1766,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c7e32f00f32dd06cde8cbee2b4de83768ef6be95"
     },
     "17426": {
       "number": 17426,
@@ -1760,7 +1804,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "aed44a83d22ebfbe37dc2889a616bf0b5928b9c5"
     },
     "17434": {
       "number": 17434,
@@ -1803,7 +1848,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ff9e6b97680ce19d1e31a84493bcde3b92828de8"
     },
     "17446": {
       "number": 17446,
@@ -1833,7 +1879,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "32ad0c141c94758e18050c6b0c23efbd3fec7b2e"
     },
     "17447": {
       "number": 17447,
@@ -1870,7 +1917,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8726112490587545f9691639d447e33a7ff3dc9d"
     },
     "17454": {
       "number": 17454,
@@ -1919,7 +1967,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "28374751ef6d69910255b4f70dff026696dc3337"
     },
     "17471": {
       "number": 17471,
@@ -1949,7 +1998,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a95724aea9a723b18f1310cf4f720a17a3264899"
     },
     "17477": {
       "number": 17477,
@@ -2030,7 +2080,8 @@
         ],
         "recommend": "先打回：先确认 A5 INT8 C8 是否仍是受支持配置；若需要则重基并同时处理 FP8-only 校验与测试可达性，否则关闭。"
       },
-      "review_sha": "fd5b47ceeae1"
+      "review_sha": "fd5b47ceeae1",
+      "head_sha": "2be0fd1d180eafba183cd990fffa4a50c6d099da"
     },
     "17486": {
       "number": 17486,
@@ -2116,7 +2167,8 @@
         ],
         "recommend": "建议打回：先与作者确认 #16359 是否已由 bf16 门修复；不可达则关闭，或改为“删除 dtype 门 + 补 final_state 转换”并附 TODO 与单测。"
       },
-      "review_sha": "7edaeb498915"
+      "review_sha": "7edaeb498915",
+      "head_sha": "b97cd92f13ab82e4a51645deaaf9f79558355f02"
     },
     "17515": {
       "number": 17515,
@@ -2146,7 +2198,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "664a7cf0851e705fc79f3e126701c68d7b2c3312"
     },
     "17521": {
       "number": 17521,
@@ -2176,7 +2229,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2dfd6f93e55f9c866d3103ce66f20fa5532ba3fe"
     },
     "17530": {
       "number": 17530,
@@ -2206,7 +2260,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "e43fe6a0d2450e96881810fffc21738df50b58e3"
     },
     "17544": {
       "number": 17544,
@@ -2243,7 +2298,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1f744827e02c82a30c1bb360686859a5176b49ff"
     },
     "17556": {
       "number": 17556,
@@ -2280,7 +2336,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ba10b1d34c1eb69ef859099c8c527d127f1de565"
     },
     "17568": {
       "number": 17568,
@@ -2323,7 +2380,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "537a11a5be7a53d522c5130ff4c0bd5b83a2a9b6"
     },
     "17579": {
       "number": 17579,
@@ -2353,7 +2411,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "108738ac2d243cfb9bc266b3d85d8ebacab7555f"
     },
     "17581": {
       "number": 17581,
@@ -2408,7 +2467,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8eec1d23c591f322a446f7bc2d1925ecc24d117b"
     },
     "17600": {
       "number": 17600,
@@ -2438,7 +2498,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f3aa3cce2283659ab62b9f7244732f7a0e9ea604"
     },
     "17602": {
       "number": 17602,
@@ -2468,7 +2529,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a8c83c9099c908239a8835afc70d8957b49a1a87"
     },
     "17604": {
       "number": 17604,
@@ -2511,7 +2573,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "630e2729d7e2e0476373e8c72010015fec940a33"
     },
     "17608": {
       "number": 17608,
@@ -2541,7 +2604,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2ab1f2aece725f3367071ceeadd0d5dc32eba7be"
     },
     "17617": {
       "number": 17617,
@@ -2571,7 +2635,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "e2304bb77d76440c726abd25c00115f2a1c1b0f1"
     },
     "17623": {
       "number": 17623,
@@ -2662,7 +2727,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1214955869a0785e85b02de49bff8e85a81eef35"
     },
     "17629": {
       "number": 17629,
@@ -2705,7 +2771,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ea5f0e072bcd3a6ea176b1da9f6e8eea25e95926"
     },
     "17640": {
       "number": 17640,
@@ -2735,7 +2802,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "eeb20c3bdbb1ad6387be3c6950fc237dab462047"
     },
     "17641": {
       "number": 17641,
@@ -2772,7 +2840,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2026821477514d27e1a98cb65aed046483108354"
     },
     "17643": {
       "number": 17643,
@@ -2821,7 +2890,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "85b4ee6322f9b641dc09c69f68808d4960ac929f"
     },
     "17651": {
       "number": 17651,
@@ -2858,7 +2928,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8ce50a85ee1461ee11a9f43f3fba24ede503b632"
     },
     "17653": {
       "number": 17653,
@@ -2888,7 +2959,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "228695eb49afd8d7f189fea710bd7bac70558257"
     },
     "17654": {
       "number": 17654,
@@ -2925,7 +2997,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "57859a07dacb9f28798a71311f01382e90801f66"
     },
     "17663": {
       "number": 17663,
@@ -2962,7 +3035,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f01a588ee90fa671cd5786dc5846c4d70cefc8af"
     },
     "17668": {
       "number": 17668,
@@ -2999,7 +3073,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "28f4dca7d9c723f12c7b49ca8eaa8841e8d49219"
     },
     "17670": {
       "number": 17670,
@@ -3029,7 +3104,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "36d24245ba4dfa34d686533ac9963d78ded07c40"
     },
     "17674": {
       "number": 17674,
@@ -3059,7 +3135,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "97d8a9dd8e2b140f837643742866a721fa6db120"
     },
     "17689": {
       "number": 17689,
@@ -3102,7 +3179,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0817f375b9c6fc9dea870cda641337ddad9bb48f"
     },
     "17703": {
       "number": 17703,
@@ -3139,7 +3217,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a08e5370f54f8bb8fc617426ae8b06cf068705aa"
     },
     "17730": {
       "number": 17730,
@@ -3169,7 +3248,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c11295586caa4d45c5f9c242a0854c9906d20359"
     },
     "17734": {
       "number": 17734,
@@ -3224,7 +3304,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2a391d722e4b600208a142269cc3c9c7b4379f45"
     },
     "17740": {
       "number": 17740,
@@ -3285,7 +3366,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "995977208dc47edc4c9b6e575d1535b191de8bfa"
     },
     "17751": {
       "number": 17751,
@@ -3334,7 +3416,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9fd9544f3d988a2b9fc3d39d32f670034daee06a"
     },
     "17759": {
       "number": 17759,
@@ -3371,7 +3454,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "065172940cdbeffd5564c554d07d1ea8c9646077"
     },
     "17763": {
       "number": 17763,
@@ -3414,7 +3498,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "822bee5fac6585acc2c6236204366450fb86ddfd"
     },
     "17799": {
       "number": 17799,
@@ -3444,7 +3529,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1d489fa0f1375b3aa1b764e2c75d2d756339d5a4"
     },
     "17810": {
       "number": 17810,
@@ -3474,7 +3560,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "89fb35295f6010bed998846a345d6112fb2e4c61"
     },
     "17814": {
       "number": 17814,
@@ -3504,7 +3591,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "516c1812993ad7b83a9e52ff1504dfc67279a57f"
     },
     "17818": {
       "number": 17818,
@@ -3534,7 +3622,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "63e1c261c2ec88880088f4142a027c325721fe70"
     },
     "17839": {
       "number": 17839,
@@ -3577,7 +3666,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c9d2178225ecd53dca5f01937d3cc92be7a4d424"
     },
     "17842": {
       "number": 17842,
@@ -3626,7 +3716,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5bb43a81cf70819ce9b4aae43d056d6c23d4d52a"
     },
     "17845": {
       "number": 17845,
@@ -3675,7 +3766,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fc266a8fae19a9781eba88640123dd55219e0648"
     },
     "17847": {
       "number": 17847,
@@ -3712,7 +3804,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0f9a5fba9b92f15301810dc8d123964a913f6738"
     },
     "17853": {
       "number": 17853,
@@ -3755,7 +3848,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4036640f369d49d697f923268c726c65a68b7ca9"
     },
     "17854": {
       "number": 17854,
@@ -3798,7 +3892,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c201a77621da86ab7e6b419db6da7695d5451642"
     },
     "17877": {
       "number": 17877,
@@ -3901,7 +3996,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bb8b7655857142f3d2fcdbe93638c63d1b5ea435"
     },
     "17878": {
       "number": 17878,
@@ -4004,7 +4100,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "854e5b18607183abd5e06ebdca3600d5abe566c1"
     },
     "17879": {
       "number": 17879,
@@ -4113,7 +4210,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "93cf38c825aad87271ecae8c56ff5dacdfadc4d8"
     },
     "17880": {
       "number": 17880,
@@ -4228,7 +4326,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "974750aed651ab81e3f932a53e5881a6e945df03"
     },
     "17881": {
       "number": 17881,
@@ -4355,7 +4454,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2113a0960b2b3419707fb8b3ef1daad7a836a66f"
     },
     "17882": {
       "number": 17882,
@@ -4488,7 +4588,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c91581109a4f6bb53fd9d52e0f64bccab1dbd6ec"
     },
     "17883": {
       "number": 17883,
@@ -4621,7 +4722,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5a6e25619e98a254842a46116b9882ea7a7527f7"
     },
     "17884": {
       "number": 17884,
@@ -4760,7 +4862,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4225b12e611b3ae3b41df13eb9fff4fd0b8c0641"
     },
     "17885": {
       "number": 17885,
@@ -4899,7 +5002,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "be6a3c64ea517d5f225bb673be42b41c5243fc02"
     },
     "17886": {
       "number": 17886,
@@ -5026,7 +5130,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fde442399ee337357f02b218c0c1e2f559660661"
     },
     "17888": {
       "number": 17888,
@@ -5056,7 +5161,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "de1d89fc5b7e3bd2670ee8d54e797ff0eaa6b1c2"
     },
     "17898": {
       "number": 17898,
@@ -5117,7 +5223,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "919127da768d161160ea687870b4332523dc60f9"
     },
     "17907": {
       "number": 17907,
@@ -5147,7 +5254,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0eb7b93182a208e023235bfa1f256ab971366d9f"
     },
     "17910": {
       "number": 17910,
@@ -5184,7 +5292,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "dc4c44ef19ec0d8da7d543a0e3ab6e717f1f9170"
     },
     "17969": {
       "number": 17969,
@@ -5245,7 +5354,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0bd8532da0102175821f5b7b25a593feb0e4e603"
     },
     "17993": {
       "number": 17993,
@@ -5275,7 +5385,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b19f3ecc28045c6e1e1864558b46bae1e266d82e"
     }
   }
 }

@@ -59,7 +59,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ca44e31f602ff05f0cdd1c6adfc8279ccf7c3a36"
     },
     "21016": {
       "number": 21016,
@@ -96,7 +97,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ddddff80157c6a8bc2227316250d482a73da6eaf"
     },
     "21017": {
       "number": 21017,
@@ -151,7 +153,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0261f27e13312a22e13496dba75c9d2a11c0c286"
     },
     "21019": {
       "number": 21019,
@@ -229,7 +232,8 @@
         ],
         "recommend": "设计方向合理，但需作者确认 split/回退两点并给出 DCP 端到端证据；在此之前保持 look。"
       },
-      "review_sha": "4803e4c1ba3f"
+      "review_sha": "4803e4c1ba3f",
+      "head_sha": "f0e81b2d5aecb81c18ceb9878b4b9643299fa093"
     },
     "21021": {
       "number": 21021,
@@ -259,7 +263,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "66523342022001de737202178233d49711abea8c"
     },
     "21030": {
       "number": 21030,
@@ -296,7 +301,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d98402e9ca3c6e598ae2a021321a9c508d2cdfe5"
     },
     "21032": {
       "number": 21032,
@@ -339,7 +345,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bfc1fefd1300b6823309cf13c3113d0ea94550a2"
     },
     "21037": {
       "number": 21037,
@@ -388,7 +395,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "15d506fcd1a73c41b20073c641f799b6e92f35e9"
     },
     "21052": {
       "number": 21052,
@@ -418,7 +426,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c323394fe38ef6cf3065a83620ae874c22cd47ae"
     },
     "21120": {
       "number": 21120,
@@ -467,7 +476,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4d603dae65fd1b81330f0024bd315edd530368b6"
     },
     "21124": {
       "number": 21124,
@@ -504,7 +514,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4bf771bdb9f0f6889caba79eb58167b343f69c5d"
     },
     "21135": {
       "number": 21135,
@@ -547,7 +558,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5793d7d62166cab3a30d9b1578addec2b60410af"
     },
     "21138": {
       "number": 21138,
@@ -634,7 +646,8 @@
         ],
         "recommend": "补 MultiConnector 子项用例并澄清 worker 侧 guard 的落地位置后再批准。"
       },
-      "review_sha": "5d77b6d51b75"
+      "review_sha": "5d77b6d51b75",
+      "head_sha": "e6d680128d40cbefe1eb7b07c09df05a326ec5c5"
     },
     "21153": {
       "number": 21153,
@@ -664,7 +677,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8716149aa22a531344c98f16d5cd3c2d6cecc65e"
     },
     "21162": {
       "number": 21162,
@@ -694,7 +708,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a7bee9a41694841949057c02385a37b749b9f7e6"
     },
     "21177": {
       "number": 21177,
@@ -731,7 +746,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3a73c46c0e13fa230f0ebf6c78fe0d8405300bf5"
     },
     "21183": {
       "number": 21183,
@@ -768,7 +784,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8f5e2ead636bc2c03b8f72d5ba1d71d5bc70fe9b"
     },
     "21188": {
       "number": 21188,
@@ -798,7 +815,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f761793d6668e1afe3b08f5e9099e7a0b2f7c87b"
     },
     "21190": {
       "number": 21190,
@@ -865,7 +883,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9e819d448e2ef792329ac18ff85d357f16c73ca3"
     },
     "21193": {
       "number": 21193,
@@ -902,7 +921,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9e195d86faeff1db433ca8296ab00e719a7801eb"
     },
     "21218": {
       "number": 21218,
@@ -945,7 +965,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9af8a15c1316d46e07a1441f0c5a05e88cdae691"
     },
     "21246": {
       "number": 21246,
@@ -982,7 +1003,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "614b22e92783371262b9bf4f2e2f1f2f8b2533f8"
     },
     "21259": {
       "number": 21259,
@@ -1078,7 +1100,8 @@
         ],
         "recommend": "门控与生命周期基本合理；补 A2 边界证据、让 NPU 图捕获用例进 CI，并完成准确率 A/B 后再合。"
       },
-      "review_sha": "ad7e06d1c565"
+      "review_sha": "ad7e06d1c565",
+      "head_sha": "e67f016c7fe301273ca2f60f44a178e466570b0b"
     },
     "21272": {
       "number": 21272,
@@ -1115,7 +1138,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bce4415d336433fd163243967d1ddb49b0a994d8"
     },
     "21275": {
       "number": 21275,
@@ -1145,7 +1169,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4810779c332f48c4f8c31466535159ffa0ffc848"
     },
     "21277": {
       "number": 21277,
@@ -1188,7 +1213,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d685373021771ccb6e6d3e9a3e93a7b16376b49d"
     },
     "21300": {
       "number": 21300,
@@ -1262,7 +1288,8 @@
         ],
         "recommend": "改动小而准确且与上游一致；补上 PR 描述（动机/验证）后即可批准。"
       },
-      "review_sha": "f07367efc6c1"
+      "review_sha": "f07367efc6c1",
+      "head_sha": "59dfd6fcf3b928f4b34c5d471f01dd4feb8e5e1f"
     },
     "21301": {
       "number": 21301,
@@ -1332,7 +1359,8 @@
         ],
         "recommend": "可批准：opt-in 且测试/文档充分，请补 Ascend P/D 验证并与 #22915 约定合入顺序。"
       },
-      "review_sha": "6c3be03ed7c2"
+      "review_sha": "6c3be03ed7c2",
+      "head_sha": "eabfbc9f18a7d2541399a03b07ea24c5a1134f26"
     },
     "21302": {
       "number": 21302,
@@ -1381,7 +1409,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ccdec5f250c34ae65d2979e0c660e22b401990ae"
     },
     "21326": {
       "number": 21326,
@@ -1411,7 +1440,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "14733a4178aabc1d27fc77b629d1a1b011a43c82"
     },
     "21327": {
       "number": 21327,
@@ -1441,7 +1471,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "aac68083be8f708b200802bb49241090c27064f8"
     },
     "21372": {
       "number": 21372,
@@ -1520,7 +1551,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b9d9f8efe0119d7624c1135d8c20ccef30002bea"
     },
     "21388": {
       "number": 21388,
@@ -1609,7 +1641,8 @@
         ],
         "recommend": "等价性我已按代码核对通过，但缺任何验证证据，补一组新旧实现对比测试后再批。"
       },
-      "review_sha": "d73ce9662ab8"
+      "review_sha": "d73ce9662ab8",
+      "head_sha": "d176a1de5de0d1b1c259eb0da7da73dd3328abb8"
     },
     "21394": {
       "number": 21394,
@@ -1639,7 +1672,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f6e844622457bfc30aa53901678c49bdcf5dbdb6"
     },
     "21400": {
       "number": 21400,
@@ -1669,7 +1703,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a333ffad1931260c47803670e9d71697d5101f69"
     },
     "21413": {
       "number": 21413,
@@ -1699,7 +1734,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8d11a4328767d37aa50e219e818b3c6009a28a18"
     },
     "21414": {
       "number": 21414,
@@ -1764,7 +1800,8 @@
         ],
         "recommend": "可批准；建议补一条 NPU 精度/长跑记录，并确认 aux stream 分配、caller stream 消费的张量跨流复用语义。"
       },
-      "review_sha": "2c1b7b278024"
+      "review_sha": "2c1b7b278024",
+      "head_sha": "817e5c915af7a5d12f4a62f9a49f5f5f298325af"
     },
     "21417": {
       "number": 21417,
@@ -1794,7 +1831,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "27309d14d121185e63701de59fc928cbfecbc6f2"
     },
     "21429": {
       "number": 21429,
@@ -1831,7 +1869,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "55f93a181937c859cbf56ee29e22620495b58c84"
     },
     "21443": {
       "number": 21443,
@@ -1880,7 +1919,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bb1df243a354f1929ec8db041459d126ea635c02"
     },
     "21444": {
       "number": 21444,
@@ -1929,7 +1969,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f7f0492a7e8768d8d93e916165eea0fe97728857"
     },
     "21449": {
       "number": 21449,
@@ -1972,7 +2013,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "bbf28393cc2bfca21147ba682c923ea2408dab40"
     },
     "21456": {
       "number": 21456,
@@ -2015,7 +2057,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "389926aa597eba30bd7bab1e81a4e9c5f093cb78"
     },
     "21465": {
       "number": 21465,
@@ -2045,7 +2088,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "63730c163ac2712848d692f7117bf8fd7abb9351"
     },
     "21466": {
       "number": 21466,
@@ -2138,7 +2182,8 @@
         ],
         "recommend": "方向与寻址实现自洽，先解冲突、补 NPU 侧布局验证与 ci-gate 说明，再批准。"
       },
-      "review_sha": "63f9e110e240"
+      "review_sha": "63f9e110e240",
+      "head_sha": "989bf2c2bb673ca4aec46a3b0632c828b4889f15"
     },
     "21467": {
       "number": 21467,
@@ -2228,7 +2273,8 @@
         ],
         "recommend": "思路正确且边界处理到位，需补齐 CI 失败原因与图重放边界说明后再批。"
       },
-      "review_sha": "6d68d5b03a8a"
+      "review_sha": "6d68d5b03a8a",
+      "head_sha": "1772d7601da538847d60110fa18d905b6de9e3b0"
     },
     "21473": {
       "number": 21473,
@@ -2258,7 +2304,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a4f2208d4b14bb2f4d82f716d05ff5c0ac0edacf"
     },
     "21483": {
       "number": 21483,
@@ -2288,7 +2335,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "70379328c102467cf74be8694112e1028b56809b"
     },
     "21496": {
       "number": 21496,
@@ -2325,7 +2373,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "28ccab7001abe82d46e049fe7f4710cfca0490e8"
     },
     "21500": {
       "number": 21500,
@@ -2355,7 +2404,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "86d55e712e7d2e4ec759a731e2d4d75b7e189040"
     },
     "21502": {
       "number": 21502,
@@ -2398,7 +2448,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c7b1bb48d88188580e4bbc65d877dc4dff7114d7"
     },
     "21512": {
       "number": 21512,
@@ -2428,7 +2479,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "55c045a45c9fe684152d2ac04b5d4104e75d7ab2"
     },
     "21518": {
       "number": 21518,
@@ -2458,7 +2510,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "650ad3e0407127a8aa913edcbac2794d2e97587f"
     },
     "21523": {
       "number": 21523,
@@ -2507,7 +2560,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1dd31405019aa8a436836f2640d1b99833c39f88"
     },
     "21526": {
       "number": 21526,
@@ -2544,7 +2598,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9102c57d94d3e31b352f63e1b4234634884d92da"
     },
     "21535": {
       "number": 21535,
@@ -2618,7 +2673,8 @@
         ],
         "recommend": "owned 改动与测试可批准；建议补 drain 超时/文档化调用侧 barrier 要求后再合。"
       },
-      "review_sha": "bb410731e8ff"
+      "review_sha": "bb410731e8ff",
+      "head_sha": "01a1d9b95150d72d392dde064f30a53313c4c8b7"
     },
     "21543": {
       "number": 21543,
@@ -2661,7 +2717,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4c0c1d30c07c22bdf2cb8753447ebdbfc4733252"
     },
     "21554": {
       "number": 21554,
@@ -2718,7 +2775,8 @@
         ],
         "recommend": "可批准：改动小、UT 与 e2e 都有；建议补 0.33.0/main 各一次验证。"
       },
-      "review_sha": "170917c3e56c"
+      "review_sha": "170917c3e56c",
+      "head_sha": "4d607efc3a6b2f1d9b2d17629a796b8155cf786e"
     },
     "21567": {
       "number": 21567,
@@ -2748,7 +2806,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "52847a00d5431a1e12d3968db40e81802990bd83"
     },
     "21570": {
       "number": 21570,
@@ -2797,7 +2856,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "320a5e2d88e5dd8d6028d6b8b29e3546bf46e278"
     },
     "21603": {
       "number": 21603,
@@ -2827,7 +2887,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8808350f941697dcf0cf4035b047485b0580d16d"
     },
     "21605": {
       "number": 21605,
@@ -2864,7 +2925,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f748d2d75e2ee64b835be08b61a7dab0786be122"
     },
     "21624": {
       "number": 21624,
@@ -2943,7 +3005,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fab1106e882a3dbf27990f836ea92487aa18724f"
     },
     "21625": {
       "number": 21625,
@@ -2973,7 +3036,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "23960c001d3f0d0396bd5df9098e564781977c11"
     },
     "21633": {
       "number": 21633,
@@ -3022,7 +3086,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "0bc30cd07c16e7a41b08b7b10e68696a847d9553"
     },
     "21635": {
       "number": 21635,
@@ -3083,7 +3148,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "36336227fc48615dc45e7d67f6e0cc3f4915ba6f"
     },
     "21636": {
       "number": 21636,
@@ -3156,7 +3222,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4cddba258695891c3eae7a335d31d240548242e8"
     },
     "21638": {
       "number": 21638,
@@ -3186,7 +3253,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b9288717f1f6d8679d2a3eb7de50f841408e32f5"
     },
     "21652": {
       "number": 21652,
@@ -3223,7 +3291,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "aaab153aa7a139aa689ffa0601778bba2c95f676"
     },
     "21655": {
       "number": 21655,
@@ -3272,7 +3341,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b03394cdc92571441ad79edede46b2e3bc22ff0a"
     },
     "21658": {
       "number": 21658,
@@ -3309,7 +3379,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7210fcf6c480c3873627aae1d0b310f20b4af2f3"
     },
     "21662": {
       "number": 21662,
@@ -3339,7 +3410,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "23672453a238514153080d0b30cbcc67ba9aec76"
     },
     "21668": {
       "number": 21668,
@@ -3416,7 +3488,8 @@
         ],
         "recommend": "建议打回/暂缓：先让上游 hook 进入受支持的 vLLM pin（或保留过渡桥）并补 CLI 级测试，否则发布版本里该特性不可用。"
       },
-      "review_sha": "25395604a579"
+      "review_sha": "25395604a579",
+      "head_sha": "3c931f3761d696c737808ea64a35fa3074a3c48f"
     },
     "21675": {
       "number": 21675,
@@ -3459,7 +3532,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3990143267e2dce9fce3a5c31509826bbc7fd7be"
     },
     "21677": {
       "number": 21677,
@@ -3489,7 +3563,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3652a62a67e7ccd5e575e1d489c620a3b228edd4"
     },
     "21680": {
       "number": 21680,
@@ -3538,7 +3613,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1e50456502141c2f27e8967a5898f3d005e75d78"
     },
     "21688": {
       "number": 21688,
@@ -3581,7 +3657,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "6c6075d3f59e3ffd8e25c6965693e8918891c03f"
     },
     "21697": {
       "number": 21697,
@@ -3659,7 +3736,8 @@
         ],
         "recommend": "产品改动小且合理，先确认 CI 容器/镜像可执行性并拿到绿色 E2E，再合。"
       },
-      "review_sha": "b2c938c5452c"
+      "review_sha": "b2c938c5452c",
+      "head_sha": "bcea13383bf33668cc8e9778b50157c051969844"
     },
     "21705": {
       "number": 21705,
@@ -3714,7 +3792,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "907211bbf86225e4dbe81b707fd09af5e92ecbd9"
     },
     "21706": {
       "number": 21706,
@@ -3790,7 +3869,8 @@
         ],
         "recommend": "owned 的配置两行为最小改动且默认关闭、文档齐全，可批准；合并前补 ci-gate 标签与 NPU 套件。"
       },
-      "review_sha": "7d4d9781cd00"
+      "review_sha": "7d4d9781cd00",
+      "head_sha": "f7c83b897e7bcfbe80dc17a0bd44ac8218befe1a"
     },
     "21708": {
       "number": 21708,
@@ -3839,7 +3919,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "45b5fa3930e3c5a789c0f789fc1d50cb4f88b88f"
     },
     "21713": {
       "number": 21713,
@@ -3869,7 +3950,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "6ff0447bdf1e402f1a0720f3ff0b29e093b12dee"
     },
     "21715": {
       "number": 21715,
@@ -3967,7 +4049,8 @@
         ],
         "recommend": "方向合理，但请补 device_op 包装层单测、确认 fp16/连续性与硬件守卫，并解决 cpu-ut 失败后再细看合入。"
       },
-      "review_sha": "40b08a29bb28"
+      "review_sha": "40b08a29bb28",
+      "head_sha": "e7a6eef9f110e142f13038556ba697a18c2253d6"
     },
     "21724": {
       "number": 21724,
@@ -3997,7 +4080,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b95879622593a2d093b86ccd1ab8e63f8bb13a1d"
     },
     "21726": {
       "number": 21726,
@@ -4027,7 +4111,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f5e0d39bbe2a18a6ff55b39f516cd42bd66c446a"
     },
     "21730": {
       "number": 21730,
@@ -4057,7 +4142,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d69573d3379f123477a18faf85ffa16959c9ce69"
     },
     "21745": {
       "number": 21745,
@@ -4094,7 +4180,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5224a77fe449f1d057dfabe9dbede1039d594a04"
     },
     "21748": {
       "number": 21748,
@@ -4137,7 +4224,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "da60004886306d24b9078adf2826d52d55fa99b6"
     },
     "21750": {
       "number": 21750,
@@ -4167,7 +4255,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "11715ad47266e51bfdd47e66e45d5811424411cc"
     },
     "21776": {
       "number": 21776,
@@ -4216,7 +4305,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "89b8a181ccd3ff008b406396fabe5688b216f132"
     },
     "21793": {
       "number": 21793,
@@ -4293,7 +4383,8 @@
         ],
         "recommend": "先补别名识别、拆出 dcp 改动并等 CI 绿灯，再合入。"
       },
-      "review_sha": "3e9b83f641b9"
+      "review_sha": "3e9b83f641b9",
+      "head_sha": "8876dd98e3953e1d2967e4e4638a220d9c6b4dc1"
     },
     "21799": {
       "number": 21799,
@@ -4336,7 +4427,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d1679aa5e01a51522136c593ceaed03a7234829d"
     },
     "21802": {
       "number": 21802,
@@ -4373,7 +4465,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "38d83fb32f5d19ba3e721a47441e7d1218915b98"
     },
     "21820": {
       "number": 21820,
@@ -4440,7 +4533,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "407a3cd368fda50bc0ccab70ced62a6f5e5afdea"
     },
     "21830": {
       "number": 21830,
@@ -4489,7 +4583,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "cd12a9c7f4fce1fdd0ee7ba9421e750120bea887"
     },
     "21837": {
       "number": 21837,
@@ -4559,7 +4654,8 @@
         ],
         "recommend": "先验证挂钩顺序与 config 校验两点（可加断言/UT），补真实 GLM KDA 延迟 commit 精度对比后再批准。"
       },
-      "review_sha": "823c8d807dea"
+      "review_sha": "823c8d807dea",
+      "head_sha": "eef46223c6be9918c1deb859bde23e2ea0608bfb"
     },
     "21838": {
       "number": 21838,
@@ -4596,7 +4692,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "277b6f87e38e3285290e50f924da34da44cf970a"
     },
     "21841": {
       "number": 21841,
@@ -4633,7 +4730,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3fddb5e8fdfcf6c481da629d1502527f3ca5516d"
     },
     "21843": {
       "number": 21843,
@@ -4708,7 +4806,8 @@
         ],
         "recommend": "可批准；合入前确认 A5 分布式验证与 ci-gate 结果。"
       },
-      "review_sha": "0eca87017023"
+      "review_sha": "0eca87017023",
+      "head_sha": "f13b75df7294ad9515dba932394ee2fdf1292119"
     },
     "21845": {
       "number": 21845,
@@ -4745,7 +4844,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4987a9c613fca4451e354a8dc9f2dca44342a59b"
     },
     "21849": {
       "number": 21849,
@@ -4800,7 +4900,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "602568ef99eaae45b8568c8746842104187be51c"
     },
     "21851": {
       "number": 21851,
@@ -4873,7 +4974,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2c4c9cb0fda30db34eb9655b1e11b1f1f527046f"
     },
     "21853": {
       "number": 21853,
@@ -4903,7 +5005,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "58d51edc64660dfd505f80825675e5fd6325f5ae"
     },
     "21864": {
       "number": 21864,
@@ -4933,7 +5036,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "50fbb5a95f56794ab46bd1a943c0b739ef9e9dea"
     },
     "21870": {
       "number": 21870,
@@ -4963,7 +5067,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9e5cb1edb0784bd849f5dfd34e4f2ffe8fba4a21"
     },
     "21876": {
       "number": 21876,
@@ -5063,7 +5168,8 @@
         ],
         "recommend": "方向正确（设备长度 + 公开算子 API）；修正初始化时序、确认空 group 与两个 use_a3_mla_sink 来源一致后 approve；另需先 rebase 解决 dirty。"
       },
-      "review_sha": "fd2ace22cdbb"
+      "review_sha": "fd2ace22cdbb",
+      "head_sha": "d687878d3d7d0f10f5d67c25c013014c1dbd8718"
     },
     "21885": {
       "number": 21885,
@@ -5166,7 +5272,8 @@
         ],
         "recommend": "owned 改动自洽且有测试；补算子/OPP 探测、mode 具名常量、确认 adapter 侧 weight 校验后 approve；另需先 rebase 解决 merge-conflicts。"
       },
-      "review_sha": "c2b4de31f79f"
+      "review_sha": "c2b4de31f79f",
+      "head_sha": "23ce76ac45afc6730b9b8d448fd1b7ddca6e12e8"
     },
     "21896": {
       "number": 21896,
@@ -5203,7 +5310,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "658a75161582845bb2b00afdbf8ec870b04f4c94"
     },
     "21903": {
       "number": 21903,
@@ -5240,7 +5348,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c4b9b9d7bdc4017e5fc03fc841b8775b1cddb7a0"
     },
     "21906": {
       "number": 21906,
@@ -5277,7 +5386,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9b1461404398f99d5f0feb6063a3bb12752c7099"
     },
     "21913": {
       "number": 21913,
@@ -5307,7 +5417,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "9fc2dd712af50c4f2545814fdbc17b189c988624"
     },
     "21915": {
       "number": 21915,
@@ -5344,7 +5455,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "278fd81505270328979f7ae4fb5cc2bfc476969b"
     },
     "21917": {
       "number": 21917,
@@ -5374,7 +5486,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "e9145534846686178a54546b96305a9ed35d60b7"
     },
     "21924": {
       "number": 21924,
@@ -5423,7 +5536,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7e523d2296d119f4754c42dcf2ca3daf3414e7cf"
     },
     "21930": {
       "number": 21930,
@@ -5460,7 +5574,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "a935dba2457451b4abea3230d0922a54b3478136"
     },
     "21935": {
       "number": 21935,
@@ -5540,7 +5655,8 @@
         ],
         "recommend": "等 A5 hardware bitwise 用例跑通、并确认非 A5 设备 AlltoAll 可用后再批准。"
       },
-      "review_sha": "c5664adfed90"
+      "review_sha": "c5664adfed90",
+      "head_sha": "f6a5c95d3566d0a0b1e129012b5b508a95d01c5c"
     },
     "21937": {
       "number": 21937,
@@ -5624,7 +5740,8 @@
         ],
         "recommend": "先 rebase 到当前 main、把上游 TP broadcast 带回拷贝实现，并补 _select_draft_budget 的 UT，再批准。"
       },
-      "review_sha": "d94f92a4b13a"
+      "review_sha": "d94f92a4b13a",
+      "head_sha": "bfd0223baf2abc605b7c7413f6a7438f9c8aada0"
     },
     "21945": {
       "number": 21945,
@@ -5667,7 +5784,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f032765aa27bf4f10a570a5616a6d8bba40bbb8b"
     },
     "21987": {
       "number": 21987,
@@ -5697,7 +5815,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "350d728330cb4c3a0033d36b32a27f755ff95c47"
     },
     "21996": {
       "number": 21996,
@@ -5740,7 +5859,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "cb7f8b5baf0eeef14288e83093ca9eb88ef05608"
     },
     "21999": {
       "number": 21999,
@@ -5777,7 +5897,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7148cd5bdf542622c62563d9bfd8c7d1f1ab9434"
     }
   }
 }

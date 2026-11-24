@@ -91,7 +91,8 @@
         ],
         "recommend": "建议批准；请作者回答 AclGraphDumper 接口与 profile_run 调用次数，并在 msprobe 文档标注该开关为调试用途。"
       },
-      "review_sha": "d7828bac7b52"
+      "review_sha": "d7828bac7b52",
+      "head_sha": "ba189462011845827e117b639e5e64828ee0e978"
     },
     "23017": {
       "number": 23017,
@@ -188,7 +189,8 @@
         ],
         "recommend": "先看设计，等 A5 启动 profiling+真实请求验证、补 _agree 真实覆盖与回退开关后再合。"
       },
-      "review_sha": "5ba158d8b1fc"
+      "review_sha": "5ba158d8b1fc",
+      "head_sha": "d047a56eb861eb83e6dbab6119defdef421515e3"
     },
     "23022": {
       "number": 23022,
@@ -283,7 +285,8 @@
         ],
         "recommend": "建议补真机 512 token 页的正确性/性能数据，并把 next() 与 encoder-only 组的索引对齐做成显式校验后再合入。"
       },
-      "review_sha": "00a3755a2c03"
+      "review_sha": "00a3755a2c03",
+      "head_sha": "7e3429d33bb3237a75f9d33a23afda0b7b4ea662"
     },
     "23025": {
       "number": 23025,
@@ -398,7 +401,8 @@
         ],
         "recommend": "要求作者补回滚原因/失败用例、确认 vLLM pin 与残留调用方并给出 reland 计划后再合。"
       },
-      "review_sha": "6d359499f562"
+      "review_sha": "6d359499f562",
+      "head_sha": "99321ad841f39a9e773aa5268595ee83d8a40446"
     },
     "23046": {
       "number": 23046,
@@ -492,7 +496,8 @@
         ],
         "recommend": "方向正确、门控收敛良好；建议补 5 维分支单测、给 slots 读取加 ndim 断言、把 96/32 常量下沉到 impl 后再合入。"
       },
-      "review_sha": "ac416f941693"
+      "review_sha": "ac416f941693",
+      "head_sha": "a1ab365e96615ad0df6130969292ff463ad9077e"
     },
     "23047": {
       "number": 23047,
@@ -582,7 +587,8 @@
         ],
         "recommend": "可合入：建议作者补充两条 vLLM lane 的证据（或确认 CI 已双跑），并保留 weight_nz_mode 的告警位置说明。"
       },
-      "review_sha": "782126fed73f"
+      "review_sha": "782126fed73f",
+      "head_sha": "7d382db7c7b6e9ba5be81ed543dd195cd339a292"
     },
     "23051": {
       "number": 23051,
@@ -762,7 +768,8 @@
         ],
         "recommend": "先补齐不支持组合与上下文/分块上限的启动期校验、给两处 patch 加 TODO(github id)，并补 96K 峰值显存与 batch 2/3、prefill>8192 的验证；性能数据需在 rebase 后重测再合入。"
       },
-      "review_sha": "1f9d0a141cfa"
+      "review_sha": "1f9d0a141cfa",
+      "head_sha": "b033ba04bea1c7bfd439145e6862c014e3080542"
     },
     "23052": {
       "number": 23052,
@@ -848,7 +855,8 @@
         ],
         "recommend": "可合入：建议作者明确 KV 分配与 transfer group 初始化的先后顺序，并说明 V1 是否需要同步。"
       },
-      "review_sha": "95e1063b4561"
+      "review_sha": "95e1063b4561",
+      "head_sha": "576393a2c6af47849ac435ccafa700d626fe7b81"
     }
   }
 }

@@ -5,7 +5,7 @@
 (function () {
   const TOKEN_KEY = 'gh-feedback-token';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {} };
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null };
   const params = new URLSearchParams(location.search);
   const app = () => document.getElementById('app');
 
@@ -53,35 +53,120 @@
       '<nav class="eds">' + (items || '<p class="muted">暂无</p>') + '</nav>' + ghBox() + '</aside>';
   }
 
+  const fmtNum = (n) => (n == null ? '0' : Number(n).toLocaleString('en-US'));
+  const pillClass = (v) => (v.cls === 'v-approve' ? 'ok' : v.cls === 'v-look' ? 'look' : v.cls === 'v-push' ? 'push' : 'pending');
+  const fileUrl = (p, file) => (p.head_sha
+    ? 'https://github.com/vllm-project/vllm-ascend/blob/' + p.head_sha + '/' + file
+    : p.html_url + '/files');
+  const confLabel = (c) => ({ high: '高', medium: '中', low: '低' }[c] || '');
+  const lvlLabel = (l) => ({ high: '高', medium: '中', low: '低' }[l] || '中');
+
+  function diffBar(add, del, maxAdd) {
+    const a = Math.max(2, Math.round((add / Math.max(1, maxAdd)) * 100));
+    const aW = Math.min(a, 100);
+    const dW = del > 0 ? Math.min(Math.max(1, Math.round((del / Math.max(1, maxAdd)) * 100)), 100 - aW) : 0;
+    return '<div class="bar"><i style="width:' + aW + '%"></i>' + (dW ? '<u style="width:' + dW + '%"></u>' : '') + '</div>';
+  }
+
+  function topRow(p, v) {
+    return '<div class="rc-head"><span class="pill ' + pillClass(v) + '">' + v.label + '</span>' +
+      '<a class="num" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' +
+      '<a class="ttl" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' +
+      '<a class="gh" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">GitHub ↗</a></div>';
+  }
+
+  function metaRow(p) {
+    const r = p.review;
+    return '<div class="rc-meta">' +
+      '<a href="https://github.com/' + esc(p.author) + '" target="_blank" rel="noopener">@' + esc(p.author) + '</a>' +
+      ciBadge(p.ci) +
+      (p.reviews?.approvals ? '<span>已有 ' + p.reviews.approvals + ' 人批准</span>' : '') +
+      '<span>改动 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b> · ' + p.changed_files + ' 个文件</span>' +
+      '<span>' + (p.owned?.length ? '我负责 ' + p.owned.length + '/' + p.changed_files : '无我负责文件') + '</span>' +
+      '<span>排队 ' + p.age_days + ' 天</span>' +
+      (r?.confidence ? '<span>把握 ' + confLabel(r.confidence) + '</span>' : '') +
+      (p.reason ? '<span class="tag">' + esc(p.reason) + '</span>' : '') +
+      '</div>';
+  }
+
+  function ownedPanel(p) {
+    const owned = p.owned || [];
+    const focusMap = new Map((p.review?.focus || []).map((f) => [f.file, f.point]));
+    if (!owned.length) {
+      const areas = (p.areas || []).map((a) => '<span class="area">' + esc(a.p) + ' · ' + a.n + '</span>').join('');
+      return '<section class="rc-panel"><h4>改动位置 <b>0</b></h4>' +
+        '<p class="muted small">本次为显式请求：改动没有落在你的 CODEOWNERS 路径。共 ' + p.changed_files +
+        ' 个文件 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b>。</p>' +
+        (areas ? '<div class="areas">' + areas + '</div>' : '<p class="muted small">建议直接看 PR 描述与 CI。</p>') +
+        '</section>';
+    }
+    const maxAdd = Math.max(1, ...owned.map((f) => f.additions));
+    const rows = owned.map((f) => {
+      const point = focusMap.get(f.file);
+      return '<div class="file"><div class="frow">' +
+        '<a class="fpath" href="' + esc(fileUrl(p, f.file)) + '" target="_blank" rel="noopener" title="' + esc(f.file) + '">' + esc(f.file) + '</a>' +
+        '<span class="add">+' + fmtNum(f.additions) + '</span><span class="del">−' + fmtNum(f.deletions) + '</span></div>' +
+        diffBar(f.additions, f.deletions, maxAdd) +
+        (point ? '<p class="fpoint">' + esc(point) + '</p>' : '') + '</div>';
+    }).join('');
+    return '<section class="rc-panel"><h4>我负责的改动 <b>' + owned.length + '</b>' +
+      (owned.length > 5 ? '<span class="hint">滚动查看全部</span>' : '') + '</h4>' +
+      '<div class="filelist">' + rows + '</div></section>';
+  }
+
+  function risksPanel(p) {
+    const risks = p.review?.risks || [];
+    if (!risks.length) return '<section class="rc-panel"><h4>风险 <b>0</b></h4><p class="muted small">未发现需要单独指出的风险。</p></section>';
+    const order = { high: 0, medium: 1, low: 2 };
+    const list = risks.slice().sort((a, b) => (order[a.level] ?? 9) - (order[b.level] ?? 9));
+    const counts = { high: 0, medium: 0, low: 0 };
+    for (const r of risks) counts[r.level] = (counts[r.level] || 0) + 1;
+    const summary = [counts.high ? counts.high + ' 高' : '', counts.medium ? counts.medium + ' 中' : '', counts.low ? counts.low + ' 低' : ''].filter(Boolean).join(' · ');
+    return '<section class="rc-panel"><h4>风险 <b class="bad">' + risks.length + '</b><span class="hint">' + summary + '</span></h4>' +
+      list.map((r) => '<div class="risk ' + esc(r.level || 'medium') + '"><span class="lv">' + lvlLabel(r.level) + '</span><p>' + esc(r.text) + '</p></div>').join('') +
+      '</section>';
+  }
+
+  function cardFoot(p) {
+    const r = p.review;
+    const q = r?.questions?.length
+      ? '<details class="rc-q"><summary>要问作者（' + r.questions.length + '）</summary><ol>' + r.questions.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ol></details>'
+      : '';
+    return (r?.tests ? '<p class="rc-tests"><b>测试</b>' + esc(r.tests) + '</p>' : '') + q +
+      '<div class="rc-foot"><span class="rec"><b>建议</b>' + esc(r?.recommend || '—') + '</span>' +
+      '<a class="btn" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">打开 PR</a>' +
+      '<button type="button" data-fb-open="' + p.number + '">写批注</button></div>';
+  }
+
   function card(p) {
     const r = p.review || null;
     const v = verdictMeta[r?.verdict] || verdictMeta.pending;
-    const owned = p.owned || [];
-    const ownedLabel = owned.length
-      ? '我负责 ' + owned.length + '/' + p.changed_files + ' 个文件 · +' + p.owned_add + '/-' + p.owned_del
-      : '无我负责的文件 · 共 ' + p.changed_files + ' 个文件 +' + p.additions + '/-' + p.deletions;
-    const focus = (r?.focus || []).map((f) => '<li><code>' + esc(f.file) + '</code><span>' + esc(f.point) + '</span></li>').join('');
-    const risks = (r?.risks || []).map((x) => '<li class="risk-' + esc(x.level || 'medium') + '"><b>' + esc((x.level || 'medium').toUpperCase()) + '</b>' + esc(x.text) + '</li>').join('');
-    const questions = (r?.questions || []).map((q) => '<li>' + esc(q) + '</li>').join('');
-    return '<article class="card ' + v.cls + '" id="pr-' + p.number + '">' +
-      '<div class="card-head"><a class="num" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' +
-      '<h3>' + esc(p.title) + '</h3><span class="b ' + v.cls + '">' + v.label + '</span></div>' +
-      '<div class="meta"><span>@' + esc(p.author) + '</span>' + ciBadge(p.ci) +
-      (p.reviews?.approvals ? '<span class="b b-ok">已有 ' + p.reviews.approvals + ' 人批准</span>' : '') +
-      (p.reviews?.changes_requested ? '<span class="b b-bad">' + p.reviews.changes_requested + ' 人要求修改</span>' : '') +
-      '<span>' + esc(ownedLabel) + '</span><span>已排队 ' + (p.age_days ?? '—') + ' 天</span>' +
-      (p.reason ? '<span class="tag">' + esc(p.reason) + '</span>' : '') +
-      (r?.confidence === 'low' ? '<span class="b b-wait">把握不足，需人工确认</span>' : '') + '</div>' +
-      (r ? '<p class="summary">' + esc(r.summary) + '</p>' +
-        (r.intent ? '<p class="intent"><b>为什么改：</b>' + esc(r.intent) + '</p>' : '') +
-        (focus ? '<div class="block"><h4>我负责部分的改动</h4><ul class="focus">' + focus + '</ul></div>' : '') +
-        (risks ? '<div class="block"><h4>风险</h4><ul class="risks">' + risks + '</ul></div>' : '') +
-        (r.tests ? '<p class="tests"><b>测试：</b>' + esc(r.tests) + '</p>' : '') +
-        (questions ? '<div class="block"><h4>要问作者</h4><ul class="questions">' + questions + '</ul></div>' : '') +
-        (r.recommend ? '<p class="rec"><b>建议动作：</b>' + esc(r.recommend) + '</p>' : '')
-        : '<p class="summary muted">该 PR 的精读未生成。</p>') +
-      fbBlock(p) +
-      '</article>';
+    return '<article class="card rc ' + v.cls + '" id="pr-' + p.number + '">' +
+      topRow(p, v) + metaRow(p) +
+      (r ? '<p class="rc-summary">' + esc(r.summary) + '</p>' + (r.intent ? '<p class="rc-intent"><b>为什么改</b>' + esc(r.intent) + '</p>' : '')
+        : '<p class="rc-summary muted">该 PR 的精读未生成。</p>') +
+      '<div class="rc-grid">' + ownedPanel(p) + risksPanel(p) + '</div>' +
+      cardFoot(p) + fbBlock(p) + '</article>';
+  }
+
+  function compactItem(p) {
+    const r = p.review || null;
+    const v = verdictMeta[r?.verdict] || verdictMeta.pending;
+    const risks = r?.risks || [];
+    const h = risks.filter((x) => x.level === 'high').length;
+    const m = risks.filter((x) => x.level === 'medium').length;
+    const l = risks.filter((x) => x.level === 'low').length;
+    return '<details class="cmpt ' + v.cls + '" id="pr-' + p.number + '"><summary>' +
+      '<span class="pill sm ' + pillClass(v) + '">' + v.label + '</span>' +
+      '<span class="num">#' + p.number + '</span>' +
+      '<span class="ttl">' + esc(p.title) + '</span>' +
+      '<span class="dots">' + (h ? '<i class="dot h"></i>' + h : '') + (m ? '<i class="dot m"></i>' + m : '') + (l ? '<i class="dot l"></i>' + l : '') + '</span>' +
+      '<span class="cmeta">@' + esc(p.author) + ' · +' + fmtNum(p.additions) + '/−' + fmtNum(p.deletions) + ' · ' + p.changed_files + ' 文件' +
+      (p.owned?.length ? ' · 我负责 ' + p.owned.length : '') + '</span>' +
+      '<span class="chev">▸</span></summary>' +
+      '<div class="cmpt-body">' + metaRow(p) +
+      (r ? '<p class="rc-summary">' + esc(r.summary) + '</p>' : '') +
+      '<div class="rc-grid">' + ownedPanel(p) + risksPanel(p) + '</div>' + cardFoot(p) + fbBlock(p) + '</div></details>';
   }
 
   function row(p) {
@@ -261,7 +346,7 @@
       return '<p class="backlog-note">这些是尚未合入、待我检视的历史 PR（已排除近四期与今早新增），仅按列表呈现，未做精读。</p>' +
         tableBlock(rest, '历史积压（' + (data.rest || []).length + '）');
     }
-    const deep = (data.deep || []).map(card).join('');
+    const deep = (data.deep || []).map((p) => (state.compact ? compactItem(p) : card(p))).join('');
     return '<h2>本期精读（' + (data.deep || []).length + '）</h2>' +
       (deep || '<p class="muted">本期无新增。</p>') +
       tableBlock(rest, '其余新增（' + (data.rest || []).length + '）');
@@ -353,6 +438,7 @@
       const hit = state.searchIndex.find((x) => x.n === n);
       const rec = hit ? await loadRecord(n) : null;
       if (!hit || !rec) { app().innerHTML = shell(notFoundHtml('pr', n)); return; }
+      state.view = { type: 'pr', q: String(n) };
       document.title = 'PR #' + n + ' · vLLM-Ascend 待我检视';
       app().innerHTML = shell(prView(rec, hit));
       return;
@@ -362,13 +448,15 @@
     if (push) history.pushState({ author: login }, '', '?author=' + encodeURIComponent(login));
     if (!hits.length) { app().innerHTML = shell(notFoundHtml('author', login)); return; }
     const recs = (await Promise.all(hits.map(async (h) => { const r = await loadRecord(h.n); return r ? { ...r, _hit: h } : null; }))).filter(Boolean);
+    state.view = { type: 'author', q: login };
     document.title = '@' + login + ' · vLLM-Ascend 待我检视';
     app().innerHTML = shell(authorView(login, recs));
   }
 
   function topbar() {
     return '<div class="topbar"><input id="gs" type="search" autocomplete="off" spellcheck="false" placeholder="搜索 PR 编号（如 20758）或 GitHub ID（如 stdjhs）" value="' + esc(state.query || '') + '">' +
-      '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button></div>';
+      '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button>' +
+      '<button type="button" data-compact title="切换卡片密度">' + (state.compact ? '舒适模式' : '紧凑模式') + '</button></div>';
   }
 
   function shell(inner) {
@@ -378,6 +466,7 @@
   function render(id, data) {
     const meta = state.editions.find((e) => e.id === id) || state.editions[0];
     state.editionId = id;
+    state.view = { type: 'edition', id };
     const isLatest = id === (state.idx.current || state.editions[0].id);
     state.query = '';
     document.title = (isLatest ? '最新一期' : (meta.label || tz(meta.at))) + ' · vLLM-Ascend 待我检视 · @' + (data?.user || state.idx?.user || '');
@@ -495,6 +584,21 @@
   });
 
   document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-compact]')) {
+      e.preventDefault();
+      state.compact = !state.compact;
+      try { localStorage.setItem('board-compact', state.compact ? '1' : '0'); } catch (err) { /* ignore */ }
+      if (state.view && (state.view.type === 'pr' || state.view.type === 'author')) doSearch(state.view.q, false);
+      else render(state.current || state.idx.current, state.cache.get(state.current) || null);
+      return;
+    }
+    if (e.target.closest('[data-fb-open]')) {
+      e.preventDefault();
+      const n = e.target.closest('[data-fb-open]').dataset.fbOpen;
+      const d = document.querySelector('#pr-' + n + ' details.fb');
+      if (d) { d.open = true; d.scrollIntoView({ block: 'center' }); const ta = d.querySelector('textarea'); if (ta) ta.focus(); }
+      return;
+    }
     if (e.target.closest('[data-search-btn]')) {
       e.preventDefault();
       doSearch(document.getElementById('gs')?.value || '', true);

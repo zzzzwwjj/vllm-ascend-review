@@ -28,7 +28,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fecf6735728bd8ce3af68878c07892d705682b94"
     },
     "11067": {
       "number": 11067,
@@ -58,7 +59,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "8aea4946c75d2bc1ded24fbdaa52f481a84525c4"
     },
     "11075": {
       "number": 11075,
@@ -119,7 +121,8 @@
         ],
         "recommend": "小改动、回退路径清晰、UT 到位，可以批准。"
       },
-      "review_sha": "9a0bedecef94"
+      "review_sha": "9a0bedecef94",
+      "head_sha": "4e0d0008e591d4fbd2776d32bf3bb6f7943ec5c5"
     },
     "11089": {
       "number": 11089,
@@ -149,7 +152,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fe90425b498af6f6d5c6b435daba77bb45e15147"
     },
     "11137": {
       "number": 11137,
@@ -186,7 +190,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d5e7081331ee33f3effda900f884cdff87fb2cc9"
     },
     "11146": {
       "number": 11146,
@@ -223,7 +228,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b3153ffc9ec2027a9dcb883ca7fc66484a576a8f"
     },
     "11158": {
       "number": 11158,
@@ -266,7 +272,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "4d02665da0fea601348cd28028eccf5306c808ba"
     },
     "11168": {
       "number": 11168,
@@ -303,7 +310,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "078b716ac9637b091428d8b281854fa77aa51e68"
     },
     "11205": {
       "number": 11205,
@@ -346,7 +354,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b2405b6a385e7b34704e1970fe9b228024d65028"
     },
     "11224": {
       "number": 11224,
@@ -383,7 +392,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "589033a0cdf0aa972216f5a66ba43c3088595b09"
     },
     "11273": {
       "number": 11273,
@@ -432,7 +442,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3440b8b5595b6cc9569c04c94f37043fb1d7f3a4"
     },
     "11285": {
       "number": 11285,
@@ -462,7 +473,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "2d4bafaffbf0212389010942af6677ac436f2737"
     },
     "11289": {
       "number": 11289,
@@ -511,7 +523,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "25d9621f3558484aa0ee70b49db7cbc075b94d3a"
     },
     "11301": {
       "number": 11301,
@@ -620,7 +633,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d96017426377f2734bf94eb8bbe9f56f152124f3"
     },
     "11381": {
       "number": 11381,
@@ -681,7 +695,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "d5c326cc4ce7573b2920aa26fa3239ef80183f63"
     },
     "11399": {
       "number": 11399,
@@ -724,7 +739,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "959c5d0117a2f59429c1de7063e8f79c6a613acb"
     },
     "11420": {
       "number": 11420,
@@ -761,7 +777,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "50e1bcd50458f451c17eb793f8d8d985f7cd31dc"
     },
     "11424": {
       "number": 11424,
@@ -816,7 +833,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "03f7c9159385dd17b5b53720e689e66a84cef73f"
     },
     "11438": {
       "number": 11438,
@@ -853,7 +871,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "c73b1f5c32afee72a88255f8b66ade39e48fa806"
     },
     "11477": {
       "number": 11477,
@@ -883,7 +902,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "3425e19c5b47a6f935b3be409703c8ebcf53325e"
     },
     "11507": {
       "number": 11507,
@@ -953,7 +973,8 @@
         ],
         "recommend": "先补真实模型 e2e 与权重连续性确认，并说明 linear 层支持范围，再批准。"
       },
-      "review_sha": "6e39f4a743d2"
+      "review_sha": "6e39f4a743d2",
+      "head_sha": "8fe1eab431528e95279a0da915e4b6ec139e60a9"
     },
     "11517": {
       "number": 11517,
@@ -990,7 +1011,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "988985071c0bdec40895a7cb9b03401c201a0830"
     },
     "11556": {
       "number": 11556,
@@ -1020,7 +1042,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "64d3953e8b861499df4ec877087f71aca9db6765"
     },
     "11609": {
       "number": 11609,
@@ -1050,7 +1073,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "b32dd388337ea61ba12bdd2ce82fad6ade099735"
     },
     "11641": {
       "number": 11641,
@@ -1151,7 +1175,8 @@
         ],
         "recommend": "先修 pre-commit/ci-gate，并就窄窗残留乱码与硬编码 8 建跟踪项、补真实内核生效证据后再合。"
       },
-      "review_sha": "70fe3d48e3b8"
+      "review_sha": "70fe3d48e3b8",
+      "head_sha": "34daea60018fd4a7087aaa9b59f52bc600ae7f83"
     },
     "11656": {
       "number": 11656,
@@ -1221,7 +1246,8 @@
         ],
         "recommend": "先按 maintainer 意见修 latent 共享专家输入宽度校验并 rebase 解冲突，再考虑 approve。"
       },
-      "review_sha": "4dd7cbb75233"
+      "review_sha": "4dd7cbb75233",
+      "head_sha": "58be23f5d7efc14830493a1412dba8aa55898d36"
     },
     "11707": {
       "number": 11707,
@@ -1251,7 +1277,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "ea04f00c9a156846fbbdb55a3bee28745666077f"
     },
     "11729": {
       "number": 11729,
@@ -1312,7 +1339,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "f4d5c2598bfdf3439984056dc622b640661d54f2"
     },
     "11764": {
       "number": 11764,
@@ -1349,7 +1377,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "e2af8c560eed63901256b2eeb26c96153b7daa2a"
     },
     "11822": {
       "number": 11822,
@@ -1422,7 +1451,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "fd41862cd9fd38c89f2f982e65d80f98401fd918"
     },
     "11891": {
       "number": 11891,
@@ -1459,7 +1489,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "5b072d676955a05f94bf5782b3ebeb148d14bdf0"
     },
     "11906": {
       "number": 11906,
@@ -1542,7 +1573,8 @@
         ],
         "recommend": "owned 的配置与前向透传方向正确，但先修 EP reduced-budget/排序问题、澄清 LoRA 交互并解决 merge 冲突后再批。"
       },
-      "review_sha": "fe27710e0d6c"
+      "review_sha": "fe27710e0d6c",
+      "head_sha": "c86cce52bb3044c92ea7dae6a0a37cd3d7e3a106"
     },
     "11916": {
       "number": 11916,
@@ -1579,7 +1611,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "1c07fb5920ab9ff7571ff02a42d4efc76627990e"
     },
     "11941": {
       "number": 11941,
@@ -1609,7 +1642,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "7b2bfbe0aecdb9727dd58ffe4dcac71857d2125a"
     },
     "11963": {
       "number": 11963,
@@ -1646,7 +1680,8 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "review": null,
-      "review_sha": null
+      "review_sha": null,
+      "head_sha": "67e8d17e724220b94b074d0383c35ae8a08a42e2"
     }
   }
 }
