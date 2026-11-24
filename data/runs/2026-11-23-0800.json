@@ -12,9 +12,11 @@
     "fresh": 10,
     "deep": 10,
     "rest": 0,
-    "skipped": 0,
+    "skipped": 59,
     "owned_prs": 9,
-    "api_calls": 0
+    "api_calls": 0,
+    "skipped_seen": 59,
+    "skipped_other": 0
   },
   "verdicts": {
     "approve": 0,

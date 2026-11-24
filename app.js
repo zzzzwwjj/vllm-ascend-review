@@ -271,7 +271,8 @@
       (w.reason ? ' · ' + esc(w.reason) : '') + ' · 生成于 ' + tz(at) + '（Asia/Shanghai）</p>' +
       '<div class="stats"><span>本期新增 ' + (stats.fresh ?? 0) + '</span><span>精读 ' + (stats.deep ?? 0) + '</span>' +
       '<span>列表 ' + (stats.rest ?? 0) + '</span>' +
-      (stats.skipped != null ? '<span>跳过 ' + stats.skipped + '</span>' : '') +
+      (stats.skipped_seen ? '<span>历史已见 ' + stats.skipped_seen + '</span>' : '') +
+      (stats.skipped_other ? '<span>其他过滤 ' + stats.skipped_other + '</span>' : '') +
       (stats.owned_prs != null ? '<span>我负责的 PR ' + stats.owned_prs + '</span>' : '') +
       '<span>可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0) + '</span></div></header>';
   }

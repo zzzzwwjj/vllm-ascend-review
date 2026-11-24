@@ -12,9 +12,11 @@
     "fresh": 17,
     "deep": 17,
     "rest": 0,
-    "skipped": 0,
+    "skipped": 153,
     "owned_prs": 16,
-    "api_calls": 664
+    "api_calls": 664,
+    "skipped_seen": 146,
+    "skipped_other": 7
   },
   "codeowners": {
     "sha": "5407110f9ffe67d679880cf38460af0ccf3c8640",

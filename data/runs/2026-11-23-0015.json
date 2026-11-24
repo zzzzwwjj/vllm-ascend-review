@@ -12,7 +12,9 @@
     "fresh": 226,
     "deep": 20,
     "rest": 206,
-    "skipped": 5
+    "skipped": 5,
+    "skipped_seen": 0,
+    "skipped_other": 5
   },
   "verdicts": {
     "approve": 5,
