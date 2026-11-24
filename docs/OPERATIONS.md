@@ -56,7 +56,7 @@ node scripts/publish.mjs            # 单次提交
 ## 3. 定时任务
 
 - 每个工作日 08:00 / 13:00 / 18:00（Asia/Shanghai），`FREQ=WEEKLY;BYDAY=MO..FR;BYHOUR=8,13,18`
-- 窗口 = 上次成功发布到本次运行；首次或间隔 >3 天截断为最近 3 天
+- 窗口 = 上次成功发布到本次运行，**不设上限**（节假日长间隔也全量覆盖）；首次运行回看 `window.maxDays` 天；搜索按天切片，已在 `state.prs` 的 PR 不产生额外调用
 - 只有 `publish.mjs` 成功后才推进 `state.last_run_at`
 
 ## 4. 数据文件（`data/db/`）

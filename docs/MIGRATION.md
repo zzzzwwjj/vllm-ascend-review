@@ -53,7 +53,7 @@ chmod 600 .secrets/gh_token
 ## 4. 首次采集与发布
 
 ```bash
-node scripts/collect.mjs        # 首次自动回看最近 3 天
+node scripts/collect.mjs        # 首次回看 window.maxDays 天（默认 3），之后按上次运行时间连续覆盖
 node scripts/split-deep.mjs
 # 用 Agent 按 docs/RULES.md 生成 work/reviews/<n>.json（无 Agent 可跳过）
 node scripts/render.mjs         # 建库、骨架、搜索索引、文档
