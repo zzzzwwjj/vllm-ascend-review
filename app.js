@@ -193,14 +193,14 @@
     const r = p.review || null;
     const v = verdictMeta[r?.verdict] || verdictMeta.pending;
     return '<tr data-verdict="' + esc(r?.verdict || 'pending') + '">' +
-      '<td><a href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a></td>' +
-      '<td class="t">' + esc(p.title) + '</td><td>@' + esc(p.author) + '</td>' +
-      '<td class="num2">' + (p.owned?.length ?? 0) + '/' + p.changed_files + '</td>' +
-      '<td class="num2">+' + p.owned_add + '/-' + p.owned_del + '</td>' +
-      '<td>' + esc(p.ci?.state || 'unknown') + '</td>' +
-      '<td class="num2">' + (p.reviews?.approvals ?? 0) + '</td>' +
-      '<td class="num2">' + p.age_days + 'd</td>' +
-      '<td>' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>'
+      '<td data-label="PR"><a href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a></td>' +
+      '<td class="t">' + esc(p.title) + '</td><td data-label="作者">@' + esc(p.author) + '</td>' +
+      '<td class="num2" data-label="我负责/全部">' + (p.owned?.length ?? 0) + '/' + p.changed_files + '</td>' +
+      '<td class="num2" data-label="改动">+' + p.owned_add + '/-' + p.owned_del + '</td>' +
+      '<td data-label="CI">' + esc(p.ci?.state || 'unknown') + '</td>' +
+      '<td class="num2" data-label="已有批准">' + (p.reviews?.approvals ?? 0) + '</td>' +
+      '<td class="num2" data-label="排队">' + p.age_days + 'd</td>' +
+      '<td data-label="结论">' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>'
         : '<button type="button" class="mini" data-act="refresh" data-pr="' + p.number + '">需要检视</button>') + '</td></tr>';
   }
 
@@ -688,18 +688,21 @@
       '</header>' +
 
       '<section class="lp-hero">' +
-        '<p class="lp-eyebrow">每个工作日 08:00 · 13:00 · 18:00 自动更新</p>' +
-        '<h1>PR 检视看板</h1>' +
-        '<p class="lp-sub">@' + esc(user) + ' 对 vLLM-Ascend 待检视 PR 的精读结论，按 CODEOWNERS 责任田聚焦。<br>输入 PR 编号或 GitHub ID 开始。</p>' +
-        '<div class="lp-search">' +
-          '<input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
-          '<button type="button" data-home-search>搜索</button>' +
+        '<div class="lp-hero-main">' +
+          '<p class="lp-eyebrow">每个工作日 08:00 · 13:00 · 18:00 自动更新</p>' +
+          '<h1>PR 检视看板</h1>' +
+          '<p class="lp-sub">@' + esc(user) + ' 对 vLLM-Ascend 待检视 PR 的精读结论，按 CODEOWNERS 责任田聚焦。<br>输入 PR 编号或 GitHub ID 开始。</p>' +
+          '<div class="lp-search">' +
+            '<input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
+            '<button type="button" data-home-search>搜索</button>' +
+          '</div>' +
+          '<div class="lp-quick">' +
+            '<span><b>' + state.editions.length + '</b> 期次归档</span>' +
+            '<span><b>' + hl + '</b> 个高优先处理</span>' +
+            '<span>数据来自 GitHub 公开信息</span>' +
+          '</div>' +
         '</div>' +
-        '<div class="lp-quick">' +
-          '<span><b>' + state.editions.length + '</b> 期次归档</span>' +
-          '<span><b>' + hl + '</b> 个高优先处理</span>' +
-          '<span>数据来自 GitHub 公开信息</span>' +
-        '</div>' +
+        '<aside class="lp-side">' + latestCard() + '</aside>' +
       '</section>' +
 
       '<section id="home-results" class="lp-results"></section>' +
@@ -727,6 +730,19 @@
         '<span><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></span>' +
       '</footer>' +
     '</div>';
+  }
+
+  function latestCard() {
+    const e = state.editions[0];
+    if (!e) return '';
+    const v = e.verdicts || {};
+    return '<div class="lp-side-card">' +
+      '<div class="lp-side-head"><span>最新一期</span><a data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">全部期次 →</a></div>' +
+      '<p class="lp-side-when">' + esc(e.label || tz(e.at)) + '</p>' +
+      '<div class="lp-side-stats"><span>新增 <b>' + (e.stats?.fresh ?? 0) + '</b></span><span>精读 <b>' + (e.stats?.deep ?? 0) + '</b></span><span>列表 <b>' + (e.stats?.rest ?? 0) + '</b></span></div>' +
+      '<div class="lp-side-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</div>' +
+      '<a class="lp-side-cta" data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">进入检视列表 →</a>' +
+      '</div>';
   }
 
   function renderHome() {
