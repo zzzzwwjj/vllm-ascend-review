@@ -1,0 +1,71 @@
+{
+  "items": {
+    "4894": {
+      "number": 4894,
+      "title": "[Performance]: adapt community's dbo to vllm-ascend",
+      "author": "zxdukki",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/4894",
+      "changed_files": 44,
+      "additions": 6461,
+      "deletions": 100,
+      "age_days": 348.5,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 134,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/register_custom_ops.py",
+          "status": "modified",
+          "additions": 32,
+          "deletions": 15
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 200,
+      "owned_del": 26,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    }
+  }
+}

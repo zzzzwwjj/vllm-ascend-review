@@ -1,5 +1,65 @@
 {
   "items": {
+    "11057": {
+      "number": 11057,
+      "title": "[SpecDecode][BugFix] Refactor Triton reject sample kernels and support entropy verify with reduce sample",
+      "author": "SOMEONEUNSEEN",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11057",
+      "changed_files": 3,
+      "additions": 634,
+      "deletions": 270,
+      "age_days": 149.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11067": {
+      "number": 11067,
+      "title": "[Ops][Feature] Enable EVS multimodal pruning for Qwen3.5 and fix cross-device errors on Ascend NPU",
+      "author": "csw7777",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11067",
+      "changed_files": 5,
+      "additions": 121,
+      "deletions": 0,
+      "age_days": 149.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "11075": {
       "number": 11075,
       "title": "[BugFix][MoE] Fall back to native experts selection when CANN rejects renorm=1",
@@ -60,6 +120,770 @@
         "recommend": "小改动、回退路径清晰、UT 到位，可以批准。"
       },
       "review_sha": "9a0bedecef94"
+    },
+    "11089": {
+      "number": 11089,
+      "title": "[v0.18.0] feat(fused_moe): add before_gmm2 sync event for multi-stream shared expert overlap",
+      "author": "lililcode9527",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11089",
+      "changed_files": 3,
+      "additions": 71,
+      "deletions": 11,
+      "age_days": 148,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11137": {
+      "number": 11137,
+      "title": "[Feature] Add MegaMoe Op",
+      "author": "JustQJ",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11137",
+      "changed_files": 55,
+      "additions": 12209,
+      "deletions": 2,
+      "age_days": 147.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mega_moe.py",
+          "status": "added",
+          "additions": 303,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 303,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11146": {
+      "number": 11146,
+      "title": "Refactor sequence length calculation in mm_encoder_attention",
+      "author": "jucy5520",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11146",
+      "changed_files": 1,
+      "additions": 4,
+      "deletions": 3,
+      "age_days": 147.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mm_encoder_attention.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 3,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11158": {
+      "number": 11158,
+      "title": "[Performance] A5 supports mega_moe",
+      "author": "AlanisZomeg",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11158",
+      "changed_files": 4,
+      "additions": 109,
+      "deletions": 32,
+      "age_days": 147.5,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 21,
+      "owned_del": 4,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11168": {
+      "number": 11168,
+      "title": "Support Gemma4 MTP",
+      "author": "swimming2007-doge",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11168",
+      "changed_files": 10,
+      "additions": 1815,
+      "deletions": 530,
+      "age_days": 147.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 17,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11205": {
+      "number": 11205,
+      "title": "[Attention][Feature] Migrate FlashComm1/SP configuration from environment variable to additional-config",
+      "author": "sydbll",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11205",
+      "changed_files": 10,
+      "additions": 77,
+      "deletions": 32,
+      "age_days": 146.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 25,
+          "deletions": 11
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 27,
+      "owned_del": 13,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11224": {
+      "number": 11224,
+      "title": "[BugFix] Fix qwen35 runtime error when not enable mtp",
+      "author": "shaopeng-666",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11224",
+      "changed_files": 1,
+      "additions": 1,
+      "deletions": 1,
+      "age_days": 146.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11273": {
+      "number": 11273,
+      "title": "[Feature] Enable --enable-dbo on Ascend NPU (NPUUBatchWrapper + ascend_split_attn_metadata)",
+      "author": "pop-aiminer",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11273",
+      "changed_files": 6,
+      "additions": 830,
+      "deletions": 8,
+      "age_days": 145.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 7,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 5,
+      "owned_del": 5,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11285": {
+      "number": 11285,
+      "title": "[Doc][Test][Feature] Add test config and tutorial for deepseek-vl2-tiny",
+      "author": "daiyicheng-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11285",
+      "changed_files": 2,
+      "additions": 51,
+      "deletions": 0,
+      "age_days": 145.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11289": {
+      "number": 11289,
+      "title": "[Performance] A5 supports MatmulReduceScatter",
+      "author": "AlanisZomeg",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11289",
+      "changed_files": 5,
+      "additions": 62,
+      "deletions": 18,
+      "age_days": 145.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 23,
+      "owned_del": 3,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11301": {
+      "number": 11301,
+      "title": "[Feature] vLLM Ascend adaptation to support Elastic Expert Parallelism Milestone 2",
+      "author": "1542305589",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11301",
+      "changed_files": 30,
+      "additions": 2272,
+      "deletions": 96,
+      "age_days": 145.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+          "status": "modified",
+          "additions": 54,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl.py",
+          "status": "modified",
+          "additions": 73,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl_wrapper.py",
+          "status": "modified",
+          "additions": 81,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/__init__.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/elastic_execute.py",
+          "status": "added",
+          "additions": 470,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/eplb_manager.py",
+          "status": "added",
+          "additions": 361,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/policy_default_elastic_eplb.py",
+          "status": "added",
+          "additions": 309,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/standby_state.py",
+          "status": "added",
+          "additions": 91,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 90,
+          "deletions": 17
+        },
+        {
+          "file": "vllm_ascend/distributed/utils.py",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 75,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 1702,
+      "owned_del": 27,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11381": {
+      "number": 11381,
+      "title": "Mtp vllm23",
+      "author": "swimming2007-doge",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11381",
+      "changed_files": 20,
+      "additions": 1714,
+      "deletions": 394,
+      "age_days": 144,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 0,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 48,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 155,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 242,
+      "owned_del": 11,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11399": {
+      "number": 11399,
+      "title": "[Feature] Gemma4 MTP speculative decoding support on Ascend NPU on A5",
+      "author": "swimming2007-doge",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11399",
+      "changed_files": 12,
+      "additions": 944,
+      "deletions": 29,
+      "age_days": 143.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 16,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/rope_q_only.py",
+          "status": "added",
+          "additions": 61,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 70,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11420": {
+      "number": 11420,
+      "title": "[Feature]Minimax m3 dev",
+      "author": "ShyRa1n",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11420",
+      "changed_files": 35,
+      "additions": 13297,
+      "deletions": 135,
+      "age_days": 143.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 33,
+          "deletions": 8
+        }
+      ],
+      "owned_add": 33,
+      "owned_del": 8,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11424": {
+      "number": 11424,
+      "title": "[BugFix][Model] Support DeepSeek-OCR2 on 310P",
+      "author": "treason258",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11424",
+      "changed_files": 13,
+      "additions": 408,
+      "deletions": 19,
+      "age_days": 143.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/qwen2_decoder.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/rel_pos_attention.py",
+          "status": "modified",
+          "additions": 135,
+          "deletions": 11
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 28,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 178,
+      "owned_del": 13,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11438": {
+      "number": 11438,
+      "title": "[BugFix] Fix zero chunk problem of Qwen3.5 + PCP",
+      "author": "SunnyLee151064",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11438",
+      "changed_files": 3,
+      "additions": 146,
+      "deletions": 5,
+      "age_days": 142.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 6,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 115,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 115,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11477": {
+      "number": 11477,
+      "title": "Qwen35 op",
+      "author": "shaopeng-666",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11477",
+      "changed_files": 115,
+      "additions": 10325,
+      "deletions": 5131,
+      "age_days": 140.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
     },
     "11507": {
       "number": 11507,
@@ -131,6 +955,103 @@
       },
       "review_sha": "6e39f4a743d2"
     },
+    "11517": {
+      "number": 11517,
+      "title": "fix p bugs while enabling PD Disaggregation",
+      "author": "chenhy97",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11517",
+      "changed_files": 7,
+      "additions": 116,
+      "deletions": 22,
+      "age_days": 140.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 12
+        }
+      ],
+      "owned_add": 15,
+      "owned_del": 12,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11556": {
+      "number": 11556,
+      "title": "[Doc][Feature] Add QwQ-32B model tutorial",
+      "author": "WinterSun-ysws",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11556",
+      "changed_files": 2,
+      "additions": 344,
+      "deletions": 0,
+      "age_days": 139.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11609": {
+      "number": 11609,
+      "title": "[BugFix][FusedMoE] Use model activation instead of SwiGLU in quantized MoE MLP",
+      "author": "0moyi0-2024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11609",
+      "changed_files": 2,
+      "additions": 445,
+      "deletions": 0,
+      "age_days": 138.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 0,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
     "11656": {
       "number": 11656,
       "title": "[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend",
@@ -200,6 +1121,244 @@
         "recommend": "先按 maintainer 意见修 latent 共享专家输入宽度校验并 rebase 解冲突，再考虑 approve。"
       },
       "review_sha": "4dd7cbb75233"
+    },
+    "11707": {
+      "number": 11707,
+      "title": "[Ops][Feature] Optimize 310P random sampling with on-device exponential noise",
+      "author": "vladimirevmenoff",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11707",
+      "changed_files": 12,
+      "additions": 1497,
+      "deletions": 86,
+      "age_days": 137.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11729": {
+      "number": 11729,
+      "title": "Snapshot b070",
+      "author": "lbr711",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11729",
+      "changed_files": 24,
+      "additions": 1669,
+      "deletions": 122,
+      "age_days": 137.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/rope_dsv4.py",
+          "status": "modified",
+          "additions": 97,
+          "deletions": 23
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 151,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 270,
+      "owned_del": 30,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11764": {
+      "number": 11764,
+      "title": "[BugFix][Ops] Migrate ScatterNdUpdate from ops-nn",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11764",
+      "changed_files": 51,
+      "additions": 7004,
+      "deletions": 1356,
+      "age_days": 137.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 8
+        }
+      ],
+      "owned_add": 8,
+      "owned_del": 8,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11822": {
+      "number": 11822,
+      "title": "czy_inference_0710_<more123ac>.md",
+      "author": "more123ac",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11822",
+      "changed_files": 226,
+      "additions": 23434,
+      "deletions": 18840,
+      "age_days": 136.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 35,
+          "deletions": 5
+        },
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ops/activation.py",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 101,
+          "deletions": 401
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 220,
+          "deletions": 760
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 53,
+          "deletions": 7
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 25,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 450,
+      "owned_del": 1175,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11891": {
+      "number": 11891,
+      "title": "[Feature] Update MegaMoe Op for w4a4",
+      "author": "JustQJ",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11891",
+      "changed_files": 58,
+      "additions": 15142,
+      "deletions": 2,
+      "age_days": 134.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mega_moe.py",
+          "status": "added",
+          "additions": 308,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 308,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
     },
     "11906": {
       "number": 11906,
@@ -283,6 +1442,110 @@
         "recommend": "owned 的配置与前向透传方向正确，但先修 EP reduced-budget/排序问题、澄清 LoRA 交互并解决 merge 冲突后再批。"
       },
       "review_sha": "fe27710e0d6c"
+    },
+    "11916": {
+      "number": 11916,
+      "title": "[Feature] Add SwigluOAI activation variant to dispatch_ffn_combine",
+      "author": "iceflysnow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11916",
+      "changed_files": 13,
+      "additions": 76,
+      "deletions": 33,
+      "age_days": 133.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/activation.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 8
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 8,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11941": {
+      "number": 11941,
+      "title": "[Ops][Feature] Add chunk_gated_delta_rule_compute_wy operator for Ascend 310P",
+      "author": "semenishinDmitry",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11941",
+      "changed_files": 20,
+      "additions": 2023,
+      "deletions": 5,
+      "age_days": 133.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
+    },
+    "11963": {
+      "number": 11963,
+      "title": "[Feature] Adapt Gemma4-E2B and Gemma4-E4B on Ascend",
+      "author": "sunyuecheng01",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11963",
+      "changed_files": 7,
+      "additions": 329,
+      "deletions": 16,
+      "age_days": 133.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "review": null,
+      "review_sha": null
     }
   }
 }

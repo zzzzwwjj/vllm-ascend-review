@@ -248,16 +248,24 @@
     });
   }
 
-  function content(data) {
-    if (data.legacy_content_html) return data.legacy_content_html;
-    const deep = (data.deep || []).map(card).join('');
-    const rest = (data.rest || []).map(row).join('');
-    return '<h2>本期精读（' + (data.deep || []).length + '）</h2>' +
-      (deep || '<p class="muted">本期无新增。</p>') +
-      '<h2>其余新增（' + (data.rest || []).length + '）</h2>' +
+  function tableBlock(rowsHtml, title) {
+    return '<h2>' + title + '</h2>' +
       '<input type="search" id="q" placeholder="按编号 / 标题 / 作者筛选……">' +
       '<table id="all"><thead><tr><th>PR</th><th>标题</th><th>作者</th><th>我负责/全部</th><th>改动</th><th>CI</th><th>已有批准</th><th>排队</th><th>结论</th></tr></thead>' +
-      '<tbody>' + (rest || '<tr><td colspan="9" class="muted">无</td></tr>') + '</tbody></table>';
+      '<tbody>' + (rowsHtml || '<tr><td colspan="9" class="muted">无</td></tr>') + '</tbody></table>';
+  }
+
+  function content(data) {
+    if (data.legacy_content_html) return data.legacy_content_html;
+    const rest = (data.rest || []).map(row).join('');
+    if (data.backlog) {
+      return '<p class="backlog-note">这些是尚未合入、待我检视的历史 PR（已排除近四期与今早新增），仅按列表呈现，未做精读。</p>' +
+        tableBlock(rest, '历史积压（' + (data.rest || []).length + '）');
+    }
+    const deep = (data.deep || []).map(card).join('');
+    return '<h2>本期精读（' + (data.deep || []).length + '）</h2>' +
+      (deep || '<p class="muted">本期无新增。</p>') +
+      tableBlock(rest, '其余新增（' + (data.rest || []).length + '）');
   }
 
   function header(data, meta, isLatest) {
@@ -269,12 +277,13 @@
       (isLatest ? '<span class="b b-ok" style="margin-left:8px">最新</span>' : '') + '</h1>' +
       '<p class="sub">窗口 ' + tz(w.start) + ' → ' + tz(w.end) + (w.hours != null ? '（' + w.hours + ' 小时）' : '') +
       (w.reason ? ' · ' + esc(w.reason) : '') + ' · 生成于 ' + tz(at) + '（Asia/Shanghai）</p>' +
-      '<div class="stats"><span>本期新增 ' + (stats.fresh ?? 0) + '</span><span>精读 ' + (stats.deep ?? 0) + '</span>' +
-      '<span>列表 ' + (stats.rest ?? 0) + '</span>' +
+      '<div class="stats">' + (data?.backlog
+        ? '<span>积压 ' + (stats.rest ?? stats.fresh ?? 0) + '</span>'
+        : '<span>本期新增 ' + (stats.fresh ?? 0) + '</span><span>精读 ' + (stats.deep ?? 0) + '</span><span>列表 ' + (stats.rest ?? 0) + '</span>') +
       (stats.skipped_seen ? '<span>历史已见 ' + stats.skipped_seen + '</span>' : '') +
       (stats.skipped_other ? '<span>其他过滤 ' + stats.skipped_other + '</span>' : '') +
       (stats.owned_prs != null ? '<span>我负责的 PR ' + stats.owned_prs + '</span>' : '') +
-      '<span>可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0) + '</span></div></header>';
+      (data?.backlog ? '' : '<span>可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0) + '</span>') + '</div></header>';
   }
 
   function wireFilter() {
@@ -348,7 +357,7 @@
           const parts = await Promise.all(names.map((sName) => loadShard(sName, verOf(sName))));
           const items = Object.assign({}, ...parts.map((x) => x.items || {}));
           const pick = (role) => (meta.members || []).filter((m) => m.role === role).map((m) => items[m.n]).filter(Boolean);
-          d = { id: meta.id, at: meta.at, user: meta.user || state.idx?.user, window: meta.window, stats: meta.stats, verdicts: meta.verdicts, deep: pick('deep'), rest: pick('rest') };
+          d = { id: meta.id, at: meta.at, user: meta.user || state.idx?.user, window: meta.window, stats: meta.stats, verdicts: meta.verdicts, backlog: !!meta.backlog, deep: pick('deep'), rest: pick('rest') };
         }
         state.cache.set(id, d); state.pending.delete(id); return d;
       })
