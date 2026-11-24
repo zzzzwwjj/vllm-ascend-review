@@ -97,8 +97,7 @@
       return '<section class="rc-panel"><h4>改动位置 <b>0</b></h4>' +
         '<p class="muted small">本次为显式请求：改动没有落在你的 CODEOWNERS 路径。共 ' + p.changed_files +
         ' 个文件 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b>。</p>' +
-        (areas ? '<div class="areas">' + areas + '</div>' : '<p class="muted small">建议直接看 PR 描述与 CI。</p>') +
-        '</section>';
+        '<div class="scrollarea">' + (areas ? '<div class="areas">' + areas + '</div>' : '<p class="muted small">建议直接看 PR 描述与 CI。</p>') + '</div></section>';
     }
     const maxAdd = Math.max(1, ...owned.map((f) => f.additions));
     const rows = owned.map((f) => {
@@ -111,7 +110,7 @@
     }).join('');
     return '<section class="rc-panel"><h4>我负责的改动 <b>' + owned.length + '</b>' +
       (owned.length > 5 ? '<span class="hint">滚动查看全部</span>' : '') + '</h4>' +
-      '<div class="filelist">' + rows + '</div></section>';
+      '<div class="scrollarea filelist">' + rows + '</div></section>';
   }
 
   function risksPanel(p) {
@@ -123,8 +122,7 @@
     for (const r of risks) counts[r.level] = (counts[r.level] || 0) + 1;
     const summary = [counts.high ? counts.high + ' 高' : '', counts.medium ? counts.medium + ' 中' : '', counts.low ? counts.low + ' 低' : ''].filter(Boolean).join(' · ');
     return '<section class="rc-panel"><h4>风险 <b class="bad">' + risks.length + '</b><span class="hint">' + summary + '</span></h4>' +
-      list.map((r) => '<div class="risk ' + esc(r.level || 'medium') + '"><span class="lv">' + lvlLabel(r.level) + '</span><p>' + esc(r.text) + '</p></div>').join('') +
-      '</section>';
+      '<div class="scrollarea risklist">' + list.map((r) => '<div class="risk ' + esc(r.level || 'medium') + '"><span class="lv">' + lvlLabel(r.level) + '</span><p>' + esc(r.text) + '</p></div>').join('') + '</div></section>';
   }
 
   function cardFoot(p) {
@@ -143,7 +141,7 @@
     const v = verdictMeta[r?.verdict] || verdictMeta.pending;
     return '<article class="card rc ' + v.cls + '" id="pr-' + p.number + '">' +
       topRow(p, v) + metaRow(p) +
-      (r ? '<p class="rc-summary">' + esc(r.summary) + '</p>' + (r.intent ? '<p class="rc-intent"><b>为什么改</b>' + esc(r.intent) + '</p>' : '')
+      (r ? '<p class="rc-summary" title="' + esc(r.summary) + '">' + esc(r.summary) + '</p>' + (r.intent ? '<p class="rc-intent" title="' + esc(r.intent) + '"><b>为什么改</b>' + esc(r.intent) + '</p>' : '')
         : '<p class="rc-summary muted">该 PR 的精读未生成。</p>') +
       '<div class="rc-grid">' + ownedPanel(p) + risksPanel(p) + '</div>' +
       cardFoot(p) + fbBlock(p) + '</article>';
