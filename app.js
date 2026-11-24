@@ -6,7 +6,8 @@
   const TOKEN_KEY = 'gh-feedback-token';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
   const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
-    highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })() };
+    highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })(),
+    marks: {}, pendingMarks: (() => { try { return JSON.parse(localStorage.getItem('board-pending-marks') || '[]'); } catch (e) { return []; } })() };
   const params = new URLSearchParams(location.search);
   const app = () => document.getElementById('app');
 
@@ -77,6 +78,16 @@
       '<a class="gh" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">GitHub ↗</a></div>';
   }
 
+
+  function markState(p) {
+    if ((state.pendingMarks || []).some((x) => x.pr === p.number)) return { label: '已完成 · 待同步', cls: 'pending' };
+    const m = state.marks[String(p.number)];
+    if (m && m.at) return { label: '已检视 ' + tz(m.at).slice(6), cls: 'yes' };
+    const mine = p.reviews?.mine;
+    if (mine && mine.commit_id === p.head_sha && ['APPROVED', 'CHANGES_REQUESTED', 'COMMENTED'].includes(mine.state)) return { label: '已检视（GitHub）', cls: 'yes' };
+    return { label: '未检视', cls: 'no' };
+  }
+
   function metaRow(p) {
     const r = p.review;
     return '<div class="rc-meta">' +
@@ -88,6 +99,7 @@
       '<span>排队 ' + p.age_days + ' 天</span>' +
       (r?.confidence ? '<span>把握 ' + confLabel(r.confidence) + '</span>' : '') +
       (p.reason ? '<span class="tag">' + esc(p.reason) + '</span>' : '') +
+      (() => { const m = markState(p); return '<span class="done ' + m.cls + '">' + esc(m.label) + '</span>'; })() +
       '</div>';
   }
 
@@ -137,6 +149,7 @@
       '<span class="acts">' +
       '<button type="button" class="act" data-act="remind" data-pr="' + p.number + '">提醒检视</button>' +
       '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">刷新检视</button>' +
+      (markState(p).cls === 'yes' ? '' : '<button type="button" class="act ok" data-act="done" data-pr="' + p.number + '">完成检视</button>') +
       '</span></div>';
   }
 
@@ -483,12 +496,12 @@
 
   async function requestAction(kind, pr) {
     const p = findRecord(pr) || (state.searchIndex || []).find((x) => x.n === pr) || {};
-    const label = kind === 'remind' ? '[remind]' : '[refresh]';
+    const label = kind === 'remind' ? '[remind]' : kind === 'done' ? '[done]' : '[refresh]';
     const title = label + ' PR #' + pr + (p.title ? ' · ' + p.title : '');
     const body = '<!-- review-action v1\nkind: ' + kind + '\npr: ' + pr + '\nedition: ' + (state.editionId || '') + '\n-->\n\n' +
-      (kind === 'remind' ? '**提醒我优先检视**' : '**请求重新精读**') + ' PR #' + pr +
+      (kind === 'remind' ? '**提醒我优先检视**' : kind === 'done' ? '**已完成检视**' : '**请求重新精读**') + ' PR #' + pr +
       (p.html_url ? '\n\n' + p.html_url : '') + '\n';
-    const labels = kind === 'remind' ? ['review-remind'] : ['review-refresh'];
+    const labels = kind === 'remind' ? ['review-remind'] : kind === 'done' ? ['review-done'] : ['review-refresh'];
     const openFallback = () => {
       const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
       const url = 'https://github.com/' + site + '/issues/new?labels=' + labels.join(',') +
@@ -506,9 +519,15 @@
   }
 
   function addPending(kind, pr, title) {
-    state.pendingHl = (state.pendingHl || []).filter((x) => !(x.pr === pr && x.kind === kind));
-    state.pendingHl.unshift({ pr, kind, title: title || '', at: new Date().toISOString() });
-    try { localStorage.setItem('board-pending-hl', JSON.stringify(state.pendingHl.slice(0, 30))); } catch (e) { /* ignore */ }
+    if (kind === 'done') {
+      state.pendingMarks = (state.pendingMarks || []).filter((x) => x.pr !== pr);
+      state.pendingMarks.unshift({ pr, at: new Date().toISOString() });
+      try { localStorage.setItem('board-pending-marks', JSON.stringify(state.pendingMarks.slice(0, 50))); } catch (e) { /* ignore */ }
+    } else {
+      state.pendingHl = (state.pendingHl || []).filter((x) => !(x.pr === pr && x.kind === kind));
+      state.pendingHl.unshift({ pr, kind, title: title || '', at: new Date().toISOString() });
+      try { localStorage.setItem('board-pending-hl', JSON.stringify(state.pendingHl.slice(0, 30))); } catch (e) { /* ignore */ }
+    }
     if (state.view && state.view.type === 'edition') render(state.current || state.editionId, state.cache.get(state.current || state.editionId) || null);
   }
 
@@ -740,6 +759,8 @@
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.lessons = j.lessons || []; }).catch(() => {}),
         fetch('data/db/highlights.json?ts=' + Date.now(), { cache: 'no-store' })
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.highlights = j.items || []; }).catch(() => {}),
+        fetch('data/db/marks.json?ts=' + Date.now(), { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.marks = j.marks || {}; }).catch(() => {}),
       ]);
       if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }

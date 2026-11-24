@@ -1,4 +1,12 @@
 {
-  "updated_at": "2026-11-24T14:11:59.815Z",
-  "items": []
+  "updated_at": "2026-11-24T14:30:45.845Z",
+  "items": [
+    {
+      "pr": 21627,
+      "kind": "remind",
+      "title": "[Performance] Integrate union GBSA prefill for Qwen4Exp",
+      "at": "2026-11-24T14:30:45.827Z",
+      "manual": true
+    }
+  ]
 }

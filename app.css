@@ -233,3 +233,8 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .side-title.hl-title{color:var(--bad)}
 .side-title.hl-title span{background:rgba(180,35,24,.12);color:var(--bad)}
 .ed.hl{border-left:2px solid var(--bad)}
+.done{font-size:11.5px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.done.yes{color:var(--ok);border-color:var(--ok);background:rgba(15,123,63,.07)}
+.done.pending{color:var(--wait);border-color:var(--wait)}
+.rc-foot .act.ok{border-color:var(--ok);color:var(--ok)}
+.rc-foot .act.ok:hover{background:rgba(15,123,63,.08)}
