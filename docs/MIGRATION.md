@@ -1,21 +1,21 @@
 # 迁移与复刻指南（MIGRATION）
 
-目标：把这套“PR 检视看板”部署到另一个 GitHub 账号 / 仓库，保持同样的自动采集、精读、发布与批注闭环。
+目标：把这套“PR 检视看板”部署到另一个 GitHub 账号 / 仓库，保持同样的自动采集、精读、发布、批注与高优闭环。
 
 ## 0. 前置条件
 
 - 一个 GitHub 账号，以及一个用于发布的**公开**仓库（Pages 免费版要求 public）
-- 一个 PAT：
-  - fine-grained：`Public repositories (read-only)` + 目标站点仓库的 `Contents: RW`、`Administration: RW`、`Pages: RW`、`Issues: RW`；
-  - 或 classic：勾选 `repo`
-- 一台能长期在线、能访问 `api.github.com` 的机器（本方案所有读写都走 REST API，
-  不需要 `git clone/push`；若你的网络能直连 github.com，也可以自行替换为 git 流程）
-- 一个能跑 LLM Agent 的运行时（本仓库用 DSH）。**只用脚本也能跑**：会得到采集+列表，
-  但没有“精读”内容——精读由 Agent 按 `RULES.md` 生成 `work/reviews/<n>.json`。
+- 一个 PAT（fine-grained 推荐）：
+  - `Public repositories (read-only)`（读上游仓库）
+  - 站点仓库权限：`Contents: Read and write`（发布数据 + 网页内“完成检视”直接提交 marks）
+  - `Administration: Read and write`（首次自动建仓库）
+  - `Pages: Read and write`（开启 Pages）
+  - `Issues: Read and write`（批注 / 提醒 / 刷新 / 完成检视的 issue 通道）
+  - 或直接使用 classic PAT 勾选 `repo`
+- 一台能长期在线、能访问 `api.github.com` 的机器（本方案读写都走 REST API，不需要 git push）
+- 一个能跑 LLM Agent 的运行时（本仓库用 DSH）。只用脚本也能跑：会得到采集 + 列表，但没有精读内容
 
 ## 1. 复制代码
-
-把本仓库（脚本 + docs + config.json 模板）复制到你自己的环境：
 
 ```bash
 git clone <this-repo> my-review-board   # 或直接拷贝目录
@@ -36,9 +36,9 @@ cd my-review-board
 }
 ```
 
-- `user` 必须与 CODEOWNERS 里的 `@handle` 一致（大小写不敏感，但拼接 token 时要用真实登录名）
-- `site.repo` 建议 `<user>-review-board` 或 `<user>.github.io`（后者会占用站点根）
-- 若上游是私有仓库，需要 token 具备该仓库读权限
+- `user` 必须与 CODEOWNERS 里的 `@handle` 一致
+- `site.repo` 建议 `<user>-review-board`（独立站点，不占根域名）
+- 上游为私有仓库时，token 需额外具备该仓库读权限
 
 ## 3. 放 token
 
@@ -50,71 +50,70 @@ chmod 600 .secrets/gh_token
 
 `.secrets/` 永不入库、永不发布；`publish.mjs` 会做 token 泄漏扫描。
 
-## 4. 建站点仓库并开启 Pages
-
-`publish.mjs` 会在第一次运行时自动创建 `<user>/<site.repo>`（public，auto_init），
-并开启 Pages（source: `main` / `/`）。若仓库已存在则复用。
-
-## 5. 首次采集与发布
+## 4. 首次采集与发布
 
 ```bash
-node scripts/collect.mjs        # 首次会自动回看最近 3 天
+node scripts/collect.mjs        # 首次自动回看最近 3 天
 node scripts/split-deep.mjs
-# 用 Agent 按 RULES.md 生成 work/reviews/<n>.json（没有 Agent 可跳过）
-node scripts/render.mjs
-node scripts/publish.mjs
+# 用 Agent 按 docs/RULES.md 生成 work/reviews/<n>.json（无 Agent 可跳过）
+node scripts/render.mjs         # 建库、骨架、搜索索引、文档
+node scripts/publish.mjs        # 自动建仓库、开 Pages、发布
 ```
 
-首次发布会写入 `data/db/`、`app.js`、`app.css`、`index.html`。站点地址：
-`https://<user>.github.io/<site.repo>/`。
+站点：`https://<user>.github.io/<site.repo>/`。
 
-## 6. 开启 Issues 与标签（批注 / 高优动作需要）
+## 5. 开启 Issues 与标签
 
-用 API 或网页开启 Issues，并创建标签：
+用 API 或网页开启 Issues，创建四个标签：
 
-- `review-feedback`（批注）
-- `review-remind`（提醒检视）
-- `review-refresh`（刷新检视）
+| 标签 | 用途 |
+|---|---|
+| `review-feedback` | 卡片批注 |
+| `review-remind` | 提醒检视（加入高优，不刷新） |
+| `review-refresh` | 刷新检视（重新精读并移到最新一期） |
+| `review-done` | 完成检视（无 Contents 权限时的 issue 兜底） |
 
-页面内提交按钮会要求你在浏览器里填一个仅限该仓库 Issues 读写的 token（存在 localStorage）；
-不填则退化为“新标签打开预填 issue”，手动点 Submit。
+页面内的提交按钮需要有 token（存 localStorage）；未配置则退化为“打开预填 issue”。
 
-## 7. 注册定时任务
+## 6. 注册定时任务
 
-在 DSH 中创建 rrule 任务（示例见 `docs/OPERATIONS.md`）：
+在 DSH 中创建 rrule 任务（示例）：
 
 ```
 DTSTART;TZID=Asia/Shanghai:20260101T080000
 RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=8,13,18;BYMINUTE=0
 ```
 
-任务提示词直接引用 `docs/RUNBOOK.md` 的步骤；也可以把同样的流程交给 cron + Agent CLI。
+提示词引用 `docs/RUNBOOK.md`（源仓库根目录的 RUNBOOK.md）。也可把同样流程交给 cron + Agent CLI。
 
-## 8. （可选）历史积压
-
-如果要从零接管一堆存量 PR：
+## 7. （可选）历史积压
 
 ```bash
 node scripts/collect-backlog.mjs        # 采集“显式请求我检视、且早于上次运行”的 PR
 node scripts/build-backlog-edition.mjs  # 写成首期（backlog: true，只列不精读）
 ```
 
-注意：采集脚本会按时间窗拆分查询，避开 GitHub 搜索 1000 条上限。
+采集按时间窗拆分查询，避开 GitHub 搜索 1000 条上限。
 
-## 9. 验收清单
+## 8. 功能自检清单
 
-- [ ] `https://<user>.github.io/<repo>/` 200，能看到最新一期
-- [ ] 切换历史期次正常，侧栏条目齐全
-- [ ] 顶部搜索能按编号 / GitHub ID 命中，未命中给出解释
-- [ ] 卡片文件链接能跳到 `blob/<head_sha>/<path>`
+- [ ] 首页 200，能看到最新一期；侧栏可滚动，GitHub 连接区固定在底部
+- [ ] 顶部搜索栏滚动时保持固定；可按「编号」和「GitHub ID」检索，未命中给出原因
+- [ ] 卡片为「判定色带 + 结论 + 左右两栏（我负责的改动 / 风险）」，两栏等高且可独立滚动
+- [ ] 卡片显示总改动量（`+X / −Y · N 个文件`）；文件链接跳到 `blob/<head_sha>/<path>`
+- [ ] 文件多时左栏可滚动，滚到边缘继续滚会带动整页
+- [ ] 「紧凑模式」切换后保持（localStorage）
+- [ ] 「提醒检视」后，侧栏出现「高优检视」批次入口（含色点与待处理数）
+- [ ] 「完成检视」直接写入 `data/db/marks.json`，约 1 分钟内状态变为“已检视”
+- [ ] 已完成的 PR 从高优检视消失
+- [ ] 「刷新检视 / 需要检视」后，该 PR 移到最新一期并进入高优
 - [ ] 提交一条 `[feedback]` issue 后，下一期出现批注与“已采纳/未采纳”
-- [ ] 点“提醒检视”后，左侧出现“高优检视”
-- [ ] 点“刷新检视/需要检视”后，该 PR 移到最新一期并进入高优列表
-- [ ] 连续两期之间没有重复 PR（`state.prs` 去重生效）
+- [ ] 连续两期之间没有重复 PR
 
-## 10. 已知限制
+## 9. 已知限制
 
-- GitHub 搜索单查询最多 1000 条结果，积压类采集必须按时间窗拆分
-- Pages 对 HTML 有 10 分钟缓存；本项目用“静态骨架 + JSON”规避，页面内容始终取最新
+- GitHub 搜索单查询最多 1000 条结果，积压采集必须按时间窗拆分
+- Pages 对 HTML 有 10 分钟缓存；本项目用“静态骨架 + JSON”规避，内容始终取最新
 - 精读质量依赖 Agent 与 `docs/RULES.md`；没有 Agent 时只能得到列表
-- 浏览器内提交依赖用户在 localStorage 里保存 token，换设备需重新填写
+- 浏览器内直接提交依赖 localStorage 里的 token（需 Contents 写权限）；换设备需重新填写
+- 高优检视的“已检视”判定同时看 `marks.json` 与我在该 PR 当前 head 上的 GitHub 检视

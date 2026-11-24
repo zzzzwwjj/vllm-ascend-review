@@ -16,7 +16,7 @@
 
 - 分支保护强制 code owner 检视 → 改了我负责的文件时 GitHub 会自动把我加进 reviewer；
 - 这次 push 会刷新 `updated_at`，落在窗口内；
-- 人工“请求我 review”也会刷新 `updated_at`（已实测）。
+- 人工“请求我 review”也会刷新 `updated_at`（已实测：25 个样本中 6 个“请求晚于最后一次提交”，其 `updated_at` 均不早于请求时间）。
 
 ## 3. 去重规则（严格）
 
@@ -40,7 +40,7 @@
 
 - 范围：尚未合入、待我检视、且不在近四期、也不是上次运行之后新增的 PR；
 - 只列不精读，`backlog: true`、`label: "历史积压"`；
-- 构建脚本：`collect-backlog.mjs` + `build-backlog-edition.mjs`。
+- 构建脚本：`collect-backlog.mjs` + `build-backlog-edition.mjs`（一次性）。
 
 ## 6. CODEOWNERS 变更
 
@@ -54,12 +54,31 @@
 - 每期收录后：写回 `state/feedback.json`（含采纳/未采纳结论），蒸馏 1–3 条规则进 `state/lessons.json`；
 - 规则要泛化、≤80 字、总量 ≤15 条；精读时最多注入 10 条与改动路径相关的规则。
 
-## 8. 高优动作
+## 8. 高优检视
 
-- **提醒检视**：`[remind]` issue → 只加入左侧“高优检视”，不做其他动作；
-- **刷新检视 / 需要检视**：`[refresh]` issue → 重新精读该 PR；完成后从原批次移除、加入最新一期，
-  并进入“高优检视”。实现见 `OPERATIONS.md`。
+高优检视是**一个批次视图**（`?hl=1`），不是逐条列表；左侧栏只有一个入口，样式与期次卡片一致
+（名称 / 待处理数 / 绿蓝红三色点）。
 
-## 9. 数据不可变
+条目来源：
+
+- `[remind] PR #n`：只加入高优，不刷新、不换批次；
+- `[refresh] PR #n`：重新精读后从原批次移到最新一期，并加入高优；
+- 页面“需要检视”按钮等同于 `[refresh]`。
+
+**移出条件（两选一）**：
+
+1. 已标记“完成检视”（`data/db/marks.json` 有该 PR）；
+2. 我在 GitHub 上已在该 PR 当前 head 给过结论（approved / changes requested / commented）。
+
+服务端发布 `highlights.json` 时会按上述条件过滤，侧栏数字因此是精确的。
+
+## 9. 完成检视（marks）
+
+- 页面「完成检视」按钮默认**直接提交仓库**：浏览器 `PUT data/db/marks.json`（需要 Contents 写权限的 token）；
+- 提交后页面轮询到站点更新（约 30–60 秒）即变成“已检视”；失败自动退回 issue 方式；
+- 每次发布前 `render.mjs` 会先从远端合并 marks，避免本地状态覆盖网页上的标记；
+- issue 方式（无 token 或权限不足）会在下一期被 `[done]` 收录后生效。
+
+## 10. 数据不可变
 
 已发布的期次内容不回溯修改（除一次性的积压替换与去重重算）。补丁类修正只作用于最新一期。

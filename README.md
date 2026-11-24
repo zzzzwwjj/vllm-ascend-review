@@ -6,22 +6,35 @@
 - 更新：每个工作日 08:00 / 13:00 / 18:00（Asia/Shanghai）
 - 口径：显式请求我检视、且从未在往期出现过的 PR；只对 CODEOWNERS 中我负责的文件做重点分析
 
-## 文档
+## 页面能力
 
-- [规则与口径](docs/RULES.md)：什么进入范围、去重、精读规则、批注闭环、高优动作
-- [运维手册](docs/OPERATIONS.md)：目录、脚本、发布机制、配额、故障排查
-- [迁移复刻](docs/MIGRATION.md)：把同样的看板部署到你自己的账号
+- 顶部**固定搜索栏**：按 PR 编号或 GitHub ID 检索，未命中会说明可能原因
+- 精读卡片：判定色带 + 结论 + 左右两栏（我负责的改动 / 风险），两栏等高、各自可滚动
+- 卡片显示总改动量（`+X / −Y · N 个文件`）、文件链接直达 `blob/<head_sha>/<path>`
+- **紧凑模式**开关（localStorage 记忆）：一屏可扫完一期
+- 卡片操作：**提醒检视**、**刷新检视**、**完成检视**（直接写入 `data/db/marks.json`）
+- 高优检视：侧栏一个批次入口，含待处理数与绿蓝红三色点；已完成/已检视的自动移出
+- 批注：卡片下方可写批注，提交为 issue，下一期收录并给出采纳结论
 
 ## 存储（`data/db/`）
 
 | 文件 | 内容 |
 |---|---|
-| `manifest.json` | 期次列表、期次版本、分片版本与条数 |
-| `editions/<期号>.json` | 单期元数据 + 成员及角色（deep / rest） |
-| `prs/<千位>.json` | 以 PR 为主记录，含元数据与精读结果 |
-| `feedback.json` / `lessons.json` | 批注与从批注蒸馏出的规则 |
-| `highlights.json` | 高优检视（提醒 / 已刷新） |
+| `manifest.json` | 期次列表、期次版本、分片版本 |
+| `editions/<期号>.json` | 单期元数据 + 成员角色（deep / rest） |
+| `prs/<千位>.json` | 以 PR 为主记录（元数据、精读、head_sha、areas） |
+| `feedback.json` / `lessons.json` | 批注与蒸馏出的检视规则 |
+| `highlights.json` | 高优检视（已过滤完成项，含结论） |
+| `marks.json` | 完成检视标记（浏览器直接提交，发布前合并） |
 | `search.json` | 全局搜索索引 |
 
 页面打开任意一期：读 manifest → 读该期 edition → 按成员编号读对应分片 → 渲染。
 旧链接 `runs/<期号>.html` 会自动跳转到 `?e=<期号>`。
+
+## 文档
+
+- [规则与口径](docs/RULES.md)
+- [运维手册](docs/OPERATIONS.md)
+- [迁移复刻](docs/MIGRATION.md)
+
+数据源：GitHub REST API（公开信息）。
