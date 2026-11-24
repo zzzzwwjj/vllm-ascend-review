@@ -1,0 +1,125 @@
+{
+  "id": "2026-11-23-1800",
+  "at": "2026-11-23T10:00:06.555Z",
+  "window": {
+    "start": "2026-11-23T05:00:15.179Z",
+    "end": "2026-11-23T10:00:06.555Z",
+    "reason": "自上次运行 11-23 13:00",
+    "hours": 5
+  },
+  "stats": {
+    "fresh": 24,
+    "deep": 20,
+    "rest": 4,
+    "skipped": 106,
+    "owned_prs": 19,
+    "api_calls": 526,
+    "skipped_seen": 106,
+    "skipped_other": 0
+  },
+  "verdicts": {
+    "approve": 11,
+    "look": 7,
+    "pushback": 2,
+    "pending": 0
+  },
+  "legacy": false,
+  "members": [
+    {
+      "n": 16012,
+      "role": "deep"
+    },
+    {
+      "n": 21300,
+      "role": "deep"
+    },
+    {
+      "n": 22147,
+      "role": "deep"
+    },
+    {
+      "n": 22867,
+      "role": "deep"
+    },
+    {
+      "n": 22892,
+      "role": "deep"
+    },
+    {
+      "n": 22909,
+      "role": "deep"
+    },
+    {
+      "n": 22912,
+      "role": "deep"
+    },
+    {
+      "n": 22915,
+      "role": "deep"
+    },
+    {
+      "n": 22865,
+      "role": "deep"
+    },
+    {
+      "n": 22924,
+      "role": "deep"
+    },
+    {
+      "n": 15048,
+      "role": "deep"
+    },
+    {
+      "n": 20742,
+      "role": "deep"
+    },
+    {
+      "n": 21793,
+      "role": "deep"
+    },
+    {
+      "n": 21843,
+      "role": "deep"
+    },
+    {
+      "n": 22261,
+      "role": "deep"
+    },
+    {
+      "n": 21414,
+      "role": "deep"
+    },
+    {
+      "n": 16524,
+      "role": "deep"
+    },
+    {
+      "n": 14544,
+      "role": "deep"
+    },
+    {
+      "n": 21301,
+      "role": "deep"
+    },
+    {
+      "n": 21554,
+      "role": "deep"
+    },
+    {
+      "n": 22894,
+      "role": "rest"
+    },
+    {
+      "n": 22895,
+      "role": "rest"
+    },
+    {
+      "n": 22893,
+      "role": "rest"
+    },
+    {
+      "n": 22926,
+      "role": "rest"
+    }
+  ]
+}

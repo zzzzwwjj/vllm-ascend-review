@@ -1,0 +1,36 @@
+{
+  "items": {
+    "9061": {
+      "number": 9061,
+      "title": "[Feature][EPLB] Distinguishing the hotness of prefill and decode in hybrid deployment scenarios.",
+      "author": "shenchuxiaofugui",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9061",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "9231": {
+      "number": 9231,
+      "title": "[WIP][BugFix] adapt calling funciton of op:Fused-MC2 for glm5.1-w4a8",
+      "author": "MarinaMiao",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9231",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "9520": {
+      "number": 9520,
+      "title": "[Feature]Enable hierarchical MC2 communication on A2 by default",
+      "author": "hwhaokun",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9520",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "9945": {
+      "number": 9945,
+      "title": "[Feature] Support MTP speculative decoding for Bailing hybrid models",
+      "author": "alex101-ops",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/9945",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

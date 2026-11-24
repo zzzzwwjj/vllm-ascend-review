@@ -1,0 +1,84 @@
+{
+  "items": {
+    "8081": {
+      "number": 8081,
+      "title": "[Core][Test][Doc] Add Gemma4 support on Ascend",
+      "author": "EheinWang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8081",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8235": {
+      "number": 8235,
+      "title": "Vllm lora 1",
+      "author": "PPPZi-zp",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8235",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8384": {
+      "number": 8384,
+      "title": "[BugFix][Ops] Sync compatibility with CANN ops and fused_moe",
+      "author": "zilongzheng",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8384",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8391": {
+      "number": 8391,
+      "title": "[BugFix] Fix incorrect DeprecationWarning usage",
+      "author": "ivyilike",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8391",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8401": {
+      "number": 8401,
+      "title": "[Feature] quarot: support qwen3 modelslim descriptors with fused fast hadamard transformation",
+      "author": "egretwAlker",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8401",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8632": {
+      "number": 8632,
+      "title": "[Performance] optimize split_qkv_rmsnorm_mrope ops",
+      "author": "Moxi1-stack",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8632",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8762": {
+      "number": 8762,
+      "title": "[CI] [v0.18] Fix nightly 0427",
+      "author": "aipaes",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8762",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8966": {
+      "number": 8966,
+      "title": "[Feature]: Ascend Support Gemma4 Model",
+      "author": "Alex-stack-hub",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8966",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8970": {
+      "number": 8970,
+      "title": "[Feature]: Support Gemma4 model with eager mode optimization",
+      "author": "Alex-stack-hub",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8970",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "8988": {
+      "number": 8988,
+      "title": "[BugFix][EPLB] Make DYNAMIC_EPLB / EXPERT_MAP_RECORD env parsing case-insensitive",
+      "author": "SuperMarioYL",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/8988",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

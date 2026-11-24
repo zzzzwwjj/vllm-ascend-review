@@ -1,0 +1,1031 @@
+{
+  "items": {
+    "12069": {
+      "number": 12069,
+      "title": "[Refactor]update permute/unpermute to init_routing/finalize_routing",
+      "author": "lcfenglinwan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12069",
+      "changed_files": 3,
+      "additions": 62,
+      "deletions": 56,
+      "age_days": 131.8,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 13
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 13,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 12069,
+        "verdict": "pushback",
+        "confidence": "medium",
+        "summary": "device_op 换用 torch_npu 的 init_routing_v2，删除 unpermute 并改走 finalize_routing。",
+        "intent": "去掉 vllm-ascend 自定义 init_routing 算子和 unpermute 适配层，统一到 torch_npu 官方 v2 接口；dispatcher 侧同步用 finalize_routing 合并，减少一套兼容代码。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "BaseDeviceAdaptor.npu_moe_init_routing 仍保留 act_quant_type 形参，但新调用未转发（A5 用 x_dtype 处理）；静默忽略会掩盖 A2/A3 的 FP8/MXFP 量化差异，应删除形参或显式断言。"
+          },
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "Base 与 A5 的 npu_moe_token_unpermute 被删除后，继承 Base 的 310P 适配器也失去该方法；需确认全仓已无 DeviceOperator.npu_moe_token_unpermute 调用（当前 dispatcher 已改 finalize_routing，310P 直调 torch_npu）。"
+          },
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "custom op 换官方 v2 后，quant_mode=1/3/9、scale 与 MXFP scale layout 的语义是否与旧算子一致，需要逐项确认。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "AllGather 的 combine 改用 npu_moe_finalize_routing，但 ops/fused_moe/moe_comm_method.py 注释明确写着该算子会引起精度问题、必须用 token_unpermute 规避；PR 未给 parity 证据，reviewer 已要求多 EP rank/topk>1/过滤专家验证。"
+          },
+          {
+            "level": "medium",
+            "text": "dispatcher 的 token_combine 把 bias 硬编码为 None，bias 形参被静默丢弃；带 bias 的 MoE 模型结果会错，应转发或显式 assert。"
+          },
+          {
+            "level": "medium",
+            "text": "act_quant_type 在 BaseDeviceAdaptor 被忽略而 A5 仍按 x_dtype 处理，跨芯片量化行为不一致；量化 scale 的 e8m0 view 逻辑也属于必须核对的接口差异。"
+          }
+        ],
+        "tests": "无测试改动；CI 6 项通过，但 custom op→v2 与 unpermute→finalize_routing 的数值等价性没有单测或精度对比。",
+        "questions": [
+          "目标 CANN 版本上 npu_moe_finalize_routing 的精度问题是否已修复？能否给出多 EP rank、topk>1、含 filtered experts 的 parity 结果？",
+          "BaseDeviceAdaptor 是否还要保留 act_quant_type？A2/A3 走 quant_mode=3/9 时 x_dtype 由谁保证？"
+        ],
+        "recommend": "先补 combine 数值 parity（含 bias 与多 rank）再合并；否则应保留 AllGather 的 unpermute 兜底，等上游问题确认修复后再删。"
+      },
+      "review_sha": "5edea70ffc57"
+    },
+    "12131": {
+      "number": 12131,
+      "title": "[BugFix] Minimax m3 0716 m",
+      "author": "Bill845514379",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12131",
+      "changed_files": 133,
+      "additions": 37641,
+      "deletions": 666,
+      "age_days": 131,
+      "ci": {
+        "total": 8,
+        "failed": 1,
+        "failed_names": [
+          "lint-and-select-tests"
+        ],
+        "pending": 0,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "csrc/attention/sparse_attention_score/CMakeLists.txt",
+          "status": "added",
+          "additions": 19,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/README.md",
+          "status": "added",
+          "additions": 30,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/docs/sparse_attention_score_design.md",
+          "status": "added",
+          "additions": 304,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/CMakeLists.txt",
+          "status": "added",
+          "additions": 27,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/OWNERS",
+          "status": "added",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/aclnn_sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 165,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/aclnn_sparse_attention_score.h",
+          "status": "added",
+          "additions": 52,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 80,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/sparse_attention_score.h",
+          "status": "added",
+          "additions": 40,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_def.cpp",
+          "status": "added",
+          "additions": 87,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_infershape.cpp",
+          "status": "added",
+          "additions": 105,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.cpp",
+          "status": "added",
+          "additions": 370,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.h",
+          "status": "added",
+          "additions": 140,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch22/kernel_utils.hpp",
+          "status": "added",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch22/sparse_attention_score_kernel_arch22.h",
+          "status": "added",
+          "additions": 463,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/kernel_utils.hpp",
+          "status": "added",
+          "additions": 129,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/sparse_attention_score_kernel_arch35.h",
+          "status": "added",
+          "additions": 526,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/sparse_attention_score_kernel_arch35_full_quant.h",
+          "status": "added",
+          "additions": 586,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/arch.hpp",
+          "status": "added",
+          "additions": 51,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/cross_core_sync.hpp",
+          "status": "added",
+          "additions": 132,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/local_tensor_buffer.hpp",
+          "status": "added",
+          "additions": 343,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/resource.hpp",
+          "status": "added",
+          "additions": 69,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/base_defs.hpp",
+          "status": "added",
+          "additions": 51,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/coord.hpp",
+          "status": "added",
+          "additions": 442,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/alignment.hpp",
+          "status": "added",
+          "additions": 129,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/dependent_false.hpp",
+          "status": "added",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/macros.hpp",
+          "status": "added",
+          "additions": 16,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/tag_to_layout.hpp",
+          "status": "added",
+          "additions": 106,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue.hpp",
+          "status": "added",
+          "additions": 39,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_mask2idx_arch35.hpp",
+          "status": "added",
+          "additions": 199,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax.hpp",
+          "status": "added",
+          "additions": 1165,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_arch35_reg_low_prec.hpp",
+          "status": "added",
+          "additions": 853,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_arch35_reg_low_prec_bf16.hpp",
+          "status": "added",
+          "additions": 961,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_low_prec.hpp",
+          "status": "added",
+          "additions": 983,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o.hpp",
+          "status": "added",
+          "additions": 461,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o_arch35_reg_high_prec.hpp",
+          "status": "added",
+          "additions": 510,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o_low_prec.hpp",
+          "status": "added",
+          "additions": 463,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/dispatch_policy.hpp",
+          "status": "added",
+          "additions": 53,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_gm_to_ub.hpp",
+          "status": "added",
+          "additions": 188,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_gm_to_ub_tla.hpp",
+          "status": "added",
+          "additions": 113,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_ub_to_gm.hpp",
+          "status": "added",
+          "additions": 144,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_ub_to_gm_tla.hpp",
+          "status": "added",
+          "additions": 110,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/tile_copy.hpp",
+          "status": "added",
+          "additions": 130,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad.hpp",
+          "status": "added",
+          "additions": 65,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_pv.hpp",
+          "status": "added",
+          "additions": 289,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_pv_arch35_ABf16_C_to_UB.hpp",
+          "status": "added",
+          "additions": 553,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_qk.hpp",
+          "status": "added",
+          "additions": 323,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_qk_arch35_ABf16_C_to_UB.hpp",
+          "status": "added",
+          "additions": 589,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/dispatch_policy.hpp",
+          "status": "added",
+          "additions": 61,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/gemm_type.hpp",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/helper.hpp",
+          "status": "added",
+          "additions": 347,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_l1_a2.hpp",
+          "status": "added",
+          "additions": 1068,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_l1_a5.hpp",
+          "status": "added",
+          "additions": 221,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_ub.hpp",
+          "status": "added",
+          "additions": 22,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_dst.hpp",
+          "status": "added",
+          "additions": 255,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_gm_a2.hpp",
+          "status": "added",
+          "additions": 106,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_ub_a5.hpp",
+          "status": "added",
+          "additions": 255,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_bt.hpp",
+          "status": "added",
+          "additions": 27,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0a_a2.hpp",
+          "status": "added",
+          "additions": 349,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0a_a5.hpp",
+          "status": "added",
+          "additions": 335,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0b_a2.hpp",
+          "status": "added",
+          "additions": 479,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0b_a5.hpp",
+          "status": "added",
+          "additions": 302,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_ub_to_gm.hpp",
+          "status": "added",
+          "additions": 21,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_copy.hpp",
+          "status": "added",
+          "additions": 203,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_copy_tla.hpp",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_mmad.hpp",
+          "status": "added",
+          "additions": 227,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm_coord.hpp",
+          "status": "added",
+          "additions": 163,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/layout.hpp",
+          "status": "added",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/matrix.hpp",
+          "status": "added",
+          "additions": 1247,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/vector.hpp",
+          "status": "added",
+          "additions": 133,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/matrix_coord.hpp",
+          "status": "added",
+          "additions": 108,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/status.hpp",
+          "status": "added",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/kernel_common.hpp",
+          "status": "added",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 76,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score_kernel_interface.cpp",
+          "status": "added",
+          "additions": 246,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score_tilingkey.h",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/int_tuple.hpp",
+          "status": "added",
+          "additions": 273,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/layout.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/integer_sequence.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/integral_constant.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/math.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/tensor.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/tuple.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/type_traits.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/sparse_attention_score_torch_adpt.h",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tests/test_bf16.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tests/test_fp16.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tools/fix_mmad_deq.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/build_aclnn.sh",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding_meta.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 31,
+          "deletions": 8
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 19488,
+      "owned_del": 13,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 12131,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "MiniMax-M3 支持：新增约1.9万行稀疏注意力算子，附带 Gemma RMSNorm/partial RoPE 修复；body 仅“pr test”。",
+        "intent": "为 MiniMax-M3 的 paged KV+TopK block 稀疏注意力新增 AscendC 算子（gather+GQA 共享 KV），并用预计算 weight_plus_one 省掉 Gemma norm 的 1+w 加法。",
+        "focus": [
+          {
+            "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.cpp",
+            "point": "GenerateTilingKey 对 D≠128、block_size≠128 或 A2 上 fp8 一律回退 FP16_D128；tilingkey.h 已定义 D64 key（10004/10005）但 GenerateTilingKey 永不返回、kernel 入口也未注册，且入口对未知 key 无报错分支。建议补 D=128/blockSize=128 校验并显式失败。"
+          },
+          {
+            "file": "vllm_ascend/ops/layernorm.py",
+            "point": "weight_plus_one 只在 _weight_loader 内刷新；_310p/ops/layernorm.py 的 AscendGemmaRMSNorm310 仍用 1.0+self.weight、未改用缓冲。确认所有 Gemma 权重加载路径（AutoWeightsLoader/量化后处理/热加载）都会触发 param.weight_loader，否则静默按 1.0 计算。"
+          },
+          {
+            "file": "vllm_ascend/ops/rotary_embedding.py",
+            "point": "partial RoPE 新增 x[..., :rotary_dim] 切片直接喂 npu_rotary_mul（未 .contiguous()），且 torch.cat 回拼；确认该 op 接受非连续切片，并补 rotary_dim<head_dim 的单测。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "GenerateTilingKey 无失败分支：D≠128、block_size≠128 或 A2 上 fp8 会静默跑 FP16_D128 kernel（D64 key 未接线），kernel 入口对未注册 key 也是空执行，可能静默产生错误结果而非报错。"
+          },
+          {
+            "level": "medium",
+            "text": "三层默认值不一致：scale_value（def=0 表示自动 1/sqrt(D)、torch schema=1.0、设计文档=1/sqrt(D)）与 inner_precise（def=4、schema=0，fp8 要求 4）；当前 msa_m3 调用方显式传参未受害，但后续调用方漏传即静默错缩放或 check 失败。"
+          },
+          {
+            "level": "medium",
+            "text": "19k 行算子与另外两处 Python 修复混在 133 文件/85 commit（含 18 次 merge main）中，body 仅“pr test”，CI lint-and-select-tests 失败且 mergeable=dirty，无法界定可追溯的验证范围。"
+          }
+        ],
+        "tests": "新增 csrc 自带 test_bf16/test_fp16（2/4/8 batch、MHA/GQA、prefill+decode），但无 fp8 用例、不覆盖 torch binding schema，且未进 selected-tests 映射；PR 的 lint CI 已失败。",
+        "questions": [
+          "D≠128/block_size≠128 与 A2 fp8 目前静默落到 FP16_D128 kernel，是否应改为 tiling/入口显式报错？D64 key 是否漏接线？",
+          "AscendGemmaRMSNorm 的所有加载路径（AutoWeightsLoader、量化/热加载、310P 子类）是否都会触发 param.weight_loader 刷新 weight_plus_one？"
+        ],
+        "recommend": "先补形状/精度模式校验与失败分支、统一默认值、修 lint 并拆分为算子 PR + 两处小修复，附 fp8 用例与 PR 描述后再合。"
+      },
+      "review_sha": "c8fe9b5e2173"
+    },
+    "12453": {
+      "number": 12453,
+      "title": "[Feature] vLLM Ascend adaptation to support Elastic Expert Parallelism Milestone 2",
+      "author": "1542305589",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12453",
+      "changed_files": 31,
+      "additions": 2241,
+      "deletions": 77,
+      "age_days": 126,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+          "status": "modified",
+          "additions": 54,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl.py",
+          "status": "modified",
+          "additions": 73,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl_wrapper.py",
+          "status": "modified",
+          "additions": 81,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/__init__.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/elastic_execute.py",
+          "status": "added",
+          "additions": 470,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/eplb_manager.py",
+          "status": "added",
+          "additions": 361,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/policy_default_elastic_eplb.py",
+          "status": "added",
+          "additions": 309,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/standby_state.py",
+          "status": "added",
+          "additions": 75,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 71,
+          "deletions": 11
+        },
+        {
+          "file": "vllm_ascend/distributed/utils.py",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 75,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 1667,
+      "owned_del": 21,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 12453,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Elastic EP Ascend 适配：executor、stateless MC2/EPLB 组与 PyHccl P2P/EPLB 重排。",
+        "intent": "对齐 vLLM Elastic EP Milestone 2，让 Ascend 在 Ray + 内部 LB 下动态扩缩 EP，且不改 vLLM 代码；限制 A3、BF16/W8A8、暂不支持 PP/PCP/DCP。",
+        "focus": [
+          {
+            "file": "vllm_ascend/distributed/utils.py",
+            "point": "stateless PG 依赖 monkeypatch vllm.distributed.stateless_coordinator 并手工写 PyTorch _world：pg_group_ranks 用 {i:i} 恒等映射，group_name 含 WORLD 时还会覆盖 _world.default_pg。核对 DP/MC2 组 rank 非 0 起始时 P2POp 的 peer 映射是否正确，以及 patch 只在 init/switch 期间生效是否足够。"
+          },
+          {
+            "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+            "point": "pyhccl_comm 仅在传入 tcp_store_group 时创建；batch_isend_irecv 在无 pyhccl 时直接 raise ValueError（未回退基类），all_gather 只走 pyhccl。另 pyhccl.py 删掉了构造期 warmup all_reduce+stream.synchronize，需确认非 elastic 路径不回归、首次通信就绪性无问题。"
+          },
+          {
+            "file": "vllm_ascend/distributed/elastic_ep/elastic_execute.py",
+            "point": "switch_and_prepare 在 pop standby 并替换 active/ascend 组后调用 compile_or_warm_up_model，失败时没有回滚或恢复原组；这正是 maintainer 评论“Handle warmup failure after switching Elastic EP groups”指出的缺口。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "目标 vLLM 的 StatelessGroupCoordinator 仍 assert device_comm_cls == CudaCommunicator，而 NPUPlatform.get_device_communicator_cls() 返回 NPUCommunicator；若目标版本尚未改走 platform.stateless_init_device_torch_dist_pg，首个 stateless MC2 组初始化就会 AssertionError。"
+          },
+          {
+            "level": "medium",
+            "text": "手工注册 _world 用恒等 rank 映射并可能覆盖 default_pg；P2POp/batch_isend_irecv 在跨 DP 或 rank 偏移的组里可能把 group_peer 映射错，权重传输存在错发或挂死风险。"
+          },
+          {
+            "level": "medium",
+            "text": "切换组后 warmup 失败无回滚；同时 PyHccl 去掉了构造期 warmup，首批 all_gather/batch_isend_irecv 的流同步与就绪性只有真机 e2e 能验证，UT 覆盖不到。"
+          }
+        ],
+        "tests": "新增 nightly e2e（A3 多卡 Ray 扩缩，420 行）+ communicator UT（destroy/batch_isend_irecv）+ acl_graph 隔离用例；stateless 组与 P2P 真机路径仍依赖 e2e。",
+        "questions": [
+          "目标 vLLM 版本的 StatelessGroupCoordinator 是否已改为调用 platform.stateless_init_device_torch_dist_pg？否则 NPUCommunicator 与 assert CudaCommunicator 冲突。",
+          "switch_and_prepare 中 compile_or_warm_up_model 失败后的回滚/恢复策略是什么（对应 maintainer 的 warmup failure 评论）？"
+        ],
+        "recommend": "方向正确，但先解决 warmup 失败处理并确认 stateless 组目标版本兼容，再 rebase 解冲突评审合并。"
+      },
+      "review_sha": "5227b896f91b"
+    },
+    "12574": {
+      "number": 12574,
+      "title": "华为淬火行动部署报告",
+      "author": "danaodai",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12574",
+      "changed_files": 17,
+      "additions": 351,
+      "deletions": 200,
+      "age_days": 124.8,
+      "ci": {
+        "total": 2,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/distributed/kvpool/pool_worker.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/distributed/llmdatadist_c_mgr_connector.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 7
+        },
+        {
+          "file": "vllm_ascend/distributed/mooncake_connector.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 69,
+      "owned_del": 27,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 12574,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "PCP 调用改为 prefill_context_parallel_enable() 条件分支，涉及并行组、连接器与 platform 校验，代码仍带冲突标记。",
+        "intent": "推测是让 distributed/connector/platform 在 PCP 特性关闭时退回 DCP-only 行为并避免导入 PCP 符号；但标题、描述与实际改动不符，意图无法从 PR 信息确认。",
+        "focus": [
+          {
+            "file": "vllm_ascend/distributed/parallel_state.py",
+            "point": "head 第 12-20 行仍是 <<<<<<< HEAD / ======= / >>>>>>> 冲突标记，文件无法被 Python 导入；且 enable_sp 与 prefill_context_parallel_enable 的导入被拆成互斥两支。"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "P/D interleave 校验新增 prefill_context_parallel_enable() 前置条件；PCP 关闭（默认）时该断言整体跳过，DCP>1 且 block_size 与 interleave 不等的非法配置不再被拒绝，是明确回归。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kvpool/pool_worker.py",
+            "point": "改用模块级条件导入 + PCP size=1 回退；prefill_context_parallel_enable() 只读 env，import 时求值可接受，但各文件的 rank 回退条件不一致（pcp_size>1 vs 仅 env 开关）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "冲突标记导致语法错误，vllm_ascend 包无法导入；非 owned 的 attention_v1.py 等还有缺失 import/未定义变量，当前 head 不可运行。"
+          },
+          {
+            "level": "high",
+            "text": "platform.py 把 DCP 的 interleave 校验绑定到 PCP 开关，DCP-only 部署可接受非法 interleave 配置，运行期才暴露。"
+          },
+          {
+            "level": "medium",
+            "text": "reviewer 指出 worker_v1.py 第三个位置参数在 PCP 关闭时被当作 prefill size，会建错 PCP 组并让 DCP 停在 1；同一 PR 的 DCP 路径需一并核对。"
+          }
+        ],
+        "tests": "CI 只有 2 项且 DCO action_required，实际未跑 UT；冲突标记与缺失 import 说明测试未执行，无有效覆盖。",
+        "questions": [
+          "标题“华为淬火行动部署报告”和空描述与实际 diff 不符，是否为误开分支或错误 rebase？能否重开一个干净 PR？",
+          "PCP 关闭时为何要跳过 DCP 的 interleave 校验？能否让该断言保持独立于 PCP 开关？"
+        ],
+        "recommend": "打回：清理冲突标记、补回缺失 import、恢复 DCP 校验并在 PCP 关闭时重跑 CI；建议重开 PR 而不是继续叠加冲突。"
+      },
+      "review_sha": "3eefcebbd07b"
+    },
+    "12651": {
+      "number": 12651,
+      "title": "[BugFix]refresh Ascend MoE comm state after L2 wake to fix ep+sleep level2 precision issue",
+      "author": "zgh-99",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12651",
+      "changed_files": 2,
+      "additions": 29,
+      "deletions": 0,
+      "age_days": 124.6,
+      "ci": {
+        "total": 2,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 7,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 12651,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "L2 sleep 唤醒后在 worker 里重填 All2AllV 的 expert_ids_per_ep_rank，试图修复 EP 加睡眠后的错误专家路由。",
+        "intent": "L2 会丢弃不在 named_buffers 的 expert_ids_per_ep_rank，权重 IPC 重载不会重建它；PR 在 wake_up 中原地重算，避免 stale 路由导致生成结果错误。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "wake_up 末尾先清 _needs_all2all_expert_ids_refresh 再调用 refresh；而 allocator.wake_up(tags) 只重映射 tags 命中或 None 的分配。tags 不覆盖该表所在 pool（如仅 kv_cache）的唤醒时它仍在未映射内存，写入失败且 flag 已清，之后完整唤醒不会重试。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "refresh helper 用 try/except 吞异常只打 warning，worker 侧不检查结果就清 flag；应只在 weights 已映射且刷新成功后清，否则保留待下次唤醒重试。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "KV-cache-only 等 tags 不覆盖该表的 wake 会向未映射的 weights pool 写 expert_ids_per_ep_rank，可能触发 device 错误；flag 被提前清掉后，真实精度修复可能永远不执行。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 描述与实际 diff 不一致：body 称只改 verl/workers/rollout/vllm_rollout/utils.py 并重打 patch_vllm_moe_model_weight_loader，但实际只改 worker.py 与 moe_comm_method.py，审查时无法据此确认第二项修复是否遗漏。"
+          }
+        ],
+        "tests": "无新增测试；CI 两项通过，但 L2 sleep + EP>1 + IPC 重载路径没有回归用例，无法证明修复有效。",
+        "questions": [
+          "能否改为在 weights 映射完成（tags 为 None 或含 weights）后刷新，并在 refresh 明确成功后再清 flag？是否已确认存在 KV-cache-only wake 的调用路径？",
+          "body 提到的 patch_vllm_moe_model_weight_loader 重打与 verl/utils.py 改动不在本 PR，是描述过期还是漏提交？"
+        ],
+        "recommend": "按 reviewer 意见把刷新推迟到 weights 映射之后、成功后再清 flag，并补一个 EP+L2 wake 的回归用例再复审。"
+      },
+      "review_sha": "3f7861d3c109"
+    }
+  }
+}

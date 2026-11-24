@@ -1,0 +1,258 @@
+{
+  "items": {
+    "16012": {
+      "number": 16012,
+      "title": "[Performance][Attention] Optimize long cached prefill with BNSD",
+      "author": "Mlight7",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16012",
+      "changed_files": 8,
+      "additions": 317,
+      "deletions": 5,
+      "age_days": 76.2,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 16012,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "新增 enable_prefill_bnsd（默认 false）：满足长 cache-hit prefill 条件的请求走 BNSD FIA，其余保持 TND。",
+        "intent": "长 cached prefill（Q>=1536、KV>=24576）时 TND 布局 FIA 效率低，BNSD 查询布局实测降 13%/16% 延迟，用开关加严格准入隔离。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "enable_prefill_bnsd 同时加入 docstring 默认 JSON 与 pydantic dataclass 字段（extra=forbid 下必须如此），默认 False、注释清晰，属于正确完整的配置接入。"
+          },
+          {
+            "file": "docs/source/user_guide/configuration/additional_config.md",
+            "point": "该 additional_config 主表未登记 enable_prefill_bnsd（enable_prefill_mc2 等同级开关都在表内），建议补一行，便于用户发现。"
+          },
+          {
+            "file": "vllm_ascend/attention/attention_v1.py",
+            "point": "__init__ 固定读取 get_ascend_config().enable_prefill_bnsd；确认线上/profile_run 场景 config 均已初始化（UT 已 patch），310P 走独立 forward_impl 不受影响。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "additional_config.md 主表未登记新键，用户查找配置项时容易漏。"
+          },
+          {
+            "level": "low",
+            "text": "准入阈值（1536/24576、head_size=256）来自单一模型 Qwen3.8-27B、TP=2 的实测，其它形状可能收益为负，但开关默认关闭。"
+          },
+          {
+            "level": "low",
+            "text": "BNSD 只在 decode+prefill 混合 step 的 split 路径生效，若后续重构该函数需同步维护该分支。"
+          }
+        ],
+        "tests": "tests/ut/attention/test_attention_v1.py +126 覆盖阈值边界、混合 batch 的 prefill KV 长度、>8192 query 与回退，另有 310P/config 单测，CI 9 项全绿，PR 附 910B3 实测数据。",
+        "questions": [
+          "是否需要在 docs 的 additional_config 表格补登 enable_prefill_bnsd？"
+        ],
+        "recommend": "我负责的 ascend_config.py 接入正确完整，测试到位，可以批准；建议顺手补配置表一行。"
+      },
+      "review_sha": "5ec0dc6ad08b"
+    },
+    "16145": {
+      "number": 16145,
+      "title": "[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU",
+      "author": "fangyuchu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16145",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "16219": {
+      "number": 16219,
+      "title": "[Feature][Sparse KV Offload] Support non-memfabric fused-overlap membership staging and d2h graph writeback",
+      "author": "Shichang-Zhang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16219",
+      "changed_files": 24,
+      "additions": 3062,
+      "deletions": 181,
+      "age_days": 73.9,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 38,
+          "deletions": 29
+        }
+      ],
+      "owned_add": 66,
+      "owned_del": 29,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 16219,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "在 #15883 上补齐 Mooncake 的 membership staging 与 current-token KV 写回，memfabric 不变。",
+        "intent": "Mooncake 共享段只能以 NPU 可寻址张量暴露，CPU planner 需经中转发布；graph replay 不能用动态 nonzero 生成索引，故用固定形状 descriptor 加 Host callback 刷新。",
+        "focus": [
+          {
+            "file": "vllm_ascend/envs.py",
+            "point": "新增 VLLM_ASCEND_FSA_PAIRED_CURRENT_SCATTER 默认 1，同样用 bool(int(...))，非 0/1 输入会在读取时崩；且默认开启会改变既有 fused-overlap 的 scatter 路径，需确认 memfabric 行为确实不变。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "本文件与 attn_utils.py 的改动与 #15883 完全重复（含 prepare_host_kv_allocation 与 shutdown close），必须在 15883 定稿后按其最终形态 rebase，避免两处实现分叉。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "get_sparse_kv_offload_manager().allocate_host_kv_tensors 透传同 15883；合并后确认 host 分配回调只注册一次、shutdown 只 close 一次。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "PR 显式依赖未合入的 #15883（diff 已含其 3 个 commit，当前 blocked），若 15883 继续修改，本 PR 的重复 hunk 会冲突或需要二次 rebase。"
+          },
+          {
+            "level": "medium",
+            "text": "核心是 graph-safe 的 descriptor/Host callback 生命周期与 stream 顺序（在 unowned 的 current_kv_scatter、index_copy_descriptors、manager 中），CPU UT 与 nightly 难以覆盖重放期 use-after-free 类问题。"
+          },
+          {
+            "level": "low",
+            "text": "描述称默认 memfabric 行为不变，但新增 paired scatter 开关默认开启，可能改变既有 fused-overlap 路径，缺少默认后端对照证据。"
+          }
+        ],
+        "tests": "本地 UT：manager 35、external_plan 12、index_copy 4 通过；descriptor 跨 replay 刷新依赖 single-card NPU nightly，未见 A3/PD 端到端与显存证据。",
+        "questions": [
+          "需要作者确认：VLLM_ASCEND_FSA_PAIRED_CURRENT_SCATTER 默认 1 是否也作用于 memfabric 的 fused-overlap？与“默认后端行为不变”如何对齐？",
+          "需要作者确认：owned 四个文件与 #15883 完全重复，15883 合入并 rebase 后这些 hunk 是否应从本 PR diff 中消失？"
+        ],
+        "recommend": "等 #15883 定稿并 rebase 后，按增量（staging/index_copy 写回）重新评审，同时补 memfabric 默认路径不变的证据。"
+      },
+      "review_sha": "a9f7d11a7006"
+    },
+    "16335": {
+      "number": 16335,
+      "title": "[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family",
+      "author": "YujianGuo",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "16336": {
+      "number": 16336,
+      "title": "[Ops][Feature] Fused Triton Qwen vision QKV, RoPE, and FIA padding",
+      "author": "YujianGuo",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16336",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "16524": {
+      "number": 16524,
+      "title": "[Performance][GDN] Skip layout conversion for suppressed intermediates",
+      "author": "Mlight7",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/16524",
+      "changed_files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "age_days": 70,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 16524,
+        "verdict": "look",
+        "confidence": "high",
+        "summary": "（无我负责文件）PR 声称只改 fla chunk.py 的 SUPPRESS_LEVEL 分支，但 base 与 head 该文件完全一致、无 diff。",
+        "intent": "作者想让 SUPPRESS_LEVEL<3 时跳过 h/v_new 的 BF16+transpose 转换；该优化在 base 上已经存在。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/triton/fla/chunk.py",
+            "point": "base 第 240-245 行已在 SUPPRESS_LEVEL>=3 分支内做转换、<3 直接返回 None；head 与 base 逐字节相同，compare base...head 的 files 为空，无可审改动。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "PR 当前 changed_files=0、additions/deletions=0，compare 结果为空；若被误合不会带入代码，只会留下一个空提交与混淆记录。"
+          },
+          {
+            "level": "low",
+            "text": "body 中的 A/B 性能数据无法在当前 head 上复核（diff 为空），不能作为本 PR 的证据。"
+          }
+        ],
+        "tests": "无新增测试；CI 24 项全绿，但没有任何可执行的 diff。",
+        "questions": [
+          "需要作者确认：该优化是否已通过其它 PR 合入 main？若是请关闭本 PR；若分支被 reset，请恢复提交后再提。"
+        ],
+        "recommend": "不建议批准：空 diff，先请作者确认是否已合入并关闭。"
+      },
+      "review_sha": "81bf3ee38937"
+    }
+  }
+}

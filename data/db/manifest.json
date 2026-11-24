@@ -1,0 +1,213 @@
+{
+  "schema": "reviewboard-db/1",
+  "updated_at": "2026-11-24T03:03:06.100Z",
+  "current": "2026-11-24-0800",
+  "user": "zzzzwwjj",
+  "site": "zzzzwwjj/vllm-ascend-review",
+  "editions": [
+    {
+      "id": "2026-11-24-0800",
+      "at": "2026-11-24T00:00:11.065Z",
+      "window": {
+        "start": "2026-11-23T10:00:06.555Z",
+        "end": "2026-11-24T00:00:11.065Z",
+        "reason": "自上次运行 11-23 18:00",
+        "hours": 14
+      },
+      "stats": {
+        "fresh": 17,
+        "deep": 17,
+        "rest": 0,
+        "skipped": 153,
+        "owned_prs": 16,
+        "api_calls": 664,
+        "skipped_seen": 146,
+        "skipped_other": 7
+      },
+      "verdicts": {
+        "approve": 6,
+        "look": 10,
+        "pushback": 1,
+        "pending": 0
+      },
+      "legacy": false,
+      "v": "a9deb9f24582"
+    },
+    {
+      "id": "2026-11-23-1800",
+      "at": "2026-11-23T10:00:06.555Z",
+      "window": {
+        "start": "2026-11-23T05:00:15.179Z",
+        "end": "2026-11-23T10:00:06.555Z",
+        "reason": "自上次运行 11-23 13:00",
+        "hours": 5
+      },
+      "stats": {
+        "fresh": 24,
+        "deep": 20,
+        "rest": 4,
+        "skipped": 106,
+        "owned_prs": 19,
+        "api_calls": 526,
+        "skipped_seen": 106,
+        "skipped_other": 0
+      },
+      "verdicts": {
+        "approve": 11,
+        "look": 7,
+        "pushback": 2,
+        "pending": 0
+      },
+      "legacy": false,
+      "v": "1a3dafb28453"
+    },
+    {
+      "id": "2026-11-23-1300",
+      "at": "2026-11-23T05:00:15.179Z",
+      "window": {
+        "start": "2026-11-23T00:00:23.033Z",
+        "end": "2026-11-23T05:00:15.179Z",
+        "reason": "自上次运行 11-23 08:00",
+        "hours": 5
+      },
+      "stats": {
+        "fresh": 19,
+        "deep": 19,
+        "rest": 0,
+        "skipped": 72,
+        "owned_prs": 14,
+        "api_calls": 353,
+        "skipped_seen": 68,
+        "skipped_other": 4
+      },
+      "verdicts": {
+        "approve": 3,
+        "look": 15,
+        "pushback": 1,
+        "pending": 0
+      },
+      "legacy": false,
+      "v": "2f4c8b363778"
+    },
+    {
+      "id": "2026-11-23-0800",
+      "at": "2026-11-23T00:00:23.033Z",
+      "window": {
+        "start": "2026-11-22T16:15:12.516Z",
+        "end": "2026-11-23T00:00:23.033Z",
+        "reason": "自上次运行 2026-11-22T16:15:12.516Z",
+        "hours": 7.8
+      },
+      "stats": {
+        "fresh": 10,
+        "deep": 10,
+        "rest": 0,
+        "skipped": 59,
+        "owned_prs": 9,
+        "api_calls": 0,
+        "skipped_seen": 59,
+        "skipped_other": 0
+      },
+      "verdicts": {
+        "approve": 0,
+        "look": 5,
+        "pushback": 5,
+        "pending": 0
+      },
+      "legacy": false,
+      "v": "23ff11f6485a"
+    },
+    {
+      "id": "2026-11-23-0015",
+      "at": "2026-11-22T16:15:12.516Z",
+      "window": {
+        "start": "2026-11-19T16:15:12.516Z",
+        "end": "2026-11-22T16:15:12.516Z",
+        "reason": "首次运行，回看最近 3 天",
+        "hours": 72
+      },
+      "stats": {
+        "fresh": 226,
+        "deep": 20,
+        "rest": 206,
+        "skipped": 5,
+        "skipped_seen": 0,
+        "skipped_other": 5
+      },
+      "verdicts": {
+        "approve": 5,
+        "look": 15,
+        "pushback": 0,
+        "pending": 0
+      },
+      "legacy": true,
+      "v": "de7ac8bb5447"
+    }
+  ],
+  "shards": {
+    "7": {
+      "v": "31a75dd86b00",
+      "count": 3
+    },
+    "8": {
+      "v": "fb598ea3d14b",
+      "count": 10
+    },
+    "9": {
+      "v": "dc3069ef1783",
+      "count": 4
+    },
+    "10": {
+      "v": "954bfc4f3a26",
+      "count": 5
+    },
+    "11": {
+      "v": "36795cf97816",
+      "count": 4
+    },
+    "12": {
+      "v": "2c34be0ec990",
+      "count": 5
+    },
+    "13": {
+      "v": "7a412ff768da",
+      "count": 2
+    },
+    "14": {
+      "v": "53bd9dfa1b7f",
+      "count": 7
+    },
+    "15": {
+      "v": "3046b05d3b10",
+      "count": 5
+    },
+    "16": {
+      "v": "db9e7517f1c7",
+      "count": 6
+    },
+    "17": {
+      "v": "2c461758dce3",
+      "count": 7
+    },
+    "18": {
+      "v": "f897a90494cf",
+      "count": 9
+    },
+    "19": {
+      "v": "c068dbfd02a3",
+      "count": 8
+    },
+    "20": {
+      "v": "9d7a6cc24bf3",
+      "count": 24
+    },
+    "21": {
+      "v": "3b9b9a8f8902",
+      "count": 64
+    },
+    "22": {
+      "v": "cc079c4670ec",
+      "count": 133
+    }
+  }
+}

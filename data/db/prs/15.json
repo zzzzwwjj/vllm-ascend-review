@@ -1,0 +1,199 @@
+{
+  "items": {
+    "15048": {
+      "number": 15048,
+      "title": "[BugFix][GDN] Avoid fused chunk op for float16 inputs",
+      "author": "UniversePeak",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15048",
+      "changed_files": 2,
+      "additions": 18,
+      "deletions": 1,
+      "age_days": 88.5,
+      "ci": {
+        "total": 15,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 8,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 11,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 15048,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "GDN fused chunk 增加 bf16 dtype 守卫；但 main 已由 #18522 修复同一问题，本改动冗余。",
+        "intent": "fused aclnn chunk 只支持 bf16，而 probe 用 bf16 探测，fp16 会被误判进入融合路径并报 161002；作者想在 dispatch 处按 dtype 回退 Triton。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "新增 _can_use_fused_chunk 的 dtype 判断与同一条件里已有的 supports_fused_dtype 重复；该调用点是唯一使用处，合入后行为不变。"
+          },
+          {
+            "file": "tests/ut/ops/test_gdn_layerwise_kv.py",
+            "point": "新增测试只验证 helper 的 bf16/fp16/None 返回值；base 已有 fp16 必须跳过 fused prefill 的 dispatch 测试，覆盖重复。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "与 main 已有修复重复：PR 的 base 提交 52ba694b 本身就是修复该问题的 #18522，合入只增加死代码；且 PR mergeable=false（merge-conflicts）。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 自 2026-08-26 起未 rebase，body 自述本地 pytest 未能执行，CI 仅 ci-gate failure，缺乏仍能复现 #14456 的证据。"
+          },
+          {
+            "level": "low",
+            "text": "若确实想保留防御式检查，应直接复用 supports_fused_dtype，而不是再加一个仅一处使用的 classmethod。"
+          }
+        ],
+        "tests": "新增 7 行单测只测 helper；同一 fp16 dispatch 场景 main 已有更完整测试，未新增有效覆盖。",
+        "questions": [
+          "需要作者确认：#18522 已按 supports_fused_dtype 修掉 #14456，rebase 到当前 main 后是否仍能复现 fp16 崩溃？"
+        ],
+        "recommend": "建议作为重复 PR 关闭；若仍有复现路径，rebase 后附最小复现与失败日志再评估。"
+      },
+      "review_sha": "4d6dffa0f178"
+    },
+    "15076": {
+      "number": 15076,
+      "title": "[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15076",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "15313": {
+      "number": 15313,
+      "title": "[Doc][Ops] Add standard, multimodal, and TP QKV RMSNorm RoPE operator descriptions",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15313",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "15837": {
+      "number": 15837,
+      "title": "[Bugfix][MoE] Add BF16 MegaMoe regression coverage",
+      "author": "BESzk",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15837",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "15883": {
+      "number": 15883,
+      "title": "[Feature] Add decode Mooncake host DRAM allocation for sparse KV offload",
+      "author": "TheManyBELL",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15883",
+      "changed_files": 17,
+      "additions": 1487,
+      "deletions": 128,
+      "age_days": 77.6,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 38,
+          "deletions": 29
+        }
+      ],
+      "owned_add": 61,
+      "owned_del": 29,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 15883,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 HostKVAllocator 与 Mooncake host 池、host_backend 配置；v2 分配前 prepare、退出 close。",
+        "intent": "把 sparse KV offload 的 host 分配与 MemFabric 解耦，默认仍 memfabric，为 Mooncake 写回与 PD 传输铺路。",
+        "focus": [
+          {
+            "file": "vllm_ascend/envs.py",
+            "point": "VLLM_ASCEND_SKIP_MIGRATEPAGES 用 bool(int(os.getenv(...)))，与同文件 _bool_env 约定不一致；设置 true/空字符串会在 cpu_binding.bind_memory 读取时抛 ValueError，建议复用 _bool_env。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "把 get_sparse_kv_offload_manager().allocate_host_kv_tensors 传入分配函数；manager 未初始化时是 assert 而非明确报错，确认该分支只在 sparse store_on_host 路径可达，且 prepare 一定先于此处执行。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "prepare_host_kv_allocation 放在 initialize_kv_cache 内、_initialize_kv_cache_upstream 之前（memfabric 分支含 tp barrier），确认各 PP/DP rank 调用次序一致；shutdown 的 finally 中 close 抛异常会覆盖原异常。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "host_backend=mooncake 目前只建池、数据面未实现，配置校验只要求 use_fused_overlap 且 keep_device_kv_cache=false，用户误配后会正常启动但 KV 不落盘。"
+          },
+          {
+            "level": "medium",
+            "text": "新增环境变量解析不健壮：VLLM_ASCEND_SKIP_MIGRATEPAGES=true 或空值在 bind_memory 首读即崩，属于默认启动路径上的可触发故障。"
+          },
+          {
+            "level": "low",
+            "text": "shutdown 的 finally 里 manager.close() 若抛错，会掩盖 super().shutdown()/engram 释放的原始异常，排障信息丢失。"
+          }
+        ],
+        "tests": "UT 覆盖较全：host_backend/lru_max_threads 校验、runner prepare 参数与 close、attn_utils 回调透传、cpu_binding skip；新增 test_mooncake_host_pool.py 可在无 Mooncake 环境运行，但 Mooncake 真实设备路径无 CI。",
+        "questions": [
+          "需要作者确认：lru_max_threads 与 PR 标题无关，是否应拆分或在描述中说明其来源与默认值依据？",
+          "需要作者确认：Mooncake 后端尚未可用，是否应先以实验性/隐藏开关合入，避免用户在正式配置中误开？"
+        ],
+        "recommend": "先修 envs 解析并补 Mooncake 路径的可用性说明，CI ci-gate 转绿后再进入批准流程。"
+      },
+      "review_sha": "76b72ef3f4b8"
+    }
+  }
+}

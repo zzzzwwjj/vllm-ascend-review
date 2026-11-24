@@ -1,0 +1,206 @@
+{
+  "items": {
+    "19212": {
+      "number": 19212,
+      "title": "[Feature][KVTransfer] Support Mooncake V2 with SFA-managed Host KV",
+      "author": "linjinghan0",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19212",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19394": {
+      "number": 19394,
+      "title": "[Feature][SpecDecode] Add suffix decoding for Model Runner V2 on Ascend",
+      "author": "982945902",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19394",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19396": {
+      "number": 19396,
+      "title": "[BugFix] Preserve configured KV transfer engine IDs",
+      "author": "nwpu-zxr",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19555": {
+      "number": 19555,
+      "title": "[Performance] Tile DCP rank reduction on A2/A3",
+      "author": "foraxe",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19555",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19679": {
+      "number": 19679,
+      "title": "[Performance][Model] Reuse DeepSeek V4.1 routing input IDs across DP/PCP",
+      "author": "liuyao0",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19679",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19719": {
+      "number": 19719,
+      "title": "[Feature] Support Direct MLAPO KV outputs and fused CPU writeback for sparse offload",
+      "author": "zmc1997",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19719",
+      "changed_files": 20,
+      "additions": 1300,
+      "deletions": 396,
+      "age_days": 30.4,
+      "ci": {
+        "total": 20,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 12,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "csrc/mla_preprocess/mla_preprocess_torch_adpt.h",
+          "status": "modified",
+          "additions": 98,
+          "deletions": 35
+        },
+        {
+          "file": "csrc/mla_preprocess/mla_preprocess_validation.h",
+          "status": "added",
+          "additions": 125,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/mla_preprocess/op_host/mla_preprocess_def.cpp",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 2
+        },
+        {
+          "file": "csrc/mla_preprocess/op_host/mla_preprocess_tiling.cpp",
+          "status": "modified",
+          "additions": 72,
+          "deletions": 8
+        },
+        {
+          "file": "csrc/mla_preprocess/op_host/mla_preprocess_tiling.h",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 1
+        },
+        {
+          "file": "csrc/mla_preprocess/op_kernel/mla_preprocess.cpp",
+          "status": "modified",
+          "additions": 285,
+          "deletions": 255
+        },
+        {
+          "file": "csrc/mla_preprocess/op_kernel/mla_preprocess.h",
+          "status": "modified",
+          "additions": 26,
+          "deletions": 18
+        },
+        {
+          "file": "csrc/mla_preprocess/op_kernel/mla_preprocess_mix_bf16_qdown.hpp",
+          "status": "modified",
+          "additions": 89,
+          "deletions": 30
+        },
+        {
+          "file": "csrc/mla_preprocess/op_kernel/mla_preprocess_mix_fp16.hpp",
+          "status": "modified",
+          "additions": 101,
+          "deletions": 33
+        },
+        {
+          "file": "csrc/mla_preprocess/op_kernel/mla_preprocess_tiling_data.h",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding.cpp",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding_meta.cpp",
+          "status": "modified",
+          "additions": 41,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 873,
+      "owned_del": 382,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 19719,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 mla_preprocess_with_kv_offload：MLAPO 直出 current KV 并由 TP0 写回映射 CPU pool。",
+        "intent": "sparse offload 的 decode/MTP 需额外构造 descriptor 并重复 sparse_copy；改为 MLAPO 直出 current KV、TP0 直接写回 CPU pool，复用原算子算术与 scale。",
+        "focus": [
+          {
+            "file": "csrc/mla_preprocess/op_kernel/mla_preprocess.cpp",
+            "point": "22 个 TILING_KEY_IS 分支与 tiling 的 bit 布局（direct<<10|inner<<9|bf16<<8|quant<<3|cache）一致；direct 只编译 cm1+q0/q1+inner 三档（1537/1793/1801），Python 当前只用 q0。"
+          },
+          {
+            "file": "csrc/mla_preprocess/mla_preprocess_validation.h",
+            "point": "回写校验较完整：32B 对齐、int64 溢出、K/RoPE 区间不重叠、slots 为 int32[n] 且同 device；kernel 再用 slot < writebackCapacity 夹住负值与越界，但没有对 Direct 的 quantMode 白名单。"
+          },
+          {
+            "file": "csrc/mla_preprocess/mla_preprocess_torch_adpt.h",
+            "point": "新入口把 current_k/current_rope 同时当输入 14（原 kv_cache 槽）和输出 1/4 传；tiling 在 directOutput 时短路跳过 kv_cache 形状推导；旧 npu_mla_preprocess 传 noWriteback 以匹配重新生成的 aclnn 签名。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "q2/q3 与 Direct 组合没有 host 侧拒绝，只能靠 tiling key 未预编译在 launch 期报错；错误信息不友好，且依赖 CANN 的 TILING_KEY_IS 预编译行为。"
+          },
+          {
+            "level": "medium",
+            "text": "写回可见性与顺序（TP0 写回→notify→FSA 读 CPU KV、graph replay、MTP 多步）都在 Python 侧，仓内只有 A3 e2e，PR CI 也没跑 precise（缺 ready-precise 标签）。"
+          },
+          {
+            "level": "low",
+            "text": "mergeable_state=dirty；冲突落在 mla_preprocess kernel/tiling 大文件，重解后需重跑 22 个 key 的编译覆盖与 direct/old 等价性。"
+          }
+        ],
+        "tests": "新增 A3 e2e test_mlapo_direct_modes.py（bf16/fp16/q0/q1 与 original 逐元素对比、mapped CPU pool 回放、no_quant 直连被拒）+ UT 参数化 producer writeback 与 TP broadcast；C++ 校验函数无 CPU UT。",
+        "questions": [
+          "需要作者确认：是否在 CheckDirectMlapo 里显式 TORCH_CHECK(quantMode 为 0/1)，而不是依赖未编译 tiling key 在 launch 期报错？",
+          "需要作者确认：TP0 写回后到 FSA 读 CPU KV 的同步依赖（含 graph replay、MTP 步）能否补一段说明或 UT？"
+        ],
+        "recommend": "csrc 侧可批：校验与回写边界较完整；建议补 host 侧 quantMode 拒绝 + rebase，并在 CI 跑一次 precise/A3 再合。"
+      },
+      "review_sha": "81da413e3b71"
+    },
+    "19805": {
+      "number": 19805,
+      "title": "[Feature][1/N] Support upstream preload on Ascend Model Runner V2 (ND)",
+      "author": "lio1226",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19805",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "19884": {
+      "number": 19884,
+      "title": "[Feature] Decoder Append-Prefill for Agentic Scenario Prefiller Offloading",
+      "author": "Ydr-pku",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19884",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

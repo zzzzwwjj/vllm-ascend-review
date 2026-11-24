@@ -1,0 +1,44 @@
+{
+  "items": {
+    "10203": {
+      "number": 10203,
+      "title": "[Feature] Support Container Snapshot and Restore (GRUS) on Ascend NPU",
+      "author": "lbr711",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/10203",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "10208": {
+      "number": 10208,
+      "title": "[Refactor][MoE/MLA] Drop unreachable check + improve MLA decode_threshold error",
+      "author": "Ray-RP",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/10208",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "10488": {
+      "number": 10488,
+      "title": "[Feature] Add fused W4A4 INT4 MoE &quot;mega&quot; kernel for Qwen3.x-MoE (Ascend 910B)",
+      "author": "Mocchibird",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/10488",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "10547": {
+      "number": 10547,
+      "title": "fix Moe graph",
+      "author": "Alex-stack-hub",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/10547",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "10905": {
+      "number": 10905,
+      "title": "[Feature] Add Zero-Buffer MoE (ZB) Support for Expert Parallel on Ascend A3",
+      "author": "TianlunHu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/10905",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

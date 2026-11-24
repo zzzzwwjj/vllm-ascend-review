@@ -1,0 +1,28 @@
+{
+  "items": {
+    "7444": {
+      "number": 7444,
+      "title": "fix(quantization): use weight_scale_fp32 in W8A8DynamicLinearMethod.apply()",
+      "author": "thegodloy-jpg",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/7444",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "7519": {
+      "number": 7519,
+      "title": "Feature/qwen3.5 fused in proj",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/7519",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "7964": {
+      "number": 7964,
+      "title": "[Attention][Feature] Support Llama-4-Scout-17B-16E-Instruct",
+      "author": "liyifu-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/7964",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

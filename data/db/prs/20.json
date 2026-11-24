@@ -1,0 +1,634 @@
+{
+  "items": {
+    "20138": {
+      "number": 20138,
+      "title": "[Feature][RuntimeGuard] Add rare_chars detector with async logprob feed",
+      "author": "djh95",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20138",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20145": {
+      "number": 20145,
+      "title": "[Feature] Add opt-in TP sharding for DeepSeek V4 decode indexer",
+      "author": "lcg1215",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20145",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20194": {
+      "number": 20194,
+      "title": "[Performance]Speed up the packed-cache slot mapping and C2 ring metadata kernels on A2/A3",
+      "author": "Wfd567",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20194",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20205": {
+      "number": 20205,
+      "title": "[Feature] Support draft model weight updates over HCCL",
+      "author": "wang2001-hust",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20205",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20234": {
+      "number": 20234,
+      "title": "[BugFix][MoE] Share MegaMoE symmetric storage with the DSpark draft",
+      "author": "linfeng-yuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20234",
+      "changed_files": 5,
+      "additions": 275,
+      "deletions": 11,
+      "age_days": 24.9,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 20234,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "DSpark draft 复用 target MegaMoE 对称缓冲：新建 mega_moe_context，给 draft 造视图，避免二次分配上下文。",
+        "intent": "A5 DeepSeek-V4.1 target+draft 串行时，draft 重复分配 MegaMoE symm buffer 致上下文冲突；改为 main 独享分配、draft 复用。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/fused_moe/mega_moe_context.py",
+            "point": "draft 拿到的是 SimpleNamespace(**vars(owner)) 视图，类方法与 isinstance 特征丢失；该对象会原样传给 cann_ops_transformer.mega_moe，需确认外部 op 只做属性访问。"
+          },
+          {
+            "file": "vllm_ascend/ops/fused_moe/mega_moe_context.py",
+            "point": "用 inspect.signature(factory) 绑定并调用 factory 所在模块的私有 _get_mega_moe_ccl_buffer_size；仓库内无该符号，UT 用 create=True 造桩，真实 CANN 包是否提供需确认。"
+          },
+          {
+            "file": "vllm_ascend/ops/fused_moe/moe_comm_method.py",
+            "point": "draft 先于 main 初始化会直接 RuntimeError(\"Main must initialize MegaMoe before the draft\")，需确认 MRv2/DSpark 构造顺序有保证。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "依赖 cann_ops_transformer 的私有函数与可 introspection 的签名，换 CANN 版本可能 AttributeError/TypeError，且只在 draft 路径暴露。"
+          },
+          {
+            "level": "medium",
+            "text": "用 SimpleNamespace 视图替换真实 buffer 对象，若外部 op 调用其方法或做类型判断会失败；UT 的 mock factory 本身返回 SimpleNamespace，覆盖不到。"
+          },
+          {
+            "level": "low",
+            "text": "is_draft_moe_config 靠 expert 数启发式判断，target/draft expert 数相同或 EPLB 冗余变化时可能误判角色。"
+          }
+        ],
+        "tests": "新增 tests/ut/ops/test_mega_moe_context.py 覆盖共享、draft-first 报错、容量校验，并改 test_moe_comm_method；无真实 CANN/draft 的 e2e。",
+        "questions": [
+          "cann_ops_transformer.ops 是否已提供 _get_mega_moe_ccl_buffer_size？支持的最低 CANN 版本是多少？",
+          "mega_moe op 对 symm buffer 是否只做属性读取，SimpleNamespace 视图会不会被 isinstance/方法调用打到？"
+        ],
+        "recommend": "思路合理，建议补真实 CANN + DSpark 的 e2e（或运行时断言 buffer 类型），确认后再批准。"
+      },
+      "review_sha": "d1817c77e3c3"
+    },
+    "20244": {
+      "number": 20244,
+      "title": "[BugFix][MRv2] Bound pure decode memory profiling by decode capacity",
+      "author": "rikakuhi",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20244",
+      "changed_files": 3,
+      "additions": 174,
+      "deletions": 0,
+      "age_days": 25.6,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 20,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 20244,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "纯 decode recompute 时按 decode 容量收缩 memory profile 的 dummy run，并按完整 query 对齐。",
+        "intent": "MRv2 在纯 decode KV consumer 上沿用 prefill 预算(1024)做 profile，超过 MegaMoE 等 decode 缓冲(384)触发容量断言；改为按真实 decode 容量 profile。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_dummy_run 里 min(num_tokens, max_num_tokens, get_potential_max_tokens(), max_num_reqs*decode_query_len) 再 floor 到 query_len 整数倍，num_tokens==0 时报错；uniform_decode=True 会传入 _preserve_dummy_query_tokens 与 super()._dummy_run。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "profile_run 中 MC2 预留的额外 dummy run 也满足 is_profile+skip_attn+recompute，会被同一条件收紧；测试断言两个 forward 都是 384，需确认收紧后 HCCL 预留仍覆盖真实 decode 上限。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "utils._compute_potential_max_tokens 在无 cudagraph_capture_sizes 时返回 min(max_num_seqs*query_len, 512)；若真实 decode 容量>512，profile 会按 512 下取整，可能反向欠预留。"
+          },
+          {
+            "level": "low",
+            "text": "floor 到 decode_query_len 整数倍会让 num_tokens 小于上界（如 256→252），属有意设计，但 buffer 容量与 profile 值从此不再相等。"
+          },
+          {
+            "level": "low",
+            "text": "改动只在 MRv2 的 _dummy_run 扩展点；MRv1 走的是另一套 profile 路径，是否同样需要收紧未在 PR 讨论，建议作者确认。"
+          }
+        ],
+        "tests": "新增 17 例覆盖 1024/384 场景、两个 profile forward、query 对齐、request/scheduler 上界、不足一个 query 报错、非目标 dummy run 不变；作者声明 NPU 端到端仍待验证。",
+        "questions": [
+          "无 cudagraph_capture_sizes 时 get_potential_max_tokens() 上限为 512，是否可能小于实际 decode 容量（max_num_seqs*decode_query_len），从而 profile 不足？"
+        ],
+        "recommend": "可批准；请作者确认 512 上限场景并补一次 NPU 端到端（MegaMoE + recompute + 64 seq）验证。"
+      },
+      "review_sha": "551e3870f86d"
+    },
+    "20254": {
+      "number": 20254,
+      "title": "[Performance] replay rejection sampling kernels from one ACL graph",
+      "author": "frankie-ys",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20254",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20289": {
+      "number": 20289,
+      "title": "[Performance][KV Offload] Delayed batch D2H for sparse KV offload on Model Runner V2",
+      "author": "wzihao07",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20289",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20291": {
+      "number": 20291,
+      "title": "[Performance] Fuse DSA V4.1 slot-mapping 2D/flat computation into one Triton kernel",
+      "author": "csaxie",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20291",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20311": {
+      "number": 20311,
+      "title": "[Feature][Model] Enable Qwen3.8 Flash Next PP and SP",
+      "author": "Lethobenthos20",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20311",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20345": {
+      "number": 20345,
+      "title": "[Performance][Worker] Reuse V2 attention metadata across cache groups and batch GDN state writes",
+      "author": "JRHan729",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20345",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20386": {
+      "number": 20386,
+      "title": "[Performance][DSpark] Write SWA indices and lengths directly into persistent buffers",
+      "author": "lcg1215",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20386",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20434": {
+      "number": 20434,
+      "title": "[BugFix][Sample] Restore MRV2 NPU score bindings and custom token scores",
+      "author": "iwantknow1",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20434",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20478": {
+      "number": 20478,
+      "title": "[Feature] Sparse KV Offload: Shared Indexer Only Optimization",
+      "author": "eillon",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20478",
+      "changed_files": 34,
+      "additions": 2633,
+      "deletions": 54,
+      "age_days": 23.6,
+      "ci": {
+        "total": 22,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "codeowner-approval"
+        ],
+        "pending": 0,
+        "skipped": 12,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 9,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "csrc/attention/lim_copy_descriptors/lim_copy_descriptors_torch_adpt.h",
+          "status": "added",
+          "additions": 71,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/CMakeLists.txt",
+          "status": "added",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/lim_copy_descriptors_def.cpp",
+          "status": "added",
+          "additions": 91,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/lim_copy_descriptors_infershape.cpp",
+          "status": "added",
+          "additions": 30,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/lim_copy_descriptors_tiling.cpp",
+          "status": "added",
+          "additions": 45,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/lim_copy_descriptors_tiling.h",
+          "status": "added",
+          "additions": 19,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/op_api/aclnn_lim_copy_descriptors.cpp",
+          "status": "added",
+          "additions": 63,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/op_api/aclnn_lim_copy_descriptors.h",
+          "status": "added",
+          "additions": 35,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/op_api/lim_copy_descriptors.cpp",
+          "status": "added",
+          "additions": 42,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_host/op_api/lim_copy_descriptors.h",
+          "status": "added",
+          "additions": 25,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lim_copy_descriptors/op_kernel/lim_copy_descriptors.cpp",
+          "status": "added",
+          "additions": 233,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/build_aclnn.sh",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding.cpp",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding_meta.cpp",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 41,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 103,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 856,
+      "owned_del": 6,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 20478,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "owner 层留 HBM、只 offload shared-indexer 层；新增 side_stream 旁路流预拷 miss KV 算子。",
+        "intent": "分层 indexer 模型全量 offload 拖慢 TPOT；改为 owner 层常驻 HBM、shared 层 offload，owner LIM 后旁路流异步拷 miss 行，实测 TPOT 约 -6%。",
+        "focus": [
+          {
+            "file": "csrc/attention/lim_copy_descriptors/op_kernel/lim_copy_descriptors.cpp",
+            "point": "dst 侧只校验 dstSlot < hot+2*block（params[1]+2*params[0] 推导），未校验 poolEntries[b] 行号上界；stale plan 下 poolRow 越界会写穿 dev hot buffer，而 kernel 注释明确按“stale plan 安全”设计。"
+          },
+          {
+            "file": "csrc/attention/lim_copy_descriptors/lim_copy_descriptors_torch_adpt.h",
+            "point": "9 个入参的 dtype/dim/同 device/contiguous、host/dev 指针 int64[2]、params>=5、active_geometry==2 都有 TORCH_CHECK；但 miss_src_ids.size(1) 必须等于 params[2]=miss_stride(32768) 这点只靠 Python 保证，越界会静默错址。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "full_resident 由 impl 构造时计算、runner 在 load_model 末尾用真实 layer_name/MTP 分类重算，store_on_host=... and not full_resident 与 manager 的 full_resident_layer_names 一致；但 model_runner._bind 只在 layer_name is None 时重算，和同函数“构造时已绑定”的注释矛盾。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "新算子没有任何仓内测试真正 launch：UT 全部 mock torch.ops，A3 nightly 只补了属性准备；错误只会表现为线上精度异常，建议补单卡 op smoke。"
+          },
+          {
+            "level": "medium",
+            "text": "kernel 把 tail 块数硬编码为 2（对应 python COPY_SFA_TAIL_BLOCKS=2），行宽又用 self.block_size 推导；若与分配时的 cache_config.block_size 或该常量分叉，dst 地址会静默错位。"
+          },
+          {
+            "level": "low",
+            "text": "grid-stride 扫 activeRows*missStride（默认 32768 宽，~2M 槽），每槽一次 64bit 除法；miss 很少时不便宜，只靠 side stream 隐藏，PR 未给该算子自身耗时数据。"
+          }
+        ],
+        "tests": "Python 侧扎实：新增 942 行 UT（test_shared_indexer_only.py）覆盖 config 校验、per-group geometry 独立 data_ptr、per-member 9 参断言、full_resident 标准路径、side_stream 分流与 v2 绑定；算子本身仅 A3 手工 TPOT 验证。",
+        "questions": [
+          "需要作者确认：poolEntries[b] 是否可能超过 hot 行容量（graph replay / stale plan）？是否把 max_num_topk_rows 并入 params 做上界校验？",
+          "需要作者确认：能否补一个 A3 单卡 op smoke 直接 launch npu_lim_copy_descriptors，覆盖空 miss、负 block、越界 dstSlot、count 小于容量？"
+        ],
+        "recommend": "csrc 侧方向可批，但建议先补 pool 行号上界校验与算子级 smoke；当前 CI 只差 CODEOWNERS 批准（含本文件集）。"
+      },
+      "review_sha": "e9e087c0886a"
+    },
+    "20479": {
+      "number": 20479,
+      "title": "[Refactor][KV Cache] Remove DSV4 exclusion from hybrid allocation",
+      "author": "doubinfx",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20479",
+      "changed_files": 3,
+      "additions": 26,
+      "deletions": 26,
+      "age_days": 22.8,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 23
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 23,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 20479,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "DSV4 判定改用 model_type，共享 backing 分配后提前 return，并把通用 hybrid 分配里的 DSV4 排除分支去掉。",
+        "intent": "DSV4 走自己的共享 tuple backing 布局，无需在通用 hybrid 路径里做特例排除；改为显式 model_type 判定并在物化后返回，删除不可达的重复分配代码。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "_is_dsv4_model 只认 deepseek_v4/deepseek_v41，而 allocate_kv_cache_main 的路由名单还含 deepseek_v41_text；两处判定不一致，若 _allocate_kv_cache 仍被执行，该变体会落入通用 hybrid 并重复分配。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "head 上 allocate_kv_cache_main 已把 DSV4 路由到 unified_allocate_kv_cache，本 PR 改的 _allocate_kv_cache DSV4 分支是否仍是实际生效路径需确认；否则改动与 e2e 计数对不上。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "新增 assert 要求 group 层集合等于 raw_tensors|shared_layers，需确认 PP 仅 draft/共享层、KV connector 等组合不会误触发（现网 assert 在 -O 下失效）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "model_type 白名单漏掉 deepseek_v41_text：一旦 _allocate_kv_cache 处理该配置，会走通用 hybrid 分配，产生重复 buffer 或 OOM。"
+          },
+          {
+            "level": "medium",
+            "text": "若该 DSV4 分支在 head 已不可达，则本 PR 核心改动对运行时无效果，PR 描述中 detect/dsv4_allocation_return 的证据链需要作者补充说明。"
+          },
+          {
+            "level": "low",
+            "text": "新增生产 assert 与同函数末尾既有 assert 重复，建议改为 ValueError 以给出可读错误。"
+          }
+        ],
+        "tests": "UT 把 DSV4 fixture 切到 model_type 并新增参数化判定用例，覆盖 deepseek_v4/deepseek_v41/glm5_next_text/compress_ratios；分配路径仍主要依赖 A3 DP4/TP1/PCP4 e2e 手工验证。",
+        "questions": [
+          "需要作者确认：head 上 DSV4 已由 allocate_kv_cache_main 路由到 unified_allocate_kv_cache，本 PR 在 _allocate_kv_cache 内的 DSV4 分支是否还会被走到？e2e 的 dsv4_allocation_return=16 计数加在哪一层？",
+          "需要作者确认：deepseek_v41_text 是否应加入 _is_dsv4_model 的判定名单？"
+        ],
+        "recommend": "确认实际可达路径并补齐 deepseek_v41_text 判定/用例后可批准。"
+      },
+      "review_sha": "b6f32398d37b"
+    },
+    "20613": {
+      "number": 20613,
+      "title": "[Performance][Ops] Cache decode GDN attention metadata across steps",
+      "author": "weifulun",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20613",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20629": {
+      "number": 20629,
+      "title": "[Feature] Enable A5 chunk32 GDN prefill with prebuilt metadata",
+      "author": "Jingluo-nan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20629",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20633": {
+      "number": 20633,
+      "title": "[CI] add test cases for Qwen3.6-35B-w8a8",
+      "author": "weixinAc",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20633",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20742": {
+      "number": 20742,
+      "title": "[Ops][Feature] Add DeepGEMM-Ascend routed FP8 x FP4 MegaMoE backend",
+      "author": "lengrongfu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20742",
+      "changed_files": 11,
+      "additions": 494,
+      "deletions": 8,
+      "age_days": 20.1,
+      "ci": {
+        "total": 9,
+        "failed": 1,
+        "failed_names": [
+          "ai-review"
+        ],
+        "pending": 0,
+        "skipped": 4,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 63,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 63,
+      "owned_del": 2,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 20742,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 enable_deepgemm_mega_moe 开关与一组启动校验，接入 DeepGEMM-Ascend FP8×FP4 MegaMoE。",
+        "intent": "Ascend950/DeepSeek V4.1 的 FP8×FP4 MegaMoE 不能套用 CANN 的 spec/placement 规则；需独立开关，并把模型/并行/量化不兼容项前置拒绝。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "新 _validate_deepgemm_mega_moe 替代被跳过的 _is_megamoe_supported_by_config，但只查 hidden/moe_intermediate %128，未查 [1024,8192]/%512、intermediate ∈[256,4096]、top_k ≤16；确认 DeepGEMM 算子边界确实更宽。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "enable_fused_mc2 在校验后统一回滚为 1，deepgemm 只能靠 _megamoe_supported + enable_deepgemm_mega_moe 识别；确认没有其它路径仍按 2/3 分支。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "依赖探测只 find_spec('deep_gemm')；缺 fp8_fp4_mega_moe/SymmBuffer 等原生符号要到 FusedMC2CommImpl 构造才 RuntimeError，建议启动期一并校验。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "deepgemm 路径完全绕开 _is_megamoe_supported_by_config，形状/拓扑约束由新校验部分重写；漏掉的边界会让模型加载成功、首个 MoE 调用才失败。"
+          },
+          {
+            "level": "medium",
+            "text": "仅探测包是否存在，原生 API 不完整时在 communicator 构造期才报错，对 950 部署是延迟失败且不易定位。"
+          },
+          {
+            "level": "low",
+            "text": "新校验在 derive_and_validate 最前且没有 model_config is None 兜底（相邻校验有），draft/早期 init 可能 AttributeError 而非清晰 ValueError。"
+          }
+        ],
+        "tests": "新增 tests/ut/ops/test_deepgemm_mega_moe.py（279 行）覆盖配置约束、权重准备、API 兼容与 staging，并修既有 MXFP4/moe_comm 测试；作者本地 237 例中 5 个 MXFP4 失败在 base 可复现；CI 未跑测试作业（仅 ai-review 失败）。",
+        "questions": [
+          "需要作者确认：DeepGEMM-Ascend 的 hidden/intermediate/top_k 契约是否真比 CANN MegaMoE 宽（CANN 要求 hidden %512、intermediate ∈[256,4096]、top_k ≤16）？若共用 symm buffer 布局，是否应复用这些上界？",
+          "需要作者确认：能否在配置校验期检查 deep_gemm 的 fp8_fp4_mega_moe/transform_weights_for_mega_moe/SymmBuffer，并在本 head 上复跑一次 950 serving？"
+        ],
+        "recommend": "可细看后批准：配置与单测质量好，请回答形状契约与依赖探测时机两点后再合。"
+      },
+      "review_sha": "d95c4e2367fa"
+    },
+    "20758": {
+      "number": 20758,
+      "title": "[Refactor][V2] Move kernel block handling into AttentionGroup",
+      "author": "yxk-fdu",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20796": {
+      "number": 20796,
+      "title": "[BugFix] Support batch-shared with adaptive verification",
+      "author": "zouzy5137",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20797": {
+      "number": 20797,
+      "title": "[Performance][Spec Decode] Fuse add and argmax for Dspark on Ascend V2",
+      "author": "lcg1215",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20854": {
+      "number": 20854,
+      "title": "[Feature][SpecDecode] Support suffix decoding on MRV2",
+      "author": "dianWang325",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "20949": {
+      "number": 20949,
+      "title": "[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules",
+      "author": "cocobronie2333-dot",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

@@ -298,8 +298,8 @@
   }
 
   async function loadIndex() {
-    const r = await fetch('data/index.json?ts=' + Date.now(), { cache: 'no-store' });
-    if (!r.ok) throw new Error('index ' + r.status);
+    const r = await fetch('data/db/manifest.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('manifest ' + r.status);
     const idx = await r.json();
     state.idx = idx;
     state.editions = (idx.editions || []).slice().sort((a, b) => new Date(b.at) - new Date(a.at));
@@ -307,7 +307,18 @@
 
   function editionUrl(id) {
     const meta = state.editions.find((e) => e.id === id);
-    return 'data/runs/' + encodeURIComponent(id) + '.json' + (meta?.v ? '?v=' + meta.v : '');
+    return 'data/db/editions/' + encodeURIComponent(id) + '.json' + (meta?.v ? '?v=' + meta.v : '');
+  }
+
+  const shardCache = new Map();
+  function loadShard(name, ver) {
+    const key = name + ':' + (ver || '');
+    if (shardCache.has(key)) return shardCache.get(key);
+    const p = fetch('data/db/prs/' + name + '.json' + (ver ? '?v=' + ver : ''))
+      .then((r) => (r.ok ? r.json() : { items: {} }))
+      .catch(() => ({ items: {} }));
+    shardCache.set(key, p);
+    return p;
   }
 
   async function loadEdition(id) {
@@ -315,7 +326,20 @@
     if (state.pending.has(id)) return state.pending.get(id);
     const p = fetch(editionUrl(id))
       .then((r) => { if (!r.ok) throw new Error('edition ' + r.status); return r.json(); })
-      .then((d) => { state.cache.set(id, d); state.pending.delete(id); return d; })
+      .then(async (meta) => {
+        let d;
+        if (meta.legacy_html) {
+          d = { ...meta, legacy_content_html: meta.legacy_html };
+        } else {
+          const verOf = (shard) => state.idx?.shards?.[shard]?.v;
+          const names = [...new Set((meta.members || []).map((m) => String(Math.floor(m.n / 1000))))];
+          const parts = await Promise.all(names.map((sName) => loadShard(sName, verOf(sName))));
+          const items = Object.assign({}, ...parts.map((x) => x.items || {}));
+          const pick = (role) => (meta.members || []).filter((m) => m.role === role).map((m) => items[m.n]).filter(Boolean);
+          d = { id: meta.id, at: meta.at, user: meta.user || state.idx?.user, window: meta.window, stats: meta.stats, verdicts: meta.verdicts, deep: pick('deep'), rest: pick('rest') };
+        }
+        state.cache.set(id, d); state.pending.delete(id); return d;
+      })
       .catch((e) => { state.pending.delete(id); throw e; });
     state.pending.set(id, p);
     return p;
@@ -414,9 +438,9 @@
       await loadIndex();
       if (!state.editions.length) throw new Error('还没有任何一期数据');
       await Promise.all([
-        fetch('data/feedback/all.json?ts=' + Date.now(), { cache: 'no-store' })
+        fetch('data/db/feedback.json?ts=' + Date.now(), { cache: 'no-store' })
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.feedback = j.entries || {}; }).catch(() => {}),
-        fetch('data/lessons.json?ts=' + Date.now(), { cache: 'no-store' })
+        fetch('data/db/lessons.json?ts=' + Date.now(), { cache: 'no-store' })
           .then((r) => (r.ok ? r.json() : null)).then((j) => { if (j) state.lessons = j.lessons || []; }).catch(() => {}),
       ]);
       const want = params.get('e');

@@ -1,0 +1,109 @@
+{
+  "items": {
+    "14036": {
+      "number": 14036,
+      "title": "[BugFix] Fix non-streaming response in load balance proxy server",
+      "author": "billsysu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14036",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "14235": {
+      "number": 14235,
+      "title": "[BugFix][Ascend NPU] Fix DP cascade crash and add DP fault tolerance",
+      "author": "slamdunk111",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14235",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "14240": {
+      "number": 14240,
+      "title": "[Feature][Ascend NPU] Add health ping to detect hung EngineCore processes",
+      "author": "slamdunk111",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14240",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "14409": {
+      "number": 14409,
+      "title": "feat: [MRV2] add dynamic hardware-aware for dspark",
+      "author": "momo609",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14409",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "14544": {
+      "number": 14544,
+      "title": "main from main",
+      "author": "czydyy",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14544",
+      "changed_files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "age_days": 96.1,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 14544,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "空 PR：0 文件改动、0 增删，标题 main from main，body 仅默认模板，无可检视内容。",
+        "intent": "从标题与零 diff 看更像 fork 分支同步或误开，而非功能/修复改动。",
+        "focus": [
+          {
+            "file": "(无变更文件)",
+            "point": "changed_files/additions/deletions 全为 0，仅 vLLM main 提交链接与模板标题，没有任何可审查的代码或文档。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "长期停留在待检视队列，占用 reviewer 注意力；mergeable_state=blocked，合并也无实际内容。"
+          },
+          {
+            "level": "low",
+            "text": "若本意是同步上游 main，应在自己的 fork 内 rebase/merge，而不是向主仓提交空 PR。"
+          }
+        ],
+        "tests": "无代码/文档改动，无测试，也无 CI 可验证对象。",
+        "questions": [
+          "这个 PR 是否只是分支同步或误开？若是，能否直接关闭而不是保留空 PR？"
+        ],
+        "recommend": "建议打回/关闭；如确有改动，请补齐说明与内容后重开。"
+      },
+      "review_sha": "c79f03234510"
+    },
+    "14659": {
+      "number": 14659,
+      "title": "[Refactor][Ops] Extract OOT CustomOp registry into ops/registry.py",
+      "author": "FayeSpica",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14659",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "14670": {
+      "number": 14670,
+      "title": "[Feature][Attention][SpecDecode] Support 512-dim paged MTP verify and decode on Model Runner V2",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/14670",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

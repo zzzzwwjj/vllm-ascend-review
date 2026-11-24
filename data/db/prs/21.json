@@ -1,0 +1,1439 @@
+{
+  "items": {
+    "21014": {
+      "number": 21014,
+      "title": "[Feature][Model] Add Mistral Large 4 support on Ascend",
+      "author": "tgrhn",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21014",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21019": {
+      "number": 21019,
+      "title": "[Refactor] Migrate MLA DCP graph parameter updates to UpdatableGraph",
+      "author": "faceItCalmly",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21019",
+      "changed_files": 11,
+      "additions": 365,
+      "deletions": 593,
+      "age_days": 18.1,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 6,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 7
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 7,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 21019,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "MLA DCP graph 参数更新迁到 UpdatableGraph：放开 DCP 限制、改任务注册/回填。",
+        "intent": "DCP MLA 原被 use_updatable_graph 的 world_size==1 排除，只能手写 graph_params 更新；改为与 target/draft 一致的注册式更新，减少重复簿记。",
+        "focus": [
+          {
+            "file": "vllm_ascend/utils.py",
+            "point": "owned 改动是整个 PR 的总开关：AscendMLABackend 不再判断 get_dcp_group().world_size==1。确认 v1 ACLGraphWrapper 与 v2 两条 replay 路径都会正确构造 UpdatableGraph，且没有遗留调用旧 update_graph_params 的路径。"
+          },
+          {
+            "file": "vllm_ascend/attention/context_parallel/mla_cp.py",
+            "point": "register_task/get_capture_resource 取代 events/handles/attn_params；重点核对 split decode（HISTORY/CURRENT）与 FULL 的 MLADCPParamProvider 是否覆盖 replay 需刷新的所有字段（qlen/kvlen/block_table），以及旧 _run_dcp_mtp_split_attention_op 的 workspace 生命周期。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/spec_decode/target_dependent_ar/speculator.py",
+            "point": "build_fia_params_dcp 只回填 actual_seq_kvlen；actual_seq_qlen/block_table 沿用 capture 值。需确认 MTP 各 step 这些值不变，且启 spec 的 DCP draft 图不会走 HISTORY/CURRENT split。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "build_fia_params_dcp 只产出 CPKVScope.FULL 参数；若 DCP draft 图因 use_history_current_split_decode 走 history/current split，resolve_tasks 按 provider 数量断言会直接失败。"
+          },
+          {
+            "level": "medium",
+            "text": "AscendMlaDCPImpl.update_graph_params 已改为无条件 raise NotImplementedError：任何未命中 use_updatable_graph 判断的回退路径（backend 未 set、非 FULL 等）会硬失败而非降级到旧更新。"
+          },
+          {
+            "level": "low",
+            "text": "PR body 的 How was this patch tested 为空，ci-gate 失败；DCP+UpdatableGraph 只有单测，无 DCP 真机回归记录。"
+          }
+        ],
+        "tests": "单测覆盖较全：mla_cp split/FULL 的 capture 参数、workspace 归属、DCP local kv len 与 param source 选择均有新用例；缺真实 DCP 端到端验证。",
+        "questions": [
+          "启用 spec decode 的 DCP draft 图是否确定走 FULL、不会触发 HISTORY/CURRENT split？",
+          "update_graph_params 硬 raise 前，是否确认所有 DCP 回退路径都已不可能到达？"
+        ],
+        "recommend": "设计方向合理，但需作者确认 split/回退两点并给出 DCP 端到端证据；在此之前保持 look。"
+      },
+      "review_sha": "4803e4c1ba3f"
+    },
+    "21037": {
+      "number": 21037,
+      "title": "[Performance][GDN] Overlap Qwen input projections on Ascend",
+      "author": "HF-001",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21037",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21177": {
+      "number": 21177,
+      "title": "[Performance][DSV4.1] Project sequence shards before all-gather",
+      "author": "frankie-ys",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21177",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21183": {
+      "number": 21183,
+      "title": "[Performance][Model] Fuse DeepSeek V4.1 SWA KV cache preparation",
+      "author": "zzy-6666",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21183",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21188": {
+      "number": 21188,
+      "title": "[Performance][MRV2] Compute selected logprobs with online normalization",
+      "author": "Sweet-BeanOnE",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21188",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21190": {
+      "number": 21190,
+      "title": "[Performance][Worker] Reuse attention metadata and keep DFlash2 lengths on device",
+      "author": "sunny-rain-63",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21190",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21196": {
+      "number": 21196,
+      "title": "[Performance] Fuse the mamba align block-table gather into one Triton kernel on Ascend",
+      "author": "boes129",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21196",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21246": {
+      "number": 21246,
+      "title": "[Feature][Engram] Shard shared host tables across A2/A3/A5 owners",
+      "author": "foraxe",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21246",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21300": {
+      "number": 21300,
+      "title": "[Perf][Qwen4Exp] Internal prefill checkpoints for the PLE short conv",
+      "author": "HF-001",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21300",
+      "changed_files": 7,
+      "additions": 264,
+      "deletions": 4,
+      "age_days": 14.3,
+      "ci": {
+        "total": 5,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 8,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21300,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "worker 回写引擎解析的分块哈希/命中粒度到 cache_config，修复 Mamba prefill checkpoint 静默失效。",
+        "intent": "上游 checkpoint builder 读 cache_config 的 hash 与对齐字段；worker 未回写时二者为 None、checkpoint 静默失效，本 PR 对齐 gpu_worker 补传播。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "写入位置在 initialize_from_config 最前、model_runner.initialize_kv_cache 之前；builder 是在每步 build() 时读取这两个字段，因此时序正确。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "用 getattr 且两字段同时非 None 才赋值（上游 GPU worker 是无条件赋值）；两个都为 None 时保持原状，安全但静默。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "若引擎只解析出其中一个字段（例如只有 hash_block_size），Ascend 侧两个都不写，checkpoint 仍禁用且没有日志提示。"
+          },
+          {
+            "level": "low",
+            "text": "直接改共享的 vllm_config.cache_config（init=False 字段）；与上游做法一致，但同进程其它读该 config 的组件也会看到新值。"
+          },
+          {
+            "level": "low",
+            "text": "PR 描述为空（模板未填），动机与验证只能从标题及 ple.py 的 checkpoint 导出逻辑反推。"
+          }
+        ],
+        "tests": "tests/ut/worker/test_worker_v1.py 的 initialize_from_config 用例新增 mock 的 hash_block_size=64 / cache_hit_alignment_tokens=128 并断言写回 cache_config；另有 PLE 内部格式 UT 与 triton PLE e2e 覆盖上层 checkpoint 导出。",
+        "questions": [
+          "vLLM v0.33.0 同样有这两个字段与 mamba checkpoint exporter，是否也在 release 基线上验证过？还是只支持 main？",
+          "只有单个字段被解析（另一个为 None）时，是否应分别写入并打一条 debug/warning，避免静默禁用？"
+        ],
+        "recommend": "改动小而准确且与上游一致；补上 PR 描述（动机/验证）后即可批准。"
+      },
+      "review_sha": "f07367efc6c1"
+    },
+    "21301": {
+      "number": 21301,
+      "title": "[Feature] Add Mooncake layerwise KV offload",
+      "author": "Eric-dot",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21301",
+      "changed_files": 25,
+      "additions": 1294,
+      "deletions": 90,
+      "age_days": 14.3,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 11,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21301,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "（无我负责文件）为 GLM-5.3-Flash P 端新增 Mooncake layerwise KV offload，含 block-key 与共享页恢复。",
+        "intent": "P 端需跨 prefill chunk 复用 KV 并卸载到 Mooncake Store；现有 block-key 数据面缺 session 快照与 prefix 准入前的 Store 校验。",
+        "focus": [
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/kv_pool/ascend_store/layerwise/planes/block_key_offload.py",
+            "point": "（非我负责）新增 216 行：不可哈希页用 request incarnation/endpoint 作 key，确认与共享页 reclaim、并发 chunk 的读写竞争安全。"
+          },
+          {
+            "file": "vllm_ascend/patch/platform/patch_kv_cache_coordinator.py",
+            "point": "（非我负责，属 @wxsIcey）新增 scheduler prefix-limit 包装（+32，临时方案），确认作用域只覆盖 Store 连接器，并与 #22915 对同文件的改动能顺序合入。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/ascend_multi_connector.py",
+            "point": "（非我负责）Mooncake shared buffers 必须有 Push slot-release fence，否则构造期 ValueError；确认现有 Mooncake+MultiConnector 配置不会因此失败。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "与 #22915 同时改 vllm_ascend/patch/__init__.py 和 patch_kv_cache_coordinator.py，两者必然冲突，需约定合入顺序并 rebase。"
+          },
+          {
+            "level": "medium",
+            "text": "Ascend P/D 正确性（GLM-5.3-Flash FP8 KV、native MTP、多 prefill chunk）作者自述仍 pending，目前只有 CPU UT 与 SIT 脚本。"
+          },
+          {
+            "level": "low",
+            "text": "MultiConnector.get_local_prefix_cache_limit 对所有子连接器取 min；若其它连接器也实现同名方法，Store 的 prefix 准入会被意外收窄，建议只取 Store 连接器或加注释。"
+          }
+        ],
+        "tests": "新增 test_mooncake_offload.py +514、SIT verify_mooncake_offload.py、examples/docs/release note；作者报告 CPU 74+33+5 通过，CI 仅 ai-review 失败。",
+        "questions": [
+          "需要作者确认：Ascend P/D 验证的计划与时间点？未验证前功能是否确定默认关闭、只在显式配置时启用？",
+          "需要作者确认：与 #22915 的 patch 冲突哪个先合？rebase 后 prefix-limit 包装是否仍必要？"
+        ],
+        "recommend": "可批准：opt-in 且测试/文档充分，请补 Ascend P/D 验证并与 #22915 约定合入顺序。"
+      },
+      "review_sha": "6c3be03ed7c2"
+    },
+    "21381": {
+      "number": 21381,
+      "title": "[Ops][BugFix] Gate Triton kernels before worker initialization on 310P",
+      "author": "unicorn1125",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21381",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21394": {
+      "number": 21394,
+      "title": "[Feature] QLI v2: candidate-driven execution, QSLI metadata operator, and arch22 performance optimizations",
+      "author": "18851871668",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21394",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21414": {
+      "number": 21414,
+      "title": "[Performance][PCP] Overlap local Q projection with global cache preparation",
+      "author": "zzt93",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21414",
+      "changed_files": 6,
+      "additions": 261,
+      "deletions": 86,
+      "age_days": 13.2,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 5,
+        "changes_requested": 1,
+        "total": 16,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21414,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "PCP prefill 将本地 Q prolog 提前到 aux stream，与全局 cache 集合通信重叠，缓存准备接口改为可返回 Q。",
+        "intent": "PCP prefill 每层先 gather 再串行算 Q，而 Q 只依赖本地输入与权重；改为放到既有 DSA overlap 流上，复用 multistream_dsv4_dsa_overlap 开关（默认 True），不新增配置。",
+        "focus": [
+          {
+            "file": "vllm_ascend/attention/context_parallel/dsa_cp.py",
+            "point": "核对 Q 与集合通信的流顺序：query_stream.wait_stream 在集合通信入队前、finally 中 join；空查询分片仍参与全部集合通信；prepared_query 只在本地有 token 时返回。"
+          },
+          {
+            "file": "vllm_ascend/attention/dsa_v1.py",
+            "point": "prepared_query 分支跳过 _mla_prolog_multistream，确认 compressor_overlap_output=None、write_swa_cache=False 与 cache_is_prepared=True 的组合正确。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "PCP 把继承的 multistream_dsv4_dsa_overlap 置 False、另存 pcp_q_projection_overlap；后续代码若仍读基类属性会误判重叠状态。"
+          },
+          {
+            "level": "low",
+            "text": "默认开启，但性能对比脚本不在 diff 内（body 自述在仓库外），收益不可复现；建议补一条可复现的 NPU 记录。"
+          },
+          {
+            "level": "low",
+            "text": "本 PR 未触及我负责的 CODEOWNERS 文件（owned 为空），结论基于 diff 与 head 代码上下文，未做 NPU 实测。"
+          }
+        ],
+        "tests": "test_dsa_cp.py +133 覆盖重叠开关×全局 prefill×compress_ratio 的调用顺序与 7 类失败注入的 join，test_dsa_v1.py +20/-9 覆盖 prepared_query 接线；无 NPU 实测。",
+        "questions": [
+          "需要作者确认：PCP 下 pcp_q_projection_overlap 与基类 multistream_dsv4_dsa_overlap 语义分离后，是否还有代码按基类属性判断重叠？"
+        ],
+        "recommend": "可批准；建议补一条 NPU 精度/长跑记录，并确认 aux stream 分配、caller stream 消费的张量跨流复用语义。"
+      },
+      "review_sha": "2c1b7b278024"
+    },
+    "21417": {
+      "number": 21417,
+      "title": "[Performance][Model] Skip DeepSeek V4.1 AllGather MoE padding by default with PCP=1",
+      "author": "liuyao0",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21417",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21429": {
+      "number": 21429,
+      "title": "[BugFix][KV Cache] Align GLM indexer tail caches with the upstream circular cache contract",
+      "author": "Missyinlll",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21429",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21442": {
+      "number": 21442,
+      "title": "[Performance][Model] Fuse rotated Engram gate on Ascend A3",
+      "author": "GDzhu01",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21442",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21444": {
+      "number": 21444,
+      "title": "[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts",
+      "author": "SkychenLee",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21444",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21452": {
+      "number": 21452,
+      "title": "[Performance][MoE] Avoid redundant token ID preprocessing before hash TopK",
+      "author": "GDzhu01",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21452",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21456": {
+      "number": 21456,
+      "title": "[Refactor][CP] Decouple PCP/DCP metadata, topology and backend selection",
+      "author": "cn-sys",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21456",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21483": {
+      "number": 21483,
+      "title": "[Performance] Write DSpark SWA draft indices straight into persistent buffers",
+      "author": "ivyilike",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21483",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21500": {
+      "number": 21500,
+      "title": "[BugFix] Reap stale opc locks and cap build parallelism by cgroup memory limit",
+      "author": "dragonfive2002",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21500",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21502": {
+      "number": 21502,
+      "title": "[Feature][Performance] Support InternLM2-20B-Chat and dispatch scaled RoPE variants to the NPU kernel",
+      "author": "hhj-ai",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21502",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21535": {
+      "number": 21535,
+      "title": "[BugFix][Worker] Disconnect Ascend Direct peers before PD sleep",
+      "author": "zhichao-lin",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21535",
+      "changed_files": 8,
+      "additions": 165,
+      "deletions": 0,
+      "age_days": 12.8,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 15,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 21535,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "新增 RPC disconnect_kv_transfer_peers：先 drain store 队列再断开 ascend 全部 peer。",
+        "intent": "1P3D RL sleep 前 unregister_buffer 因其他进程仍持 link 失败；同时 scheduler 不再建 TransferEngine，避免 HCCL stream 耗尽。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "disconnect_kv_transfer_peers 先 drain 再 global_te.disconnect_all_peers；_drain_store_send_queues 用 has_kv_transfer_group 守卫并兼容 MultiConnector 的 _connectors，无 drain 方法的 P2P 直接跳过。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/utils/mooncake_transfer_engine.py",
+            "point": "head 处 GlobalTE.disconnect_all_peers 在 transfer_engine 为 None 时 no-op，且与 unregister_buffer 共用 register_buffer_lock，顺序调用不会死锁（该文件非我负责，仅核对接口）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "KVPoolWorker.drain_queued_saves 的等待循环没有超时：send thread 存活但 put 阻塞时会无限等，sleep RPC 可能永久挂住。"
+          },
+          {
+            "level": "low",
+            "text": "正确性依赖调用方在所有 16 个 worker 都返回 disconnect_all_peers 之后才做 unregister；代码内无 barrier，只靠 RL 脚本的调用顺序。"
+          },
+          {
+            "level": "low",
+            "text": "drain 只看 _connectors 一层；若以后出现更深层 connector 嵌套会漏 drain，当前 Connector 结构只有一层。"
+          }
+        ],
+        "tests": "tests/ut/worker/test_worker_v1.py 用 mock 断言 drain→disconnect 顺序及 drain 失败时不 disconnect；test_pool_worker.py 增 drain 三个用例；无真实 NPU 复现。",
+        "questions": [
+          "drain_queued_saves 是否需要超时或上界，避免 store put 阻塞时 sleep RPC 永久挂住？",
+          "调用侧是否保证所有 engine 都从 disconnect_all_peers 返回后才开始 unregister_buffer？建议在 docstring 里写明。"
+        ],
+        "recommend": "owned 改动与测试可批准；建议补 drain 超时/文档化调用侧 barrier 要求后再合。"
+      },
+      "review_sha": "bb410731e8ff"
+    },
+    "21554": {
+      "number": 21554,
+      "title": "[BugFix][Model] Re-pack Kimi K3.1 Pro KDA conv weight after layerwise reload",
+      "author": "RuiningWANG",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21554",
+      "changed_files": 2,
+      "additions": 38,
+      "deletions": 0,
+      "age_days": 12.1,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21554,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "（无我负责文件）Kimi K3.1 Pro KDA 层新增 post-load hook，reload 后重打包 conv 权重修 NaN。",
+        "intent": "派生 conv 权重不在 checkpoint 中；level-2 reload 只恢复 conv1d.weight，缺层级 hook 导致 FLA 使用陈旧 packed 权重产生 NaN。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/kimi_kda.py",
+            "point": "（非我负责）5 行 hook 让 is_deferred_attention_layer() 为真并在最后 finalize；确认 act_dtype 可选参数兼容 0.33.0 的带参调用与 main 的无参调用，_pack_conv_weights 幂等且保留 data_ptr。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "hook 忽略传入的 act_dtype，若后续 vLLM 改传 model_config 对象仍能调用但语义不符；当前两版分别是 dtype/无参，风险有限。"
+          },
+          {
+            "level": "low",
+            "text": "只为 KDA 层补 hook；若其它层也有 checkpoint 缺失的派生参数，level-2 reload 后同样问题未覆盖。"
+          }
+        ],
+        "tests": "新增 1 个 CPU UT 覆盖首次打包、reload 重打包、dtype/layout/data_ptr 与 deferred 标志；另有 8×950DT 三轮 sleep-wake-reload e2e（基于 v0.30.0）。",
+        "questions": [
+          "需要作者确认：e2e 跑在 v0.30.0，本仓库当前支持的 v0.33.0 与 main 上是否也走过同一 reload 流程？"
+        ],
+        "recommend": "可批准：改动小、UT 与 e2e 都有；建议补 0.33.0/main 各一次验证。"
+      },
+      "review_sha": "170917c3e56c"
+    },
+    "21570": {
+      "number": 21570,
+      "title": "[Attention][Feature] QFA INT8-GQA prefill attention support",
+      "author": "AJF-cmd",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21570",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21587": {
+      "number": 21587,
+      "title": "[Feature] Fuse GatingTopK with EPLB expert mapping",
+      "author": "Liamup777",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21587",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21603": {
+      "number": 21603,
+      "title": "[Performance][Kernel] Cache proved peer bounds in owner-prefix scans",
+      "author": "ShyRa1n",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21603",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21605": {
+      "number": 21605,
+      "title": "[Performance][A3][A5] Speed up packed DCP attention output combine",
+      "author": "ShyRa1n",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21624": {
+      "number": 21624,
+      "title": "[Feature][Model] Add Kimi fine-grained projection and shared-expert TP",
+      "author": "Dawn952",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21625": {
+      "number": 21625,
+      "title": "[Performance] Fuse DeepSeek V4.1 indexer K cache writes and C2 RMSNorm",
+      "author": "lcg1215",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21625",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21627": {
+      "number": 21627,
+      "title": "[Performance] Integrate union GBSA prefill for Qwen4Exp",
+      "author": "Dean11879",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21627",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21638": {
+      "number": 21638,
+      "title": "[Feature][Qwen] Reuse shared Engram backends for PLE tables",
+      "author": "foraxe",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21638",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21655": {
+      "number": 21655,
+      "title": "[Performance] Fuse A5 recurrent GDN preprocessing and refresh gate bias after reload",
+      "author": "Jingluo-nan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21655",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21658": {
+      "number": 21658,
+      "title": "[Performance][DSV4.1] Shard DeepSeek V4.1 indexer query rows across TP ranks",
+      "author": "jwkkkkkkdada",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21668": {
+      "number": 21668,
+      "title": "[Feature] Support draft_lm_head_quantization on Ascend NPU (mxfp8/int8)",
+      "author": "zhaomingyu13",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21668",
+      "changed_files": 9,
+      "additions": 418,
+      "deletions": 4,
+      "age_days": 11,
+      "ci": {
+        "total": 33,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "codeowner-approval"
+        ],
+        "pending": 0,
+        "skipped": 23,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 21,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 21,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 21668,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "platform.py 按硬件家族声明 mxfp8/int8 并 shadow fp8/nvfp4；但依赖的上游 hook 未进入当前 vLLM pin。",
+        "intent": "用上游平台 hook 为 draft LM head 提供 Ascend 量化格式，取代 #21799 的 additional_config 桥；但该 hook 来自未合并的 #67908，verified pin 没有。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "hook 签名/返回 dict[str,str] 与上游 #67908 提案一致；family 映射 FP8_OPTIMIZED→mxfp8、STANDARD→int8、COMPATIBILITY 不声明，factory qualname 均可解析。"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "310P 仍声明 fp8/nvfp4 的 shadow 工厂；需确认这些错误在当前上游调用链中真的可达（实测不可达，见风险）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "本 PR head 的 .github/vllm-main-verified.commit=ba15685，该 pin 的 vllm/config/speculative.py 仍是 Literal[\"fp8\",\"nvfp4\"]，lm_head.py 直接 _LM_HEAD_METHODS[quantization]；没有 get_draft_lm_head_quantization_methods。按 body 文档传 mxfp8/int8 会在 config 校验阶段失败，hook 永远不会被调用。"
+          },
+          {
+            "level": "high",
+            "text": "特性依赖未合并的上游 PR #67908；PR 未说明合入顺序或 pin bump 计划，先合 vllm-ascend 会得到不可用的死代码（且新单测无法证明用户路径可达）。"
+          },
+          {
+            "level": "low",
+            "text": "新增测试的 docstring 明确写“pass on any vLLM version with or without the hook”，等于承认未覆盖真实调用链；CI 还有 ci-gate、codeowner-approval 两项失败。"
+          }
+        ],
+        "tests": "新增 196 行 UT（format 集合、工厂类型、unsupported 报错、scheme 不注册、mxfp8 scale 重建），但只测 Ascend 侧，未测 SpeculativeConfig/CLI 到 quantized_lm_head_copy 的真实链路。",
+        "questions": [
+          "上游 #67908 尚未合并，当前 verified pin ba15685 的 Config 仍只允许 fp8/nvfp4；本 PR 是等 pin bump 再合，还是先保留 #21799 的 additional_config 桥过渡？",
+          "能否补一个用真实 SpeculativeConfig 解析 mxfp8/int8 的集成测试，证明用户路径可达？"
+        ],
+        "recommend": "建议打回/暂缓：先让上游 hook 进入受支持的 vLLM pin（或保留过渡桥）并补 CLI 级测试，否则发布版本里该特性不可用。"
+      },
+      "review_sha": "25395604a579"
+    },
+    "21675": {
+      "number": 21675,
+      "title": "[Feature] support MLA attention mode for DFlash2 draft models",
+      "author": "sunny-rain-63",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21678": {
+      "number": 21678,
+      "title": "[Feature] A2/A3 fold Q/K L2 normalization into the FLA NPU GDN prefill kernel",
+      "author": "ziminMIAO",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21678",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21680": {
+      "number": 21680,
+      "title": "[Feature][MoE] Add opt-in DSpark expert-pool routing for single-device expert offload",
+      "author": "jiemeng6",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21680",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21688": {
+      "number": 21688,
+      "title": "[Feature][PCP] Align short-prefill dispatch across attention backends",
+      "author": "Sunny66888",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21688",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21697": {
+      "number": 21697,
+      "title": "[BugFix][CI] Add Qwen3.8-Flash-Next TP2 IPC coverage for A3 and A5",
+      "author": "Windfeng8",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21697",
+      "changed_files": 13,
+      "additions": 460,
+      "deletions": 7,
+      "age_days": 10.9,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 3,
+        "changes_requested": 0,
+        "total": 11,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 21697,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Qwen3.8 IPC e2e 覆盖 + PLE buffer 修复，使常量在 level-2 sleep 后存活。",
+        "intent": "补 PLE/MRoPE 在 IPC 场景的回归（level-2 sleep + 权重重载），同时修 sleep/wakeup 会丢 PLE 常量的问题；测试需在 CI 可执行。",
+        "focus": [
+          {
+            "file": "vllm_ascend/models/qwen4_exp/model_state.py",
+            "point": "唯一产品改动：把 ngram_context_offsets 注册为 model 的非持久 buffer，让 worker 的 level-2 buffer 备份/恢复覆盖到它；确认重复构造 state 时 register_buffer 的覆盖语义，以及后续 .to()/load_state_dict 后 self.ngram_context_offsets 与 buffer 别名是否仍一致。"
+          },
+          {
+            "file": "tests/e2e/pull_request/two_card/rlhf/weight_transfer/ipc/test_qwen38_ipc.py",
+            "point": "e2e 依赖 2GiB 分片 checkpoint + 从官方仓拉 tokenizer/processor 资产；body 明确说云 A3 CI 镜像 CANN 9.2.1 的 GBSA 拒绝 4-token block，需确认当前 CI 能否执行，或加版本门槛/挪 nightly。"
+          },
+          {
+            "file": "tests/ut/models/test_qwen4_exp_ple_sleep.py",
+            "point": "单测直接模拟 NPUWorker 的 named_buffers 备份/恢复，覆盖本次回归；但 import 了 vllm.models.qwen4_exp.amd.model_state 私有路径，跨 vLLM 版本可能失效，注意加版本守卫。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "CI 仍红：a3-2 card 作业 annotations 显示 custom container implementation failed（runner/容器基础设施），同时 CANN 9.2.1 环境可能无法执行该 4-token 用例；没有绿色 E2E 就不能确认测试有效。"
+          },
+          {
+            "level": "medium",
+            "text": "e2e 用 2GiB 分片 checkpoint 与官方仓库资产，CI 磁盘/网络失败会表现成 flaky；_write_sharded_checkpoint 的磁盘余量检查（required + shard_limit）偏严，小盘 runner 可能直接 OSError。"
+          },
+          {
+            "level": "low",
+            "text": "PLE offsets 仅通过 model buffer 进入 level-2 备份；其它保存/恢复路径（state_dict、非 level-2 sleep）仍不会持久化，属设计取舍但需在教程说明。"
+          }
+        ],
+        "tests": "新增 1 个 TP2 unpacked IPC e2e（作者本地 A3/A5 通过）+ 1 个 PLE sleep 单测；CI 侧暂无绿色结果。",
+        "questions": [
+          "a3-2 容器执行失败是 runner 基础设施问题还是该用例触发？能否重跑，或给用例加 CANN>=9.3 的 skip 条件？",
+          "PLE buffer 方案是否也覆盖 v2 model runner 的 level-2 sleep 路径（本 PR 只改了 model_state）？"
+        ],
+        "recommend": "产品改动小且合理，先确认 CI 容器/镜像可执行性并拿到绿色 E2E，再合。"
+      },
+      "review_sha": "b2c938c5452c"
+    },
+    "21706": {
+      "number": 21706,
+      "title": "[Ops][Feature] Support online target LM head quantization with Model Runner V2",
+      "author": "sywang24",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21706",
+      "changed_files": 10,
+      "additions": 649,
+      "deletions": 3,
+      "age_days": 11.6,
+      "ci": {
+        "total": 22,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 14,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 2,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 21706,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "新增 lm_head_quantization 配置项（仅 w8a8_dynamic），V2 下对目标 LM head 做加载期量化。",
+        "intent": "让浮点 checkpoint 的 output head 可在加载时量化，复用 A2/A3 INT8 与 A5 MXFP8 既有算子路径，免去为量化重存 checkpoint。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "字段为 Literal[\"w8a8_dynamic\"] | None = None，并在类 docstring 的 additional-config 示例里补 key；extra=forbid 下用户键得以通过校验，默认 None 保持原行为。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "真正消费方 quantization/lm_head.py 直接读 additional_config 原始 dict、不读本字段，所以这里的 Literal 只约束 CLI 入口；后续扩展 scheme 需同步放宽，当前单值无冲突。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "唯一取值 w8a8_dynamic 在 A5 会被 remap 成 MXFP8（a5_quant_type），同名不同实现；文档已说明，但 CLI 帮助仍是单值，用户易误判精度/带宽。"
+          },
+          {
+            "level": "low",
+            "text": "字段只做类型校验，V2/310P/tie_word_embeddings 等限制在 lm_head.py 构造时才抛；错误更晚但可控。"
+          },
+          {
+            "level": "low",
+            "text": "ci-gate 失败是缺 ready-precise/ready-all/main2main 运行标签而非代码问题，需 owner 处理才能跑 NPU 精度套件。"
+          }
+        ],
+        "tests": "新增 tests/ut/quantization/test_lm_head_quantization.py（438 行）覆盖 head/lm_head 命名、tie 双 config、A2/A5 分派、分块与 bias；CPU UT 147 passed，另有 A2/A5 实机与 C-Eval 数据。",
+        "questions": [
+          "ci-gate 需要的 ready-* 标签由谁补？补后是否会重跑 NPU 精度套件？",
+          "字段 Literal 只有 w8a8_dynamic，而 lm_head scheme registry 可扩展；后续加 recipe 时是否同步改 Literal 与文档？"
+        ],
+        "recommend": "owned 的配置两行为最小改动且默认关闭、文档齐全，可批准；合并前补 ci-gate 标签与 NPU 套件。"
+      },
+      "review_sha": "7d4d9781cd00"
+    },
+    "21708": {
+      "number": 21708,
+      "title": "[Feature][LoRA] Extend DeepSeek-V4 LoRA target mapping and quantized MoE support",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21708",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21727": {
+      "number": 21727,
+      "title": "[BugFix][MoE] Share DSpark MegaMoE contexts across CANN buffer APIs",
+      "author": "rikakuhi",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21727",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21730": {
+      "number": 21730,
+      "title": "[BugFix] Correct Qwen3.8-Flash-Next Mamba state and PLE numerical precision",
+      "author": "sustech-lz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21730",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21745": {
+      "number": 21745,
+      "title": "[Feature][Model][MRV2] Enable Qwen3.6 dense/MoE W8A8 on Model Runner V2 with Model Runner V1 parity",
+      "author": "qq3499",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21745",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21748": {
+      "number": 21748,
+      "title": "[Misc][MRV2] Expose ACLNN_CACHE_LIMIT to diagnose Qwen3.6 prefill overhead",
+      "author": "qq3499",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21748",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21793": {
+      "number": 21793,
+      "title": "[BugFix][KVPool] Fail fast on missing memcache driver version file before weight loading",
+      "author": "ErnestW2019",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21793",
+      "changed_files": 8,
+      "additions": 311,
+      "deletions": 10,
+      "age_days": 10.3,
+      "ci": {
+        "total": 21,
+        "failed": 2,
+        "failed_names": [
+          "ai-review",
+          "ai-review"
+        ],
+        "pending": 2,
+        "skipped": 13,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21793,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "memcache KV pool 在 init_device 前预检 driver version.info，缺失/空文件即报错并提示挂载。",
+        "intent": "memfabric 要到 store init 才校验 Innerversion，大模型权重加载完才失败，白等十几分钟；提前毫秒级读文件 fail fast。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "init_device 最前面调用 precheck；确认 self.vllm_config 已就绪、早于设备初始化与权重加载，且函数内 import 不引入 memfabric/设备依赖。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kv_transfer/kv_pool/ascend_store/backend/memcache_backend.py",
+            "point": "检测只认 kv_connector == AscendStoreConnector；同一 connector 还注册为 MooncakeConnectorStoreV1 别名，该形态会被静默跳过。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "别名 MooncakeConnectorStoreV1 注册的是同一个 AscendStoreConnector 类、同样读 extra_config.backend，但 should_precheck_memcache_backend 不识别，预检在该路径失效。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 混入与 KV pool 无关的 dcp triton 改动（triton.next_power_of_2 改为 vllm.utils.math_utils.next_power_of_2，4 个文件），建议拆出单独 PR。"
+          },
+          {
+            "level": "low",
+            "text": "CI：ci-gate failure，另有 3 个 ai-review job 失败；合入前需确认 ci-gate 原因。"
+          }
+        ],
+        "tests": "新增 test_memcache_precheck.py +177，覆盖 Innerversion 解析、缺失/空/无条目、connector 检测（含 MultiConnector 嵌套与 null）与 skip 逻辑；未覆盖 init_device 接线与别名路径。",
+        "questions": [
+          "需要作者确认：driver version.info 是否可能通过 ASCEND_HOME_PATH 等其它路径提供，硬编码 /usr/local/Ascend/driver/version.info 会不会误判？",
+          "MooncakeConnectorStoreV1 别名 + backend=memcache 的部署是否也应纳入预检？"
+        ],
+        "recommend": "先补别名识别、拆出 dcp 改动并等 CI 绿灯，再合入。"
+      },
+      "review_sha": "3e9b83f641b9"
+    },
+    "21802": {
+      "number": 21802,
+      "title": "[BugFix] Preserve MoE expert overlap with SuperKernel phase scopes",
+      "author": "Jingluo-nan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21802",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21830": {
+      "number": 21830,
+      "title": "[Performance] Add opt-in A5 V4.1 Indexer QW prologue",
+      "author": "linfeng-yuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21830",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21831": {
+      "number": 21831,
+      "title": "[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP",
+      "author": "Zhaocen",
+      "html_url": null,
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21837": {
+      "number": 21837,
+      "title": "[Feature] add  deferred KDA RecoverSSM",
+      "author": "10onrats",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21837",
+      "changed_files": 4,
+      "additions": 879,
+      "deletions": 47,
+      "age_days": 9.8,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 21837,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "上游 deferred RecoverSSM 移植到 Ascend KDA，含 recoverssm_deferred 编排及 record/flush 内核。",
+        "intent": "把 state commit 推迟到下一次 verify 的 flush，每步省一次 checkpoint 读与 conv-state 压缩，复用上游 deferred 状态机。",
+        "focus": [
+          {
+            "file": "vllm_ascend/patch/worker/patch_kda_recoverssm.py",
+            "point": "该 patch 在 adapt_patch() 之后才替换 model_states_mod.init_asecnd_model_state 模块属性，而 patch_model_state 已把 model_runner.init_model_state 绑到原函数；请确认 MRV2 实际调用的是包装后的函数，否则 install_model_state 是 no-op。"
+          },
+          {
+            "file": "vllm_ascend/models/glm5next/kda.py",
+            "point": "从 vllm_config.additional_config 读 kda_decode_backend，但 AscendConfig extra=forbid 且 _NON_USER_INPUT_KEYS 未收录该键；upstream --kda-decode-backend 会把它注入 additional_config，可能导致启动校验失败。"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/kda/recoverssm.py",
+            "point": "record_indices/record_rows 改为按 request slot 索引，需确认 -1 行、spec 行与 chunked prefill 混合时不会越界写 checkpoint。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "若 init_asecnd_model_state 挂钩未生效，层仍被标记 fp32_deferred 但 deferred state 未安装，可能出现延迟 commit 无人 flush 的状态错误。"
+          },
+          {
+            "level": "medium",
+            "text": "kda_decode_backend 不在 AscendConfig 字段/剥离列表，用户显式传 --kda-decode-backend 时可能直接启动报错。"
+          },
+          {
+            "level": "low",
+            "text": "kda.py 与 patch_kda_recoverssm.py 结尾缺换行、patch 文件函数间空行不足，可能被 pre-commit 拦下。"
+          }
+        ],
+        "tests": "新增 tests/ut/ops/test_kda_deferred_recoverssm.py（591 行）、bench 与 metadata 测试，CI 6 项全绿；但没有真实 KDA 模型的 e2e/精度对比。",
+        "questions": [
+          "adapt_patch() 先于 patch_kda_recoverssm()，patch_model_state 已绑定原 init_asecnd_model_state；包装函数如何被 MRV2 真正调用？",
+          "kda_decode_backend 是否应加入 AscendConfig（或 _NON_USER_INPUT_KEYS），否则 upstream 注入会触发 extra=forbid？"
+        ],
+        "recommend": "先验证挂钩顺序与 config 校验两点（可加断言/UT），补真实 GLM KDA 延迟 commit 精度对比后再批准。"
+      },
+      "review_sha": "823c8d807dea"
+    },
+    "21841": {
+      "number": 21841,
+      "title": "[BugFix] Allow hierarchical MC2 communication on Ascend A5",
+      "author": "linfeng-yuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21841",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21843": {
+      "number": 21843,
+      "title": "[BugFix][v0.32.0rc] Allow hierarchical MC2 communication on Ascend A5",
+      "author": "linfeng-yuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21843",
+      "changed_files": 5,
+      "additions": 28,
+      "deletions": 2,
+      "age_days": 10,
+      "ci": {
+        "total": 59,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 22,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "review": {
+        "number": 21843,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "A5 profile 补登 MC2_HIERARCHY_COMM，使 hierarchy 配置通过硬件校验（#21841 backport）。",
+        "intent": "A2/A3 通过 _STANDARD_CAPABILITIES 自带该能力，A5 的 capability 是显式列举而漏项，导致 v0.32.0rc 上 A5 的 hierarchy 配置被校验拒绝。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "A5 是显式 capability 集合，补一行即与 A2/A3 的 _STANDARD_CAPABILITIES 对齐；确认只有 A2/A3/A5/_310P 四个 profile，无其它 A5 变体漏改。"
+          },
+          {
+            "file": "tests/ut/test_ascend_config.py",
+            "point": "新增用例覆盖 A5 在 512 experts 上限下两种配置形态（mc2_comm_alg 与 legacy enable_mc2_hierarchy_comm）均通过，310P 仍拒绝。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "能力只解锁 config 校验，A5 上 hierarchy 的实际算子路径未在本 PR 验证（body 明说 distributed A5 validation pending）。"
+          },
+          {
+            "level": "low",
+            "text": "本 PR 是尚未合并的 #21841 的 backport，两份改动各写一次，需确认最终内容一致、避免漂移。"
+          },
+          {
+            "level": "low",
+            "text": "CI：ci-gate failure（59 个 check 中 1 个失败），合入前需确认原因。"
+          }
+        ],
+        "tests": "硬件矩阵测试加一条期望（锁定 A5 能力集）+ 配置回归测试覆盖两种写法、310P 拒绝、>512 experts 与 fused MC2 互斥；无 A5 实机用例。",
+        "questions": [
+          "需要作者确认：A5 上 mc2_comm_alg=\"hierarchy\" 的 distributed 验证结果何时能补？"
+        ],
+        "recommend": "可批准；合入前确认 A5 分布式验证与 ci-gate 结果。"
+      },
+      "review_sha": "0eca87017023"
+    },
+    "21845": {
+      "number": 21845,
+      "title": "[BugFix][Worker] Explain MC2 profiling failures caused by a small HCCL_BUFFSIZE",
+      "author": "liu-watson",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21845",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21849": {
+      "number": 21849,
+      "title": "[Feature][Kimi-K3.1] Replace paired KV cache with spec-driven packed rows",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21849",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21851": {
+      "number": 21851,
+      "title": "[Feature] Port RecoverSSM, PP/SP, Decode-PP and PCP stack to main",
+      "author": "Lethobenthos20",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21851",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21896": {
+      "number": 21896,
+      "title": "[Performance][DSV4.1] Capture native decode metadata with first-consumer SWA priority",
+      "author": "KeyanHu-git",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21896",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21903": {
+      "number": 21903,
+      "title": "[Refactor][MRV2] Reuse unified KV cache allocation for Kimi K3",
+      "author": "yxk-fdu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21903",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21917": {
+      "number": 21917,
+      "title": "[Feature] Add TopKPerRow aclnn operator (ragged per-row top-k)",
+      "author": "seagaruda",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21917",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21924": {
+      "number": 21924,
+      "title": "[Feature][HiSparse] Enable bulk AscendStore pooling in colocated serving",
+      "author": "Esir98",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21924",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    },
+    "21935": {
+      "number": 21935,
+      "title": "[Feature] Support Qwen4-Exp batch-invariant execution on Ascend",
+      "author": "yeyunu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21935",
+      "changed_files": 15,
+      "additions": 637,
+      "deletions": 11,
+      "age_days": 7.1,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 7,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 21935,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Qwen4-Exp batch-invariant：GBSA 改非 split 调度并按稳定顺序打包 KV，EP 时统一 AlltoAll 并声明后端能力。",
+        "intent": "同一请求在 batch 组合或物理 KV 页分配变化时结果不一致；batch-invariant 模式下固定 GBSA 调度与打包顺序，并让 MoE 通信路径不随 token 数变化。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "VLLM_BATCH_INVARIANT 分支放在硬件 moe_comm_policy 之前，等于对 EP>1 的 MoE 强制 ALLTOALL；需确认 A2/A3/310P（310P 策略本是 ALLGATHER）上该路径可用，当前只有 A5 e2e。"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "基类 AscendGDNAttentionBackend 在 base 已返回 supports_batch_invariance=True，此处 fused 子类再返回 True 属重复；且能力声明为真意味着非 fused/host-metadata 路径也会被判定支持，确认这是预期。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "强制 ALLTOALL 绕过硬件 MoE 通信策略，非 A5 设备上 EP>1 打开 VLLM_BATCH_INVARIANT 可能进入未经该硬件验证的通信实现。"
+          },
+          {
+            "level": "medium",
+            "text": "新增 4 个 A5 hardware 用例尚未运行；CPU 测试只解释 Triton kernel 体，不校验 Triton 生成与 CANN 数值，bitwise batch-invariance 结论未落地。"
+          },
+          {
+            "level": "low",
+            "text": "PR 当前 merge-conflicts（dirty），GDN 能力声明的部分可能已被主干其他改动覆盖，rebase 后需清理重复代码。"
+          }
+        ],
+        "tests": "新增 34 个 CPU GBSA 用例（元数据校验/非 split 调度/FP16/BM16 打包/边界选择）与 20 个通信策略、后端能力用例；4 个 A5 hardware bitwise 用例未运行，显存/吞吐回归缺失。",
+        "questions": [
+          "需要作者确认：batch-invariant 优先于硬件 moe_comm_policy，A2/A3/310P 在 EP>1 时 AlltoAll 是否已支持并验证？目前 e2e 仅覆盖 A5。",
+          "需要作者确认：AscendGDNAttentionBackend 在 base 已声明支持 batch invariance，本 PR 对 fused 子类的覆盖是否多余、能否 rebase 后删除？"
+        ],
+        "recommend": "等 A5 hardware bitwise 用例跑通、并确认非 A5 设备 AlltoAll 可用后再批准。"
+      },
+      "review_sha": "c5664adfed90"
+    },
+    "21937": {
+      "number": 21937,
+      "title": "[Performance][SpecDecode] Add configurable adaptive verification budget selection",
+      "author": "Wwwtrrr",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21937",
+      "changed_files": 3,
+      "additions": 143,
+      "deletions": 9,
+      "age_days": 7.9,
+      "ci": {
+        "total": 5,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-0800",
+      "review": {
+        "number": 21937,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 AscendConfig.av_score_tolerance，实例级替换 AV manager 的 get_num_tokens 选更大预算。",
+        "intent": "上游 AV 只按预测吞吐取最优预算；用 additional_config 传入相对容差后，换取更大验证预算以提高期望输出，默认 0 保持原行为。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "在 super().initialize_kv_cache 之后、graph capture 的 AV cost profiling 之前配置 manager，时机合理；但新增顶层 import 依赖 patch_v2.patch_adaptive_verification 模块，需确认该模块在当前 main 的归属。"
+          },
+          {
+            "file": "vllm_ascend/patch/worker/patch_v2/patch_adaptive_verification.py",
+            "point": "新增 _get_num_tokens_ascend 是上游 get_num_tokens 的整段拷贝，但缺少 pinned main 里的 get_tp_group().broadcast_object(budget, src=0)；注释称“唯一改动”与事实不符。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "Field(default=0.0, ge=0, lt=1, allow_inf_nan=False) 的范围与文档一致，额外键仍由 extra=forbid 拦截。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "拷贝的预算选择未做 TP broadcast；上游 c410543 明确注释“rank-local confidences 不得选出不同执行规模”。若各 rank stale confidences/cost 有差异，会 trim 出不同 draft 数，导致 TP 执行规模不一致。"
+          },
+          {
+            "level": "medium",
+            "text": "分支基于旧 main（带 merge-conflicts）：patch_v2/patch_adaptive_verification.py 在当前 main 已不存在（只剩 0.33 的 patch_adaptive_verification.py），rebase 后该 import 会指向缺失模块，拷贝实现也基于旧上游（0.33 版无 broadcast）。"
+          },
+          {
+            "level": "low",
+            "text": "PR 未新增任何测试；tolerance=0 时保留旧实例绑定（重复 initialize 场景是否会残留旧 manager 绑定未覆盖）。"
+          }
+        ],
+        "tests": "无测试改动（3 个文件均非测试）；_select_draft_budget 的 0/边界/无 eligible 分支与配置范围校验本可用纯 CPU UT 覆盖。",
+        "questions": [
+          "拷贝版为何没有上游 get_num_tokens 的 get_tp_group().broadcast_object(draft_budget, src=0)，是 rebase 时遗漏还是有意省略？",
+          "branch 带 merge-conflicts 且 patch_v2 模块在当前 main 已不存在，rebase 后 configure_adaptive_verification 计划落在哪个模块？"
+        ],
+        "recommend": "先 rebase 到当前 main、把上游 TP broadcast 带回拷贝实现，并补 _select_draft_budget 的 UT，再批准。"
+      },
+      "review_sha": "d94f92a4b13a"
+    },
+    "21945": {
+      "number": 21945,
+      "title": "[BugFix][Model] Honor the physical page stride for Qwen4 QSA raw keys",
+      "author": "tomleeai",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21945",
+      "first_edition": "2026-11-23-0015",
+      "review": null
+    }
+  }
+}

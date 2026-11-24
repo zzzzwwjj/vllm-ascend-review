@@ -1,0 +1,288 @@
+{
+  "items": {
+    "11075": {
+      "number": 11075,
+      "title": "[BugFix][MoE] Fall back to native experts selection when CANN rejects renorm=1",
+      "author": "Ray-RP",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11075",
+      "changed_files": 2,
+      "additions": 145,
+      "deletions": 16,
+      "age_days": 147.7,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 11075,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "CANN 拒绝 renorm=1 时捕获异常并翻转进程级开关，后续改走 native 专家选择，避免每步崩溃。",
+        "intent": "部分 CANN 不支持 aclnnMoeGatingTopK renorm=1，致 Qwen3-MoE 等 norm_topk_prob=true 模型崩溃；改为一次性降级到 native 路径。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/fused_moe/experts_selector.py",
+            "point": "异常匹配只看 message 中 moegatingtopk + renorm 关键字，且仅对 renormalize=True 生效；确认其它 CANN 版本报错文本能命中，且不会吞掉无关 RuntimeError。"
+          },
+          {
+            "file": "vllm_ascend/ops/fused_moe/experts_selector.py",
+            "point": "check_npu_moe_gating_top_k 在 flag 翻转后对 renormalize=True 返回 False，后续 forward 不再触发异常；确认 flag 进程级语义在多 worker 场景可接受。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "字符串匹配依赖 CANN 报错措辞，版本变化可能匹配不上而继续抛错（会直接暴露，不静默出错）。"
+          },
+          {
+            "level": "low",
+            "text": "flag 翻转后不可恢复，若只是偶发异常会永久失去 fused 路径（仅性能损失）。"
+          }
+        ],
+        "tests": "新增两条 UT 覆盖「触发降级」与「无关异常继续抛出」，PR 描述称已在 910B1 + Qwen3-30B-A3B 端到端验证，CI 5 项全绿。",
+        "questions": [
+          "是否考虑按 CANN 版本号一次性判定，替代对报错文本的字符串匹配？"
+        ],
+        "recommend": "小改动、回退路径清晰、UT 到位，可以批准。"
+      },
+      "review_sha": "9a0bedecef94"
+    },
+    "11507": {
+      "number": 11507,
+      "title": "[Feature] Support w8a16-fp8 quantization",
+      "author": "Jinxiao0302",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11507",
+      "changed_files": 8,
+      "additions": 340,
+      "deletions": 14,
+      "age_days": 139.7,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 8,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "review": {
+        "number": 11507,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 W8A16_FP8 MoE 量化：注册 scheme、加 QuantType 与映射，moe_mlp 走 weight-only 分支。",
+        "intent": "支持 W8A16-FP8 checkpoint 在 Ascend 推理：权重 fp8 存储，per-channel bf16 scale 在 npu_grouped_matmul 内反量化，免激活量化。",
+        "focus": [
+          {
+            "file": "vllm_ascend/quantization/methods/w8a16_fp8.py",
+            "point": "process_weights_after_loading 里 w13/w2 只做 transpose(1,2) 未 .contiguous()（w4a16/w8a16 既有写法都是 transpose().contiguous()），需确认 npu_grouped_matmul 接受非连续权重。"
+          },
+          {
+            "file": "vllm_ascend/ops/fused_moe/moe_mlp.py",
+            "point": "新增 is_weight_only_antiquant 依赖 mxfp_quant_dtype == QuantType.W8A16FP，同时把 weight 参数统一包成 list；确认 gmm1/gmm2 的 antiquant_offset=None 与 weight 列表语义在 W8A16FP 下正确。"
+          },
+          {
+            "file": "vllm_ascend/quantization/methods/__init__.py",
+            "point": "把 AscendW8A16FP8FusedMoEMethod 加入 is_mx_quant_type（per-channel bf16 scale 并非 microscaling），且该类未加入 __all__；确认是否影响参数 input_dim 加载语义。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "只有 UT、无真实模型 e2e/perf，fp8 权重 + per-channel scale 的数值正确性未验证（PR 只贴了一小段 generate 输出）。"
+          },
+          {
+            "level": "medium",
+            "text": "只注册了 MoE scheme，linear 层没有 W8A16_FP8；若模型同时含 dense linear 层，加载期可能报 unsupported quant type。"
+          },
+          {
+            "level": "low",
+            "text": "merge-conflicts(dirty)，CI 有 1 项 OBS 归档失败，需 rebase 后重跑。"
+          }
+        ],
+        "tests": "新增 tests/ut/quantization/methods/test_w8a16_fp8.py（89 行，mock 权重/scale），只覆盖 MoE 方法单测，无 e2e。",
+        "questions": [
+          "transpose 后未 contiguous，真实 W8A16-FP8 权重上 npu_grouped_matmul 能直接接受吗？",
+          "是否计划支持 dense linear 的 W8A16_FP8？当前只注册 MoE，含 dense 层的模型会加载失败吗？"
+        ],
+        "recommend": "先补真实模型 e2e 与权重连续性确认，并说明 linear 层支持范围，再批准。"
+      },
+      "review_sha": "6e39f4a743d2"
+    },
+    "11656": {
+      "number": 11656,
+      "title": "[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend",
+      "author": "yooooo00",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11656",
+      "changed_files": 18,
+      "additions": 2085,
+      "deletions": 20,
+      "age_days": 138.3,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 12,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 11656,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Nemotron-3 Super 支持：Mamba/SSD kernel、SSU 后端与非门控 latent MoE 扩展。",
+        "intent": "在 Atlas A2 以 BF16/TP8 跑通 Mamba2+attention+latent MoE 组合模型，需要通用运行时扩展而非按模型名特判，同时验证 1M 上下文与图模式。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/fused_moe/fused_moe.py",
+            "point": "shared_forward_impl 新增 shared_experts_input 支持 latent MoE；但 _validate_shared_expert_consistency 仍用 self.hidden_size 构造 test_input（约 444-445 行），与 maintainer 评论“Validate shared experts using their input width on latent MoE”一致，latent 场景会按错误宽度校验。"
+          },
+          {
+            "file": "vllm_ascend/patch/platform/patch_fused_moe.py",
+            "point": "_allow_nongated_moe_constructor_on_ascend 临时把 current_platform.is_cuda_alike 改成 True 以绕过 vLLM 构造期 capability 检查；确认构造过程没有其它逻辑依赖该值、异常路径能恢复，且不会在并发初始化时互相干扰。"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/mamba/causal_conv1d.py",
+            "point": "cache_indices 为 None / dim!=1 / PCP>1 时回退 _ORIGINAL_CAUSAL_CONV1D_FN；核对 get_pcp_group() 在未启用 PCP 的普通启动路径上是否始终可用，以及回退条件是否覆盖 block-cache 与 has_initial_state 的所有组合。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "latent MoE 的共享专家自检仍按 hidden_size 造输入；开启 multistream_overlap_shared_expert 时会在权重加载阶段误报或直接报 shape 错误，maintainer 已提出同一点且尚未修复。"
+          },
+          {
+            "level": "medium",
+            "text": "non-gated MoE 通过全局改写 platform.is_cuda_alike 绕过构造检查，影响面大于实际需要，且依赖构造期间无线程/无缓存；后续 vLLM 若把该判断前移会失效。"
+          },
+          {
+            "level": "low",
+            "text": "initialize_mamba_ssu_backend 只显式加在 v1 model_runner；v2 继承 upstream GPUModelRunner，需确认该 vLLM commit 的 v2 初始化路径同样调用，否则 v2 下 SSU 后端未初始化。"
+          }
+        ],
+        "tests": "测试充分：新增 causal_conv1d/SSD chunk-scan/SSU 调度、non-gated MoE、latent shared-expert 输入及 v1 KV cache 初始化单测；缺 CI 端到端结论。",
+        "questions": [
+          "能否把 _validate_shared_expert_consistency 的 test_input 宽度改为 shared experts 的实际输入宽度（latent size）后再校验？",
+          "v2 model runner 走 upstream GPUModelRunner 时，initialize_mamba_ssu_backend 是否同样会被调用并生效？"
+        ],
+        "recommend": "先按 maintainer 意见修 latent 共享专家输入宽度校验并 rebase 解冲突，再考虑 approve。"
+      },
+      "review_sha": "4dd7cbb75233"
+    },
+    "11906": {
+      "number": 11906,
+      "title": "[Feature] Integrate speculative dynamic top-k in speculative decoding",
+      "author": "seven-mile",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11906",
+      "changed_files": 23,
+      "additions": 1341,
+      "deletions": 32,
+      "age_days": 133.9,
+      "ci": {
+        "total": 14,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 93,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 102,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-0800",
+      "review": {
+        "number": 11906,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 Spec-K 动态 top-k 配置与 token_top_ks 前向透传，启用时把 MoE 通信方式固定为 AllGather。",
+        "intent": "让验证阶段按每 token 不同 top-k 路由，需要引擎级策略和逐 token top-k 注入；为兼容可变 top-k，Spec-K 启用时统一走 AllGather 而不是 All2AllV/MC2。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "SpecKConfig 校验较完整（draft_model、enforce_eager、非量化、无 prefix caching/async/PP/CP/V2、无 EPLB/自定义 expert map），但未拒绝 LoRA；与下方强制 AllGather 的前置条件存在冲突。"
+          },
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "select_moe_comm_method 在 spec_k 启用时无条件覆盖为 ALLGATHER，且排在 LoRA 的 AlltoAll 分支之前；这绕过了注释里“LoRA + EP 必须 AlltoAll”的约束，也不会提示用户通信已退化。"
+          },
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "token_top_ks 每次进入 set_ascend_forward_context 都写入 _EXTRA_CTX（None 会覆盖旧值），并已加入 extra_attrs；需确认不走该 context 的 forward 不会读到未初始化属性。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "reviewer 指出 EP AllGather 路径下收缩 top-k 的 dropped slot 会被赋 num_experts，若在 expert_map 查表前未处理会越界；Spec-K 恰好强制这条路径，需修复并覆盖 EP + reduced budget。"
+          },
+          {
+            "level": "medium",
+            "text": "强制 AllGather 与 LoRA+EP 的 AlltoAll 要求冲突，SpecKConfig 又未拒绝 LoRA；LoRA + EP + Spec-K 组合可能选错通信实现。"
+          },
+          {
+            "level": "medium",
+            "text": "reviewer 指出 grouped routing 的 native 输出可能无序，按位置前缀裁剪会保留低排名 expert；需按实际选择分数（含 correction bias）排序后再掩码。"
+          }
+        ],
+        "tests": "新增 test_spec_k.py、test_dynamic_topk.py、test_ascend_config.py、test_ascend_forward_context.py、test_model_runner_v1.py 等，覆盖配置校验与逐 token 掩码；缺 EP reduced-budget 与 LoRA 组合用例。",
+        "questions": [
+          "Spec-K 是否应直接拒绝 LoRA，或把 spec_k 的 AllGather 分支放在 LoRA 判断之后？",
+          "EP AllGather + 收缩 top-k 时，num_experts 的 dropped slot 在 expert_map 查表前是否已掩码？能否补对应用例？"
+        ],
+        "recommend": "owned 的配置与前向透传方向正确，但先修 EP reduced-budget/排序问题、澄清 LoRA 交互并解决 merge 冲突后再批。"
+      },
+      "review_sha": "fe27710e0d6c"
+    }
+  }
+}
