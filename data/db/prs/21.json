@@ -3039,6 +3039,55 @@
       "review_sha": null,
       "head_sha": "23960c001d3f0d0396bd5df9098e564781977c11"
     },
+    "21627": {
+      "number": 21627,
+      "title": "[Performance] Integrate union GBSA prefill for Qwen4Exp",
+      "author": "Dean11879",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21627",
+      "head_sha": "ff3bd7d4392ffcb4c10d6f113286bb3198e6e0cf",
+      "changed_files": 27,
+      "additions": 2026,
+      "deletions": 233,
+      "age_days": 13,
+      "ci": {
+        "total": 21,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 1,
+        "state": "pending"
+      },
+      "reviews": {
+        "approvals": 6,
+        "changes_requested": 0,
+        "total": 37,
+        "mine": {
+          "state": "COMMENTED",
+          "commit_id": "32248f824e5c9d24141d311a83e42417801f7b3f",
+          "submitted_at": "2026-11-23T02:06:42Z"
+        }
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gbsa.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 12
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 72,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 77,
+      "owned_del": 12,
+      "areas": null,
+      "reason": "高优检视",
+      "first_edition": null,
+      "review": null,
+      "review_sha": null
+    },
     "21633": {
       "number": 21633,
       "title": "[Performance] Prepare Qwen4Exp QSA inputs once in MRV2",

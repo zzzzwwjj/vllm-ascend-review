@@ -149,7 +149,7 @@
       '<span class="acts">' +
       '<button type="button" class="act" data-act="remind" data-pr="' + p.number + '">提醒检视</button>' +
       '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">刷新检视</button>' +
-      (markState(p).cls === 'yes' ? '' : '<button type="button" class="act ok" data-act="done" data-pr="' + p.number + '">完成检视</button>') +
+      (markState(p).cls === 'no' ? '<button type="button" class="act ok" data-act="done" data-pr="' + p.number + '">完成检视</button>' : '') +
       '</span></div>';
   }
 
@@ -451,9 +451,10 @@
     if (/^\d+$/.test(q)) {
       const n = Number(q);
       if (push) history.pushState({ pr: n }, '', '?pr=' + n);
-      const hit = state.searchIndex.find((x) => x.n === n);
-      const rec = hit ? await loadRecord(n) : null;
-      if (!hit || !rec) { app().innerHTML = shell(notFoundHtml('pr', n)); return; }
+      let hit = state.searchIndex.find((x) => x.n === n);
+      const rec = await loadRecord(n).catch(() => null);
+      if (!rec) { app().innerHTML = shell(notFoundHtml('pr', n)); return; }
+      if (!hit) hit = { n, e: '高优/独立记录', r: 'rest', v: null };
       state.view = { type: 'pr', q: String(n) };
       document.title = 'PR #' + n + ' · vLLM-Ascend 待我检视';
       app().innerHTML = shell(prView(rec, hit));
