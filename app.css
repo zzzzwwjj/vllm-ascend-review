@@ -349,6 +349,11 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 /* stack the table as soon as the sidebar collapses (tablets included) */
 @media(max-width:900px){
   html,body{overflow-x:hidden}
+  .topbar{flex-wrap:wrap}
+  .topbar input{flex:1 1 100%;min-width:0;order:-1}
+  .topbar button{flex:1 1 auto}
+  .cmpt>summary{flex-wrap:wrap}
+  .cmpt .cmeta{white-space:normal}
   td,th,.rc-head .ttl,.rc-meta,.cmpt .ttl,.fpath{overflow-wrap:anywhere;word-break:break-word}
   .rc-head .ttl{min-width:0}
   .rc-head{gap:8px}
