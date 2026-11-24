@@ -7,14 +7,14 @@
     "hours": 14
   },
   "stats": {
-    "fresh": 163,
-    "deep": 20,
-    "rest": 143,
-    "skipped": 7
+    "fresh": 17,
+    "deep": 17,
+    "rest": 0,
+    "skipped": 0
   },
   "verdicts": {
-    "approve": 1,
-    "look": 18,
+    "approve": 6,
+    "look": 10,
     "pushback": 1,
     "pending": 0
   }

@@ -9,16 +9,1817 @@
     "hours": 7.8
   },
   "stats": {
-    "fresh": 69,
-    "deep": 20,
-    "rest": 49,
-    "skipped": 0
+    "fresh": 10,
+    "deep": 10,
+    "rest": 0,
+    "skipped": 0,
+    "owned_prs": 9,
+    "api_calls": 0
   },
   "verdicts": {
-    "approve": 6,
-    "look": 12,
-    "pushback": 2,
+    "approve": 0,
+    "look": 5,
+    "pushback": 5,
     "pending": 0
   },
-  "legacy_content_html": "\n  <h2>本期精读（20）</h2>\n  <article class=\"card v-approve\" id=\"pr-22089\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22089\" target=\"_blank\" rel=\"noopener\">#22089</a>\n    <h3>[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PCP</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@Zhaocen</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    <span class=\"b b-ok\">已有 1 人批准</span>\n    \n    <span>我负责 1/8 个文件 · +5/-3</span>\n    <span>已排队 6.3 天</span>\n    <span class=\"tag\">作者有新提交</span>\n    \n  </div>\n  <p class=\"summary\">GLM-5.3-Flash+DFlash2 跳过通用 mamba 页对齐，交由 GLM-Next planner，DCP=1 的 draft KV 不切分。</p>\n  <p class=\"intent\"><b>为什么改：</b>通用 hybrid 对齐会按 draft 页 padding target 池，破坏 packed MLA 视图；改由模型专属 planner 对齐，并让复制式 DFlash draft 在 DCP=1 下不切分。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>get_kv_cache_spec 新增 uses_model_specific_page_alignment gate：跳过 _align_hybrid_attention_page_sizes 与 SFA 提前 return，但最终仍无 padding 地 update mamba_specs；核对 GLM5+DFlash 下所有 MLA spec 都带 flag，且 builder 一定调用 GLM planner。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>gate 依赖 GLM-Next planner 兜底：builder 只在 is_glm5_next_cache_spec 命中时调用 planner；若未来某个 spec 带 flag 而 model_version 检查不一致，页大小将不再被任何路径修正且无报错。</li><li class=\"risk-low\"><b>LOW</b>跳过了 AscendSFAIndexerCacheSpec 分支的提前 return 后，hisparse/packed-indexer 处理会在含 mamba specs 的 dict 上继续执行；GLM5 若同时配置 hisparse 的组合未被测试覆盖。</li><li class=\"risk-low\"><b>LOW</b>owned 单测只验证 flag、单层 page_size 与 draft dcp_sharded，未直接验证 get_kv_cache_spec 产出经 builder/planner 后 target packed 池与 draft 独立 slot 的真实布局。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>test_kpool_sfa_c8_main_cache_spec 参数化 None/1/2 覆盖 gate、state 页大小和 draft 不切分，另有 GLM-Next planner 单测；CI 成功（6 项，2 skipped）。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：GLM5+DFlash 是否会同时出现 AscendSFAIndexerCacheSpec 或 hisparse_config？若是，跳过 SFA 提前 return 是否安全？</li><li>需要作者确认：是否有用例覆盖 get_kv_cache_spec→builder→planner 的完整链路，而不只是单层 spec 断言？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>可以批准；建议补一条完整 builder 链路用例并确认 hisparse 组合不受影响。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-20796\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/20796\" target=\"_blank\" rel=\"noopener\">#20796</a>\n    <h3>[BugFix] Support batch-shared with adaptive verification</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@zouzy5137</span>\n    <span class=\"b b-ok\">CI 通过 · 57</span>\n    <span class=\"b b-ok\">已有 3 人批准</span>\n    \n    <span>我负责 1/6 个文件 · +9/-8</span>\n    <span>已排队 19.5 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">适配 #58466：reallocate_drafts 固定 4 元组，并传 num_admitted_draft_tokens 给 InputBatch。</p>\n  <p class=\"intent\"><b>为什么改：</b>batch-shard 采样与 adaptive verification 叠加时，需把实际接纳 draft 数交给上游 batch/采样路径，否则边界不一致；修 #22171。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>reallocate_drafts 从 len(allocation)==4 的条件兼容改为强制 4 元组解包，删除 pp_kwargs 拼接并显式传 num_admitted_draft_tokens；确认不活跃路径传 None 的语义，以及 vLLM 0.33.0 兼容 lane 的返回元组长度。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>旧代码的 len(allocation)==4 明显是在兼容返回 3 元组的版本；若 0.33.0 release lane 的 reallocate_drafts 仍返回 3 元组，新代码会在首步 ValueError 解包失败，而改动行没有 UT 覆盖。</li><li class=\"risk-low\"><b>LOW</b>num_admitted_draft_tokens 仅在 adaptive verification active 时赋值，其余路径显式传 None；若上游 batch-shared sampler 把它当必填 int 使用，需要确认默认值语义。</li><li class=\"risk-low\"><b>LOW</b>本 PR 没有为 batch-shard+adaptive 组合新增单测，只依赖 CI/e2e 与在线性能、AIME 精度对比。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>无新增单测；CI 成功（57 项，20 skipped），作者给出 batch-shard 开/关的在线服务性能与 AIME2025 精度对比。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：vLLM 0.33.0 lane 的 AdaptiveVerificationManager.reallocate_drafts 是否也返回 4 元组、InputBatch 是否已有 num_admitted_draft_tokens 字段？</li><li>需要作者确认：若 0.33.0 lane 仍是 3 元组，是否保留 len(allocation) 兼容分支或加版本 gate？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>建议细看：先确认 0.33.0 lane 兼容性，否则请保留旧的长度兼容分支。</p>\n</article>\n<article class=\"card v-approve\" id=\"pr-22307\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22307\" target=\"_blank\" rel=\"noopener\">#22307</a>\n    <h3>refactor: make Ascend code paths Model Runner V2 only</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@xiaohaifeng1999</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    <span class=\"b b-ok\">已有 1 人批准</span>\n    <span class=\"b b-bad\">1 人要求修改</span>\n    <span>我负责 5/93 个文件 · +78/-161</span>\n    <span>已排队 4.6 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">移除 Ascend 代码中的 V1/V2 分支，V2 成为唯一 model runner，并删除 V1 专用 EPLB/expert-map 状态与测试。</p>\n  <p class=\"intent\"><b>为什么改：</b>V1 已不可用（VLLM_USE_V2_MODEL_RUNNER=0 直接报错），清掉双路径死代码与 V1 专用状态，降低维护成本。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/platform.py</code><span>set_additional_forward_context 删除 V1 的 minimal extras 分支；EPLB 校验收敛为 V2 过滤+强制 async，删除 V1 的三条 ValueError。</span></li><li><code>vllm_ascend/worker/worker.py</code><span>PP 非末 rank 不再走 V1 kv_connector_output 透传；use_v2_model_runner 属性提前赋值供上游 warmup/elastic-EP 读取，确认早于任何使用点。</span></li><li><code>vllm_ascend/ascend_forward_context.py</code><span>删除 _USE_V2_EXTRA_KWARGS 与 sync_v2_extra_kwargs，proxy 无条件读写 additional_kwargs；确认没有旁路代码直接读 forward_context 属性。</span></li><li><code>vllm_ascend/ascend_config.py</code><span>删除 shared_engram/engram-DP 共享与 dspark sparse-kv 的 V1 守卫；确认这些配置只在 V2 下可达。</span></li><li><code>vllm_ascend/utils.py</code><span>requires_lmhead_dp_sync 去掉 use_v2_model_runner 条件，只在 DCP=1 且 lmhead_tp_enable 时返回真。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>改动跨 93 文件、删除 1861 行；sync_v2_extra_kwargs 符号被删后，任何未覆盖的 lazy import 路径都会运行期 ImportError，CI 之外的平台分支需要确认零引用。</li><li class=\"risk-low\"><b>LOW</b>EPLB 的 V1-only 报错改为静默过滤+警告，旧部署把 V1 参数配到 V2 时少一次 fail-fast。</li><li class=\"risk-low\"><b>LOW</b>worker.use_v2_model_runner 仍从 vllm_config 读取；若未来上游移除该属性且 shim 未生效，会 AttributeError（注释已说明随 release lane 一起删）。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>V1-only 单测删除/改写，e2e 覆盖 qwen3 eager+graph、deepseek w8a8、attention precision 与两卡 EPLB；CI 成功（57 项，20 skipped）。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：全仓（含 lazy 加载路径）已无对 sync_v2_extra_kwargs 的 import，能否提供 grep 清单？</li><li>需要作者确认：V1-only EPLB 参数从报错变为过滤+警告是否为有意行为？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>可以批准；合并前用 grep 确认被删符号零引用。</p>\n</article>\n<article class=\"card v-approve\" id=\"pr-17556\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/17556\" target=\"_blank\" rel=\"noopener\">#17556</a>\n    <h3>[BugFix][Worker] Port V2 kernel warmup with enable_jit_warmup guard</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@mashuiping</span>\n    <span class=\"b b-ok\">CI 通过 · 7</span>\n    \n    \n    <span>我负责 1/2 个文件 · +7/-0</span>\n    <span>已排队 56.9 天</span>\n    <span class=\"tag\">作者有新提交</span>\n    \n  </div>\n  <p class=\"summary\">graph capture 前调用 warmup_kernels 预热 V2 Triton kernel（受 jit_warmup 开关保护）。</p>\n  <p class=\"intent\"><b>为什么改：</b>缺该调用时 Triton kernel 等首个真实请求才编译：冷缓存首内容 token 87.02s，预热后 28.46s。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/worker.py</code><span>warmup_kernels 位于 kernel_warmup 之后、capture_model 之前，参数为 (model_runner, execute_model, sample_tokens)；guard 读 self.use_v2_model_runner 与 vllm_config.kernel_config.enable_jit_warmup。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>vllm.v1.worker.gpu.warmup.warmup_kernels 与 KernelConfig.enable_jit_warmup 是较新的上游接口；0.33.0 兼容 lane 若缺该模块/字段，V2 启动会 ImportError/AttributeError，当前没有版本 gate。</li><li class=\"risk-low\"><b>LOW</b>body 称 enforce_eager 会关闭 enable_jit_warmup，但仓库内未见对应推导；若 eager 下仍为 True，只是多一轮预编译耗时，不影响正确性。</li><li class=\"risk-low\"><b>LOW</b>池化模型/不同 PP rank 下 warmup_kernels 的行为未被 UT 覆盖。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>新增 UT 断言 warmup_kernels 在 capture_model 之前以正确参数调用，3 个既有 compile_or_warm_up UT 补 use_v2_model_runner=False；CI 成功（7 项，2 skipped）。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：vLLM 0.33.0 lane 是否已有 vllm.v1.worker.gpu.warmup 模块和 kernel_config.enable_jit_warmup 字段？</li><li>需要作者确认：enforce_eager=True 时 enable_jit_warmup 是否确实为 False，还是需要在代码里显式跳过？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>可以批准，但请确认 0.33.0 lane 的接口存在，必要时加版本 gate。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-21831\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/21831\" target=\"_blank\" rel=\"noopener\">#21831</a>\n    <h3>[Feature][SpecDecode] Support GLM-5.3-Flash DFlash2 and PP</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@Zhaocen</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    <span class=\"b b-bad\">2 人要求修改</span>\n    <span>我负责 1/5 个文件 · +0/-29</span>\n    <span>已排队 9.6 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">放开 GLM-5.3-Flash DFlash2 的 PP 限制，配合跨 stage hidden/mHC 传输与 embedding 加载。</p>\n  <p class=\"intent\"><b>为什么改：</b>原守卫因 DFlash2 不支持 PP 而 fail-fast；补齐跨 stage aux hidden/mHC 与 embedding 共享后放开 PP。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/platform.py</code><span>删除 _validate_glm5next_dflash2_pp_config 及其调用；确认其余 _validate_indexer_pp_config/_validate_parallel_config/_validate_engram_config 覆盖 PP&gt;1，且再无其它引用该函数，也没有把 PP+SP MoE 等仍不支持的组合放进来。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>head 在 embedding 实现重构后只跑了 578 个聚焦单测，body 自述 A3 PP=2 全模型 smoke 用的是 earlier embedding implementation；exact-head 缺少 PP 端到端证据。</li><li class=\"risk-medium\"><b>MEDIUM</b>body 明确 GLM-5.3-Flash PP + sequence-parallel MoE 仍不支持，但删除守卫后未见新增对该组合的 fail-fast，用户可能配出可启动但结果错误的组合。</li><li class=\"risk-low\"><b>LOW</b>PR 当前 changes_requested=2、mergeable=blocked，需确认两条评审意见是否已在 head 解决。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>新增 tests/ut/models/test_glm5next_pp.py 覆盖 1/2/3 stage 的 aux hidden 顺序、mHC 跨 stage 状态与 DFlash/DFlash2 embedding 共享；578 项聚焦 UT 通过；CI 6 项成功（2 skipped），A3 smoke 为旧 revision。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：exact head 是否补跑 PP=2 全模型 smoke？当前 body 只给出 earlier embedding 实现的结果。</li><li>需要作者确认：GLM-5.3-Flash PP + sequence-parallel MoE 不支持时由哪条校验拦截？删除守卫后是否应补一条明确报错？</li><li>需要作者确认：两条 changes_requested 是否已全部解决？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>建议先细看：要求 exact-head e2e 与 SP MoE 组合的 fail-fast 后再批准。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-22495\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22495\" target=\"_blank\" rel=\"noopener\">#22495</a>\n    <h3>[BugFix][Device] Bind visible NPUs to the --device-ids selection</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@shiqiangA</span>\n    <span class=\"b b-ok\">CI 通过 · 9</span>\n    <span class=\"b b-ok\">已有 1 人批准</span>\n    \n    <span>我负责 1/3 个文件 · +106/-0</span>\n    <span>已排队 3.5 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">按 --device-ids 收窄 ASCEND_RT_VISIBLE_DEVICES 并重编号为 0..N-1，避免解析模型时初始化未选中的 NPU。</p>\n  <p class=\"intent\"><b>为什么改：</b>ASCEND_RT_VISIBLE_DEVICES=4,5 配 --device-ids 1 时，架构解析经 get_all_max_shared_mem 触达所有可见卡，初始化 chip4 导致 npu:0/npu:1 混用与图捕获失败。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/platform.py</code><span>_narrow_visible_devices_to_device_ids 的收窄+重编号是否与 assigned_physical_gpu_ids 的两段映射一致；visible 未设置/越界/重复/UUID/Ray/已收窄各分支；parse_args 包装的幂等与时序</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-high\"><b>HIGH</b>把 device_ids 改写成 0..N-1 依赖 vLLM 在收窄后的 env 上再把 device_ids 解析成物理 id；若某版本把 device_ids 直接当物理 id（或先解析后挂钩），worker 会绑定错误/不存在的卡。body 只给出单卡实测，多卡 device_ids 顺序未验证。</li><li class=\"risk-medium\"><b>MEDIUM</b>挂钩只在 CLI parser.parse_args/parse_known_args 的实例上；LLM(..., device_ids=[...]) 等程序化入口会绕过，body 声称的“在 create_engine_config 收窄”实际未实现。</li><li class=\"risk-medium\"><b>MEDIUM</b>Ray 判定只看 distributed_executor_backend，未覆盖 data_parallel_backend=ray 与 external_launcher；这些组合是否应同样 no-op 需确认。</li><li class=\"risk-low\"><b>LOW</b>visible 为空串会被当作未设置并重新写入 device_ids（可能违背用户置空禁卡的意图）；若 CANN 支持“0-3”这类范围写法，_split_visible_devices 会误判越界而静默 not-narrow。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>tests/ut/test_platform.py 新增 TestNarrowVisibleDevices 共 9 个用例，覆盖收窄/重编号、visible 未设置、越界、重复、Ray、UUID、已收窄及 parse_args/parse_known_args 包装；缺真实 EngineArgs/多卡物理绑定以及“未选中卡不被初始化”的 e2e 断言。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：该 vLLM 版本在哪里把 device_ids 解析成 assigned_physical_gpu_ids，是否确实发生在 env 收窄之后？多卡（如 visible=2,3,4 + device_ids=1,2）的绑定与 npu-smi 结果有实测吗？</li><li>程序化 LLM(device_ids=...) 和 data_parallel_backend=ray/external_launcher 是否也需要收窄，或明确不支持？</li><li>ASCEND_RT_VISIBLE_DEVICES 是否支持范围/负一写法？空串是否应视为“用户禁用全部卡”而不覆盖？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>方向正确、单测齐全；请补多卡与程序化入口验证，并确认 vLLM 侧 device_ids 解析时序后再批准。</p>\n</article>\n<article class=\"card v-approve\" id=\"pr-22539\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22539\" target=\"_blank\" rel=\"noopener\">#22539</a>\n    <h3>[Performance][MoE] Fuse All2AllV INT8 quantization with token routing</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@diaochengxi</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    \n    <span>我负责 1/5 个文件 · +4/-0</span>\n    <span>已排队 3.3 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">HardwareProfile 新增 A3 专用阈值字段（默认 None、A3=1024），供 All2AllV 融合 top-k 路由与 INT8 动态量化。</p>\n  <p class=\"intent\"><b>为什么改：</b>All2AllV 原先先按 top-k 展开 BF16 再逐 token 动态量化，重复量化且多一次展开；A3 大批次复用原生 init_routing quant_mode=1 融合两步以降低 dispatch 耗时。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/device/hardware_profile.py</code><span>新字段默认 None、仅 A3=1024 是否符合“按硬件族选择”的语义；dataclass 默认值与既有 profile 构造/测试是否兼容；A2/A5/310P 是否保持回退</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>阈值只按 A3 硬件族硬编码为 1024，与 CANN/算子版本无关，也没有 env/配置回退开关；若某些 A3 软件栈上 fused 路径更慢或 quant_mode=1 行为不同，只能改代码回退。</li><li class=\"risk-low\"><b>LOW</b>1024 阈值来自单套 A3/CANN 9.2.1 微基准；body 自述 serving A/B 未显示稳定端到端收益，实际收益可能被高估。</li><li class=\"risk-low\"><b>LOW</b>字段默认值 None 覆盖 A2/A5/310P，token_dispatcher 仅在 dst_type=int8 且非 MXFP/LoRA 时启用，回退路径保留；后续新增硬件族需保持默认 None。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>tests/ut/device/test_hardware_profile.py 新增 A2/A3/A5/310P 阈值参数化断言；tests/ut/ops/test_token_dispatcher.py 新增 fused 调用顺序、量化与批次回退用例（body 称 48 passed/11 skipped）。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：1024 是否需要按 CANN 版本或 A3 子型号分级？是否值得加一个 internal env 开关以便线上 A/B 和快速回退？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>我负责的 profile 字段改动小而清晰、已有单测，可批准；建议后续补阈值分级或回退开关。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-12651\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/12651\" target=\"_blank\" rel=\"noopener\">#12651</a>\n    <h3>[BugFix]refresh Ascend MoE comm state after L2 wake to fix ep+sleep level2 precision issue</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@zgh-99</span>\n    <span class=\"b b-ok\">CI 通过 · 2</span>\n    \n    \n    <span>我负责 1/2 个文件 · +7/-0</span>\n    <span>已排队 123.5 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">L2 唤醒后重建 All2AllV 的 expert_ids_per_ep_rank（非 buffer，IPC 重载不恢复），避免 EP 用脏专家 id。</p>\n  <p class=\"intent\"><b>为什么改：</b>sleep(level=2) 丢弃 NPU 权重并由外部 IPC 重载后，dispatcher 的持久张量仍是丢弃后的脏值，导致 EP&gt;1 混合训练 rollout 生成流畅但内容错误。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/worker.py</code><span>wake_up 中 refresh 的时序（allocator.wake_up 之后、IPC 重载之前）、flag 生命周期、level=1 不触发、未启用 sleep/异常路径；新增 import 顺序与空白</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>refresh 用 ids.copy_ 原地写回，但 L2 会对 CaMem 池内所有分配 unmap+release；wake_up 只 create_and_map 不恢复内容。需作者确认该张量是独立 handle、refresh 一定发生在 remap 之后且在 IPC 重载之后不会被覆盖。</li><li class=\"risk-medium\"><b>MEDIUM</b>PR body 说修复在 verl/workers/rollout/vllm_rollout/utils.py，并包含“重载后重新 patch_vllm_moe_model_weight_loader”；head 实际只改 worker.py + moe_comm_method.py，第二个修复不在 diff 中，描述与代码不一致。</li><li class=\"risk-medium\"><b>MEDIUM</b>新增 except Exception 只 warning，refresh 失败会静默保留脏路由，精度问题难以发现；建议至少在严格模式/首轮 raise 或加失败计数日志。</li><li class=\"risk-low\"><b>LOW</b>新增 import 放在 vllm_ascend.distributed 之前，违反仓库 ruff I（isort）排序；wake_up 新增空行含尾随空格（git diff --check 会报）；PR 仍处 merge-conflicts/dirty。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 无任何单测/CI 用例；sleep/wake 与 dispatcher 注册表是跨文件状态，建议加 UT：mock allocator+dispatcher，断言 sleep(2) 置位、wake_up 后 ids==arange(num_experts)%num_local、level=1 不刷新、异常仅告警。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：expert_ids_per_ep_rank 在 L2 丢弃+create_and_map 后仍指向独立有效内存吗？refresh 放在 allocator.wake_up 之后、IPC 权重重载之前，是否满足 body 所述“after IPC reload”？</li><li>body 中的 patch_vllm_moe_model_weight_loader 二次修复是否已拆到其他 PR？若不是，为何 head diff 里没有？</li><li>动态 EPLB 或重载后 num_experts/num_local_experts 可能变化，用 arange%num_local 重建是否覆盖这些场景？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>实现方向合理，但请先 rebase 解冲突、修 import 顺序/尾随空格、补 sleep/wake UT 并更新 body 后再细看。</p>\n</article>\n<article class=\"card v-push\" id=\"pr-12069\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/12069\" target=\"_blank\" rel=\"noopener\">#12069</a>\n    <h3>[Refactor]update permute/unpermute to init_routing/finalize_routing</h3>\n    <span class=\"b v-push\">建议打回</span>\n  </div>\n  <div class=\"meta\">\n    <span>@lcfenglinwan</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    \n    <span>我负责 1/3 个文件 · +1/-13</span>\n    <span>已排队 130.7 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">MoE permute/unpermute 改用原生 init_routing_v2/finalize_routing，删除自定义封装。</p>\n  <p class=\"intent\"><b>为什么改：</b>统一复用 torch_npu 原生 MoE 路由算子（v2 支持 count/scale 等参数），减少 vllm-ascend 自维护的 custom op 与 permute/unpermute 双层封装。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/device/device_op.py</code><span>Base/A5 两个 npu_moe_init_routing 改为 torch_npu.npu_moe_init_routing_v2 后参数语义/返回 dtype 是否与 custom op 等价（quant_mode=1/3 的 x_dtype、expert_tokens_num_type、active_expert_range）；删除 npu_moe_token_unpermute 后是否还有 310P/插件调用方</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-high\"><b>HIGH</b>相邻的 token_dispatcher 重构把 _combine_preprocess/_combine_postprocess 的 npu_moe_token_unpermute 换成 npu_moe_finalize_routing，并删除了 base 中 scale_type==float8_e8m0fnu 的 MXFP 分支（head 处 _dispatch_postprocess 的 scale_type 参数已不再使用）。若 A5 W8A8MXFP 仍走此路径，scale 的 float8_e8m0fnu view 与 x_dtype 丢失会导致 dtype 不匹配或数值错误。</li><li class=\"risk-high\"><b>HIGH</b>base 的 _dispatch_postprocess 对 with_quant 的 scale 用 npu_moe_token_permute，head 改为 init_routing_v2(scale=...)；对已量化的 int8 token 走 quant_mode=-1 的 init_routing 是否受支持、第 4 个返回值是否为有效 permuted scale，需要作者给出 A3/A5 实机精度结果。</li><li class=\"risk-medium\"><b>MEDIUM</b>BaseDeviceAdaptor 切原生 v2 时仍不传 x_dtype（act_quant_type 继续被忽略），而旧 custom op 在任意 quant_mode 下固定输出 int8；int8 W8A8 可能依赖默认 dtype、MXFP 依赖 A5 override，需按 CANN 版本确认。</li><li class=\"risk-medium\"><b>MEDIUM</b>token_combine 用 expanded_permuted_rows=hidden_states.unsqueeze(0) + drop_pad_mode=3，而另外两处 unpermute 用 2D + drop_pad_mode=2，入参形状与模式不一致，需确认 finalize_routing 两种调用都正确。</li><li class=\"risk-low\"><b>LOW</b>PR 无描述、无测试（标签仅 module:ops），且 mergeable_state=dirty/merge-conflicts；custom op 仍在 csrc 注册成为死代码，未清理或标注 deprecated。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>没有新增/修改单测或 CI 用例（tests/ut/device/test_device_op.py 未涉及这些算子），仅 6 项 CI 通过；建议补 init_routing/finalize_routing 与旧 permute/unpermute 的数值等价 UT（含 MXFP scale、0 token、单专家、int8 输入）。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认并补充：finalize_routing 的 drop_pad_mode=2/3 与 unsqueeze(0) 入参形状约定，以及它与 npu_moe_token_unpermute(probs=...) 的数值等价性。</li><li>A5 W8A8MXFP（scale_type=float8_e8m0fnu）在新路径上如何处理 scale dtype 与 x_dtype？head 已无对应分支，是漏删还是有意去掉？</li><li>删除 DeviceOperator.npu_moe_token_unpermute 前是否确认所有调用方（含 310P 继承路径、插件、下游）都已迁移？custom op 是否计划保留/删除？</li><li>torch_npu.npu_moe_init_routing_v2 的最低 CANN/torch_npu 版本是多少，是否覆盖仓库支持矩阵？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>建议打回：先 rebase 解冲突，补齐与旧 permute/unpermute 的数值等价证据和 MXFP 路径说明，再谈合并。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-16335\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/16335\" target=\"_blank\" rel=\"noopener\">#16335</a>\n    <h3>[Ops][Feature] Support inline cos/sin calculation for MRoPE in Qwen3 Family</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@YujianGuo</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    \n    <span>我负责 1/8 个文件 · +8/-0</span>\n    <span>已排队 72.7 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">AscendMRotaryEmbedding 注册 FP32 inv_freq，供 Qwen3-VL/3.5 融合算子内联生成 MRoPE cos/sin。</p>\n  <p class=\"intent\"><b>为什么改：</b>融合算子原先要按位置 gather cos_sin_cache 并物化 per-token cos/sin；把逆频率预注册到 rope 模块后可在 kernel 内现算，省掉 gather 与中间张量。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/ops/rotary_embedding.py</code><span>__init__ 覆盖注册 inv_freq：父类是否已有 inv_freq/是否接受 scaling_factor；scaled 情况置 None 的语义；FP32/CPU 初始化后经 .to()/sleep 重载是否仍为 FP32 且在 NPU</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>新代码依赖 vLLM 父类 MRotaryEmbedding 的 scaling_factor 属性与 _compute_inv_freq(base) 私有 API；现有 UT 全部用 __new__ 绕过 __init__，唯一真实构造在 tests/e2e/nightly，PR CI 不跑。若 CI 锁定版本签名不同，Qwen3-VL 初始化会直接 AttributeError。</li><li class=\"risk-medium\"><b>MEDIUM</b>inv_freq 仅在 __init__ 计算一次并作为非持久 buffer；若父类将来也注册/使用 inv_freq，或模型以 meta/dtype 转换方式初始化，buffer 可能变成 bf16 或未初始化。目前靠 get_fused_mrope_inputs 的 dtype/device 检查回退 cache 兜底。</li><li class=\"risk-low\"><b>LOW</b>scaling_factor=1.0（而非 None）时会禁用内联路径，只影响性能不影响正确性；sleep level=2 恢复 buffers 时 named_buffers 会跳过 None buffer，无副作用。</li><li class=\"risk-low\"><b>LOW</b>新增 __init__ 未断言 ACL graph 捕获前 buffer 已在 NPU，依赖模型整体 .to(device)；get_fused_mrope_inputs 在 device 不匹配时会回退 cache，风险受控。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>新增 tests/e2e/nightly/.../test_split_qkv_rmsnorm_mrope.py 的内联用例（default/YaRN、3 种模型 shape、1/40/512/4096 token、interleaved、ACLGraph replay，inline 与 cache gather 对比），属 nightly 不在 PR CI；缺真实 __init__ 的 UT。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：CI/目标 vLLM 版本的 MRotaryEmbedding 是否有 scaling_factor 与 _compute_inv_freq(base)，且 inv_freq 长度为 rotary_dim/2、dtype=float32；建议加一个用真实 __init__ 的 UT。</li><li>父类是否可能已注册 inv_freq（不同语义）？若未来冲突，是否应只在缺失时注册或改用私有命名？</li><li>scaling_factor=1.0 常见于部分 config，此时禁用内联路径是否符合预期？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>我负责的 8 行改动方向安全、有 nightly 等价性用例；建议补真实构造的 UT 并确认父类 API 版本后再批准。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-21675\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/21675\" target=\"_blank\" rel=\"noopener\">#21675</a>\n    <h3>[Feature] support MLA attention mode for DFlash2 draft models</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@sunny-rain-63</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    \n    <span>我负责 2/15 个文件 · +23/-0</span>\n    <span>已排队 10.7 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">DFlash2 草稿支持 MLA：新增 Kimi MLA 解码层与权重映射，按 attention_mode 分发；K3.1 上跳过 CPU 长度同步。</p>\n  <p class=\"intent\"><b>为什么改：</b>Kimi-K3.1 声明 attention_mode=mla，其 MLA 草稿权重无法被 GQA-only 的 DFlash2Qwen3Attention 加载；需新增 MLA 草稿路径并放宽 draft cache/mask 工具。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>新增 K3.1+DFlash2 跳过 CPU 长度同步分支的位置（在 _skip_fa3_cpu_length_sync 之后、dspark 之前）与全部前置条件：pp/pcp/dcp、kv_transfer、sparse offload、adaptive verification；确认是否还需 kvpp_config.size==1。</span></li><li><code>vllm_ascend/ops/linear.py</code><span>AscendColumnParallelLinear 补 loaded_shard_ids={} 与 base 中 AscendQKVParallelLinear/AscendMergedColumnParallelLinear 的同类修复一致；确认 inherited 的 AscendDCPGroupColumnParallelLinear 也因此覆盖，且 stacked weight loader 确实会写该 dict。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>该分支不检查 asc_config.kvpp_config.size==1（同文件后续 Qwen 分支在 #21444 中会检查），K3.1+DFlash2 与 KVPP/流水并行叠加时 MLA draft 的长度语义未验证；目前只靠 kv_transfer_config is None 和 sparse offload 关闭排除部分组合。</li><li class=\"risk-medium\"><b>MEDIUM</b>跳过 CPU 长度同步会让 _update_seq_lens_cpu 依赖上游“乐观上界”而非精确 host 计数，该行为只对 K3.1 的 KDA/SFA 读 device 长度成立；PR 描述未给出该路径的 NPU 实测或单测，CI 无法覆盖 DFlash2 e2e。</li><li class=\"risk-medium\"><b>MEDIUM</b>分支没有像 dspark 路径那样检查已初始化的 target backend（例如 SFA indexer 是否 device-length 版本），若目标侧后端组合不同可能读到上界长度。</li><li class=\"risk-low\"><b>LOW</b>与 #21444 在 _can_skip_spec_cpu_length_sync 同一位置插入分支，合并顺序会冲突；linear.py 的两行改动自身与既有修复保持一致，风险低。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 带 module:tests 标签且 CI 全绿，但 owned 的 runner 跳过同步分支与 linear 属性无可见单测，该分支只能由 NPU 上的 K3.1+DFlash2 运行时触发，PR 描述未附该场景验证。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：为什么 K3.1+DFlash2 分支不需要 kvpp_config.size==1 的 guard？KVPP 开启时该路径是否仍然安全？</li><li>需要作者确认：K3.1 目标模型在所有并行/后端组合下是否都只读 device 长度或 CPU 上界？是否应像 dspark 分支一样检查已初始化的 target backend？</li><li>需要作者确认：该跳过同步分支是否有单测或 NPU e2e 记录？与 #21444 合并时哪一方先 rebase？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先让作者补充该分支的验证记录与 KVPP 说明，并与 #21444 协调 rebase 顺序后再批准。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-20949\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/20949\" target=\"_blank\" rel=\"noopener\">#20949</a>\n    <h3>[Feature][KV Pool] Enable Qwen4Exp prefill offload with model reuse rules</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@cocobronie2333-dot</span>\n    <span class=\"b b-ok\">CI 通过 · 11</span>\n    \n    \n    <span>我负责 2/17 个文件 · +6/-1</span>\n    <span>已排队 18.5 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">Qwen4Exp prefill offload 接入共享 planner/Push；GDN 保存钩子带层名，复用布局下修正 Qwen4 视图偏移。</p>\n  <p class=\"intent\"><b>为什么改：</b>复用 Qwen4Exp 的 QSA 主 KV、GDN 状态与压缩 indexer cache；复用分配返回 owner 字节窗口，需重建相对偏移视图，并在共享槽覆盖前按层名提交 GDN 状态。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>slot_offset=-qwen4_cache_layout.region(region_name).offset 只在 get_layerwise_reuse_layout(kv_cache_config) 非 None 且 role 非 PLE/HIDDEN 时生效；核对 QSA_MAIN(r0)/QSA_RAW(r4)/QSA_COMPRESSED(r5)/GDN(r1,r2) 各组 storage_offset 是否恰好为 0 与相对偏移，且窗口大小与 reuse_layout.cache_view_sizes 一致。</span></li><li><code>vllm_ascend/ops/gdn.py</code><span>maybe_save_kv_layer_to_connector(&quot;&quot;, []) → self.prefix：确认 prefix 与 wait_for_kv_layer_from_connector、attn_metadata[self.prefix]、no_compile_layers 键一致，且 save_kv_layer(prefix, [], metadata) 对 GDN 状态是“命名通知”而非依赖空列表内容。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>gdn.py 的调用位于 AscendGatedDeltaNetAttention._forward_core 末尾，对全部 GDN/hybrid 模型生效，不只 Qwen4Exp offload：只要 connector 有 metadata，普通 PD/Mooncake 等 v1 transfer connector 也会首次收到非空 layer_name + 空 kv_cache_layer 列表，其 save_kv_layer 行为未在本 PR 说明或测试。</li><li class=\"risk-medium\"><b>MEDIUM</b>attn_utils 的偏移修正依赖 worker 把 apply_layerwise_kv_cache_plan 替换后的 config 同时传给分配与 reshape（worker.py 中确实先 plan/apply 再 initialize_kv_cache），若其它调用方或 deepcopy 后丢失 reuse_layout，会二次偏移或视图错位。</li><li class=\"risk-medium\"><b>MEDIUM</b>复用窗口起点由 planner 的 rotation slot 决定，代码假定窗口内几何与原 slot 几何（相对 anchor region）一致；多 slot 分组以 layer_stride=0 共享窗口时，正确性完全依赖 cache_view_sizes 与 region 偏移匹配，缺少断言/单测。</li><li class=\"risk-low\"><b>LOW</b>PR 是 17 文件、973+/349- 的大 cherry-pick（含 #21256/#21891/#21262），与 main 上已合并的共享 planner 存在重复代码，回归面大且后续需删除临时 patch。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 带 module:tests 与 documentation、CI 全绿，body 提到回归测试与文档；但 owned 的两处改动（GDN 保存命名、Qwen4 复用相对偏移）是否有单测/e2e 覆盖不明确，需确认 Qwen4Exp offload 的端到端用例。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：gdn.py 传入 self.prefix 后，非 layerwise Push 的 connector 收到 save_kv_layer(prefix, [], metadata) 是否安全？是否补了该路径的回归用例？</li><li>需要作者确认：Qwen4 复用布局下如何保证每层 raw 窗口起点等于其 anchor region 起点？多 slot 分组共享窗口（layer_stride=0）是否验证过？</li><li>是否需要 use_v2_model_runner 门控或显式报错？plan_layerwise_cache_reuse 在 worker.py 中不区分 runner 都会执行。</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先要求作者补充 GDN 保存钩子对非 layerwise connector 的影响说明与 Qwen4 复用偏移的单测，再细看整体 cherry-pick。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-21444\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/21444\" target=\"_blank\" rel=\"noopener\">#21444</a>\n    <h3>[Performance][DFlash2] Use device-length FA3 for Qwen DFlash2 drafts</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@SkychenLee</span>\n    <span class=\"b b-ok\">CI 通过 · 10</span>\n    \n    <span class=\"b b-bad\">1 人要求修改</span>\n    <span>我负责 3/10 个文件 · +104/-5</span>\n    <span>已排队 12.6 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">Qwen3.5/DFlash2 启用 FA3：profile 增加 QWEN 门控，v2 跳过 CPU 长度同步，并隔离 target/draft 后端选择。</p>\n  <p class=\"intent\"><b>为什么改：</b>已装 flash_attn_npu_3 时让受支持 Qwen 目标与 DFlash2 草稿走 FA3，减少 decode CPU 标量读取/事件等待；并修上游 selector 缓存不含 model_tag 导致草稿误用目标后端。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/model_runner.py</code><span>attention_backend_cache_scope：monkeypatch vllm 私有 selector._cached_get_attn_backend 的覆盖范围（是否包含 draft 权重加载）、inspect.unwrap/@cache 对不可哈希参数的行为、finally 恢复与嵌套调用；以及新 Qwen skip 分支中 target_backends 用 layer_names 过滤 draft 的集合构造、kvpp/offload/adaptive 条件与 MambaHybridModelState 判定。</span></li><li><code>vllm_ascend/platform.py</code><span>_uses_qwen_fa3：&#39;backbone&#39; 与 &#39;dflash_head&#39; 两个字面量是否与上游 backends.model_tag 一致；backbone 分支未限制 spec.method，任意投机方法的 Qwen 目标都会选 FA3；_validate_flash_attn_npu_3 的通用 dtype/kv_cache/cache_dtype/C8 门控是否仍覆盖 Qwen 路径。</span></li><li><code>vllm_ascend/device/hardware_profile.py</code><span>FlashAttentionNpu3Model.QWEN 同时加入 A2 与 A3 的 flash_attn_npu_3_models；确认 A2 是否有验证依据（body 只给了 A3 的 profile 与精度数据）。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>attention_backend_cache_scope 无条件 monkeypatch vllm 私有符号 selector._cached_get_attn_backend，所有模型的 load_model 都会经过；上游重命名/移除/改签名时没有 vllm_version_is 守卫或 try/except 回退，会直接让加载失败。</li><li class=\"risk-medium\"><b>MEDIUM</b>_uses_qwen_fa3 的 backbone 分支只按 architecture 判断（不要求 method==&#39;dflash&#39;），Qwen3-Next/3.5 + eagle/ngram 等组合也会被自动切到 FA3，超出 PR 描述的 DFlash2 验证范围；dflash_head 分支则要求 spec.method/draft 架构。</li><li class=\"risk-medium\"><b>MEDIUM</b>A2 profile 也开启 QWEN FA3，但 body 明确测试环境是 A3（TP2、FA3 0.5.1）；A2 上该新 path 的正确性与性能没有证据。</li><li class=\"risk-medium\"><b>MEDIUM</b>target_backends 用 group.layer_names 与 draft_backends 的 key 求差集，依赖 attn_groups 在调用前已初始化且 group 内 layer 不混合 target/draft；@cache 的 key 含 *args/**kwargs，若上游 selector 参数出现不可哈希对象会抛 TypeError。</li><li class=\"risk-low\"><b>LOW</b>PR 存在 1 个 changes_requested（是否已解决未在数据中体现）；与 #21675 同改 _can_skip_spec_cpu_length_sync，合并时需协调。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>CI 全绿且带 ready-precise/module:tests；body 给出 A3 TP2 的 0 阻塞同步/0 同步拷贝 profile 与精度验证，但 cache scope 与 skip 分支没有可见单测，A2 无验证。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：&#39;backbone&#39; 是否就是 Qwen 目标加载时的 model_tag（我在仓库内只看到 &#39;dflash_head&#39;/&#39;dspark_head&#39; 的用法）？</li><li>需要作者确认：backbone 分支为何不要求 spec.method==&#39;dflash&#39;？Qwen + eagle/其他投机方法是否验证过 FA3？</li><li>需要作者确认：attention_backend_cache_scope 是否覆盖 draft 权重加载？若 draft 在 load_model 之外加载，上游缓存不含 model_tag 的问题是否仍存在？</li><li>上游 _cached_get_attn_backend 改名时是否有版本守卫或降级方案？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先要求作者答复 monkeypatch 兼容策略、backbone 适用范围与 A2 证据，再细看。</p>\n</article>\n<article class=\"card v-approve\" id=\"pr-22538\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22538\" target=\"_blank\" rel=\"noopener\">#22538</a>\n    <h3>[Performance][Model] Reuse Qwen4Exp HC block output across streams</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@diaochengxi</span>\n    <span class=\"b b-ok\">CI 通过 · 6</span>\n    \n    \n    <span>我负责 1/8 个文件 · +4/-0</span>\n    <span>已排队 3.3 天</span>\n    <span class=\"tag\">作者有新提交</span>\n    \n  </div>\n  <p class=\"summary\">hc_combine_norm 新增 A3 row-wise kernel，每行只读一次 block_output；profile 阈值字段仅 A3=512。</p>\n  <p class=\"intent\"><b>为什么改：</b>现有 per-(row,stream) kernel 对同一行 block_output 读 4 次；row-wise 变体一次读行、按原序遍历 HC stream，保持 BF16 物化与 FP32 RMSNorm 归约顺序。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/device/hardware_profile.py</code><span>新增 qwen4exp_hc_combine_norm_row_wise_min_rows 默认 None、仅 A3=512；HardwareProfile 为 frozen+slots dataclass，加默认字段不破坏既有 profile 构造，其它 SoC 保持 None。已核对消费端 hc.py：仅当 min_rows 非 None、per-branch 权重（norm_weight_numel != group_dim）且 rows&gt;=min_rows 时切 row-wise，legacy 调用参数未变。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>row-wise kernel 的数值等价（BF16 combine 物化边界、FP32 RMSNorm 归约顺序）只由 PR body 的 A3 单设备/TP2 验证背书；tests/ut/ops/test_qwen4_exp_hc.py 只覆盖 dispatch（kernel 被 monkeypatch），kernel 内偏移/掩码错误不会被 UT 发现。</li><li class=\"risk-low\"><b>LOW</b>512 阈值与 A3-only 为硬编码 profile 值，A2/A5 及 &lt;512 行保持 legacy；后续 crossover 变化需改代码，且 body 未附 crossover 数据。</li><li class=\"risk-low\"><b>LOW</b>row-wise 分支只给 kernel_kwargs 传 WIDE_OFFSETS（int64 行寻址），legacy kernel 不接收该参数，kwargs 分支已隔离，未发现签名不一致。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>tests/ut/ops/test_qwen4_exp_hc.py 覆盖 dispatch 矩阵（511/512 边界、None、shared weight、wide offset、grid/kwargs），CI 全绿；kernel 数值等价不在 UT 覆盖内，仅有 body 中的单设备算子测试与 TP2 全模型验证。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：是否有 row-wise 与 legacy 的数值等价单测/golden 对比？body 的单设备算子测试覆盖 rows=512 及 per-branch 权重两种情况吗？</li><li>A3 的 512 阈值能否附上 crossover 数据？A2/A5 何时验证并设置该字段？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>可批准；建议补充 row-wise 与 legacy 的数值等价用例，并把 512 阈值的实测依据写进 PR。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-22808\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/22808\" target=\"_blank\" rel=\"noopener\">#22808</a>\n    <h3>[Feature][KV Cache] Support HND for GLM-MoE-DSA with DFlash</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@goodgoodname</span>\n    <span class=\"b b-ok\">CI 通过 · 7</span>\n    \n    \n    <span>我负责 1/13 个文件 · +15/-3</span>\n    <span>已排队 0.2 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">GLM-MoE-DSA+DFlash 的 HND/KVPP：v2 分配用单 backing 逐层切片，修正 FP8 indexer 单 buffer 返回形态。</p>\n  <p class=\"intent\"><b>为什么改：</b>HND 需 layer-outer 连续页，KVPP 会把 sliding-window draft 提升为 full；需按 descriptor 逐层窗口分配/reshape，并让 FP8 scale 与 key 同页。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>新增 glm_moe_dsa_dflash_hnd.applies_to 分支：在 reuse_layout 分支之后、gemma/generic 之前，用 allocate_cache_backing + page_size_bytes*num_blocks 逐层视图替换默认分配；核对分支顺序（HND 与 layerwise reuse/稀疏 offload 的优先级）、空 PP stage 返回 {}、以及 descriptor 的 size/layer_stride 是否满足 allocate_cache_backing 的“所有 descriptor 同 size”约束。</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>KVPP 返回形态改为 len(parts)&gt;1 或 (AscendSFAIndexerCacheSpec 且 not scale_dim) 才返回 tuple，量化单 packed buffer 返回 Tensor；对照 _reshape_kv_cache_v2 的 Tensor 分支（make_page_strided_cache_view + offset_bytes=key_bytes）与 unquantized 的 (raw_k_tensor,) 分支，确认两类 spec 都落在预期分支。</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>HND 分支不再按层单独 2MiB 对齐分配，而是返回一个大 backing 的元素对齐切片；若 KV transfer/CANN 对每层 cache base 有 2MiB 对齐假设，可能受影响（body 称 rebase 前四节点 HND 已验证，未在新 base 复跑）。</li><li class=\"risk-medium\"><b>MEDIUM</b>applies_to 依赖上游 CacheConfig.kv_cache_layout 的 &#39;HND&#39;/&#39;LBHNC&#39; 字面量，仓库内未找到该字段定义或取值校验；上游版本不一致时该分支会静默不生效（退回默认分配）。</li><li class=\"risk-medium\"><b>MEDIUM</b>与 layerwise reuse 的关系未说明：reuse_layout 分支先命中，HND 的 build_cache_config 与 reuse tensors 是否可能同时存在并冲突（例如 KV pool offload + HND 叠加）没有互斥或断言。</li><li class=\"risk-low\"><b>LOW</b>KVPP 分支的判定用 specs[name].scale_dim，若 _get_layer_kv_cache_specs 未含某个 cache_name 会 KeyError（旧代码同样索引，风险未新增），但 packed buffer 的 numel 必须恰为 num_blocks*page_size_bytes，否则 reshape 的整除/下界断言会失败。</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 带 module:tests、CI 全绿；body 列出 promoted draft allocation / cache placement / page-strided write 的回归测试及四节点 GSM8K 精度，但 rebase 后未在四节点复跑，owned 的分配分支未见 UT。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>需要作者确认：HND 的逐层切片为何不需要保持每层 2MiB 对齐？KV 传输用的是整块 backing 注册还是每层地址？</li><li>需要作者确认：layerwise reuse 与 HND 同时命中时的预期行为？是否应显式互斥或让 HND 优先？</li><li>需要作者确认：&#39;HND&#39;/&#39;LBHNC&#39; 是上游 vllm CacheConfig 的合法值吗？glm_moe_dsa_dflash_hnd.build_cache_config/build_groups 在何处被应用到 worker 的 KVCacheConfig？我在 platform.py、worker.py、v2/model_runner.py、core/kv_cache_interface.py 中都没找到调用点。</li><li>需要作者确认：KVPP 单 packed buffer（FP8 scale 与 key 同页）的 numel 在所有 block_size/kernel_block_size/压缩比组合下都恰为整数个 page_size_bytes 吗？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先要求作者答复对齐问题、与 layerwise reuse 的叠加语义，并给出 rebase 后的四节点复跑结果，再细看。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-11906\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/11906\" target=\"_blank\" rel=\"noopener\">#11906</a>\n    <h3>[Feature] Integrate speculative dynamic top-k in speculative decoding</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@seven-mile</span>\n    <span class=\"b b-ok\">CI 通过 · 14</span>\n    \n    \n    <span>我负责 2/23 个文件 · +102/-1</span>\n    <span>已排队 132.8 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">支持投机解码动态 top-k：新增 SpecKConfig 校验，per-token top-k 经 forward context 传入 MoE。</p>\n  <p class=\"intent\"><b>为什么改：</b>把 speculator 的 logits 转成每 token 自适应的 Top-k，让 FusedMoE 跳过未用位置，从而降低投机验证阶段 MoE 计算量；同时用配置门禁限制不支持的组合。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/ascend_config.py</code><span>SpecKConfig（442-522 行）的门禁完整性与参数校验：是否漏掉 LoRA 等组合、ppl_thresholds 长度/语义、full_top_k_layer_range 是否校验层数范围；enabled 时依赖 vllm_config.use_v2_model_runner 判断 V2</span></li><li><code>vllm_ascend/ascend_forward_context.py</code><span>select_moe_comm_method（346-414 行）在 spec-K 开启时把 MoE 通信无条件压成 ALLGATHER，且位于 LoRA 分支之前；token_top_ks 通过 _EXTRA_CTX 写入 forward context（131 行），需确认 v1 退出后无残留、v2 additional_kwargs 路径不被误用</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>spec_k_config 未校验 lora_config，而 select_moe_comm_method 中 spec-K 分支排在 LoRA+EP 的 ALLTOALL 之前；原本注释明确 LoRA+EP 必须 AlltoAll，开 spec-K 后会被强制改成 ALLGATHER，若 ALLGATHER 路径不支持 MoE LoRA 会静默算错</li><li class=\"risk-medium\"><b>MEDIUM</b>spec-K 是 engine-global 开关，一旦开启，target 与 draft（含 MTP MoE）所有 forward 都只能用 ALLGATHER，MC2/FUSED_MC2/ALLTOALL 全部失效且 docstring 未更新；EP 大并发下吞吐可能明显回退，缺少可关闭/按模型区分的说明</li><li class=\"risk-medium\"><b>MEDIUM</b>配置语义校验不足：ppl_thresholds 只校验正数/非递增，未校验长度与 num_spec_tokens 或 top-k 档位一致；full_top_k_layer_range 未校验 start/end 落在实际层数内、也未限制 step 方向，配错时错误可能延后到运行期</li><li class=\"risk-low\"><b>LOW</b>V2 拒绝逻辑用 getattr(vllm_config, &quot;use_v2_model_runner&quot;, False)；若某些路径只通过 env VLLM_USE_V2_MODEL_RUNNER 打开 V2 而该属性缺失，门禁会失效，spec-K 在 v2 下拿到 None top-k 而静默退化为全量 top-k</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 标了 module:tests、CI 14 项通过，但配置侧仅见 tests/ut/test_ascend_config.py::test_spec_k_rejects_eplb 一个用例；ALLGATHER 路由条件与 v1 token_top_ks 传递（model_runner_v1.py:2232-2282）无对应单测证据。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>spec-K + MoE LoRA 是否支持？SpecKConfig 没有拒绝 lora_config，而 select_moe_comm_method 会让它绕过 LoRA+EP 必须 ALLTOALL 的分支，请确认 ALLGATHER 的 MoE LoRA 路径正确。</li><li>强制 ALLGATHER 关闭 MC2/FUSED_MC2/ALLTOALL 的性能代价测过吗？为什么不做成按 target/draft 或按模型区分，draft MTP 也一起降级是否必要？</li><li>ppl_thresholds 的长度是否要求等于 num_spec_tokens（或 top-k 档位数）？full_top_k_layer_range 是否应校验落在模型层数范围内？</li><li>profile/dummy run 阶段 token_top_ks=None 时，改动后的 FusedMoE kernel 行为是否有测试覆盖？</li><li>V2 门禁用 vllm_config.use_v2_model_runner 判断，是否覆盖仅用环境变量开启 V2 的场景？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>方向合理，但先补齐 Spec-K 与 LoRA/EP 组合的门禁或说明、解释强制 ALLGATHER 的代价，并补配置校验与 ALLGATHER 路由单测后再细看。</p>\n</article>\n<article class=\"card v-push\" id=\"pr-12574\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/12574\" target=\"_blank\" rel=\"noopener\">#12574</a>\n    <h3>华为淬火行动部署报告</h3>\n    <span class=\"b v-push\">建议打回</span>\n  </div>\n  <div class=\"meta\">\n    <span>@danaodai</span>\n    <span class=\"b b-ok\">CI 通过 · 2</span>\n    \n    \n    <span>我负责 5/17 个文件 · +69/-27</span>\n    <span>已排队 123.7 天</span>\n    <span class=\"tag\">新进入队列</span>\n    \n  </div>\n  <p class=\"summary\">为规避上游删除 get_pcp_group，把 PCP 调用改为按环境变量条件导入取值；但 head 里提交了未清理的冲突标记。</p>\n  <p class=\"intent\"><b>为什么改：</b>vLLM 新版移除 get_pcp_group 等 PCP API 后，vllm-ascend 直接调用会 ImportError；作者想让 PCP 变成可选依赖，非 PCP 场景不导入也不参与 PCP 拓扑。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/distributed/parallel_state.py</code><span>head 处第 10-18 行含两套未清理的 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt; 冲突标记，文件已不是合法 Python；且 all_ranks reshape 在 env 关闭时去掉 pcp 因子，需确认不破坏后续 group_ranks 布局</span></li><li><code>vllm_ascend/platform.py</code><span>第 336-344 行给 cp_kv_cache_interleave_size 断言加了 prefill_context_parallel_enable() 前置条件；env=0 但 prefill_context_parallel_size&gt;1 时会跳过校验</span></li><li><code>vllm_ascend/distributed/kvpool/pool_worker.py</code><span>pcp_size/pcp_rank 改为 env 开关 + get_prefill_context_model_parallel_*；需确认 env 关闭时 rank 仍与实际 PCP group 一致</span></li><li><code>vllm_ascend/distributed/mooncake_connector.py</code><span>Scheduler 与 Worker 两处 pcp_size 都按 env 取 1，需确认与 kv_transfer 侧 pcp 分片数量一致</span></li><li><code>vllm_ascend/distributed/llmdatadist_c_mgr_connector.py</code><span>条件导入 get_prefill_context_model_parallel_rank 与 pcp_size 取 1 的兜底，需确认否则 pcp_rank 使用处不会 NameError</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-high\"><b>HIGH</b>parallel_state.py 里提交了未解决的合并冲突标记（两套），文件无法 import，整个 vllm_ascend 包不可用；这属于硬阻断</li><li class=\"risk-medium\"><b>MEDIUM</b>PCP 启用判据从 parallel_config.prefill_context_parallel_size 变成环境变量 VLLM_ASCEND_ENABLE_CONTEXT_PARALLEL；若用户只设 size 不设 env，PCP 会被静默降级为 size=1/rank=0，kv 分片与通信拓扑可能错位</li><li class=\"risk-medium\"><b>MEDIUM</b>platform.py 的 interleave/block_size 断言被 env 前置条件短路，P/D 分离且 PCP/DCP&gt;1 的错误配置可能不再报错，改为运行期数据错乱</li><li class=\"risk-low\"><b>LOW</b>把 from vllm.utils.network_utils import get_ip 挪到条件 import 之后，仅为规避 isort，后续维护易漏看</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 未带任何测试；deep 记录 CI 仅 2 项且显示成功，但 head 存在语法错误，说明 CI 未覆盖该文件导入，绿测不可信。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>parallel_state.py 第 10-18 行的冲突标记是有意提交的吗？请先 rebase 清干净并确认 python -c &#39;import vllm_ascend&#39; 可通过。</li><li>为什么用环境变量而不是 parallel_config.prefill_context_parallel_size 判断是否启用 PCP？size&gt;1 但 env=0 的配置是否合法、此时是否仍会创建 PCP group？</li><li>platform.py 跳过 interleave 断言后，P/D 分离 + PCP&gt;1 的错误配置由哪一层兜底？</li><li>PR 标题「华为淬火行动部署报告」与改动无关，是否提交错了分支/描述？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>打回：清理冲突标记、统一 PCP 启用判据并补导入/配置测试后再复审。</p>\n</article>\n<article class=\"card v-approve\" id=\"pr-16336\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/16336\" target=\"_blank\" rel=\"noopener\">#16336</a>\n    <h3>[Ops][Feature] Fused Triton Qwen vision QKV, RoPE, and FIA padding</h3>\n    <span class=\"b v-approve\">可批准</span>\n  </div>\n  <div class=\"meta\">\n    <span>@YujianGuo</span>\n    <span class=\"b b-ok\">CI 通过 · 8</span>\n    \n    \n    <span>我负责 1/12 个文件 · +90/-1</span>\n    <span>已排队 72.7 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">为 Qwen3.5 vision 增加融合 Triton kernel：一次完成 QKV 抽取、RoPE 与 pad 到 128 直供 FIA，带守卫与回退。</p>\n  <p class=\"intent\"><b>为什么改：</b>现有 Triton RoPE 需要先物化 Q/K、再分别做三次 padding；本 PR 把三者融合成一次 launch 并按 FIA 布局直接输出，减少 vision attention 的算子与访存开销，同时保留原有缓存写入路径。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/ops/mm_encoder_attention.py</code><span>_can_use_fused_qkv_rope_pad_fia（238-280 行）的守卫矩阵：dtype/device/contiguity/捕获/并行度与 head_size=72、8 heads、packed [T,1,1728]、cos/sin [T,36] 的匹配；_get_fused_fia_seq_lengths（48-60 行）与 maybe_compute_actual_seq_lengths 的边界语义；forward_qkv_rope_pad_fia（282-308 行）失败必须整体回退 None</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>守卫只按 head_size==72、num_heads==num_kv_heads==8、packed shape 识别，不校验模型家族；该 patch 挂在共享的 Qwen2_5_VisionAttention.forward 上，若将来有同形状但 RoPE 约定不同（如 interleaved 而非 half-split）的模型复用该类，会静默走融合 kernel 且没有回退，结果错误却难定位</li><li class=\"risk-low\"><b>LOW</b>_get_fused_fia_seq_lengths 与 maybe_compute_actual_seq_lengths 是两条重复的 host 长度计算逻辑（前者允许重复端点、要求末端严格等于 token_count），后续任何一侧修改都可能让 FIA 语义分叉</li><li class=\"risk-low\"><b>LOW</b>forward_qkv_rope_pad_fia 用 self.head_size 做 _maybe_unpad_output，而其他路径传 _maybe_pad_qkv 返回的 origin_head_dim；当前 D72→128 两者相等，但若 padding 策略或 head_size 变化，切片维度可能切错</li><li class=\"risk-low\"><b>LOW</b>融合输出 72..99 列写 0 依赖 cos/sin 越界加载被 padding_option=&quot;zero&quot; 置零这一不变量（已核对当前 kernel 成立，96..127 另有显式零存），适配器层未断言该前提，kernel 后续改动容易破坏 padding 正确性</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>测试较充分：tests/ut/ops/test_mm_encoder_attention.py 覆盖守卫接受/拒绝（含 D80、非 A2）、host lengths 回退、forward 与 capture 路径，以及已移除 env 开关后的默认行为；作者另报 70 个 CPU 用例、10 个 910B3 算子精度用例与三路径 bitwise 一致的微基准。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>守卫仅凭 head_dim=72/8 heads 识别 Qwen3.5，是否应在 patch 注册处再按模型类型限定一次，避免同形状但 RoPE 约定不同的模型误用？</li><li>_get_fused_fia_seq_lengths 允许重复端点（零长序列）并直接作为 FIA 的 actual_seq_lengths，是否需要像 capture 路径那样过滤？</li><li>融合路径默认开启且不再保留 env 开关（UT 已固定该行为），线上若遇精度/性能异常如何快速关闭？是否需要一个隐藏开关兜底？</li><li>生产上 Qwen3.5 vision 的 cu_seqlens 是否保证在 CPU？若在 NPU 上会直接回退到通用路径，融合收益是否还能兑现？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>可批准：适配器守卫、回退与 UT 都到位；建议作者补一句该维度守卫的适用模型说明或加模型级限定。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-21456\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/21456\" target=\"_blank\" rel=\"noopener\">#21456</a>\n    <h3>[Refactor][CP] Decouple PCP/DCP metadata, topology and backend selection</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@cn-sys</span>\n    <span class=\"b b-ok\">CI 通过 · 8</span>\n    \n    \n    <span>我负责 2/42 个文件 · +62/-72</span>\n    <span>已排队 12.6 天</span>\n    <span class=\"tag\">作者有新提交</span>\n    \n  </div>\n  <p class=\"summary\">解耦 PCP/DCP 的状态、校验、后端选择与元数据钩子到 context_parallel/registry，platform/v2 走统一入口。</p>\n  <p class=\"intent\"><b>为什么改：</b>任务 #10660/#9079：让新注意力后端可插件化接入，消除 GQA/MLA 与 PCP/DCP 的交叉依赖，并集中拓扑校验与后端映射表，降低后续扩展与维护成本。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>vllm_ascend/platform.py</code><span>_select_attn_backend_cls 中 pcp_backend_map 折叠为 backend_map（344-369 行）是否与旧 4 项白名单严格等价；新增 validate_dcp_block_interleave(resolve_cp_topology(...)) 在 step 9 的时序与兼容性（683-687 行）；4 处拓扑校验改走 topology 后错误消息/默认值是否保持</span></li><li><code>vllm_ascend/worker/v2/attn_utils.py</code><span>isinstance 三元判断替换为 find_cp_backend_for_builder + hooks 后（632-686 行），DSA/DSA_V41 的 extra kwargs、SFA 的 target/draft variant 拆分、以及 after_build 回写 common_ratio_to_sas_metadata 是否与 base 版本逐项等价</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-high\"><b>HIGH</b>分支已落后主线且 mergeable_state=dirty：作者自述上游 #21737 删除了本 PR 扩展的 GQA-DCP 路径，且 common_cp.py 已自带 CPKVScope / AscendPCPAttentionContext 等同名符号。42 文件/3657 行在 rebase 与范围决策前无法给出可靠结论，合并风险高</li><li class=\"risk-medium\"><b>MEDIUM</b>validate_dcp_block_interleave 是 base 中不存在的新启动期硬失败（base 仅有 P/D+非 hybrid 的 interleave==block_size 断言与 SFA 覆盖 interleave 的 warning）；DCP&gt;1 且 block_size 不能被 interleave 整除的既有配置会从可运行变成启动报错，缺少兼容性论证</li><li class=\"risk-medium\"><b>MEDIUM</b>PCP 选择从独立白名单表改为通用 backend_map：当前 4 项完全一致，但失去白名单保护，将来向 backend_map 增加任意后端都会被 PCP 路径静默接受（除非该 key 恰好缺失）</li><li class=\"risk-medium\"><b>MEDIUM</b>find_cp_backend_for_builder 依赖懒加载 5 个 adapter 后按 isinstance 匹配 base/cp builder；若某 provider 未注册或导入失败，函数返回 None 会静默跳过 DSA/SFA 必需的 extra kwargs（DSA 的 common_ratio_to_sas_metadata 等），表现为运行期 TypeError 或 metadata 语义错误，而非明确报错</li><li class=\"risk-low\"><b>LOW</b>拓扑校验统一后，PCP 不支持判断改为 getattr(vllm_config, use_v2_model_runner, False)；虽说保留了原错误文案，但未用测试固定旧行为，属性缺省场景可能改变判据</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>PR 声称新增 import-compat 与 topology 单测、CI 8 项通过；我未能在常见路径定位到 registry/topology 的测试文件，DSA/SFA 钩子等价性和新增 interleave 硬校验均缺少可核对用例。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>上游 #21737 已删除 GQA-DCP 路径，本 PR 是否接受先缩减到不与其冲突的范围并 rebase 后再评审？</li><li>新增的 block_size % cp_kv_cache_interleave_size 启动期硬校验会不会让现有 DCP 配置启动失败？能否补一个「旧配置仍可启动」的用例？</li><li>PCP 从独立白名单改为共享 backend_map 后，如何防止未来新增的后端被 PCP 路径误用？是否考虑在 provider 上加 supports_pcp 断言并在 platform 校验？</li><li>find_cp_backend_for_builder 返回 None 时是否应 fail-fast 或至少告警？DSA/SFA builder 缺少必需 kwargs 时现在的失败形态是什么？</li><li>v1 路径（worker/attn_utils.py 等）是否也切到 registry，是否还残留 isinstance/pcp_backend_map 副本未同步？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先按作者提议缩减范围并 rebase 主线、确认新增 interleave 校验兼容性，再逐项核对 DSA/DSA_V41/SFA 钩子与旧 isinstance 分支的等价性后复审。</p>\n</article>\n<article class=\"card v-look\" id=\"pr-7964\">\n  <div class=\"card-head\">\n    <a class=\"num\" href=\"https://github.com/vllm-project/vllm-ascend/pull/7964\" target=\"_blank\" rel=\"noopener\">#7964</a>\n    <h3>[Attention][Feature] Support Llama-4-Scout-17B-16E-Instruct</h3>\n    <span class=\"b v-look\">需细看</span>\n  </div>\n  <div class=\"meta\">\n    <span>@liyifu-2026</span>\n    <span class=\"b b-ok\">CI 通过 · 7</span>\n    \n    \n    <span>我负责 2/18 个文件 · +10/-0</span>\n    <span>已排队 234.4 天</span>\n    <span class=\"tag\">仍在队列</span>\n    \n  </div>\n  <p class=\"summary\">为 Llama-4-Scout 增加 SWA 与 sinks 解码；build 脚本加 CANN env 探测，platform 钩子加 **kwargs。</p>\n  <p class=\"intent\"><b>为什么改：</b>Llama-4-Scout 的滑窗注意力与 sinks 在 Ascend 上缺 mask 生成和 BSH 解码路径，且上游传参/API 漂移导致 TypeError、AssertionError；PR 补能力并做签名对齐。</p>\n  <div class=\"block\"><h4>我负责部分的改动</h4><ul class=\"focus\"><li><code>csrc/build_aclnn.sh</code><span>新增段在 set -euo pipefail 的子 shell 内（第 258 行）直接展开 ${ASCEND_HOME_PATH}（第 272/277/278 行），未用 :- 兜底；而第 52 行日志恰好用 ${ASCEND_HOME_PATH:-&lt;unset&gt;}，说明该变量允许未设置</span></li><li><code>vllm_ascend/platform.py</code><span>set_additional_forward_context 末尾加 **kwargs（第 802 行）；v1 分支直接 return {}，v2 分支按显式形参组装 context，需确认静默忽略上游新增 kwarg 是否会漏字段</span></li></ul></div>\n  <div class=\"block\"><h4>风险</h4><ul class=\"risks\"><li class=\"risk-medium\"><b>MEDIUM</b>build_aclnn.sh 在 CANN 环境未 source（ASCEND_HOME_PATH 未设置）时，set -u 会让新增的 [ -n &quot;${ASCEND_HOME_PATH}&quot; ] 直接以 unbound variable 退出；而 source set_env.sh 又要求变量已存在，&#39;确保 CANN 环境已 source&#39; 的自举逻辑实际不可达，反而把原本能继续的构建变成失败</li><li class=\"risk-medium\"><b>MEDIUM</b>platform.py 的 **kwargs 是无版本判别的静默吞参：上游若新增需进入 forward context 的元数据（如 input_ids 之类），会被无声丢弃，后续属性缺失的报错点远离此处；建议至少 log 一次未知 kwargs 或显式列出</li><li class=\"risk-medium\"><b>MEDIUM</b>PR 已 234 天未 rebase（mergeable_state=dirty、merge-conflicts 标签），base 为 4 月主线；SWA 只改了 attention_v1 与 _310p/attention_cp，而当前默认 v2 引擎走 worker/v2/attn_utils + attention backends，需确认 v2 路径是否也需同步</li><li class=\"risk-low\"><b>LOW</b>build 脚本里的 ls -l 调试输出属于临时排查残留，与本 PR 主题（Llama-4 支持）无关，建议移出或删除；PR 还混入 csrc 构建、fused_moe hasattr 兜底等 scope creep</li></ul></div>\n  <p class=\"tests\"><b>测试：</b>作者仅给出 4x A2 GSM8K 0.96 的端到端验证并新增 E2E 配置，未见针对 SWA mask/BSH 解码或 **kwargs 兼容的单测；build 脚本改动无 CI 覆盖。</p>\n  <div class=\"block\"><h4>要问作者</h4><ul class=\"questions\"><li>build_aclnn.sh 在 ASCEND_HOME_PATH 未设置时（脚本第 52 行明确考虑了 unset）会因 set -u 报 unbound variable，是否实测过？是否应改为 ${ASCEND_HOME_PATH:-} 并把 ls 调试输出去掉？</li><li>platform.py 的 **kwargs 是为哪个上游版本新增的哪个参数加的？能否显式列出而不是静默吞掉，避免将来漏字段？</li><li>SWA 实现只落在 attention_v1；当前默认 v2 model runner 下 Llama-4 是否仍走该路径？worker/v2 的 metadata builder 是否也需要 swa_mask？</li><li>PR 长期未 rebase 且存在冲突，能否先同步主线并拆分 csrc/fused_moe 等无关改动？</li></ul></div>\n  <p class=\"rec\"><b>建议动作：</b>先修 build 脚本的 set -u 展开并 rebase 拆 scope，再让作者确认 v1/v2 双路径与 **kwargs 语义后细看。</p>\n</article>\n  <h2>其余新增（49）</h2>\n  <input type=\"search\" id=\"q\" placeholder=\"按编号 / 标题 / 作者筛选……\">\n  <table id=\"all\">\n    <thead><tr><th>PR</th><th>标题</th><th>作者</th><th>我负责/全部</th><th>改动</th><th>CI</th><th>已有批准</th><th>排队</th><th>结论</th></tr></thead>\n    <tbody><tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22688\" target=\"_blank\" rel=\"noopener\">#22688</a></td>\n  <td class=\"t\">[BugFix][Quantization] Use CEIL MXFP8 scale_alg for Qwen3.5 on Ascend 950</td>\n  <td>@CZT0</td>\n  <td class=\"num2\">1/6</td>\n  <td class=\"num2\">+1/-1</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">2.3d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/13219\" target=\"_blank\" rel=\"noopener\">#13219</a></td>\n  <td class=\"t\">[Bugfix] Classify ACL stream synchronize timeout (107020/107027) during aclgraph replay</td>\n  <td>@sicnuyudidi</td>\n  <td class=\"num2\">68/292</td>\n  <td class=\"num2\">+11594/-1909</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">115d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/12453\" target=\"_blank\" rel=\"noopener\">#12453</a></td>\n  <td class=\"t\">[Feature] vLLM Ascend adaptation to support Elastic Expert Parallelism Milestone 2</td>\n  <td>@1542305589</td>\n  <td class=\"num2\">13/31</td>\n  <td class=\"num2\">+1667/-21</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">124.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/14036\" target=\"_blank\" rel=\"noopener\">#14036</a></td>\n  <td class=\"t\">[BugFix] Fix non-streaming response in load balance proxy server</td>\n  <td>@billsysu</td>\n  <td class=\"num2\">6/12</td>\n  <td class=\"num2\">+224/-674</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">103.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/20311\" target=\"_blank\" rel=\"noopener\">#20311</a></td>\n  <td class=\"t\">[Feature][Model] Enable Qwen3.8 Flash Next PP and SP</td>\n  <td>@Lethobenthos20</td>\n  <td class=\"num2\">6/34</td>\n  <td class=\"num2\">+502/-74</td>\n  <td>failure</td>\n  <td class=\"num2\">3</td>\n  <td class=\"num2\">23.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21587\" target=\"_blank\" rel=\"noopener\">#21587</a></td>\n  <td class=\"t\">[Feature] Fuse GatingTopK with EPLB expert mapping</td>\n  <td>@Liamup777</td>\n  <td class=\"num2\">11/17</td>\n  <td class=\"num2\">+176/-18</td>\n  <td>failure</td>\n  <td class=\"num2\">5</td>\n  <td class=\"num2\">11.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/20613\" target=\"_blank\" rel=\"noopener\">#20613</a></td>\n  <td class=\"t\">[Performance][Ops] Cache decode GDN attention metadata across steps</td>\n  <td>@weifulun</td>\n  <td class=\"num2\">3/6</td>\n  <td class=\"num2\">+245/-1</td>\n  <td>failure</td>\n  <td class=\"num2\">1</td>\n  <td class=\"num2\">20.8d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22761\" target=\"_blank\" rel=\"noopener\">#22761</a></td>\n  <td class=\"t\">[BugFix][Attention] Keep SFA draft cache formats consistent with owner specs</td>\n  <td>@recky-c</td>\n  <td class=\"num2\">1/3</td>\n  <td class=\"num2\">+3/-7</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22275\" target=\"_blank\" rel=\"noopener\">#22275</a></td>\n  <td class=\"t\">[Feature][Attention] Add B1 paged verify for Gemma4 512-dim MTP verify</td>\n  <td>@JinGuoju001</td>\n  <td class=\"num2\">3/11</td>\n  <td class=\"num2\">+89/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">4.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22779\" target=\"_blank\" rel=\"noopener\">#22779</a></td>\n  <td class=\"t\">[BugFix][Quantization] Route native Kimi-K3 MXFP4 checkpoints through Ascend</td>\n  <td>@hust17yixuan</td>\n  <td class=\"num2\">1/7</td>\n  <td class=\"num2\">+2/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22777\" target=\"_blank\" rel=\"noopener\">#22777</a></td>\n  <td class=\"t\">[Performance][Qwen4Exp] Optimize QSA preparation and Indexer pipeline</td>\n  <td>@shaopeng-666</td>\n  <td class=\"num2\">1/47</td>\n  <td class=\"num2\">+0/-1</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21851\" target=\"_blank\" rel=\"noopener\">#21851</a></td>\n  <td class=\"t\">[Feature] Port RecoverSSM, PP/SP, Decode-PP and PCP stack to main</td>\n  <td>@Lethobenthos20</td>\n  <td class=\"num2\">6/141</td>\n  <td class=\"num2\">+126/-75</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">9.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22045\" target=\"_blank\" rel=\"noopener\">#22045</a></td>\n  <td class=\"t\">[Feature][2/N] [Spec Decode][Qwen GDN] Enable Qwen GDN RecoverSSM on Ascend</td>\n  <td>@hanxi-java</td>\n  <td class=\"num2\">1/57</td>\n  <td class=\"num2\">+2/-2</td>\n  <td>failure</td>\n  <td class=\"num2\">7</td>\n  <td class=\"num2\">6.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22131\" target=\"_blank\" rel=\"noopener\">#22131</a></td>\n  <td class=\"t\">[Attention][Feature] Enable PCP decode request sharding for GLM-5.3-Flash</td>\n  <td>@HXL0024</td>\n  <td class=\"num2\">3/30</td>\n  <td class=\"num2\">+14/-5</td>\n  <td>failure</td>\n  <td class=\"num2\">9</td>\n  <td class=\"num2\">5.8d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22207\" target=\"_blank\" rel=\"noopener\">#22207</a></td>\n  <td class=\"t\">[Feature][MoE] Fuse the shared expert into the A3 MegaMoe operator for W8A8 (enable_fused_mc2=3)</td>\n  <td>@gaoyuan777</td>\n  <td class=\"num2\">2/8</td>\n  <td class=\"num2\">+19/-13</td>\n  <td>failure</td>\n  <td class=\"num2\">2</td>\n  <td class=\"num2\">5.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21727\" target=\"_blank\" rel=\"noopener\">#21727</a></td>\n  <td class=\"t\">[BugFix][MoE] Share DSpark MegaMoE contexts across CANN buffer APIs</td>\n  <td>@rikakuhi</td>\n  <td class=\"num2\">0/6</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">2</td>\n  <td class=\"num2\">10.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22772\" target=\"_blank\" rel=\"noopener\">#22772</a></td>\n  <td class=\"t\">[Feature][HiSparse] Support GLM-5.3-Flash on Ascend A5</td>\n  <td>@LZZhang-HW</td>\n  <td class=\"num2\">5/43</td>\n  <td class=\"num2\">+186/-27</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22793\" target=\"_blank\" rel=\"noopener\">#22793</a></td>\n  <td class=\"t\">[Performance] Publish A3 FSA KV plans via shared DDR and Notify</td>\n  <td>@zmc1997</td>\n  <td class=\"num2\">10/26</td>\n  <td class=\"num2\">+1191/-92</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22792\" target=\"_blank\" rel=\"noopener\">#22792</a></td>\n  <td class=\"t\">[Performance][Attention] Avoid query concatenation in fused sparse KV offload</td>\n  <td>@zmc1997</td>\n  <td class=\"num2\">3/7</td>\n  <td class=\"num2\">+93/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22624\" target=\"_blank\" rel=\"noopener\">#22624</a></td>\n  <td class=\"t\">[Refactor]use upstream KV planning for DeepSeek V4.1</td>\n  <td>@Angazenn</td>\n  <td class=\"num2\">4/21</td>\n  <td class=\"num2\">+43/-2</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">2.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/10905\" target=\"_blank\" rel=\"noopener\">#10905</a></td>\n  <td class=\"t\">[Feature] Add Zero-Buffer MoE (ZB) Support for Expert Parallel on Ascend A3</td>\n  <td>@TianlunHu</td>\n  <td class=\"num2\">35/48</td>\n  <td class=\"num2\">+6977/-20</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">151.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/8401\" target=\"_blank\" rel=\"noopener\">#8401</a></td>\n  <td class=\"t\">[Feature] quarot: support qwen3 modelslim descriptors with fused fast hadamard transformation</td>\n  <td>@egretwAlker</td>\n  <td class=\"num2\">4/11</td>\n  <td class=\"num2\">+1843/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">219.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/10488\" target=\"_blank\" rel=\"noopener\">#10488</a></td>\n  <td class=\"t\">[Feature] Add fused W4A4 INT4 MoE &quot;mega&quot; kernel for Qwen3.x-MoE (Ascend 910B)</td>\n  <td>@Mocchibird</td>\n  <td class=\"num2\">4/13</td>\n  <td class=\"num2\">+1906/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">160.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/8762\" target=\"_blank\" rel=\"noopener\">#8762</a></td>\n  <td class=\"t\">[CI] [v0.18] Fix nightly 0427</td>\n  <td>@aipaes</td>\n  <td class=\"num2\">14/379</td>\n  <td class=\"num2\">+474/-145</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">209.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22592\" target=\"_blank\" rel=\"noopener\">#22592</a></td>\n  <td class=\"t\">[BugFix][Ops] Retire eager packaged MLA stream uses on Ascend A5</td>\n  <td>@rikakuhi</td>\n  <td class=\"num2\">1/3</td>\n  <td class=\"num2\">+14/-1</td>\n  <td>failure</td>\n  <td class=\"num2\">1</td>\n  <td class=\"num2\">2.8d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22198\" target=\"_blank\" rel=\"noopener\">#22198</a></td>\n  <td class=\"t\">[Misc] Main2Main v0.34.0</td>\n  <td>@jixuanlu</td>\n  <td class=\"num2\">12/181</td>\n  <td class=\"num2\">+60/-117</td>\n  <td>failure</td>\n  <td class=\"num2\">1</td>\n  <td class=\"num2\">5.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22756\" target=\"_blank\" rel=\"noopener\">#22756</a></td>\n  <td class=\"t\">[Feature][Ops] Add A5 grouped matmul SwiGLU OAI MX quantization</td>\n  <td>@grandolantow</td>\n  <td class=\"num2\">18/23</td>\n  <td class=\"num2\">+1414/-0</td>\n  <td>success</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">1.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/15837\" target=\"_blank\" rel=\"noopener\">#15837</a></td>\n  <td class=\"t\">[Bugfix][MoE] Add BF16 MegaMoe regression coverage</td>\n  <td>@BESzk</td>\n  <td class=\"num2\">0/2</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">1</td>\n  <td class=\"num2\">78.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/15076\" target=\"_blank\" rel=\"noopener\">#15076</a></td>\n  <td class=\"t\">[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend</td>\n  <td>@Liuchenbing-2026</td>\n  <td class=\"num2\">4/31</td>\n  <td class=\"num2\">+56/-11</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">87.8d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21708\" target=\"_blank\" rel=\"noopener\">#21708</a></td>\n  <td class=\"t\">[Feature][LoRA] Extend DeepSeek-V4 LoRA target mapping and quantized MoE support</td>\n  <td>@Liuchenbing-2026</td>\n  <td class=\"num2\">4/33</td>\n  <td class=\"num2\">+56/-11</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">10.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21924\" target=\"_blank\" rel=\"noopener\">#21924</a></td>\n  <td class=\"t\">[Feature][HiSparse] Enable bulk AscendStore pooling in colocated serving</td>\n  <td>@Esir98</td>\n  <td class=\"num2\">3/50</td>\n  <td class=\"num2\">+18/-2</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">6.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/14670\" target=\"_blank\" rel=\"noopener\">#14670</a></td>\n  <td class=\"t\">[Feature][Attention][SpecDecode] Support 512-dim paged MTP verify and decode on Model Runner V2</td>\n  <td>@Liuchenbing-2026</td>\n  <td class=\"num2\">2/12</td>\n  <td class=\"num2\">+116/-26</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">94.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/8966\" target=\"_blank\" rel=\"noopener\">#8966</a></td>\n  <td class=\"t\">[Feature]: Ascend Support Gemma4 Model</td>\n  <td>@Alex-stack-hub</td>\n  <td class=\"num2\">2/8</td>\n  <td class=\"num2\">+32/-0</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">198.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/10547\" target=\"_blank\" rel=\"noopener\">#10547</a></td>\n  <td class=\"t\">fix Moe graph</td>\n  <td>@Alex-stack-hub</td>\n  <td class=\"num2\">2/11</td>\n  <td class=\"num2\">+43/-4</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">159.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22545\" target=\"_blank\" rel=\"noopener\">#22545</a></td>\n  <td class=\"t\">[BugFix][Worker] Preserve measured non-KV memory when sizing the KV cache</td>\n  <td>@YujianGuo</td>\n  <td class=\"num2\">1/5</td>\n  <td class=\"num2\">+11/-26</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">2.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/12131\" target=\"_blank\" rel=\"noopener\">#12131</a></td>\n  <td class=\"t\">[BugFix] Minimax m3 0716 m</td>\n  <td>@Bill845514379</td>\n  <td class=\"num2\">93/133</td>\n  <td class=\"num2\">+19488/-13</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">129.9d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22695\" target=\"_blank\" rel=\"noopener\">#22695</a></td>\n  <td class=\"t\">[BugFix][Attention] Unfold causal speculative verification into single-query TND FIA</td>\n  <td>@CZT0</td>\n  <td class=\"num2\">2/8</td>\n  <td class=\"num2\">+6/-1</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">2d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/20345\" target=\"_blank\" rel=\"noopener\">#20345</a></td>\n  <td class=\"t\">[Performance][Worker] Reuse V2 attention metadata across cache groups and batch GDN state writes</td>\n  <td>@JRHan729</td>\n  <td class=\"num2\">3/26</td>\n  <td class=\"num2\">+684/-13</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">23.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22757\" target=\"_blank\" rel=\"noopener\">#22757</a></td>\n  <td class=\"t\">[Feature][NPU] Add process-shared multimodal embedding cache</td>\n  <td>@zhujianwei-ops</td>\n  <td class=\"num2\">1/5</td>\n  <td class=\"num2\">+7/-0</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">1.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/11656\" target=\"_blank\" rel=\"noopener\">#11656</a></td>\n  <td class=\"t\">[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend</td>\n  <td>@yooooo00</td>\n  <td class=\"num2\">0/18</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">137.3d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/18102\" target=\"_blank\" rel=\"noopener\">#18102</a></td>\n  <td class=\"t\">[Performance] Use GateLinear for DeepSeek V4 routers</td>\n  <td>@weijinqian0</td>\n  <td class=\"num2\">0/8</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">44.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/21730\" target=\"_blank\" rel=\"noopener\">#21730</a></td>\n  <td class=\"t\">[BugFix] Correct Qwen3.8-Flash-Next Mamba state and PLE numerical precision</td>\n  <td>@sustech-lz</td>\n  <td class=\"num2\">0/10</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">10.4d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22774\" target=\"_blank\" rel=\"noopener\">#22774</a></td>\n  <td class=\"t\">[BugFix][Attention] Allocate contiguous KV for sink attention graphs</td>\n  <td>@YujianGuo</td>\n  <td class=\"num2\">1/5</td>\n  <td class=\"num2\">+2/-2</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22440\" target=\"_blank\" rel=\"noopener\">#22440</a></td>\n  <td class=\"t\">[Refactor][MRV2] Reuse descriptor allocation for GLM SFA cache views</td>\n  <td>@recky-c</td>\n  <td class=\"num2\">2/17</td>\n  <td class=\"num2\">+94/-88</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">3.7d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/10203\" target=\"_blank\" rel=\"noopener\">#10203</a></td>\n  <td class=\"t\">[Feature] Support Container Snapshot and Restore (GRUS) on Ascend NPU</td>\n  <td>@lbr711</td>\n  <td class=\"num2\">3/19</td>\n  <td class=\"num2\">+162/-6</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">167.3d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22629\" target=\"_blank\" rel=\"noopener\">#22629</a></td>\n  <td class=\"t\">[Feature] Integrate Ascend sleep-mode backend</td>\n  <td>@floatlibai</td>\n  <td class=\"num2\">1/12</td>\n  <td class=\"num2\">+39/-64</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">2.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22768\" target=\"_blank\" rel=\"noopener\">#22768</a></td>\n  <td class=\"t\">[Misc] Main2Main v0.34.0 (supersedes #22198, includes nightly fixes)</td>\n  <td>@jixuanlu</td>\n  <td class=\"num2\">12/178</td>\n  <td class=\"num2\">+60/-117</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">0.8d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/22502\" target=\"_blank\" rel=\"noopener\">#22502</a></td>\n  <td class=\"t\">[Feature] Opt-in owner-sharded PCP KV cache for DeepSeek V4.1 Flash on A3</td>\n  <td>@foraxe</td>\n  <td class=\"num2\">2/20</td>\n  <td class=\"num2\">+300/-45</td>\n  <td>failure</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">3.5d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr>\n<tr data-verdict=\"pending\">\n  <td><a href=\"https://github.com/vllm-project/vllm-ascend/pull/8391\" target=\"_blank\" rel=\"noopener\">#8391</a></td>\n  <td class=\"t\">[BugFix] Fix incorrect DeprecationWarning usage</td>\n  <td>@ivyilike</td>\n  <td class=\"num2\">0/2</td>\n  <td class=\"num2\">+0/-0</td>\n  <td>unknown</td>\n  <td class=\"num2\">0</td>\n  <td class=\"num2\">219.6d</td>\n  <td><span class=\"muted\">—</span></td>\n</tr></tbody>\n  </table>\n  <footer>\n    <p>数据源：GitHub REST API · 检视范围：CODEOWNERS 中 @zzzzwwjj 负责的 175 条规则 · 本次调用 280 次</p>\n    <p>仅收录「显式请求我检视」且我尚未在当前提交上给出结论的 PR；草稿与已批准的自有 PR 不计入。本页仅含公开信息。</p>\n  </footer>\n"
+  "deep": [
+    {
+      "number": 12651,
+      "title": "[BugFix]refresh Ascend MoE comm state after L2 wake to fix ep+sleep level2 precision issue",
+      "author": "zgh-99",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12651",
+      "changed_files": 2,
+      "additions": 29,
+      "deletions": 0,
+      "age_days": 124.6,
+      "ci": {
+        "total": 2,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 7,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "review": {
+        "number": 12651,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "L2 sleep 唤醒后在 worker 里重填 All2AllV 的 expert_ids_per_ep_rank，试图修复 EP 加睡眠后的错误专家路由。",
+        "intent": "L2 会丢弃不在 named_buffers 的 expert_ids_per_ep_rank，权重 IPC 重载不会重建它；PR 在 wake_up 中原地重算，避免 stale 路由导致生成结果错误。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "wake_up 末尾先清 _needs_all2all_expert_ids_refresh 再调用 refresh；而 allocator.wake_up(tags) 只重映射 tags 命中或 None 的分配。tags 不覆盖该表所在 pool（如仅 kv_cache）的唤醒时它仍在未映射内存，写入失败且 flag 已清，之后完整唤醒不会重试。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "refresh helper 用 try/except 吞异常只打 warning，worker 侧不检查结果就清 flag；应只在 weights 已映射且刷新成功后清，否则保留待下次唤醒重试。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "KV-cache-only 等 tags 不覆盖该表的 wake 会向未映射的 weights pool 写 expert_ids_per_ep_rank，可能触发 device 错误；flag 被提前清掉后，真实精度修复可能永远不执行。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 描述与实际 diff 不一致：body 称只改 verl/workers/rollout/vllm_rollout/utils.py 并重打 patch_vllm_moe_model_weight_loader，但实际只改 worker.py 与 moe_comm_method.py，审查时无法据此确认第二项修复是否遗漏。"
+          }
+        ],
+        "tests": "无新增测试；CI 两项通过，但 L2 sleep + EP>1 + IPC 重载路径没有回归用例，无法证明修复有效。",
+        "questions": [
+          "能否改为在 weights 映射完成（tags 为 None 或含 weights）后刷新，并在 refresh 明确成功后再清 flag？是否已确认存在 KV-cache-only wake 的调用路径？",
+          "body 提到的 patch_vllm_moe_model_weight_loader 重打与 verl/utils.py 改动不在本 PR，是描述过期还是漏提交？"
+        ],
+        "recommend": "按 reviewer 意见把刷新推迟到 weights 映射之后、成功后再清 flag，并补一个 EP+L2 wake 的回归用例再复审。"
+      },
+      "review_sha": "3f7861d3c109"
+    },
+    {
+      "number": 12069,
+      "title": "[Refactor]update permute/unpermute to init_routing/finalize_routing",
+      "author": "lcfenglinwan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12069",
+      "changed_files": 3,
+      "additions": 62,
+      "deletions": 56,
+      "age_days": 131.8,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 13
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 13,
+      "reason": "新进入队列",
+      "review": {
+        "number": 12069,
+        "verdict": "pushback",
+        "confidence": "medium",
+        "summary": "device_op 换用 torch_npu 的 init_routing_v2，删除 unpermute 并改走 finalize_routing。",
+        "intent": "去掉 vllm-ascend 自定义 init_routing 算子和 unpermute 适配层，统一到 torch_npu 官方 v2 接口；dispatcher 侧同步用 finalize_routing 合并，减少一套兼容代码。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "BaseDeviceAdaptor.npu_moe_init_routing 仍保留 act_quant_type 形参，但新调用未转发（A5 用 x_dtype 处理）；静默忽略会掩盖 A2/A3 的 FP8/MXFP 量化差异，应删除形参或显式断言。"
+          },
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "Base 与 A5 的 npu_moe_token_unpermute 被删除后，继承 Base 的 310P 适配器也失去该方法；需确认全仓已无 DeviceOperator.npu_moe_token_unpermute 调用（当前 dispatcher 已改 finalize_routing，310P 直调 torch_npu）。"
+          },
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "custom op 换官方 v2 后，quant_mode=1/3/9、scale 与 MXFP scale layout 的语义是否与旧算子一致，需要逐项确认。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "AllGather 的 combine 改用 npu_moe_finalize_routing，但 ops/fused_moe/moe_comm_method.py 注释明确写着该算子会引起精度问题、必须用 token_unpermute 规避；PR 未给 parity 证据，reviewer 已要求多 EP rank/topk>1/过滤专家验证。"
+          },
+          {
+            "level": "medium",
+            "text": "dispatcher 的 token_combine 把 bias 硬编码为 None，bias 形参被静默丢弃；带 bias 的 MoE 模型结果会错，应转发或显式 assert。"
+          },
+          {
+            "level": "medium",
+            "text": "act_quant_type 在 BaseDeviceAdaptor 被忽略而 A5 仍按 x_dtype 处理，跨芯片量化行为不一致；量化 scale 的 e8m0 view 逻辑也属于必须核对的接口差异。"
+          }
+        ],
+        "tests": "无测试改动；CI 6 项通过，但 custom op→v2 与 unpermute→finalize_routing 的数值等价性没有单测或精度对比。",
+        "questions": [
+          "目标 CANN 版本上 npu_moe_finalize_routing 的精度问题是否已修复？能否给出多 EP rank、topk>1、含 filtered experts 的 parity 结果？",
+          "BaseDeviceAdaptor 是否还要保留 act_quant_type？A2/A3 走 quant_mode=3/9 时 x_dtype 由谁保证？"
+        ],
+        "recommend": "先补 combine 数值 parity（含 bias 与多 rank）再合并；否则应保留 AllGather 的 unpermute 兜底，等上游问题确认修复后再删。"
+      },
+      "review_sha": "5edea70ffc57"
+    },
+    {
+      "number": 11906,
+      "title": "[Feature] Integrate speculative dynamic top-k in speculative decoding",
+      "author": "seven-mile",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11906",
+      "changed_files": 23,
+      "additions": 1341,
+      "deletions": 32,
+      "age_days": 133.9,
+      "ci": {
+        "total": 14,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 93,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 102,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "review": {
+        "number": 11906,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 Spec-K 动态 top-k 配置与 token_top_ks 前向透传，启用时把 MoE 通信方式固定为 AllGather。",
+        "intent": "让验证阶段按每 token 不同 top-k 路由，需要引擎级策略和逐 token top-k 注入；为兼容可变 top-k，Spec-K 启用时统一走 AllGather 而不是 All2AllV/MC2。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "SpecKConfig 校验较完整（draft_model、enforce_eager、非量化、无 prefix caching/async/PP/CP/V2、无 EPLB/自定义 expert map），但未拒绝 LoRA；与下方强制 AllGather 的前置条件存在冲突。"
+          },
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "select_moe_comm_method 在 spec_k 启用时无条件覆盖为 ALLGATHER，且排在 LoRA 的 AlltoAll 分支之前；这绕过了注释里“LoRA + EP 必须 AlltoAll”的约束，也不会提示用户通信已退化。"
+          },
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "token_top_ks 每次进入 set_ascend_forward_context 都写入 _EXTRA_CTX（None 会覆盖旧值），并已加入 extra_attrs；需确认不走该 context 的 forward 不会读到未初始化属性。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "reviewer 指出 EP AllGather 路径下收缩 top-k 的 dropped slot 会被赋 num_experts，若在 expert_map 查表前未处理会越界；Spec-K 恰好强制这条路径，需修复并覆盖 EP + reduced budget。"
+          },
+          {
+            "level": "medium",
+            "text": "强制 AllGather 与 LoRA+EP 的 AlltoAll 要求冲突，SpecKConfig 又未拒绝 LoRA；LoRA + EP + Spec-K 组合可能选错通信实现。"
+          },
+          {
+            "level": "medium",
+            "text": "reviewer 指出 grouped routing 的 native 输出可能无序，按位置前缀裁剪会保留低排名 expert；需按实际选择分数（含 correction bias）排序后再掩码。"
+          }
+        ],
+        "tests": "新增 test_spec_k.py、test_dynamic_topk.py、test_ascend_config.py、test_ascend_forward_context.py、test_model_runner_v1.py 等，覆盖配置校验与逐 token 掩码；缺 EP reduced-budget 与 LoRA 组合用例。",
+        "questions": [
+          "Spec-K 是否应直接拒绝 LoRA，或把 spec_k 的 AllGather 分支放在 LoRA 判断之后？",
+          "EP AllGather + 收缩 top-k 时，num_experts 的 dropped slot 在 expert_map 查表前是否已掩码？能否补对应用例？"
+        ],
+        "recommend": "owned 的配置与前向透传方向正确，但先修 EP reduced-budget/排序问题、澄清 LoRA 交互并解决 merge 冲突后再批。"
+      },
+      "review_sha": "fe27710e0d6c"
+    },
+    {
+      "number": 12574,
+      "title": "华为淬火行动部署报告",
+      "author": "danaodai",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12574",
+      "changed_files": 17,
+      "additions": 351,
+      "deletions": 200,
+      "age_days": 124.8,
+      "ci": {
+        "total": 2,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/distributed/kvpool/pool_worker.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/distributed/llmdatadist_c_mgr_connector.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 7
+        },
+        {
+          "file": "vllm_ascend/distributed/mooncake_connector.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 69,
+      "owned_del": 27,
+      "reason": "新进入队列",
+      "review": {
+        "number": 12574,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "PCP 调用改为 prefill_context_parallel_enable() 条件分支，涉及并行组、连接器与 platform 校验，代码仍带冲突标记。",
+        "intent": "推测是让 distributed/connector/platform 在 PCP 特性关闭时退回 DCP-only 行为并避免导入 PCP 符号；但标题、描述与实际改动不符，意图无法从 PR 信息确认。",
+        "focus": [
+          {
+            "file": "vllm_ascend/distributed/parallel_state.py",
+            "point": "head 第 12-20 行仍是 <<<<<<< HEAD / ======= / >>>>>>> 冲突标记，文件无法被 Python 导入；且 enable_sp 与 prefill_context_parallel_enable 的导入被拆成互斥两支。"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "P/D interleave 校验新增 prefill_context_parallel_enable() 前置条件；PCP 关闭（默认）时该断言整体跳过，DCP>1 且 block_size 与 interleave 不等的非法配置不再被拒绝，是明确回归。"
+          },
+          {
+            "file": "vllm_ascend/distributed/kvpool/pool_worker.py",
+            "point": "改用模块级条件导入 + PCP size=1 回退；prefill_context_parallel_enable() 只读 env，import 时求值可接受，但各文件的 rank 回退条件不一致（pcp_size>1 vs 仅 env 开关）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "冲突标记导致语法错误，vllm_ascend 包无法导入；非 owned 的 attention_v1.py 等还有缺失 import/未定义变量，当前 head 不可运行。"
+          },
+          {
+            "level": "high",
+            "text": "platform.py 把 DCP 的 interleave 校验绑定到 PCP 开关，DCP-only 部署可接受非法 interleave 配置，运行期才暴露。"
+          },
+          {
+            "level": "medium",
+            "text": "reviewer 指出 worker_v1.py 第三个位置参数在 PCP 关闭时被当作 prefill size，会建错 PCP 组并让 DCP 停在 1；同一 PR 的 DCP 路径需一并核对。"
+          }
+        ],
+        "tests": "CI 只有 2 项且 DCO action_required，实际未跑 UT；冲突标记与缺失 import 说明测试未执行，无有效覆盖。",
+        "questions": [
+          "标题“华为淬火行动部署报告”和空描述与实际 diff 不符，是否为误开分支或错误 rebase？能否重开一个干净 PR？",
+          "PCP 关闭时为何要跳过 DCP 的 interleave 校验？能否让该断言保持独立于 PCP 开关？"
+        ],
+        "recommend": "打回：清理冲突标记、补回缺失 import、恢复 DCP 校验并在 PCP 关闭时重跑 CI；建议重开 PR 而不是继续叠加冲突。"
+      },
+      "review_sha": "3eefcebbd07b"
+    },
+    {
+      "number": 13219,
+      "title": "[Bugfix] Classify ACL stream synchronize timeout (107020/107027) during aclgraph replay",
+      "author": "sicnuyudidi",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/13219",
+      "changed_files": 292,
+      "additions": 29412,
+      "deletions": 7125,
+      "age_days": 116.1,
+      "ci": {
+        "total": 2,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/CMakeLists.txt",
+          "status": "added",
+          "additions": 19,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/README.md",
+          "status": "added",
+          "additions": 222,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/kv_quant_sparse_flash_attention_torch_adpt.h",
+          "status": "added",
+          "additions": 168,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_host/CMakeLists.txt",
+          "status": "added",
+          "additions": 32,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_host/kv_quant_sparse_flash_attention_def.cpp",
+          "status": "added",
+          "additions": 171,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_host/kv_quant_sparse_flash_attention_infershape.cpp",
+          "status": "added",
+          "additions": 153,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_host/kv_quant_sparse_flash_attention_tiling.cpp",
+          "status": "added",
+          "additions": 2073,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_host/kv_quant_sparse_flash_attention_tiling.h",
+          "status": "added",
+          "additions": 614,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/arch35/kv_quant_sparse_flash_attention_common_arch35.h",
+          "status": "added",
+          "additions": 130,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/arch35/kv_quant_sparse_flash_attention_kernel_mla.h",
+          "status": "added",
+          "additions": 707,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/arch35/kv_quant_sparse_flash_attention_kvcache.h",
+          "status": "added",
+          "additions": 256,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/arch35/kv_quant_sparse_flash_attention_service_cube_mla.h",
+          "status": "added",
+          "additions": 388,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/arch35/kv_quant_sparse_flash_attention_service_vector_mla.h",
+          "status": "added",
+          "additions": 894,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention.cpp",
+          "status": "added",
+          "additions": 147,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention_common.h",
+          "status": "added",
+          "additions": 225,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention_kernel_mla.h",
+          "status": "added",
+          "additions": 1003,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention_service_cube_mla.h",
+          "status": "added",
+          "additions": 943,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention_service_vector_mla.h",
+          "status": "added",
+          "additions": 1367,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/kv_quant_sparse_flash_attention/op_kernel/kv_quant_sparse_flash_attention_template_tiling_key.h",
+          "status": "added",
+          "additions": 82,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/lightning_indexer/op_host/lightning_indexer_tiling.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 2
+        },
+        {
+          "file": "csrc/attention/recurrent_gated_delta_rule/op_host/recurrent_gated_delta_rule_tiling.cpp",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "csrc/attention/recurrent_gated_delta_rule/op_kernel/arch35/recurrent_gated_delta_rule.h",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 7
+        },
+        {
+          "file": "csrc/attention/recurrent_gated_delta_rule/op_kernel/recurrent_gated_delta_rule.h",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "csrc/attention/sparse_flash_attention/op_host/sparse_flash_attention_tiling.cpp",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 3
+        },
+        {
+          "file": "csrc/attention/sparse_flash_attention/sparse_flash_attention_torch_adpt.h",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 7
+        },
+        {
+          "file": "csrc/attention/store_kv_block/op_host/CMakeLists.txt",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 37
+        },
+        {
+          "file": "csrc/attention/store_kv_block/op_host/store_kv_block_infershape.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 7
+        },
+        {
+          "file": "csrc/attention/store_kv_block/op_host/store_kv_block_tiling.cpp",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 7
+        },
+        {
+          "file": "csrc/attention/store_kv_block/op_kernel/store_kv_block.h",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 12
+        },
+        {
+          "file": "csrc/attention/store_kv_block/store_kv_block_torch_adpt.h",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 92
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/CMakeLists.txt",
+          "status": "added",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_api/aclnn_store_kv_block_metadata.cpp",
+          "status": "added",
+          "additions": 79,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_api/aclnn_store_kv_block_metadata.h",
+          "status": "added",
+          "additions": 36,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_api/l0_store_kv_block_metadata.cpp",
+          "status": "added",
+          "additions": 53,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_api/l0_store_kv_block_metadata.h",
+          "status": "added",
+          "additions": 26,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_graph/store_kv_block_metadata_proto.h",
+          "status": "added",
+          "additions": 33,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_host/store_kv_block_metadata_infershape.cpp",
+          "status": "added",
+          "additions": 43,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_kernel_aicpu/store_kv_block_metadata_aicpu.cpp",
+          "status": "added",
+          "additions": 133,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_kernel_aicpu/store_kv_block_metadata_aicpu.h",
+          "status": "added",
+          "additions": 58,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/op_kernel_aicpu/store_kv_block_metadata_aicpu.json",
+          "status": "added",
+          "additions": 15,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/store_kv_block_metadata/store_kv_block_metadata_torch_adpt.cpp",
+          "status": "added",
+          "additions": 49,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/build_aclnn.sh",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_host/causal_conv1d_def.cpp",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 9
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_host/causal_conv1d_tiling.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 5
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_host/causal_conv1d_tiling_validation.h",
+          "status": "modified",
+          "additions": 59,
+          "deletions": 129
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_kernel/causal_conv1d.h",
+          "status": "modified",
+          "additions": 79,
+          "deletions": 12
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_kernel/causal_conv1d_fn.h",
+          "status": "modified",
+          "additions": 23,
+          "deletions": 4
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_kernel/causal_conv1d_fn_tasks.h",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 2
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_kernel/causal_conv1d_tiling_data.h",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/moe/causal_conv1d/op_kernel/causal_conv1d_update.h",
+          "status": "modified",
+          "additions": 21,
+          "deletions": 3
+        },
+        {
+          "file": "csrc/moe/causal_conv1d_v310/op_host/causal_conv1d_v310_def.cpp",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 4
+        },
+        {
+          "file": "csrc/moe/causal_conv1d_v310/op_host/causal_conv1d_v310_tiling.cpp",
+          "status": "modified",
+          "additions": 34,
+          "deletions": 14
+        },
+        {
+          "file": "csrc/moe/causal_conv1d_v310/op_kernel/causal_conv1d_v310.h",
+          "status": "modified",
+          "additions": 101,
+          "deletions": 15
+        },
+        {
+          "file": "csrc/moe/causal_conv1d_v310/op_kernel/causal_conv1d_v310_tiling_data.h",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 1
+        },
+        {
+          "file": "csrc/moe/hc_pre/op_kernel/hc_pre_m_k_split_core_arch35.h",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "csrc/torch_binding.cpp",
+          "status": "modified",
+          "additions": 40,
+          "deletions": 13
+        },
+        {
+          "file": "csrc/torch_binding_meta.cpp",
+          "status": "modified",
+          "additions": 106,
+          "deletions": 20
+        },
+        {
+          "file": "csrc/version.info",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 27,
+          "deletions": 19
+        },
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 312,
+          "deletions": 106
+        },
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 101,
+          "deletions": 401
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 328,
+          "deletions": 778
+        },
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ops/mm_encoder_attention.py",
+          "status": "modified",
+          "additions": 42,
+          "deletions": 81
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 33,
+          "deletions": 13
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 43,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/utils.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 89
+        }
+      ],
+      "owned_add": 11594,
+      "owned_del": 1909,
+      "reason": "新进入队列",
+      "review": {
+        "number": 13219,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "正文只讲 replay 的 107020/107027 超时分类；owned 68 文件却全是 csrc 算子/ops，所述修复不在其中。",
+        "intent": "replay 的 synchronize() 超时被上游误包成 OutOfMemoryError，需按 107020/107027 识别并重抛带真实根因指引的 RuntimeError，capture 路径不动。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "删除 401 行，含 get_graph_params/get_draft_graph_params 相关的 ACL graph 分支与 host-args padding；与 timeout 分类无关，需确认是 release 分支历史还是有意改动，若是前者应 rebase 剔除。"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn_attn_builder.py",
+            "point": "328+/778-：删除 _buffer_slot 复用与 cu_seqlens_cpu、新增 device 侧 metadata；这是 GDN 主路径重构，必须与算子/分类器改动分开审，并核对 prefill/decode/spec 三条路径的一致性。"
+          },
+          {
+            "file": "vllm_ascend/ops/linear.py",
+            "point": "owned 里少见的自洽小改动：310P 上 weight 的 n=1/k=1 时保持 ND 不走 maybe_trans_nz，注释与 is_310p 判断合理；但同样不在 body 的改动清单里，需要作者说明来源。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "head 2e76883 是单父提交（2026-07-30, sicnuyudidi），head 之下列出 100+ 个 2026-07-06~16 的他人提交（含多条 [v0.23.0] cherry-pick），分支明显基于 releases/v0.23.0；diff 相对 merge-base 混入整段 release 历史，owned 68 文件 11.6k 行与 timeout 分类无关，无法逐行归因。"
+          },
+          {
+            "level": "medium",
+            "text": "body 只列 acl_graph.py（不在 owned），owned 里却有 gdn.py −401、gdn_attn_builder.py −778、store_kv_block_torch_adpt.h −92 等大段删除；描述与实际 diff 对不上，且 mergeable=dirty、2 条 review 0 approval。"
+          },
+          {
+            "level": "medium",
+            "text": "owned 的 ascend_config.py 把 enable_sparse_c8 拆成 enable_sparse_sfa_c8/li_c8 且无兼容别名（旧配置静默失效），并对 fused_mc2 与 multistream_overlap_shared_expert 做静默互斥降级；若随本 PR 合入需说明。"
+          }
+        ],
+        "tests": "body 的 test plan 只有 py_compile/AST/人工核对，作者也承认未加单测；建议补 _is_acl_replay_synchronize_timeout 命中/不命中（含其它含 synchronize 的 RuntimeError）单测。",
+        "questions": [
+          "能否基于最新 main 只保留最后一个分类器提交（含单测），把 releases/v0.23.0 带来的其余文件从 PR 去掉？",
+          "owned 里 gdn.py / gdn_attn_builder.py / store_kv_block 的大段删除，是 release 分支历史还是本次有意改动？"
+        ],
+        "recommend": "拆出仅含 acl_graph 分类器（+单测）的干净 PR 合到最新 main；当前 292 文件、dirty 的混合 diff 不宜合入。"
+      },
+      "review_sha": "499e7f973c29"
+    },
+    {
+      "number": 12453,
+      "title": "[Feature] vLLM Ascend adaptation to support Elastic Expert Parallelism Milestone 2",
+      "author": "1542305589",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12453",
+      "changed_files": 31,
+      "additions": 2241,
+      "deletions": 77,
+      "age_days": 126,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+          "status": "modified",
+          "additions": 54,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl.py",
+          "status": "modified",
+          "additions": 73,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/distributed/device_communicators/pyhccl_wrapper.py",
+          "status": "modified",
+          "additions": 81,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/__init__.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/elastic_execute.py",
+          "status": "added",
+          "additions": 470,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/eplb_manager.py",
+          "status": "added",
+          "additions": 361,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/policy_default_elastic_eplb.py",
+          "status": "added",
+          "additions": 309,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/elastic_ep/standby_state.py",
+          "status": "added",
+          "additions": 75,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 71,
+          "deletions": 11
+        },
+        {
+          "file": "vllm_ascend/distributed/utils.py",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 75,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 1667,
+      "owned_del": 21,
+      "reason": "新进入队列",
+      "review": {
+        "number": 12453,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Elastic EP Ascend 适配：executor、stateless MC2/EPLB 组与 PyHccl P2P/EPLB 重排。",
+        "intent": "对齐 vLLM Elastic EP Milestone 2，让 Ascend 在 Ray + 内部 LB 下动态扩缩 EP，且不改 vLLM 代码；限制 A3、BF16/W8A8、暂不支持 PP/PCP/DCP。",
+        "focus": [
+          {
+            "file": "vllm_ascend/distributed/utils.py",
+            "point": "stateless PG 依赖 monkeypatch vllm.distributed.stateless_coordinator 并手工写 PyTorch _world：pg_group_ranks 用 {i:i} 恒等映射，group_name 含 WORLD 时还会覆盖 _world.default_pg。核对 DP/MC2 组 rank 非 0 起始时 P2POp 的 peer 映射是否正确，以及 patch 只在 init/switch 期间生效是否足够。"
+          },
+          {
+            "file": "vllm_ascend/distributed/device_communicators/npu_communicator.py",
+            "point": "pyhccl_comm 仅在传入 tcp_store_group 时创建；batch_isend_irecv 在无 pyhccl 时直接 raise ValueError（未回退基类），all_gather 只走 pyhccl。另 pyhccl.py 删掉了构造期 warmup all_reduce+stream.synchronize，需确认非 elastic 路径不回归、首次通信就绪性无问题。"
+          },
+          {
+            "file": "vllm_ascend/distributed/elastic_ep/elastic_execute.py",
+            "point": "switch_and_prepare 在 pop standby 并替换 active/ascend 组后调用 compile_or_warm_up_model，失败时没有回滚或恢复原组；这正是 maintainer 评论“Handle warmup failure after switching Elastic EP groups”指出的缺口。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "目标 vLLM 的 StatelessGroupCoordinator 仍 assert device_comm_cls == CudaCommunicator，而 NPUPlatform.get_device_communicator_cls() 返回 NPUCommunicator；若目标版本尚未改走 platform.stateless_init_device_torch_dist_pg，首个 stateless MC2 组初始化就会 AssertionError。"
+          },
+          {
+            "level": "medium",
+            "text": "手工注册 _world 用恒等 rank 映射并可能覆盖 default_pg；P2POp/batch_isend_irecv 在跨 DP 或 rank 偏移的组里可能把 group_peer 映射错，权重传输存在错发或挂死风险。"
+          },
+          {
+            "level": "medium",
+            "text": "切换组后 warmup 失败无回滚；同时 PyHccl 去掉了构造期 warmup，首批 all_gather/batch_isend_irecv 的流同步与就绪性只有真机 e2e 能验证，UT 覆盖不到。"
+          }
+        ],
+        "tests": "新增 nightly e2e（A3 多卡 Ray 扩缩，420 行）+ communicator UT（destroy/batch_isend_irecv）+ acl_graph 隔离用例；stateless 组与 P2P 真机路径仍依赖 e2e。",
+        "questions": [
+          "目标 vLLM 版本的 StatelessGroupCoordinator 是否已改为调用 platform.stateless_init_device_torch_dist_pg？否则 NPUCommunicator 与 assert CudaCommunicator 冲突。",
+          "switch_and_prepare 中 compile_or_warm_up_model 失败后的回滚/恢复策略是什么（对应 maintainer 的 warmup failure 评论）？"
+        ],
+        "recommend": "方向正确，但先解决 warmup 失败处理并确认 stateless 组目标版本兼容，再 rebase 解冲突评审合并。"
+      },
+      "review_sha": "5227b896f91b"
+    },
+    {
+      "number": 22808,
+      "title": "[Feature][KV Cache] Support HND for GLM-MoE-DSA with DFlash",
+      "author": "goodgoodname",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22808",
+      "changed_files": 13,
+      "additions": 393,
+      "deletions": 3,
+      "age_days": 1.2,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 15,
+      "owned_del": 3,
+      "reason": "新进入队列",
+      "review": {
+        "number": 22808,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "GLM-MoE-DSA+DFlash 的 HND 布局接入 planner 分配，并修正 KVPP 下 FP8 indexer 的 raw/tuple 返回。",
+        "intent": "让 GLM-5.3 以 HND（LBHNC）布局做 PD 分离 + DFlash：planner 用 draft 标记合并提升的 draft 层，worker V2 按描述分配，并按 scale 是否打包决定 indexer 视图。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "新增 glm_moe_dsa_dflash_hnd.applies_to 分支提前返回 allocate_cache_backing，view size 用 page_size_bytes*num_blocks；与 planner build_cache_config 的 layer_stride/block_stride 以及 test_glm_dflash_hnd_placement 的断言一致。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "KVPP 返回条件改为按 scale_dim 决定 raw tensor 还是 tuple：reshape 侧 make_page_strided_cache_view 正好消费 key+scale 同页的 raw 布局，BLHNC 的 2-part 仍走 tuple，语义一致。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "HND 分支只处理 device-resident、无共享层的情形；若出现 kv_sharing_target_layer_name 或 local specs 为空，提前返回 {} 且不做共享映射，需确认 reshape 侧行为。"
+          },
+          {
+            "level": "medium",
+            "text": "DCO action_required（commit 缺 Signed-off-by），且 4 节点端到端验证未在 rebase 后重跑；gemini 在非 owned 的 planner/indexer 新代码上提了两个 high 级健壮性问题（UniformTypeKVCacheSpecs 断言、view 前未 contiguous）。"
+          },
+          {
+            "level": "low",
+            "text": "量化 indexer 的 raw 分支依赖 make_page_strided_cache_view 对 storage_offset 的处理；KVPP 非 owner rank 使用 scratch buffer 时偏移是否仍正确需关注。"
+          }
+        ],
+        "tests": "新增 test_glm_moe_dsa_hnd.py 覆盖 HND 分配与空 local group，test_kvpp_cache_placement.py 覆盖 LBHNC/BLHNC parts，test_cache_store.py 覆盖页内 scale 偏移；owned 分支有直接单测。",
+        "questions": [
+          "HND 布局下若出现共享 KV 层（kv_sharing_target_layer_name），新分支不处理共享映射，是否由 planner 或后续 reshape 保证？",
+          "DCO 与 rebase 后的 4 节点复测何时补齐？planner/indexer 的两个 high 级意见是否影响 HND 正确性？"
+        ],
+        "recommend": "owned 的 attn_utils 改动有测试支撑、可以接受；补齐 DCO、处理 indexer/planner 健壮性意见并复测后再批。"
+      },
+      "review_sha": "5f373c82e0c8"
+    },
+    {
+      "number": 12131,
+      "title": "[BugFix] Minimax m3 0716 m",
+      "author": "Bill845514379",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/12131",
+      "changed_files": 133,
+      "additions": 37641,
+      "deletions": 666,
+      "age_days": 131,
+      "ci": {
+        "total": 8,
+        "failed": 1,
+        "failed_names": [
+          "lint-and-select-tests"
+        ],
+        "pending": 0,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "csrc/attention/sparse_attention_score/CMakeLists.txt",
+          "status": "added",
+          "additions": 19,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/README.md",
+          "status": "added",
+          "additions": 30,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/docs/sparse_attention_score_design.md",
+          "status": "added",
+          "additions": 304,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/CMakeLists.txt",
+          "status": "added",
+          "additions": 27,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/OWNERS",
+          "status": "added",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/aclnn_sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 165,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/aclnn_sparse_attention_score.h",
+          "status": "added",
+          "additions": 52,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 80,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/op_api/sparse_attention_score.h",
+          "status": "added",
+          "additions": 40,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_def.cpp",
+          "status": "added",
+          "additions": 87,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_infershape.cpp",
+          "status": "added",
+          "additions": 105,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.cpp",
+          "status": "added",
+          "additions": 370,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.h",
+          "status": "added",
+          "additions": 140,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch22/kernel_utils.hpp",
+          "status": "added",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch22/sparse_attention_score_kernel_arch22.h",
+          "status": "added",
+          "additions": 463,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/kernel_utils.hpp",
+          "status": "added",
+          "additions": 129,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/sparse_attention_score_kernel_arch35.h",
+          "status": "added",
+          "additions": 526,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/arch35/sparse_attention_score_kernel_arch35_full_quant.h",
+          "status": "added",
+          "additions": 586,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/arch.hpp",
+          "status": "added",
+          "additions": 51,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/cross_core_sync.hpp",
+          "status": "added",
+          "additions": 132,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/local_tensor_buffer.hpp",
+          "status": "added",
+          "additions": 343,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/arch/resource.hpp",
+          "status": "added",
+          "additions": 69,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/base_defs.hpp",
+          "status": "added",
+          "additions": 51,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/coord.hpp",
+          "status": "added",
+          "additions": 442,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/alignment.hpp",
+          "status": "added",
+          "additions": 129,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/dependent_false.hpp",
+          "status": "added",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/macros.hpp",
+          "status": "added",
+          "additions": 16,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/detail/tag_to_layout.hpp",
+          "status": "added",
+          "additions": 106,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue.hpp",
+          "status": "added",
+          "additions": 39,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_mask2idx_arch35.hpp",
+          "status": "added",
+          "additions": 199,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax.hpp",
+          "status": "added",
+          "additions": 1165,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_arch35_reg_low_prec.hpp",
+          "status": "added",
+          "additions": 853,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_arch35_reg_low_prec_bf16.hpp",
+          "status": "added",
+          "additions": 961,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_online_softmax_low_prec.hpp",
+          "status": "added",
+          "additions": 983,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o.hpp",
+          "status": "added",
+          "additions": 461,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o_arch35_reg_high_prec.hpp",
+          "status": "added",
+          "additions": 510,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/block/block_epilogue_rescale_o_low_prec.hpp",
+          "status": "added",
+          "additions": 463,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/dispatch_policy.hpp",
+          "status": "added",
+          "additions": 53,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_gm_to_ub.hpp",
+          "status": "added",
+          "additions": 188,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_gm_to_ub_tla.hpp",
+          "status": "added",
+          "additions": 113,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_ub_to_gm.hpp",
+          "status": "added",
+          "additions": 144,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/copy_ub_to_gm_tla.hpp",
+          "status": "added",
+          "additions": 110,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/epilogue/tile_common/tile_copy.hpp",
+          "status": "added",
+          "additions": 130,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad.hpp",
+          "status": "added",
+          "additions": 65,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_pv.hpp",
+          "status": "added",
+          "additions": 289,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_pv_arch35_ABf16_C_to_UB.hpp",
+          "status": "added",
+          "additions": 553,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_qk.hpp",
+          "status": "added",
+          "additions": 323,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/block/block_mmad_qk_arch35_ABf16_C_to_UB.hpp",
+          "status": "added",
+          "additions": 589,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/dispatch_policy.hpp",
+          "status": "added",
+          "additions": 61,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/gemm_type.hpp",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/helper.hpp",
+          "status": "added",
+          "additions": 347,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_l1_a2.hpp",
+          "status": "added",
+          "additions": 1068,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_l1_a5.hpp",
+          "status": "added",
+          "additions": 221,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_gm_to_ub.hpp",
+          "status": "added",
+          "additions": 22,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_dst.hpp",
+          "status": "added",
+          "additions": 255,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_gm_a2.hpp",
+          "status": "added",
+          "additions": 106,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l0c_to_ub_a5.hpp",
+          "status": "added",
+          "additions": 255,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_bt.hpp",
+          "status": "added",
+          "additions": 27,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0a_a2.hpp",
+          "status": "added",
+          "additions": 349,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0a_a5.hpp",
+          "status": "added",
+          "additions": 335,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0b_a2.hpp",
+          "status": "added",
+          "additions": 479,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_l1_to_l0b_a5.hpp",
+          "status": "added",
+          "additions": 302,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/copy_ub_to_gm.hpp",
+          "status": "added",
+          "additions": 21,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_copy.hpp",
+          "status": "added",
+          "additions": 203,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_copy_tla.hpp",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm/tile_common/tile_mmad.hpp",
+          "status": "added",
+          "additions": 227,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/gemm_coord.hpp",
+          "status": "added",
+          "additions": 163,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/layout.hpp",
+          "status": "added",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/matrix.hpp",
+          "status": "added",
+          "additions": 1247,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/layout/vector.hpp",
+          "status": "added",
+          "additions": 133,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/matrix_coord.hpp",
+          "status": "added",
+          "additions": 108,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/attn_infra/status.hpp",
+          "status": "added",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/kernel_common.hpp",
+          "status": "added",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score.cpp",
+          "status": "added",
+          "additions": 76,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score_kernel_interface.cpp",
+          "status": "added",
+          "additions": 246,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/sparse_attention_score_tilingkey.h",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/int_tuple.hpp",
+          "status": "added",
+          "additions": 273,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/layout.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/integer_sequence.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/integral_constant.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/numeric/math.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/tensor.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/tuple.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/op_kernel/tla/type_traits.hpp",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/sparse_attention_score_torch_adpt.h",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tests/test_bf16.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tests/test_fp16.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/attention/sparse_attention_score/tools/fix_mmad_deq.py",
+          "status": "added",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/build_aclnn.sh",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "csrc/torch_binding_meta.cpp",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 31,
+          "deletions": 8
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 19488,
+      "owned_del": 13,
+      "reason": "新进入队列",
+      "review": {
+        "number": 12131,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "MiniMax-M3 支持：新增约1.9万行稀疏注意力算子，附带 Gemma RMSNorm/partial RoPE 修复；body 仅“pr test”。",
+        "intent": "为 MiniMax-M3 的 paged KV+TopK block 稀疏注意力新增 AscendC 算子（gather+GQA 共享 KV），并用预计算 weight_plus_one 省掉 Gemma norm 的 1+w 加法。",
+        "focus": [
+          {
+            "file": "csrc/attention/sparse_attention_score/op_host/sparse_attention_score_tiling.cpp",
+            "point": "GenerateTilingKey 对 D≠128、block_size≠128 或 A2 上 fp8 一律回退 FP16_D128；tilingkey.h 已定义 D64 key（10004/10005）但 GenerateTilingKey 永不返回、kernel 入口也未注册，且入口对未知 key 无报错分支。建议补 D=128/blockSize=128 校验并显式失败。"
+          },
+          {
+            "file": "vllm_ascend/ops/layernorm.py",
+            "point": "weight_plus_one 只在 _weight_loader 内刷新；_310p/ops/layernorm.py 的 AscendGemmaRMSNorm310 仍用 1.0+self.weight、未改用缓冲。确认所有 Gemma 权重加载路径（AutoWeightsLoader/量化后处理/热加载）都会触发 param.weight_loader，否则静默按 1.0 计算。"
+          },
+          {
+            "file": "vllm_ascend/ops/rotary_embedding.py",
+            "point": "partial RoPE 新增 x[..., :rotary_dim] 切片直接喂 npu_rotary_mul（未 .contiguous()），且 torch.cat 回拼；确认该 op 接受非连续切片，并补 rotary_dim<head_dim 的单测。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "GenerateTilingKey 无失败分支：D≠128、block_size≠128 或 A2 上 fp8 会静默跑 FP16_D128 kernel（D64 key 未接线），kernel 入口对未注册 key 也是空执行，可能静默产生错误结果而非报错。"
+          },
+          {
+            "level": "medium",
+            "text": "三层默认值不一致：scale_value（def=0 表示自动 1/sqrt(D)、torch schema=1.0、设计文档=1/sqrt(D)）与 inner_precise（def=4、schema=0，fp8 要求 4）；当前 msa_m3 调用方显式传参未受害，但后续调用方漏传即静默错缩放或 check 失败。"
+          },
+          {
+            "level": "medium",
+            "text": "19k 行算子与另外两处 Python 修复混在 133 文件/85 commit（含 18 次 merge main）中，body 仅“pr test”，CI lint-and-select-tests 失败且 mergeable=dirty，无法界定可追溯的验证范围。"
+          }
+        ],
+        "tests": "新增 csrc 自带 test_bf16/test_fp16（2/4/8 batch、MHA/GQA、prefill+decode），但无 fp8 用例、不覆盖 torch binding schema，且未进 selected-tests 映射；PR 的 lint CI 已失败。",
+        "questions": [
+          "D≠128/block_size≠128 与 A2 fp8 目前静默落到 FP16_D128 kernel，是否应改为 tiling/入口显式报错？D64 key 是否漏接线？",
+          "AscendGemmaRMSNorm 的所有加载路径（AutoWeightsLoader、量化/热加载、310P 子类）是否都会触发 param.weight_loader 刷新 weight_plus_one？"
+        ],
+        "recommend": "先补形状/精度模式校验与失败分支、统一默认值、修 lint 并拆分为算子 PR + 两处小修复，附 fp8 用例与 PR 描述后再合。"
+      },
+      "review_sha": "c8fe9b5e2173"
+    },
+    {
+      "number": 22539,
+      "title": "[Performance][MoE] Fuse All2AllV INT8 quantization with token routing",
+      "author": "diaochengxi",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22539",
+      "changed_files": 5,
+      "additions": 186,
+      "deletions": 16,
+      "age_days": 4.4,
+      "ci": {
+        "total": 36,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 1,
+        "total": 8,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "review": {
+        "number": 22539,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A3 All2AllV INT8 分发新增 1024 行阈值，达到即走融合 init_routing；阈值收在 HardwareProfile，其余平台关闭。",
+        "intent": "复用 npu_moe_init_routing_v2 的 quant_mode=1，把 top-k 展开与 INT8 动态量化合并，省掉先展开再量化；阈值作为硬件 profile 内部策略，不新增用户开关。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "新增 moe_all2allv_fused_init_routing_min_tokens 默认 None、仅 A3=1024；HardwareProfile 为 frozen/slots dataclass，带默认值不破坏既有 profile 构造。"
+          },
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "阈值单位与读取方需一致：Dispatcher 用 topk_ids.shape[0] >= 阈值，确认这里 1024 与实测 1024 行以上才有收益的边界相符，且每 rank 独立判定可接受。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "ci-gate 失败是流程门而非编译错误：缺 ready-precise 标签、且 CODEOWNERS 未批准；wangxiyuan 已 CHANGES_REQUESTED（要求 release note 只讲算子级收益、删 Qwen3.8 型号）。"
+          },
+          {
+            "level": "medium",
+            "text": "端到端 serving A/B 未显示稳定增益，1024 阈值仅由单算子 probe 得出；不同 A3 形态或 CANN 版本下收益可能反转，缺少模型级证据。"
+          },
+          {
+            "level": "low",
+            "text": "各 rank 按本地 token 数独立选择 fused/legacy，同一次 All2AllV 可能混跑；作者称已用 rank0=1023、rank1=1024 验证 W8A8 parity，但覆盖形状有限。"
+          }
+        ],
+        "tests": "48 passed/11 skipped；新增用例只 mock 融合调用参数、split-copy 顺序与小批量/FP8 回退，未加独立 NPU 测试模块。",
+        "questions": [
+          "ci-gate 的 CODEOWNERS 批准与 ready-precise 标签由谁补？除 release note 外还有需要改的代码点吗？",
+          "1024 阈值基于 2560 hidden/512 experts/top_k=10 的 A3 probe，其他 A3 型号或 W4A8 混合负载是否复核过？"
+        ],
+        "recommend": "等 release note 按 owner 意见重写、ci-gate 的标签与批准补齐后再合并；owned 的 profile 字段本身可接受。"
+      },
+      "review_sha": "9e022236c9b2"
+    },
+    {
+      "number": 11656,
+      "title": "[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend",
+      "author": "yooooo00",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11656",
+      "changed_files": 18,
+      "additions": 2085,
+      "deletions": 20,
+      "age_days": 138.3,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 12,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "review": {
+        "number": 11656,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Nemotron-3 Super 支持：Mamba/SSD kernel、SSU 后端与非门控 latent MoE 扩展。",
+        "intent": "在 Atlas A2 以 BF16/TP8 跑通 Mamba2+attention+latent MoE 组合模型，需要通用运行时扩展而非按模型名特判，同时验证 1M 上下文与图模式。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/fused_moe/fused_moe.py",
+            "point": "shared_forward_impl 新增 shared_experts_input 支持 latent MoE；但 _validate_shared_expert_consistency 仍用 self.hidden_size 构造 test_input（约 444-445 行），与 maintainer 评论“Validate shared experts using their input width on latent MoE”一致，latent 场景会按错误宽度校验。"
+          },
+          {
+            "file": "vllm_ascend/patch/platform/patch_fused_moe.py",
+            "point": "_allow_nongated_moe_constructor_on_ascend 临时把 current_platform.is_cuda_alike 改成 True 以绕过 vLLM 构造期 capability 检查；确认构造过程没有其它逻辑依赖该值、异常路径能恢复，且不会在并发初始化时互相干扰。"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/mamba/causal_conv1d.py",
+            "point": "cache_indices 为 None / dim!=1 / PCP>1 时回退 _ORIGINAL_CAUSAL_CONV1D_FN；核对 get_pcp_group() 在未启用 PCP 的普通启动路径上是否始终可用，以及回退条件是否覆盖 block-cache 与 has_initial_state 的所有组合。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "latent MoE 的共享专家自检仍按 hidden_size 造输入；开启 multistream_overlap_shared_expert 时会在权重加载阶段误报或直接报 shape 错误，maintainer 已提出同一点且尚未修复。"
+          },
+          {
+            "level": "medium",
+            "text": "non-gated MoE 通过全局改写 platform.is_cuda_alike 绕过构造检查，影响面大于实际需要，且依赖构造期间无线程/无缓存；后续 vLLM 若把该判断前移会失效。"
+          },
+          {
+            "level": "low",
+            "text": "initialize_mamba_ssu_backend 只显式加在 v1 model_runner；v2 继承 upstream GPUModelRunner，需确认该 vLLM commit 的 v2 初始化路径同样调用，否则 v2 下 SSU 后端未初始化。"
+          }
+        ],
+        "tests": "测试充分：新增 causal_conv1d/SSD chunk-scan/SSU 调度、non-gated MoE、latent shared-expert 输入及 v1 KV cache 初始化单测；缺 CI 端到端结论。",
+        "questions": [
+          "能否把 _validate_shared_expert_consistency 的 test_input 宽度改为 shared experts 的实际输入宽度（latent size）后再校验？",
+          "v2 model runner 走 upstream GPUModelRunner 时，initialize_mamba_ssu_backend 是否同样会被调用并生效？"
+        ],
+        "recommend": "先按 maintainer 意见修 latent 共享专家输入宽度校验并 rebase 解冲突，再考虑 approve。"
+      },
+      "review_sha": "4dd7cbb75233"
+    }
+  ],
+  "rest": []
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T00:00:11.065Z",
+  "updated_at": "2026-11-24T02:33:41.292Z",
   "current": "2026-11-24-0800",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
@@ -13,19 +13,19 @@
         "hours": 14
       },
       "stats": {
-        "fresh": 163,
-        "deep": 20,
-        "rest": 143,
-        "skipped": 7
+        "fresh": 17,
+        "deep": 17,
+        "rest": 0,
+        "skipped": 0
       },
       "verdicts": {
-        "approve": 1,
-        "look": 18,
+        "approve": 6,
+        "look": 10,
         "pushback": 1,
         "pending": 0
       },
       "api_calls": 664,
-      "v": "1efaf58d9872"
+      "v": "b150e320fef5"
     },
     {
       "id": "2026-11-23-1800",
@@ -36,19 +36,19 @@
         "hours": 5
       },
       "stats": {
-        "fresh": 130,
+        "fresh": 24,
         "deep": 20,
-        "rest": 110,
-        "skipped": 4
+        "rest": 4,
+        "skipped": 0
       },
       "verdicts": {
-        "approve": 3,
-        "look": 15,
+        "approve": 11,
+        "look": 7,
         "pushback": 2,
         "pending": 0
       },
       "api_calls": 526,
-      "v": "2328feec3db2"
+      "v": "5b20bc705ad1"
     },
     {
       "id": "2026-11-23-1300",
@@ -59,19 +59,19 @@
         "hours": 5
       },
       "stats": {
-        "fresh": 87,
-        "deep": 20,
-        "rest": 67,
-        "skipped": 4
+        "fresh": 19,
+        "deep": 19,
+        "rest": 0,
+        "skipped": 0
       },
       "verdicts": {
-        "approve": 5,
+        "approve": 3,
         "look": 15,
-        "pushback": 0,
+        "pushback": 1,
         "pending": 0
       },
       "api_calls": 353,
-      "v": "d1b2b707a152"
+      "v": "4c2444409efd"
     },
     {
       "id": "2026-11-23-0800",
@@ -82,19 +82,19 @@
         "hours": 7.8
       },
       "stats": {
-        "fresh": 69,
-        "deep": 20,
-        "rest": 49,
+        "fresh": 10,
+        "deep": 10,
+        "rest": 0,
         "skipped": 0
       },
       "verdicts": {
-        "approve": 6,
-        "look": 12,
-        "pushback": 2,
+        "approve": 0,
+        "look": 5,
+        "pushback": 5,
         "pending": 0
       },
       "api_calls": 280,
-      "v": "94bf404961e1"
+      "v": "083c744b0453"
     },
     {
       "id": "2026-11-23-0015",
