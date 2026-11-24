@@ -72,8 +72,11 @@
     return '<div class="bar"><i style="width:' + aW + '%"></i>' + (dW ? '<u style="width:' + dW + '%"></u>' : '') + '</div>';
   }
 
+  const isLight = (p) => !!(p.review && (p.review.mode === 'light' || !(p.owned || []).length));
+
   function topRow(p, v) {
     return '<div class="rc-head"><span class="pill ' + pillClass(v) + '">' + v.label + '</span>' +
+      (isLight(p) ? '<span class="pill ghost">简单检视</span>' : '') +
       '<a class="num" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' +
       '<a class="ttl" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' +
       '<a class="gh" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">GitHub ↗</a></div>';
@@ -110,7 +113,7 @@
     if (!owned.length) {
       const areas = (p.areas || []).map((a) => '<span class="area">' + esc(a.p) + ' · ' + a.n + '</span>').join('');
       return '<section class="rc-panel"><h4>改动位置 <b>0</b></h4>' +
-        '<p class="muted small">本次为显式请求：改动没有落在 @' + (state.idx?.user || '') + ' 的 CODEOWNERS 路径。共 ' + p.changed_files +
+        '<p class="muted small">本次为显式请求：改动没有落在 @' + (state.idx?.user || '') + ' 的 CODEOWNERS 路径，只做简单检视，深入部分由对应 code owner 负责。共 ' + p.changed_files +
         ' 个文件 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b>。</p>' +
         '<div class="scrollarea">' + (areas ? '<div class="areas">' + areas + '</div>' : '<p class="muted small">建议直接看 PR 描述与 CI。</p>') + '</div></section>';
     }
@@ -174,6 +177,7 @@
     const l = risks.filter((x) => x.level === 'low').length;
     return '<details class="cmpt ' + v.cls + '" id="pr-' + p.number + '"><summary>' +
       '<span class="pill sm ' + pillClass(v) + '">' + v.label + '</span>' +
+      (isLight(p) ? '<span class="pill sm ghost">简</span>' : '') +
       '<span class="num">#' + p.number + '</span>' +
       '<span class="ttl">' + esc(p.title) + '</span>' +
       '<span class="dots">' + (h ? '<i class="dot h"></i>' + h : '') + (m ? '<i class="dot m"></i>' + m : '') + (l ? '<i class="dot l"></i>' + l : '') + '</span>' +
