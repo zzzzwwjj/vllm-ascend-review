@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>精读卡片改版方案 · 预览</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1a1d21;--muted:#6b7280;--line:#e5e7eb;--ok:#0f7b3f;--bad:#b42318;--wait:#9a6700;--blue:#1d4ed8;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.1)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e6e8eb;--muted:#9aa3af;--line:#262b36;--ok:#4ade80;--bad:#f87171;--wait:#fbbf24;--blue:#93b4ff;--shadow:none}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:22px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:13.5px;margin:0 0 26px}
+h2.sec{font-size:15px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:baseline}
+h2.sec small{color:var(--muted);font-weight:400;font-size:12px}
+/* ---------- shared bits ---------- */
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
+.pill.push{color:var(--bad);border-color:var(--bad);background:rgba(180,35,24,.06)}
+.pill.look{color:var(--blue);border-color:var(--blue);background:rgba(29,78,216,.06)}
+.pill.ok{color:var(--ok);border-color:var(--ok);background:rgba(15,123,63,.06)}
+.pill.sm{font-size:11px;padding:1px 8px}
+.num{font-variant-numeric:tabular-nums;color:var(--muted);text-decoration:none;font-weight:600}
+.ci{font-size:12px}
+.ci.bad{color:var(--bad)}.ci.ok{color:var(--ok)}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:12.5px}
+.sep{opacity:.4}
+/* ---------- current ---------- */
+.cur{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+.cur h3{margin:0;font-size:15px;display:inline}
+.cur .head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.cur p{margin:6px 0}
+.cur ul{margin:4px 0 8px;padding-left:20px}
+.cur code{font-size:12.5px;background:rgba(127,127,127,.12);padding:0 4px;border-radius:3px}
+/* ---------- plan A ---------- */
+.rc{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.rc-push{border-top:3px solid var(--bad)}
+.rc-look{border-top:3px solid var(--blue)}
+.rc-head{display:flex;gap:10px;align-items:center;padding:14px 16px 10px;flex-wrap:wrap}
+.rc-head h3{margin:0;font-size:15.5px;line-height:1.4;flex:1;min-width:260px}
+.rc-head .gh{margin-left:auto;font-size:12.5px;color:var(--muted);text-decoration:none}
+.rc-meta{padding:0 16px 10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:12.5px}
+.rc-summary{margin:0;padding:0 16px 6px;font-size:15px;line-height:1.6}
+.rc-intent{margin:0;padding:0 16px 14px;color:var(--muted);font-size:13px}
+.rc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border-top:1px solid var(--line)}
+.rc-panel{padding:14px 16px}
+.rc-panel+.rc-panel{border-left:1px solid var(--line)}
+.rc-panel h4{margin:0 0 10px;font-size:12px;letter-spacing:.4px;color:var(--muted);text-transform:uppercase;display:flex;gap:6px;align-items:center}
+.rc-panel h4 b{color:var(--ink);font-size:12px}
+.frow{display:flex;gap:8px;align-items:baseline;font-size:12.5px}
+.frow code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.frow .add{color:var(--ok);font-variant-numeric:tabular-nums}
+.frow .del{color:var(--bad);font-variant-numeric:tabular-nums}
+.bar{height:4px;border-radius:2px;background:rgba(127,127,127,.15);margin:4px 0 6px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%;background:var(--ok)}
+.bar u{display:block;height:100%;background:var(--bad)}
+.file{margin-bottom:12px}
+.file p{margin:0;font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.risk{display:flex;gap:8px;margin-bottom:10px}
+.risk .lv{flex:0 0 40px;text-align:center;font-size:11px;font-weight:700;border-radius:4px;height:20px;line-height:20px}
+.risk.high .lv{background:rgba(180,35,24,.12);color:var(--bad)}
+.risk.med .lv{background:rgba(154,103,0,.14);color:var(--wait)}
+.risk.low .lv{background:rgba(107,114,128,.16);color:var(--muted)}
+.risk p{margin:0;font-size:13px;line-height:1.55}
+.rc-q{border-top:1px solid var(--line);padding:10px 16px;font-size:13px}
+.rc-q summary{cursor:pointer;color:var(--muted);font-size:12.5px}
+.rc-q ol{margin:8px 0 0;padding-left:20px}
+.rc-foot{border-top:1px solid var(--line);padding:12px 16px;display:flex;gap:12px;align-items:center;background:rgba(127,127,127,.03)}
+.rc-foot .rec{font-size:13px;flex:1}
+.rc-foot .rec b{color:var(--muted);font-weight:600;margin-right:4px}
+.rc-foot button,.rc-foot a.btn{padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;font-size:12.5px;cursor:pointer;text-decoration:none}
+.rc-foot button:hover{border-color:var(--blue);color:var(--blue)}
+/* ---------- plan C ---------- */
+.crow{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow)}
+.crow .ttl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.dots{display:flex;gap:3px;align-items:center;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-left:5px}
+.dot.h{background:var(--bad)}.dot.m{background:var(--wait)}.dot.l{background:var(--muted)}
+.chev{color:var(--muted);font-size:12px}
+.crow+.rc{margin-top:8px}
+/* ---------- notes ---------- */
+.notes{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);font-size:13.5px}
+.notes ol{margin:8px 0 0;padding-left:20px}
+.notes li{margin:6px 0}
+.notes a{color:var(--blue)}
+@media(max-width:760px){.rc-grid{grid-template-columns:1fr}.rc-panel+.rc-panel{border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>精读卡片改版方案</h1>
+  <p class="lead">同一张卡片（#12131）的三种呈现：现状、方案 A「摘要卡」、方案 C「紧凑行 + 展开」。数据来自真实记录，仅用于视觉对比。</p>
+
+  <h2 class="sec">现状 <small>纵向罗列，所有信息同一权重</small></h2>
+  <article class="cur">
+    <div class="head"><a class="num" href="#">#12131</a><h3>[BugFix] Minimax m3 0716 m</h3><span class="pill push sm">建议打回</span></div>
+    <div class="meta"><span>@Bill845514379</span><span class="ci bad">CI 失败 · lint-and-select-tests</span><span>我负责 93/133 个文件 · +19488/-13</span><span>已排队 131 天</span></div>
+    <p>MiniMax-M3 支持：新增约1.9万行稀疏注意力算子，附带 Gemma RMSNorm/partial RoPE 修复；body 仅“pr test”。</p>
+    <p><b>为什么改：</b>为 MiniMax-M3 的 paged KV+TopK block 稀疏注意力新增 AscendC 算子，并用预计算 weight_plus_one 省掉 Gemma norm 的 1+w 加法。</p>
+    <div><b>我负责部分的改动</b>
+      <ul>
+        <li><code>csrc/.../sparse_attention_score_tiling.cpp</code> GenerateTilingKey 对 D≠128…建议补校验并显式失败。</li>
+        <li><code>vllm_ascend/ops/layernorm.py</code> weight_plus_one 只在 _weight_loader 内刷新…</li>
+      </ul>
+    </div>
+    <div><b>风险</b>
+      <ul>
+        <li>HIGH GenerateTilingKey 无失败分支，可能静默产生错误结果。</li>
+        <li>MEDIUM 三层默认值不一致：scale_value 与 inner_precise。</li>
+      </ul>
+    </div>
+    <p><b>测试：</b>新增两条 UT…</p>
+    <p><b>建议动作：</b>拆 PR 并补形状/精度校验。</p>
+  </article>
+
+  <h2 class="sec">方案 A · 摘要卡 <small>先给判定与结论，再给证据；两栏承载“改了什么/风险”</small></h2>
+  <article class="rc rc-push">
+    <div class="rc-head">
+      <span class="pill push">建议打回</span>
+      <a class="num" href="#">#12131</a>
+      <h3>[BugFix] Minimax m3 0716 m</h3>
+      <a class="gh" href="#">GitHub ↗</a>
+    </div>
+    <div class="rc-meta">
+      <span>@Bill845514379</span><span class="sep">·</span>
+      <span class="ci bad">CI 1 项失败</span><span class="sep">·</span>
+      <span>无批准</span><span class="sep">·</span>
+      <span>我负责 93/133 文件</span><span class="sep">·</span>
+      <span>排队 131 天</span><span class="sep">·</span>
+      <span>把握 高</span>
+    </div>
+    <p class="rc-summary">新增约 1.9 万行稀疏注意力算子，附带 Gemma RMSNorm / partial RoPE 修复；body 仅“pr test”。</p>
+    <p class="rc-intent">为什么改：为 MiniMax-M3 的 paged KV + TopK block 稀疏注意力新增 AscendC 算子，并用预计算 weight_plus_one 省掉 Gemma norm 的 1+w 加法。</p>
+    <div class="rc-grid">
+      <section class="rc-panel">
+        <h4>我负责的改动 <b>3</b></h4>
+        <div class="file">
+          <div class="frow"><code>csrc/.../sparse_attention_score_tiling.cpp</code><span class="add">+412</span><span class="del">−6</span></div>
+          <div class="bar"><i style="width:92%"></i><u style="width:3%"></u></div>
+          <p>GenerateTilingKey 对 D≠128 / block_size≠128 / A2 fp8 一律回退，D64 key 未接线，未知 key 空执行。</p>
+        </div>
+        <div class="file">
+          <div class="frow"><code>vllm_ascend/ops/layernorm.py</code><span class="add">+18</span><span class="del">−3</span></div>
+          <div class="bar"><i style="width:14%"></i></div>
+          <p>weight_plus_one 只在 _weight_loader 内刷新，310P 分支仍用 1.0+weight。</p>
+        </div>
+        <div class="file">
+          <div class="frow"><code>vllm_ascend/ops/rotary_embedding.py</code><span class="add">+9</span><span class="del">−2</span></div>
+          <div class="bar"><i style="width:8%"></i></div>
+          <p>partial RoPE 切片未 contiguous，确认 op 接受非连续输入。</p>
+        </div>
+      </section>
+      <section class="rc-panel">
+        <h4>风险 <b style="color:var(--bad)">3</b> <span style="font-weight:400;text-transform:none;letter-spacing:0">1 高 · 2 中</span></h4>
+        <div class="risk high"><span class="lv">高</span><p>GenerateTilingKey 无失败分支，D≠128 等场景会静默跑错 kernel，可能产生错误结果而非报错。</p></div>
+        <div class="risk med"><span class="lv">中</span><p>三层默认值不一致（scale_value / inner_precise），后续调用方漏传即静默错缩放。</p></div>
+        <div class="risk med"><span class="lv">中</span><p>19k 行算子与两处 Python 修复混在 133 文件 / 85 commit，body 仅“pr test”。</p></div>
+      </section>
+    </div>
+    <details class="rc-q"><summary>要问作者（1）</summary><ol><li>能否拆成“算子 + Python 修复”两个 PR，并补 D=64/A2 fp8 的失败分支？</li></ol></details>
+    <div class="rc-foot">
+      <span class="rec"><b>建议</b>先拆 PR 并补形状/精度校验，再进入数值验证。</span>
+      <a class="btn" href="#">打开 PR</a><button>写批注</button>
+    </div>
+  </article>
+
+  <h2 class="sec">方案 C · 紧凑行 + 展开 <small>一屏能扫 20 条；点击展开为方案 A 的详情</small></h2>
+  <div class="crow">
+    <span class="pill sm push">打回</span>
+    <a class="num" href="#">#12131</a>
+    <span class="ttl">[BugFix] Minimax m3 0716 m</span>
+    <span class="dots"><i class="dot h"></i>1<i class="dot m"></i>2</span>
+    <span class="meta">@Bill845514379 · CI 1 失败 · 我负责 93/133 · 131 天</span>
+    <span class="chev">▸</span>
+  </div>
+
+  <h2 class="sec">设计依据 <small>参考的是已经收敛的评审类界面模式</small></h2>
+  <div class="notes">
+    <ol>
+      <li><b>两栏“diff + 批注卡”</b>：左侧代码/改动，右侧固定放批注卡，每张卡由<b>严重度徽标 + 正文 + 跳回 diff 的链接</b>组成。方案 A 的两栏（改动 / 风险）就是把这条规则搬到卡片内部。<a href="https://github.com/alirezarezvani/claude-skills/blob/5909a72e62b5fbb809935fb6a55b58bdbe175074/markdown-html/skills/md-review/references/pr_annotation_ux.md" target="_blank" rel="noopener">来源</a></li>
+      <li><b>上下文与结论分离</b>：GitHub 把 overview / comments / merge status / alerts 做成可停靠面板，避免评审时丢失上下文。对应到卡片：顶部固定“判定 + 一句话结论”，细节折叠。<a href="https://github.blog/changelog/2026-03-19-view-code-and-comments-side-by-side-in-pull-request-files-changed-page/" target="_blank" rel="noopener">来源</a></li>
+      <li><b>文件列表带比例条</b>：changed-files 树的成熟做法是每文件 +/− 加一条占比条，让“改动集中在哪”一眼可见。<a href="https://github.com/eltmon/overdeck/blob/decd049fddf2dcccfc6e8fcba1b9fb751a621aa9/docs/design/mockups/changed-files-tree-spec-opus.html" target="_blank" rel="noopener">来源</a></li>
+    </ol>
+    <p style="margin-top:12px;color:var(--muted)">对应到现有字段：<b>verdict</b> → 顶部判定条；<b>summary / intent</b> → 结论区；<b>focus</b> → 左栏文件行；<b>risks</b> → 右栏严重度列表；<b>questions</b> → 折叠区；<b>recommend</b> → 底部建议。</p>
+  </div>
+</div>
+</body>
+</html>
