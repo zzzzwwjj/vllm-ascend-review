@@ -1248,6 +1248,135 @@
       "review": null,
       "review_sha": null
     },
+    "22244": {
+      "number": 22244,
+      "title": "[Refactor] Remove remaining Model Runner V1 EPLB implementation",
+      "author": "freyfwt",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22244",
+      "changed_files": 135,
+      "additions": 353,
+      "deletions": 6468,
+      "age_days": 6.3,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 66
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/distributed/parallel_state.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 17
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 41,
+          "deletions": 63
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 44,
+      "owned_del": 154,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 22244,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "移除 V1 EPLB 实现：删 eplb 包、dynamic_eplb 通信组/环境变量/缓冲、V1 配置字段与校验分叉，只保留 V2 路径。",
+        "intent": "V1 已从主干移除，其 EPLB 实现和共用分支变成死代码；清掉依赖链可避免两套 EPLB 语义并存与误配置面。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "EplbConfig 只剩 load_collection_phase/stair_config，且 AscendConfig 是 extra=forbid；需确认平台层在构造前已把旧字段剥离"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "_validate_eplb_config 现在无条件按 V2 白名单过滤并回写 additional_config（1179-1183），且必须在 init_ascend_config 之前执行"
+          },
+          {
+            "file": "vllm_ascend/distributed/parallel_state.py",
+            "point": "get_dynamic_eplb_group/_DYNAMIC_EPLB 删除后无残留引用（已 grep 确认为空）"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "顺序不变式是隐式的：platform.py:691 先调 _fix_incompatible_config（内含 _validate_eplb_config 的 warn+strip），696 才 init_ascend_config 构造 EplbConfig(extra=forbid)。当前顺序正确，但一旦被后续重构调换，V1 老配置会直接抛 pydantic 错而不是给出“将被忽略”的警告。建议在 _validate_eplb_config 处注释该前置约束或加断言/单测固定顺序。"
+          },
+          {
+            "level": "medium",
+            "text": "V1 EPLB 分支删除后，`--enable-eplb` 且 use_v2_model_runner=False 的组合语义未被本 PR 说明：platform.py 仍保留多处 use_v2_model_runner 判断（780/1391/1692/2159），若 V1 仍可选中，EPLB 配置现在会被静默忽略而无明确报错。"
+          },
+          {
+            "level": "medium",
+            "text": "129 个非我负责文件只能抽查：已确认 vllm_ascend/eplb 目录 404、parallel_state 无 dynamic_eplb 残留、v2/model_runner.py 仅整体传 ascend_config.eplb_config（245 行）。若还有模块按属性读取被删字段（如 eplb_config.dynamic_eplb），只会在运行期 AttributeError，单测未必覆盖。"
+          },
+          {
+            "level": "low",
+            "text": "移除 envs.DYNAMIC_EPLB 与 eplb_config 旧字段属用户可见行为变更：旧启动脚本/环境变量会静默无效，建议发一次 warning_once 或在发布说明中显式标注。"
+          },
+          {
+            "level": "low",
+            "text": "MoeRouterInput.log2phy 删除属跨模块结构字段清理，仓内 fixture 已同步，但下游脚本/第三方扩展若构造该结构会 TypeError。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：本 PR 纯删除、不新增对外配置或公开接口，反而减少与上游 V2 的分叉，方向符合该规则。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：没有对上游缺陷的临时规避代码，因此无 TODO(github id) 需求。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 反向适用（删除侧）：被删函数/分支不得留悬空调用点。owned 6 个文件中 parallel_state/utils/envs/ascend_forward_context 已抽查干净，剩余面依赖 CI 与作者自查。"
+          }
+        ],
+        "tests": "CI 9 项全绿（5 skip、0 失败）；tests/ut/test_ascend_config.py 已断言 EplbConfig 拒绝 algorithm/policy 及已删 stair 选项，tests/ut/test_platform.py 覆盖 _validate_eplb_config 的新白名单行为。",
+        "questions": [
+          "需要作者确认：platform.py:691（_fix_incompatible_config）先于 696（init_ascend_config）执行，是刻意保证 warn+strip 早于 EplbConfig(extra=forbid) 构造吗？能否补一条固定该顺序的单测？",
+          "需要作者确认：use_v2_model_runner=False 且 --enable-eplb 时现在会发生什么？旧 V1 校验/报错分支删除后是否还有显式报错，而不是静默忽略 EPLB 配置？",
+          "需要作者确认：DYNAMIC_EPLB 环境变量和旧 eplb_config 字段是否需要一个 warning_once/发布说明，避免旧启动脚本静默失效？"
+        ],
+        "recommend": "删除方向与 owned 文件改动自洽；补齐“顺序不变式”注释/单测、确认 V1+enable_eplb 报错路径后即可 approve。"
+      },
+      "review_sha": "f3a73909889e"
+    },
     "22245": {
       "number": 22245,
       "title": "[Refactor] Use unified kv cache allocation interface for GQA",

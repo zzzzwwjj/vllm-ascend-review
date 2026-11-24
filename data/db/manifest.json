@@ -1,10 +1,40 @@
 {
   "schema": "reviewboard-db/1",
-  "updated_at": "2026-11-24T05:34:01.321Z",
-  "current": "2026-11-24-1300",
+  "updated_at": "2026-11-24T10:09:23.672Z",
+  "current": "2026-11-24-1800",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
   "editions": [
+    {
+      "id": "2026-11-24-1800",
+      "at": "2026-11-24T10:00:08.985Z",
+      "window": {
+        "start": "2026-11-24T05:00:04.677Z",
+        "end": "2026-11-24T10:00:08.985Z",
+        "reason": "自上次运行 11-24 13:00",
+        "hours": 5
+      },
+      "stats": {
+        "search_hits": 125,
+        "loaded": 125,
+        "fresh": 11,
+        "deep": 11,
+        "rest": 0,
+        "skipped": 114,
+        "skipped_seen": 109,
+        "skipped_other": 5,
+        "owned_prs": 10,
+        "api_calls": 474
+      },
+      "verdicts": {
+        "approve": 2,
+        "look": 9,
+        "pushback": 0,
+        "pending": 0
+      },
+      "v": "f01c8fabc4b3",
+      "legacy": false
+    },
     {
       "id": "2026-11-24-1300",
       "at": "2026-11-24T05:00:04.677Z",
@@ -202,8 +232,8 @@
       "count": 33
     },
     "11": {
-      "v": "0706f0833e82",
-      "count": 34
+      "v": "7e7237ca9344",
+      "count": 35
     },
     "12": {
       "v": "dd06c67c6de1",
@@ -242,16 +272,16 @@
       "count": 67
     },
     "21": {
-      "v": "7202ac80c720",
-      "count": 119
+      "v": "d3f6a7855005",
+      "count": 121
     },
     "22": {
-      "v": "dad682f149b1",
-      "count": 130
+      "v": "f0ac8c1eb8ea",
+      "count": 131
     },
     "23": {
-      "v": "8d2375b8efe7",
-      "count": 1
+      "v": "62de22b75247",
+      "count": 8
     }
   }
 }

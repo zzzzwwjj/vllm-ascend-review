@@ -4965,6 +4965,209 @@
       "review": null,
       "review_sha": null
     },
+    "21876": {
+      "number": 21876,
+      "title": "[Feature][A3] Connect K3.1 DSpark MLA to the 910 operator release",
+      "author": "jcy1112",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21876",
+      "changed_files": 22,
+      "additions": 2341,
+      "deletions": 131,
+      "age_days": 10.1,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 56,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 56,
+      "owned_del": 3,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 21876,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A3 K3.1 DSpark 接入 flash_attn_npu_3 公开 API，并在目标消费方支持时跳过 token 数的 D2H 与事件同步。",
+        "intent": "投机接受/拒绝后 NPU 上已有正确 token 数，但 V2 runner 仍把它 D2H 到 CPU 再同步；改为留在设备上，省一次拷贝与一次等待，并把草稿层调度交给 speculator 自己的 builder。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "initialize_kv_cache 内 586 行 initialize_spec_cpu_length_sync 与 598 行 _configure_a3_target_lengths 的先后顺序，以及 597 行裁剪 self.attn_groups 是否影响后续消费者"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_can_skip_spec_cpu_length_sync 中 1482 行 a3_device_lengths 的两个来源（layer.impl 与 self.speculator），与 _copy_num_computed_tokens_to_cpu/_update_seq_lens_cpu 使用的同一判定"
+          },
+          {
+            "file": "vllm_ascend/attention/flashmla.py",
+            "point": "target_attn_groups_without_draft_flashmla：只删“全部层都是 draft 且 builder 带 use_a3_mla_sink”的 group，返回新列表不原地改；需确认可能产生空 inner group"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "时序缺口：initialize_kv_cache 里 586 行 initialize_spec_cpu_length_sync() 早于 598 行 _configure_a3_target_lengths()。若 model_state 的那个 hook（或其内部调用 _can_skip_spec_cpu_length_sync）会缓存“必须同步”的结论，A3 设备长度策略在初始化阶段尚未生效，后续每步仍走 D2H——是性能回退而非算错，但会让本 PR 在 A3 上白改。建议把裁剪+配置块前移，或在 hook 之后再刷新一次。"
+          },
+          {
+            "level": "medium",
+            "text": "同一个判定有两个来源：594 行用 layer.impl.use_a3_mla_sink（遍历 static_forward_context），1482 行用 self.speculator.use_a3_mla_sink。不一致时行为是 fail-safe（多同步、少优化），但语义不清且难以测试，建议统一到一个 helper 并注明为何需要两处。"
+          },
+          {
+            "level": "medium",
+            "text": "裁剪 self.attn_groups 后可能出现“只含 draft 层”的内层 group 变为空列表；若后续存在 attn_groups[i][0] 之类硬取会 IndexError。helper 的 docstring 说“保留 cache-group 索引”，但未断言空 group 被容忍。"
+          },
+          {
+            "level": "low",
+            "text": "_configure_a3_target_lengths 用 type(builder) not in (5 个具体类) 的白名单判断“目标消费方都支持设备长度”，新增模型或新增 metadata builder 必须回来改这里，容易漏；建议改为 builder 能力位（如 allow_a3_device_lengths 的声明式属性）。"
+          },
+          {
+            "level": "low",
+            "text": "跳过 D2H 后 req_states.num_computed_tokens_cpu 保留调度器的乐观上界。注释只提到 PCP 的 NumPy view 依赖它；_configure_a3_target_lengths 只排除 prefill_context_parallel_size != 1，未排除 decode CP（use_dcp），若 DCP 侧存在 CPU 消费方可能读到 rejection 前的值。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 基本满足：走 flash_attn_npu_3 的公开 API（get_scheduler_metadata / flash_attn_with_kvcache），没有新增用户可见配置，选择自动生效，属“硬件差异走算子接口”的正确方向；但 builder 白名单是硬编码架构判断，仍有轻分叉隐患。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：没有对上游缺陷的临时规避；“未知消费方保留原同步”是保守回退而非 workaround，也不需要 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 部分满足：新增 _a3_target_device_lengths 的写点（492 置 False、598 赋值）与读点（1482）都在本 PR 内，_configure_a3_target_lengths 与 target_attn_groups_without_draft_flashmla 均有唯一调用点；唯一缺口是初始化时序（见第一条风险），使新开关可能在首步前未按预期生效。"
+          }
+        ],
+        "tests": "CI 6 项全绿（3 skip、0 失败）；PR 自带 22 个测试文件改动（+2341），覆盖目标长度策略与 D2H 跳过判定；建议补“空 inner group”和“初始化顺序”的回归用例。",
+        "questions": [
+          "需要作者确认：initialize_spec_cpu_length_sync()（586 行）在 _configure_a3_target_lengths()（598 行）之前执行，model_state 的该 hook 是否会读取或缓存 _can_skip_spec_cpu_length_sync() 的结果？若会，A3 设备长度策略在第一步之前是否真的生效？",
+          "需要作者确认：裁剪后是否会出现空的 inner group（某个 KV cache group 只含 draft 层）？后续所有消费者都能容忍空 group 吗？",
+          "需要作者确认：layer.impl.use_a3_mla_sink 与 self.speculator.use_a3_mla_sink 两个来源是否必然一致？能否合并成一个判定？",
+          "需要作者确认：移除 D2H 后 num_computed_tokens_cpu 保持上界，decode CP（use_dcp）场景是否也应排除，或 DCP 侧确有 CPU 消费方？"
+        ],
+        "recommend": "方向正确（设备长度 + 公开算子 API）；修正初始化时序、确认空 group 与两个 use_a3_mla_sink 来源一致后 approve；另需先 rebase 解决 dirty。"
+      },
+      "review_sha": "fd2ace22cdbb"
+    },
+    "21885": {
+      "number": 21885,
+      "title": "[Feature] Integrate updated A2/A3 W4A8 SiTU and fused MoE MLP operators",
+      "author": "jcy1112",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/21885",
+      "changed_files": 85,
+      "additions": 9326,
+      "deletions": 8567,
+      "age_days": 10,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 35,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 39,
+      "owned_del": 2,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 21885,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 A2/A3 的 W4A8 SiTU GMM：按权重 ND/NZ 选入口，能力位 GROUPED_MATMUL_SITU_QUANT 注册到 A2/A3。",
+        "intent": "A5 已有 GMM-SiTU 量化融合，A2/A3 命中时直接报错；本 PR 补上 ND/NZ 两种权重的实现并用能力位门控，使 W4A8 SiTU 层在 A2/A3 可用。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "BaseDeviceAdaptor.npu_grouped_matmul_situ_quant（464 行）：能力位检查、x.dtype==int8 检查、weight[0] 的 npu_format(29/50) 选 NZ 入口、list 转 .list、group_list 转 int64、以及裸 mode 常量 0/0/0"
+          },
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "GROUPED_MATMUL_SITU_QUANT 只加到 A2 profile（_HARDWARE_PROFILES 内）与 _A3_CAPABILITIES；确认没有漏到 A5/310P，也没有与 device_op 的报错文案不一致"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "能力位按设备类型（A2/A3）打开，不探测 OPP 是否已含新 GMM1/MLP 二进制。旧 OPP 环境下 A2/A3 不再得到原来清晰的“仅 A5 支持”RuntimeError，而是 ACLNN 找不到算子的晦涩错误。建议在 adaptor 层做算子/版本探测（或 ascii 版本号校验），给出可读提示。"
+          },
+          {
+            "level": "medium",
+            "text": "只对 weight[0] 调 torch_npu.get_npu_format 就假定整个 per-expert 列表同构；报错文案声称“requires INT4 weights”，但代码只校验 x.dtype==int8，未校验 weight 的打包 dtype（int32）与每个 expert 视图的存储格式。混合格式或传错 dtype 会静默走错入口。"
+          },
+          {
+            "level": "medium",
+            "text": "dequant_mode=0 / dequant_dtype=0 / quant_mode=0 是裸魔法常量（A5 侧是 1/0/1），无注释也无命名常量；ND/NZ 两入口 × 两种 arch 的 mode 组合无法自证，建议改为具名常量或注明对应 ACLNN 枚举。"
+          },
+          {
+            "level": "medium",
+            "text": "83 个非我负责文件无法核对：真正传 weight_assist_matrix 的 adapter 与“融合 MLP 入口”的 dispatch 都在我负责文件之外。若 dispatch 条件与 GROUPED_MATMUL_SITU_QUANT 能力位不一致，会在不支持设备上抛错或漏走快路径。"
+          },
+          {
+            "level": "low",
+            "text": "npu_format 29/50 是魔数（虽已有注释），建议用 ACL_FORMAT_FRACTAL_NZ 之类的命名常量；per-expert 空列表会在 weight[0] 处 IndexError，建议显式报错。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 基本满足：改动落在 Ascend 自有 device adaptor 层，未修改上游 vLLM，也没有新增用户可见开关；但整套 W4A8 SiTU 是 9k+ 行自研算子，属长期分叉，建议在 release note 里写清与上游 W4A8 路线的边界。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：没有对上游缺陷的临时规避代码，因此无 TODO(github id) 需求；新增路径也未携带 sunset 义务。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 基本满足：新能力位有唯一消费点（device_op.py:477）并在两条 profile 注册，新分支（ND/NZ）在本 PR 内各有入口；唯一缺口是 weight_assist_matrix 的生产者与融合 MLP dispatch 的生效路径需作者确认。"
+          }
+        ],
+        "tests": "CI 8 项全绿（4 skip、0 失败）；tests/ut/device/test_hardware_profile.py 的精确能力集合断言已同步加入新能力位；未见 A2/A3 SiTU 分派（ND/NZ 选择、weight_assist_matrix）的单元测试。",
+        "questions": [
+          "需要作者确认：未重建 OPP 的 A2/A3 环境会看到什么错误？能否在 adaptor 层探测算子/OPP 版本，给出可读提示而不是 ACLNN 找不到算子？",
+          "需要作者确认：weight 的打包 dtype（int32/INT4）与每个 expert 视图的存储格式是否由上游 adapter 校验？adaptor 只看 weight[0]，混合格式会静默选错 ND/NZ 入口。",
+          "需要作者确认：dequant_mode/dequant_dtype/quant_mode 取 0 的确切含义（per-channel INT8×INT4？）以及与 A5 的 1/0/1 对应关系，能否用具名常量固定？",
+          "需要作者确认：weight_assist_matrix 的生产者（两个投影的 compensation）与融合 MLP 入口的 dispatch 条件，是否与 GROUPED_MATMUL_SITU_QUANT 能力位完全一致？这两处在我负责文件之外，本次未能核对。",
+          "规则 1 追问：这套 W4A8 SiTU/融合 MLP 是否有向上游提交算子接口的计划，以收敛 9k 行长期分叉？"
+        ],
+        "recommend": "owned 改动自洽且有测试；补算子/OPP 探测、mode 具名常量、确认 adapter 侧 weight 校验后 approve；另需先 rebase 解决 merge-conflicts。"
+      },
+      "review_sha": "c2b4de31f79f"
+    },
     "21896": {
       "number": 21896,
       "title": "[Performance][DSV4.1] Capture native decode metadata with first-consumer SWA priority",

@@ -1,5 +1,61 @@
 [
   {
+    "n": 23052,
+    "t": "[BugFix] Skip 2 MiB device KV alignment for native CPU offloading",
+    "a": "Enguikong",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23051,
+    "t": "[Feature] Add NOVA-KV 2-bit KV cache quantization on Ascend 950",
+    "a": "sywang24",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23047,
+    "t": "[Refactor] Drop worker overrides that duplicate upstream",
+    "a": "Ronald1995",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23046,
+    "t": "[Performance][A5] Write local C8 FlashMLA pages in native NZ layout",
+    "a": "Dawn952",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23025,
+    "t": "Revert #20758: [Refactor][V2] Move kernel block handling into AttentionGroup",
+    "a": "vllm-ascend-ci",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23022,
+    "t": "[Performance][Model] Use 128 compressed keys per Qwen3.8 LIv2 page",
+    "a": "dypforever",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23017,
+    "t": "[BugFix][MoE] Guard CANN window sharing for DeepSeek V4.1 DSpark on A5",
+    "a": "rikakuhi",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23000,
     "t": "[Feature] Capture msprobe weight statistics during startup profiling",
     "a": "Tjh-UKN",
@@ -824,6 +880,14 @@
     "v": null
   },
   {
+    "n": 22244,
+    "t": "[Refactor] Remove remaining Model Runner V1 EPLB implementation",
+    "a": "freyfwt",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 22240,
     "t": "[BugFix][QLI] Restore BF16 DCP scores on A3",
     "a": "hust17yixuan",
@@ -1158,6 +1222,22 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 21885,
+    "t": "[Feature] Integrate updated A2/A3 W4A8 SiTU and fused MoE MLP operators",
+    "a": "jcy1112",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 21876,
+    "t": "[Feature][A3] Connect K3.1 DSpark MLA to the 910 operator release",
+    "a": "jcy1112",
+    "e": "2026-11-24-1800",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 21870,
@@ -7180,6 +7260,14 @@
     "t": "[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend",
     "a": "yooooo00",
     "e": "2026-11-23-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 11641,
+    "t": "[BugFix][SpecDecode][v0.32.0rc] Handle wide GDN verification windows",
+    "a": "Liuchenbing-2026",
+    "e": "2026-11-24-1800",
     "r": "deep",
     "v": "look"
   },

@@ -1052,6 +1052,107 @@
       "review": null,
       "review_sha": null
     },
+    "11641": {
+      "number": 11641,
+      "title": "[BugFix][SpecDecode][v0.32.0rc] Handle wide GDN verification windows",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11641",
+      "changed_files": 3,
+      "additions": 135,
+      "deletions": 19,
+      "age_days": 138.9,
+      "ci": {
+        "total": 33,
+        "failed": 4,
+        "failed_names": [
+          "ci-gate",
+          "pre-commit",
+          "ci-gate",
+          "pre-commit"
+        ],
+        "pending": 0,
+        "skipped": 22,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 1,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 49,
+          "deletions": 19
+        }
+      ],
+      "owned_add": 49,
+      "owned_del": 19,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 11641,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "回移分支修复：GDN 投机验证窗口宽于 8 时改走上游 FLA Triton recurrent，窄窗仍用 AscendC。",
+        "intent": "AscendC recurrent GDN 内核每序列最多 8 token，n≥8 的验证窗口会静默不写输出、解码乱码；本 PR 按 2D 状态表宽度分派到上游 Fused recurrent 并补单测，属 v0.32.0rc 回移。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "L755-800：分派只看 2D 表 shape[1]>8；upstream 分支未 squeeze，需核对返回 [1,T,H,V] 与下游拼接、状态写回一致"
+          },
+          {
+            "file": "vllm_ascend/ops/gdn.py",
+            "point": "L232：_MAX_RECURRENT_GDN_TOKENS=8 与 AscendC 内核真实上限的对应关系，以及上限变化时如何发现"
+          },
+          {
+            "file": "tests/ut/ops/test_gdn_spec_recurrent_dispatch.py",
+            "point": "只 mock 两个内核，未覆盖真实 dtype/shape、1D 布局与 use_upstream_recurrent=True 分支"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "PR 自述 grammar-trimmed 窄窗（表宽≤8、accepted_prev=4/query_len=2）仍走 AscendC 且可能不写输出；该乱码路径在本分支未修，发布版仍可能静默错误，需单独 issue 跟踪。"
+          },
+          {
+            "level": "medium",
+            "text": "release 分支 gdn_attn_builder 无 use_upstream_recurrent 字段（本 PR 只改 gdn.py/测试/release note），getattr 分支恒为 False，属不可达兼容代码，实际仅靠宽度启发式生效。"
+          },
+          {
+            "level": "medium",
+            "text": "宽度守卫假设状态表一定是 2D（现 builder 确为 block_table[:, :num_spec+1]）；若未来图路径或分支改成 1D/token-major 布局，修复会静默失效。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照：不通过——把厂商内核上限硬编码为 8 属临时规避，没有 TODO(github id)、根因链接与日落计划。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用——未新增对外配置或公开接口，只是在本分支复用上游 FLA 算子，无需上游开插件接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：部分通过——新增分支有调用点并有 8/9/16 分派测试，但 use_upstream_recurrent 在本分支无生产者，且测试全部 mock 内核，缺真实生效证据。"
+          },
+          {
+            "level": "low",
+            "text": "CI 失败项：pre-commit（2 条）与 ci-gate（2 条）；标题含第三个标签 [v0.32.0rc] 非模块标签，建议规范为 [BugFix][SpecDecode]。"
+          }
+        ],
+        "tests": "新增 83 行单测覆盖 8/9/16 token 分派与 cu_seqlens/state_indices/num_accepted_tokens 透传，但内核全 mock；CI 现状 pre-commit 与 ci-gate 失败。",
+        "questions": [
+          "需要作者确认：发布分支是否可能出现 1D/token-major 的 spec_state_indices 布局？若会，宽度守卫不触发时本 PR 是否仍无效？",
+          "grammar-trimmed 窄窗乱码能否用 accepted_prev>query_len 这类与宽度无关的条件在本分支兜底，或另开 issue 排期？",
+          "上游分支返回的 core_attn_out_spec 是否已是 [1,T,H,V]（其他分支都 .unsqueeze(0)）？num_accepted_tokens 是否需像原生路径一样显式转 int32？",
+          "能否为硬编码 8 补 TODO(厂商 issue id)+日落计划，并把 main 的 use_upstream_recurrent metadata 一并回移，减少分支分叉？"
+        ],
+        "recommend": "先修 pre-commit/ci-gate，并就窄窗残留乱码与硬编码 8 建跟踪项、补真实内核生效证据后再合。"
+      },
+      "review_sha": "70fe3d48e3b8"
+    },
     "11656": {
       "number": 11656,
       "title": "[Feature][Model] Support NVIDIA Nemotron 3 Super on Ascend",

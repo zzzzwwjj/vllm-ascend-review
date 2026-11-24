@@ -92,6 +92,763 @@
         "recommend": "建议批准；请作者回答 AclGraphDumper 接口与 profile_run 调用次数，并在 msprobe 文档标注该开关为调试用途。"
       },
       "review_sha": "d7828bac7b52"
+    },
+    "23017": {
+      "number": 23017,
+      "title": "[BugFix][MoE] Guard CANN window sharing for DeepSeek V4.1 DSpark on A5",
+      "author": "rikakuhi",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23017",
+      "changed_files": 5,
+      "additions": 642,
+      "deletions": 7,
+      "age_days": 0.2,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23017,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A5 上让 DSpark target/draft 复用同一 CANN MegaMoE window：布局、容量与 rank 一致才共享，否则保持各自分配。",
+        "intent": "A5 上 target(384 专家) 与 draft(128 专家) 的 FUSED_MC2 对象各自建 MegaMoE window 会令 peer 地址失效；本 PR 在 draft loader 后判定并共享 target 窗口。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/fused_moe/mega_moe_context.py",
+            "point": "非我负责文件：try_share 的三次 _agree、fits_target/容量查询、view 与 restore 的 context/_ctx_manager 重绑是否自洽"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/spec_decode/dspark/speculator.py",
+            "point": "非我负责文件：调用点在 load_draft_model 的硬件/comm/ubatching gate；allow_sharing=not use_ubatching 是否等价于 target/draft 串行"
+          },
+          {
+            "file": "vllm_ascend/ops/fused_moe/moe_comm_method.py",
+            "point": "非我负责文件：prepare_hccl_teardown/refresh_hccl_runtime_state 对 _shared_mega_moe_buffer 的 stale→restore 语义，以及与真实构造/转发路径的衔接"
+          },
+          {
+            "file": "tests/ut/ops/test_dspark_mega_moe_window.py",
+            "point": "非我负责文件：覆盖分享/跳过/失败/恢复，但 _agree 与 NPU 后端均被 mock"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "无 A5 真机证据（作者自述 pending）：启动期对 CANN 工厂做 signature 反射、复制 context、重绑 group，若假设不成立会启动崩溃或静默精度问题；合并前应至少完成启动 profiling + 一次真实 DSpark 请求。"
+          },
+          {
+            "level": "medium",
+            "text": "串行假设仅由 not use_ubatching 推断；async/PP 或未来 overlap 下 target 与 draft MoE 可能并发使用同一窗口，破坏 collective 顺序，建议运行期断言或文档化。"
+          },
+          {
+            "level": "medium",
+            "text": "_agree 依赖 scope.world_size/cpu_group，而全部单测都 monkeypatch 掉它；真实 get_mc2_group() 的 collective 行为（多机 rank 不一致/hang）无入库覆盖。"
+          },
+          {
+            "level": "medium",
+            "text": "draft 的 view 复用 target owner 的 context/_ctx_manager，target 先 teardown 后 draft 仍持有 view；虽有 restore 兜底，多 layer/PP/sleep-wake 组合需确认真实路径。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照：不通过——这是对 CANN 双窗口缺陷的框架侧规避，但代码无 TODO(github id)、根因链接与移除条件。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用——未新增对外配置/公开接口，MegaMoE 是 Ascend 私有通路；但共享默认开启且无配置 kill switch，线上回退只能改代码。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：通过——新函数有唯一调用点 speculator.load_draft_model，且在硬件/CANN/comm/ubatching gate 内生效。"
+          },
+          {
+            "level": "low",
+            "text": "CI 无数据（total=0）且 5 个变更文件中无我负责路径；按「非我负责文件」给出整体风险，标题 [BugFix][MoE] 符合规范。"
+          }
+        ],
+        "tests": "新增 354 行 CPU 单测覆盖兼容/跳过/失败/恢复与 W4A8 混合量化，但 NPU mock、A5 真机与 CI 结果均缺。",
+        "questions": [
+          "需要作者确认：A5 启动 profiling 与真实 DSpark 请求的验证计划/时间点？是否接受在有 A5 证据前不合入？",
+          "get_mc2_group() 是否提供 world_size/cpu_group 供 _agree 使用？能否补一个不 mock _agree 的多进程测试入库？",
+          "除 ubatching 外，target 与 draft 的 MoE 是否可能并发（async scheduling、PP、多 draft）？若会，共享窗口如何保证 collective 顺序？",
+          "共享默认开启且无开关，能否加配置/环境变量 kill switch，并补 TODO(CANN/上游 issue) 与移除条件？",
+          "5 个变更文件中是否有属于我负责路径的文件？本条 owned 为空，我按整体风险判断。"
+        ],
+        "recommend": "先看设计，等 A5 启动 profiling+真实请求验证、补 _agree 真实覆盖与回退开关后再合。"
+      },
+      "review_sha": "5ba158d8b1fc"
+    },
+    "23022": {
+      "number": 23022,
+      "title": "[Performance][Model] Use 128 compressed keys per Qwen3.8 LIv2 page",
+      "author": "dypforever",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23022",
+      "changed_files": 6,
+      "additions": 238,
+      "deletions": 80,
+      "age_days": 0.1,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/utils.py",
+          "status": "modified",
+          "additions": 29,
+          "deletions": 9
+        }
+      ],
+      "owned_add": 29,
+      "owned_del": 9,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23022,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "MRV2 下为 LIv2 启用 512 token 压缩页：分流合理，但 next() 无兜底、encoder-only 组对齐与真机验证缺失。",
+        "intent": "在 prepare_ascend_kernel_block_sizes 中按后端能力标记放行 QSA 组的 manager block，使 LIv2 可声明 512 token 页；其余组沿用公共块大小与 alias 重切。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/utils.py",
+            "point": "per_attention_groups 用 getattr(group.backend, 'selects_kernel_blocks_per_attention_group', False) 找出 QSA 组，对其直接 append manager_block_size 并跳过 select_common_block_size 与 alias 重切"
+          },
+          {
+            "file": "vllm_ascend/worker/utils.py",
+            "point": "replace(kv_cache_config, kv_cache_groups=[...]) 只过滤 per-AG 组，EncodedOnlyAttentionSpec 组仍保留在传给上游的列表里；上游按位置返回块大小，由 shared_block_sizes 迭代器配对"
+          },
+          {
+            "file": "vllm_ascend/worker/utils.py",
+            "point": "next(shared_block_sizes) 取代旧的 index >= len(...) break；若上游返回条目数少于『非 encoder、非 per-AG』组数会抛 StopIteration/RuntimeError 而非截断"
+          },
+          {
+            "file": "vllm_ascend/worker/utils.py",
+            "point": "group_id < len(attn_groups) 这一旧护栏只保留在 alias 重切分支，per_attention_groups 与过滤列表都假设 attn_groups 与 kv_cache_groups 下标严格对齐"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "多模态/encoder-only 组与 QSA 组共存时：过滤后的 kv_cache_groups 仍含 EncoderOnlyAttentionSpec 组，而 attn_groups 可能比 kv 组短（旧代码专门有 group_id < len(attn_groups) 护栏）。上游按索引配对时可能错配或越界，建议显式等长断言。"
+          },
+          {
+            "level": "medium",
+            "text": "next(shared_block_sizes) 无兜底：旧代码在数量不足时 break 截断，新代码会以生成器 StopIteration 形式崩溃。若上游将来在内部多跳过一类组，这里会先炸，建议显式长度校验或降级到 manager size。"
+          },
+          {
+            "level": "medium",
+            "text": "NPU 性能与正确性尚未验证（作者自述 main 基线待补），CI 8 项中 5 项 skipped；现有证据为 CPU mock + 真实 cache planner 的 25/26 项单测，未覆盖真机 512 token 页的 metadata/slot_mapping 一致性。"
+          },
+          {
+            "level": "low",
+            "text": "per-AG 组直接返回 manager_block_size（如 1024），把切分交给 per-AttentionGroup 映射（8×128 主 KV + 2×512 indexer）。需确认该组没有同时命中 has_layer_views/alias 场景，否则丢失原有的 select_common_block_size 修正。"
+          },
+          {
+            "level": "low",
+            "text": "selects_kernel_blocks_per_attention_group 是新的隐式后端协议（getattr 默认 False），定义与置 True 的条件在非我负责文件中；worker/utils.py 为 V1/V2 共用，需确认 V1 后端不会置 True 而改变 V1 的分配策略。"
+          }
+        ],
+        "tests": "CPU 下 test_qwen4_exp_cache_config.py 与 test_qwen4_exp_soc_gating.py 各 25/26 项通过（含 512 精确匹配与 256/384/768 回退），但真机 NPU 正确性与性能仍 pending，CI 5 项 skipped。",
+        "questions": [
+          "需要作者确认：selects_kernel_blocks_per_attention_group 的定义位置与置 True 的完整条件（PCP=1、manager block 可被 512 整除、仅 LIv2 后端），以及另一份文件中 metadata/slot_mapping 是否使用同一 per-AG 几何。",
+          "需要作者确认：encoder-only/多模态组与 QSA 组共存时，过滤后的 kv_cache_groups 与 attn_groups 索引对齐是否仍成立（上游是否要求两者等长）。",
+          "需要作者确认：next(shared_block_sizes) 在上游返回条目不足时是否应降级为 manager size，而不是抛 StopIteration。",
+          "需要作者确认：同一 worker/utils.py 是否也被 V1 路径调用，本 PR 对 V1 是否有意保持行为不变。",
+          "规则 1 对照：部分适用——未新增用户配置，但用隐式后端 flag 扩展上游 #57169 的 per-AttentionGroup 页映射；建议把『每组可自选 kernel block』能力推向上游，否则长期以 getattr 协议分叉。",
+          "规则 2 对照：不适用——这是复用上游 per-AG 机制的能力扩展，不是对上游缺陷的临时规避。",
+          "规则 3 对照：满足但需补强——flag 在本函数有读取点、在非我负责文件有置位点；调用链可追踪，但建议在 append manager 大小前校验 attn_groups 长度与组类型。"
+        ],
+        "recommend": "建议补真机 512 token 页的正确性/性能数据，并把 next() 与 encoder-only 组的索引对齐做成显式校验后再合入。"
+      },
+      "review_sha": "00a3755a2c03"
+    },
+    "23025": {
+      "number": 23025,
+      "title": "Revert #20758: [Refactor][V2] Move kernel block handling into AttentionGroup",
+      "author": "vllm-ascend-ci",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23025",
+      "changed_files": 43,
+      "additions": 736,
+      "deletions": 1161,
+      "age_days": 0.1,
+      "ci": {
+        "total": 25,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 11,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 60
+        },
+        {
+          "file": "vllm_ascend/worker/v2/block_table.py",
+          "status": "modified",
+          "additions": 52,
+          "deletions": 12
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 12
+        }
+      ],
+      "owned_add": 60,
+      "owned_del": 84,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23025,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "回滚 #20758：撤销 AttentionGroup 内核块映射，恢复 AscendBlockTables 自行按内核块展开。",
+        "intent": "让 v2 回到 #20758 之前的内核块布局（疑似该重构引入回归），但未说明触发原因、失败用例与重提计划，正文仅给 vLLM 基线 commit。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "已删 initialize_kernel_block_table_buffers、group_pcp_context 与 attn_group.build_metadata；确认 build 直连 attn_metadata_builder 且全文件无残留引用"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/block_table.py",
+            "point": "恢复 kernel_block_sizes/blocks_per_kv_block、append_block_ids 展开与 kernel_block_sizes_tensor；核对与 pinned vLLM(#57169) 是否双重映射及 310P 小内核块场景"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "删除 PCP max_num_local_reqs+1 与 speculator groups 的表格扩容，这是 #20758 修 PCP 双行/FIA padding 的关键，需确认不会回到图捕获期 resize"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/block_table/compute_slot_mappings.py",
+            "point": "非我负责文件，已核对：kernel 仍按 kernel_block_size 求 block_indices，调用方传 block_sizes_tensor+kernel_block_sizes_tensor，契约一致"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "回滚删掉 initialize_kernel_block_table_buffers，等于撤销为 PCP（每请求 2 本地行）与 FIA padding 预留 group.kernel_block_table 容量的修复；若仍有 group.build_metadata/kernel_block_table 使用方（kv_trace、310P、patch 路径），warmup/图捕获期扩容问题会复现。"
+          },
+          {
+            "level": "high",
+            "text": "若 vLLM pin 仍停在含 #57169 的 main（AttentionGroup 已接管映射），而 Ascend 改回 BlockTables 自行展开并绕过 group.build_metadata，存在双重映射/映射缺失或必需参数不匹配的初始化失败风险；需确认回滚是否同时下调 pin。"
+          },
+          {
+            "level": "medium",
+            "text": "回滚说明为空、无失败用例链接，CI 仅 ci-gate 失败且 mergeable_state=blocked，无法判断回滚针对的回归是否已被覆盖。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照：部分不通过——block_table.py 新增 TODO 说明了根因与目标（跟随 vLLM #57169），但缺 github issue id、负责人与重提时间表，分叉不可追踪。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用——未新增对外配置或公开接口，是退回旧内部布局。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：通过——恢复的字段/函数都有调用点（runner→AscendBlockTables→triton slot kernel），被删符号在 3 个 owned 文件内未见残留；但 40 个非 owned 文件无法全量核对。"
+          },
+          {
+            "level": "low",
+            "text": "标题以 'Revert #20758:' 开头、无 [Tag] 规范前缀（原自动标题也被改写），建议至少保留 [Refactor][V2] 以满足标题规范。"
+          }
+        ],
+        "tests": "PR 未改/未附测试说明；需对 PCP+FIA+310P 图捕获与 kv_trace 路径做回归，并附 #20758 的触发失败用例。",
+        "questions": [
+          "回滚触发的具体回归/失败用例与 issue 链接是什么？是否与 kv_trace、310P 或 patch 路径有关？",
+          "本次是否同步调整了 vLLM pin？在含 #57169 的 main 上，AttentionGroup/BlockTables 的旧调用契约是否仍成立？",
+          "#20758 引入的 kernel_block_table/_with_kernel_block_table/map_to_kernel_block_table/select_common_block_size 在 40 个非我负责文件中是否已无残留调用方？",
+          "AscendBlockTables 的 kernel_block_sizes 实参在创建点是否仍传入（owned 文件里只见 self.kernel_block_sizes 被 kv_block_zeroer 使用，未见创建点）？",
+          "重提 #20758 的计划、owner 与验收标准？回滚期间 PCP+FIA 图捕获是否有替代修复？"
+        ],
+        "recommend": "要求作者补回滚原因/失败用例、确认 vLLM pin 与残留调用方并给出 reland 计划后再合。"
+      },
+      "review_sha": "6d359499f562"
+    },
+    "23046": {
+      "number": 23046,
+      "title": "[Performance][A5] Write local C8 FlashMLA pages in native NZ layout",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23046",
+      "changed_files": 14,
+      "additions": 619,
+      "deletions": 42,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/paged_mla_cache_read.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 12,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 22,
+      "owned_del": 5,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23046,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A5 量化 FlashMLA 的 KV 页改为原生 NZ 布局：解码直喂 Cube、prefill 按 NZ 分片 gather，布局由 ndim==5 判定。",
+        "intent": "PA_BBND 下每页需在 GM→L1 反复做 ND→NZ，限制了 FP8 收益；改为写入即 NZ 持久化，省 10 次 Slice/10 次 ViewCopy，并特化 32 行 PV 尾块。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "第 1971 行附近：5 维 cache_shape=(N,1,fused_dim//32,128,32) 的元素数必须与 (*component_shape,fused_dim) 严格相等，隐含 num_kv_heads==1 与 fused_dim%32==0，代码未断言"
+          },
+          {
+            "file": "vllm_ascend/device/paged_mla_cache_read.py",
+            "point": "load_mla_cache_context_rows 的 ndim==5 分支：双高级索引 k[physical_blocks,0,:,offsets,:] 的结果形状与展平顺序，以及 num_tokens==0 时 width=(k.size(2)+v.size(2))*k.size(-1) 是否与调用方 split((512,64)) 对齐"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "load_mla_cache_rows_by_slots 未适配 5 维缓存，而 _gather_current_kv_from_cache（mla_v1.py:2528）仍按 kv_cache[0].shape[-1]（5 维时=32）切分 nope/rope；一旦 5 维缓存走到 current-KV 回读会静默取到错值。建议在该函数入口 assert ndim==4 或显式转换。当前门控要求 not use_dcp 且 kv_transfer_config is None，看似不可达，但依赖子类 override 的间接条件。"
+          },
+          {
+            "level": "medium",
+            "text": "布局门控只探测 hasattr(torch.ops._C_ascend, 'quant_flash_mla_nz')，而写路径用的是 quant_flash_mla_nz_write；若扩展只导出读 op，要到 decode 写入时才 AttributeError。反之缺 OPP 时静默回落 ND，性能收益无声消失，无日志提示。"
+          },
+          {
+            "level": "medium",
+            "text": "新增 5 维分支无单测：tests/ut/device/test_paged_mla_cache_read.py 只覆盖 ND（test_fp8_history_context_reads_only_requested_rows_from_token_interleaved_pages），5 维 gather 的正确性与 num_tokens==0 的宽度都未验证，而这正是本次 owned 文件里唯一的新索引逻辑。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1（弱适用）：未新增对外配置或公开接口；但 96 头、128 页、fused_dim//32 等模型常量内嵌在通用 V2 reshape 中，后续支持其他头数/页大小容易继续在此分叉。建议由 QuantFlashMLA impl/spec 暴露页布局能力位，而不是在 worker 通用路径写死。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：本 PR 没有对上游缺陷的临时规避，也没有需要 TODO(github id) 的补偿性代码；缺 OPP 时的降级是能力探测而非 workaround。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 基本满足：新分支的生效路径在本 PR 内闭合（ndim==5 → quant_flash_mla_nz_write 写入 / quant_flash_mla_nz 解码 / prefill nz_cache gather / packed_c8_query 直传）。但反向入口 load_mla_cache_rows_by_slots 未覆盖，属规则 3 的遗漏面。"
+          }
+        ],
+        "tests": "CI 9 项全绿（5 skip、0 失败）；作者称 31 个 QuantFlashMLA 用例通过，但 owned 读取文件的 5 维新分支没有新增单测。",
+        "questions": [
+          "需要作者确认：5 维（NZ）缓存是否可能进入 _gather_current_kv_from_cache / load_mla_cache_rows_by_slots？即是否有子类 override _decode_requires_current_kv 或 _prefill_requires_current_kv 返回 True 且仍走量化 FlashMLA。若可能，需要在 slots 读取入口加 ndim==4 断言或做布局转换。",
+          "需要作者确认：num_kv_heads 恒为 1、fused_dim=576 能被 32 整除是否由 spec 保证？建议在门控条件里显式断言 fused_dim % 32 == 0 且 num_kv_heads == 1，避免 96 头以外配置静默建出错误页布局。",
+          "需要作者确认：是否也应探测 quant_flash_mla_nz_write，并在缺少 arch35 实现时打一次性 info 日志，避免性能路径无声失效？",
+          "规则 1 对照追问：为何把 96 头/128 页这类模型常量放在 worker/v2 通用 reshape，而不是由 attention impl 暴露页布局开关？"
+        ],
+        "recommend": "方向正确、门控收敛良好；建议补 5 维分支单测、给 slots 读取加 ndim 断言、把 96/32 常量下沉到 impl 后再合入。"
+      },
+      "review_sha": "ac416f941693"
+    },
+    "23047": {
+      "number": 23047,
+      "title": "[Refactor] Drop worker overrides that duplicate upstream",
+      "author": "Ronald1995",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23047",
+      "changed_files": 3,
+      "additions": 20,
+      "deletions": 120,
+      "age_days": 0.1,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 57
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 57,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23047,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "删除 13 个与上游等价的 worker RPC override，改由 MRO 继承；测试钉住 4 个访问器，仅两处诊断/垫片语义变化。",
+        "intent": "清理 NPUWorker 中纯转发的 LoRA/模型/权重校验等冗余 override 与私有垫片 helper，改为直接继承上游 gpu_worker.Worker 实现，减少长期分叉。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "删除 add_lora/remove_lora/list_loras/pin_lora、get_model、_weight_checksum_model、compute_weight_checksums、reset_weights、reset_mm_cache、get_draft_model、reset_encoder_cache、get_supported_tasks、take_draft_token_ids 共 13 处后，MRO 是否在所有 lane 上都解析到等价实现"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "_weight_checksum_prefix 被保留但唯一本地调用者 compute_weight_checksums 已删除，需确认上游实现同名调用它（prefix 测试仍覆盖）"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "reset_weights 继承上游后不再打印 weight_nz_mode 的『只能 checkpoint 重载』警告；zero_weights 行为与 _check_nz_disabled 守卫应保持不变"
+          },
+          {
+            "file": "tests/ut/worker/test_worker_inheritance.py",
+            "point": "test_model_accessors_are_inherited 断言 NPUWorker.<m> is GPUWorker.<m>（reset_mm_cache/get_draft_model/compute_weight_checksums/reset_weights），删除后不能静默复现"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "结论依赖『上游 gpu_worker.Worker 在 v0.33.0 与 pinned main c410543d 两条 lane 上都实现 reset_weights/compute_weight_checksums/reset_mm_cache/get_draft_model/get_model』；本地只能看到 vllm-ascend，无法核对上游，任一 lane 缺失会从 NotImplementedError 退化成 AttributeError。CI 8 项中 5 项 skipped，可能恰好掩盖版本分支用例。"
+          },
+          {
+            "level": "low",
+            "text": "reset_weights 不再输出 weight_nz_mode 下的告警，属排障信息丢失、行为不变（作者已在描述中声明）。"
+          },
+          {
+            "level": "low",
+            "text": "reset_mm_cache 删掉 getattr+callable 护栏，直接调用 model_runner.reset_mm_cache()；若仍存在只暴露 model 属性的 runner 形态会 AttributeError。作者称该形态已不存在，且测试只断言方法身份、不覆盖真实 runner。"
+          },
+          {
+            "level": "low",
+            "text": "NPUWorker310/XliteWorker 通过 MRO 一并获得上游实现；weight checker 单测用 SimpleNamespace(get_model=...) mock，未验证真实 _310p/V2 runner 是否都有 get_model 与 reset_mm_cache。"
+          }
+        ],
+        "tests": "新增 test_model_accessors_are_inherited 钉住 4 个访问器为上游实现，并保留 weight checker 契约测试；CI 8 项 0 失败 5 skipped，仅静态检查+CI，无 NPU 实机。",
+        "questions": [
+          "需要作者确认：v0.33.0 与 pinned main c410543d 两条 lane 的 gpu_worker.Worker 都实现 compute_weight_checksums/reset_weights/reset_mm_cache/get_model/get_draft_model，且 CI 的 5 个 skip 不掩盖这些用例。",
+          "需要作者确认：V2 runner 的 get_model() 在 CI 实际覆盖路径上存在（weight checker UT 用 mock runner，不校验真实 runner）。",
+          "需要作者确认：删除 weight_nz_mode 警告是否可接受，或改为在上游 reset_weights 入口保留一次提示。",
+          "规则 1 对照：不适用——纯删除重复 override，没有新增对外配置或公开接口。",
+          "规则 2 对照：不适用——本 PR 未引入对上游缺陷的规避 patch，反而是删除本地分叉。",
+          "规则 3 对照：满足——无新增函数/开关，删除后由上游既有入口（MRO）生效，测试钉住继承点。"
+        ],
+        "recommend": "可合入：建议作者补充两条 vLLM lane 的证据（或确认 CI 已双跑），并保留 weight_nz_mode 的告警位置说明。"
+      },
+      "review_sha": "782126fed73f"
+    },
+    "23051": {
+      "number": 23051,
+      "title": "[Feature] Add NOVA-KV 2-bit KV cache quantization on Ascend 950",
+      "author": "sywang24",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23051",
+      "changed_files": 47,
+      "additions": 3842,
+      "deletions": 2,
+      "age_days": 0,
+      "ci": {
+        "total": 14,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 10,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 21,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/nova_kv.py",
+          "status": "added",
+          "additions": 82,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/nova_kv_prefill.py",
+          "status": "added",
+          "additions": 139,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/tilelang/__init__.py",
+          "status": "added",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/tilelang/nova_kv_decode.py",
+          "status": "added",
+          "additions": 456,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/default.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/mamba_hybrid.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 742,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23051,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "实验性 NOVA-KV 2bit KV 压缩：窗口/页面结构自洽，但组合校验、上游 TODO 与 96K prefill 临时分配待确认，CI 多 skip。",
+        "intent": "为 Ascend 950 增加 NOVA-KV 2bit 注意力 KV 压缩：新增 nova_kv 配置、压缩页视图、精确窗口与 prefill/decode 内核，并在 V2 model state 接入窗口槽位。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "NovaKVConfig.__post_init__ 只校验 artifact/capture 互斥与 sink/recent/batch 为正；未校验 950、PP/TP、无投机/PCP、≤96K、block_size 可被 128 整除、max_num_batched_tokens≤8192"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/nova_kv.py",
+            "point": "NovaKVRuntime(capacity=max_num_seqs) 初始化主路径：prepare 只对 dummy/capture 填 -1，正常 batch 走 NovaRequestState.prepare；finish_execution 仅在 failed 时释放 _pending_request_ids"
+          },
+          {
+            "file": "vllm_ascend/attention/nova_request_state.py",
+            "point": "slot 分配/长度推进语义：computed==0 复用 slot，computed>0 要求 _lengths 等于 computed，否则要求从 0 重算；prepare 抛异常时已分配的 slot 与 _lengths 不会回滚"
+          },
+          {
+            "file": "vllm_ascend/ops/nova_kv_prefill.py",
+            "point": "old_length 分三段读取（sink exact / cold 压缩 / recent exact）：recent=ring-1，边界 token 由 cold 覆盖，区间校验禁止跨越 sink；count≤8192 与 total≤96K 仅运行时抛 ValueError"
+          },
+          {
+            "file": "vllm_ascend/ops/triton/nova_kv/cache.py",
+            "point": "planar_cache_views 校验 uint8/4 维/payload=64/packet=134/scale 为 3×bf16；write_planar_packets 以 slot>=0 屏蔽 padding；ExactWindowPool ring=recent+1、seed_chunk 只写 sink 与最后 ring 行"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "_align_hybrid_block_size 里 backend_cls=NovaAttentionBackend 只影响随后 super() 调用（MLA 分支提前 return）；非 hybrid 的 backend 选择不在本文件，需确认由非我负责 patch 覆盖"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "uses_nova_kv_cache=True 时先于标准 FullAttentionSpec 分支走 backend.reshape_cache；依赖 customize_spec 已把 spec 改为 uint8 并给出 packet_bytes(256)"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "get_missing_nova_windows 直接 self.model_runner._nova_request_state.missing(...)，未判空也未判 V1；依赖 engine patch 只在 nova 启用且 V2 时注册该 RPC"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "3,842 行实验特性外加 attention/engine 两处 monkey patch，但 owned 文件中没有 TODO(github id) 说明根因/规避方案/日落计划（仅 body 提到 RFC #22667 与长期计划）。规则 2 要求框架侧临时规避必须可追踪，否则长期分叉无人清理。"
+          },
+          {
+            "level": "high",
+            "text": "prefill 临时 staging 风险：old_length 非 0 时每层每 chunk 都 torch.empty((1, heads, old_length+count, dim)) 重建完整历史 K/V，单层在 96K×heads×256 下可达数百 MB；未复用固定 workspace，长上下文多请求下峰值显存可能 OOM，且 96K/count≤8192 限制只在运行时抛 ValueError（模型 128K 时启动期不拦）。"
+          },
+          {
+            "level": "medium",
+            "text": "不支持组合的校验缺位：body 声称 speculative、PCP、KV transfer、CP 会被配置/模型检查拒绝，但 NovaAttentionImpl._initialize_nova_state 只检查 950、block_size、head_size、sliding window、prefix caching。尤其 hybrid 的 PCP 路径会两次调用 _build_attn_metadata_for_batch（local/global batch），第二次 NovaRequestState.prepare 会因 _lengths 已推进而抛 RuntimeError。"
+          },
+          {
+            "level": "medium",
+            "text": "NovaRequestState 异常路径的状态泄漏：prepare 在抛『capacity exhausted / history unavailable』前可能已为前面的请求分配 slot 并推进 _lengths；finish_execution(failed) 只释放上一步的 _pending_request_ids，本步新分配的 slot 不会被回收，反复失败后会耗尽 capacity。"
+          },
+          {
+            "level": "medium",
+            "text": "decode 优化路径硬编码 batch in (1, 4)：exact_partial_grouped/exact_physical、长上下文 split 均只在 batch==4 生效，batch=2/3 与 capture padding 行走通用 attend_and_merge；两条路径都需要 batch 2/3 与 padding 行的数值一致性验证。"
+          },
+          {
+            "level": "low",
+            "text": "bounded_fia_prefill 的 query_tile 形参未被使用（仅 kv_tile 生效），调用方 nova_prefill_attention 却传 query_tile=8192，属死参数/误导性接口；同时 _mask 固定 2048×2048 且 lru_cache 按 device 键，需确认 count>2048 时 right-aligned causal 语义仍正确。"
+          },
+          {
+            "level": "low",
+            "text": "配置双源：AscendConfig.nova_kv 有 NovaKVConfig 类型校验，而 NovaAttentionImpl 又用 NovaKVConfig(**config.additional_config['nova_kv']) 重新解析一次；platform.py 与 model_states 则直接读原始 dict，三处读取口径不一致。"
+          }
+        ],
+        "tests": "CI 14 项 0 失败但 10 项 skipped（950 设备/性能用例实际未跑），作者自述性能数据早于 rebase 且不复现当前版本；unit/device 覆盖存在但长上下文与 batch 2/3 证据不足。",
+        "questions": [
+          "需要作者确认：nova_kv 的支持约束（950、PP=1、TP、无投机/PCP/KV transfer、≤4 活跃请求、≤96K、max_num_batched_tokens≤8192）各自在哪个入口校验？owned 文件中未见，hybrid PCP 双路径与 >8192 chunk 会直接抛 RuntimeError/ValueError。",
+          "需要作者确认：attention/engine 两处 patch 是否都加了 TODO(github id)（根因、规避、日落）并关联 RFC #22667？相关文件非我负责。",
+          "需要作者确认：get_missing_nova_windows 在 nova 关闭或 V1 runner 下是否可能被调用（当前会 AttributeError），恢复 RPC 的调用频率与被 preempt 请求的重算代价。",
+          "需要作者确认：prefill staging 是否计划复用固定 workspace（而非每层 torch.empty 96K 级缓冲），以及 96K 峰值显存的实测预算。",
+          "需要作者确认：bounded_fia_prefill.query_tile 现在是死参数，是漏用还是遗漏实现；count>2048 时 2048×2048 mask + sparse_mode=3 的右对齐是否符合 FIA 语义。",
+          "规则 1 对照：需明确跟踪——新增用户可见配置与硬件专属 KV 格式，上游当前没有 per-layer compressed-cache 选择接口；应把『per-layer attention/cache 注册』推向上游（RFC #22667），本仓库实现只是过渡。",
+          "规则 2 对照：不满足——attention/engine patch 属于对上游缺口的临时规避，但 PR 内未见 TODO(github id)；须补根因、规避方案与日落计划。",
+          "规则 3 对照：基本满足——nova_quant_cache/nova_prefill_attention/nova_exact_window_update 在 attention/nova_kv.py 有调用点，NovaKVRuntime.prepare 在 default.py 与 mamba_hybrid.py 各一处，NovaKVConfig 被 impl 读取；但 worker.py 新 RPC 缺判空、query_tile 为死参数，需收口。"
+        ],
+        "recommend": "先补齐不支持组合与上下文/分块上限的启动期校验、给两处 patch 加 TODO(github id)，并补 96K 峰值显存与 batch 2/3、prefill>8192 的验证；性能数据需在 rebase 后重测再合入。"
+      },
+      "review_sha": "1f9d0a141cfa"
+    },
+    "23052": {
+      "number": 23052,
+      "title": "[BugFix] Skip 2 MiB device KV alignment for native CPU offloading",
+      "author": "Enguikong",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23052",
+      "changed_files": 4,
+      "additions": 49,
+      "deletions": 3,
+      "age_days": 0,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 16,
+      "owned_del": 3,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-24-1800",
+      "review": {
+        "number": 23052,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "原生单层 CPU offload 时跳过 2 MiB 设备 KV 对齐，消除逐层 storage_offset 差异以复用 tiling；回退保守、测试较全。",
+        "intent": "在 V2 raw KV 分配处按 connector spec 的 requires_device_kv_alignment 判定：native CPU offload 用未填充分配，其他 KV transfer 保持 2 MiB 对齐。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "_requires_device_kv_alignment 的四条分支：无 kv_transfer_config→False；有配置但 group 未初始化→True（保守对齐）；connector_worker.spec 缺失→True；spec.requires_device_kv_alignment is False→False"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "_allocate_int8_cache_tensor 在 False 分支返回 torch.zeros(numel)（无 storage_offset 偏差），True 分支保持 numel+alignment 与 _align_memory 切片"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "docstring 由『KV transfer 时必须对齐』改为『除非 spec 显式退出』；确认没有其他调用方仍假设返回张量 2 MiB 对齐"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "has_kv_transfer_group() 为 False 时回退 True。若 raw KV 分配发生在本 worker 的 kv transfer group 初始化之前，native offload 的 opt-out 会静默失效，得到『对齐但正确』的旧行为（仅性能回退）。需确认 V2 初始化顺序。"
+          },
+          {
+            "level": "low",
+            "text": "通过 connector_worker.spec 的鸭子类型属性决定分配策略；spec 缺失或第三方 connector 未定义该属性时默认对齐（安全），但 opt-out 属性定义在非我负责文件中，需与『仅 native 单 tier CPU offload』条件一致（PD/多 tier 必须仍对齐）。"
+          },
+          {
+            "level": "low",
+            "text": "取消 device 对齐后依赖 pinned-host DMA 不要求设备地址对齐；若后续 Mooncake/ADXL 类路径复用同一分配函数会缺 2 MiB 保底，需保证能力缺省为 True 的约定不被削弱。"
+          },
+          {
+            "level": "low",
+            "text": "只改 v2/attn_utils.py；仓库内未找到 v1 独立 runner 文件（vllm_ascend/worker/model_runner_v1.py 返回 404），若 V1 存在同类对齐分配路径则未覆盖。"
+          }
+        ],
+        "tests": "305 项 CPU UT（覆盖 opt-out、未初始化 transfer、PD fallback、spec 无能力）+ 单卡 A3 e2e 与 A/B 对比（offset 28→1、raw 98→96 MiB、tiling 事件 1080→28）；CI 6 项 0 失败 3 skipped。",
+        "questions": [
+          "需要作者确认：KV 分配时 kv transfer group 是否必然已初始化（否则 has_kv_transfer_group()=False 会退回对齐，opt-out 静默失效）。",
+          "需要作者确认：requires_device_kv_alignment 在非我负责文件中的定义与置 False 条件，是否严格限定 native 单 tier CPU offload。",
+          "需要作者确认：V1（若仍存在）是否有同样的 2 MiB 对齐分配路径需要同步，本 PR 是否只针对 V2。",
+          "规则 1 对照：不适用——未新增对外配置或公开接口，仅内部 allocator 策略与自有 connector spec 的属性约定。",
+          "规则 2 对照：不适用——不是对上游缺陷的临时规避，无需 TODO(github id)。",
+          "规则 3 对照：满足——_requires_device_kv_alignment 仅一处调用点，opt-out 分支有专门用例（disabled/未初始化/PD fallback），回退路径默认对齐。"
+        ],
+        "recommend": "可合入：建议作者明确 KV 分配与 transfer group 初始化的先后顺序，并说明 V1 是否需要同步。"
+      },
+      "review_sha": "95e1063b4561"
     }
   }
 }
