@@ -481,10 +481,17 @@
   }
 
   function highlightsSection() {
-    const n = activeHighlights().length;
-    if (!n) return '';
+    const items = activeHighlights();
+    if (!items.length) return '';
+    const c = { approve: 0, look: 0, pushback: 0 };
+    for (const h of items) {
+      const v = h.v || findRecord(h.pr)?.review?.verdict;
+      if (v && c[v] != null) c[v]++;
+    }
     return '<a class="ed hl-batch' + (state.view && state.view.type === 'highlights' ? ' active' : '') + '" data-hl-nav="1" href="?hl=1">' +
-      '<span class="ed-when">高优检视</span><span class="ed-nums">' + n + ' 个待处理</span></a>';
+      '<span class="ed-when">高优检视</span>' +
+      '<span class="ed-nums">待处理 ' + items.length + '</span>' +
+      '<span class="ed-dots"><i class="dot ok"></i>' + c.approve + '<i class="dot look"></i>' + c.look + '<i class="dot push"></i>' + c.pushback + '</span></a>';
   }
 
   async function doHighlights(push) {
