@@ -29,7 +29,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "fecf6735728bd8ce3af68878c07892d705682b94"
+      "head_sha": "fecf6735728bd8ce3af68878c07892d705682b94",
+      "state": "open"
     },
     "11067": {
       "number": 11067,
@@ -60,7 +61,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8aea4946c75d2bc1ded24fbdaa52f481a84525c4"
+      "head_sha": "8aea4946c75d2bc1ded24fbdaa52f481a84525c4",
+      "state": "open"
     },
     "11075": {
       "number": 11075,
@@ -122,7 +124,8 @@
         "recommend": "小改动、回退路径清晰、UT 到位，可以批准。"
       },
       "review_sha": "9a0bedecef94",
-      "head_sha": "4e0d0008e591d4fbd2776d32bf3bb6f7943ec5c5"
+      "head_sha": "4e0d0008e591d4fbd2776d32bf3bb6f7943ec5c5",
+      "state": "open"
     },
     "11089": {
       "number": 11089,
@@ -153,7 +156,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "fe90425b498af6f6d5c6b435daba77bb45e15147"
+      "head_sha": "fe90425b498af6f6d5c6b435daba77bb45e15147",
+      "state": "open"
     },
     "11137": {
       "number": 11137,
@@ -191,7 +195,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "d5e7081331ee33f3effda900f884cdff87fb2cc9"
+      "head_sha": "d5e7081331ee33f3effda900f884cdff87fb2cc9",
+      "state": "open"
     },
     "11146": {
       "number": 11146,
@@ -229,7 +234,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b3153ffc9ec2027a9dcb883ca7fc66484a576a8f"
+      "head_sha": "b3153ffc9ec2027a9dcb883ca7fc66484a576a8f",
+      "state": "open"
     },
     "11158": {
       "number": 11158,
@@ -273,7 +279,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "4d02665da0fea601348cd28028eccf5306c808ba"
+      "head_sha": "4d02665da0fea601348cd28028eccf5306c808ba",
+      "state": "open"
     },
     "11168": {
       "number": 11168,
@@ -311,7 +318,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "078b716ac9637b091428d8b281854fa77aa51e68"
+      "head_sha": "078b716ac9637b091428d8b281854fa77aa51e68",
+      "state": "open"
     },
     "11205": {
       "number": 11205,
@@ -355,7 +363,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b2405b6a385e7b34704e1970fe9b228024d65028"
+      "head_sha": "b2405b6a385e7b34704e1970fe9b228024d65028",
+      "state": "open"
     },
     "11224": {
       "number": 11224,
@@ -393,7 +402,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "589033a0cdf0aa972216f5a66ba43c3088595b09"
+      "head_sha": "589033a0cdf0aa972216f5a66ba43c3088595b09",
+      "state": "open"
     },
     "11273": {
       "number": 11273,
@@ -443,7 +453,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "3440b8b5595b6cc9569c04c94f37043fb1d7f3a4"
+      "head_sha": "3440b8b5595b6cc9569c04c94f37043fb1d7f3a4",
+      "state": "open"
     },
     "11285": {
       "number": 11285,
@@ -474,7 +485,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2d4bafaffbf0212389010942af6677ac436f2737"
+      "head_sha": "2d4bafaffbf0212389010942af6677ac436f2737",
+      "state": "open"
     },
     "11289": {
       "number": 11289,
@@ -524,7 +536,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "25d9621f3558484aa0ee70b49db7cbc075b94d3a"
+      "head_sha": "25d9621f3558484aa0ee70b49db7cbc075b94d3a",
+      "state": "open"
     },
     "11301": {
       "number": 11301,
@@ -634,7 +647,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "d96017426377f2734bf94eb8bbe9f56f152124f3"
+      "head_sha": "d96017426377f2734bf94eb8bbe9f56f152124f3",
+      "state": "open"
     },
     "11381": {
       "number": 11381,
@@ -696,7 +710,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "d5c326cc4ce7573b2920aa26fa3239ef80183f63"
+      "head_sha": "d5c326cc4ce7573b2920aa26fa3239ef80183f63",
+      "state": "open"
     },
     "11399": {
       "number": 11399,
@@ -740,7 +755,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "959c5d0117a2f59429c1de7063e8f79c6a613acb"
+      "head_sha": "959c5d0117a2f59429c1de7063e8f79c6a613acb",
+      "state": "open"
     },
     "11420": {
       "number": 11420,
@@ -778,7 +794,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "50e1bcd50458f451c17eb793f8d8d985f7cd31dc"
+      "head_sha": "50e1bcd50458f451c17eb793f8d8d985f7cd31dc",
+      "state": "open"
     },
     "11424": {
       "number": 11424,
@@ -834,7 +851,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "03f7c9159385dd17b5b53720e689e66a84cef73f"
+      "head_sha": "03f7c9159385dd17b5b53720e689e66a84cef73f",
+      "state": "open"
     },
     "11438": {
       "number": 11438,
@@ -872,7 +890,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c73b1f5c32afee72a88255f8b66ade39e48fa806"
+      "head_sha": "c73b1f5c32afee72a88255f8b66ade39e48fa806",
+      "state": "open"
     },
     "11477": {
       "number": 11477,
@@ -903,7 +922,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "3425e19c5b47a6f935b3be409703c8ebcf53325e"
+      "head_sha": "3425e19c5b47a6f935b3be409703c8ebcf53325e",
+      "state": "open"
     },
     "11507": {
       "number": 11507,
@@ -974,7 +994,8 @@
         "recommend": "先补真实模型 e2e 与权重连续性确认，并说明 linear 层支持范围，再批准。"
       },
       "review_sha": "6e39f4a743d2",
-      "head_sha": "8fe1eab431528e95279a0da915e4b6ec139e60a9"
+      "head_sha": "8fe1eab431528e95279a0da915e4b6ec139e60a9",
+      "state": "open"
     },
     "11517": {
       "number": 11517,
@@ -1012,7 +1033,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "988985071c0bdec40895a7cb9b03401c201a0830"
+      "head_sha": "988985071c0bdec40895a7cb9b03401c201a0830",
+      "state": "open"
     },
     "11556": {
       "number": 11556,
@@ -1043,7 +1065,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "64d3953e8b861499df4ec877087f71aca9db6765"
+      "head_sha": "64d3953e8b861499df4ec877087f71aca9db6765",
+      "state": "open"
     },
     "11609": {
       "number": 11609,
@@ -1074,7 +1097,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b32dd388337ea61ba12bdd2ce82fad6ade099735"
+      "head_sha": "b32dd388337ea61ba12bdd2ce82fad6ade099735",
+      "state": "open"
     },
     "11641": {
       "number": 11641,
@@ -1176,7 +1200,8 @@
         "recommend": "先修 pre-commit/ci-gate，并就窄窗残留乱码与硬编码 8 建跟踪项、补真实内核生效证据后再合。"
       },
       "review_sha": "70fe3d48e3b8",
-      "head_sha": "34daea60018fd4a7087aaa9b59f52bc600ae7f83"
+      "head_sha": "34daea60018fd4a7087aaa9b59f52bc600ae7f83",
+      "state": "open"
     },
     "11656": {
       "number": 11656,
@@ -1247,7 +1272,8 @@
         "recommend": "先按 maintainer 意见修 latent 共享专家输入宽度校验并 rebase 解冲突，再考虑 approve。"
       },
       "review_sha": "4dd7cbb75233",
-      "head_sha": "58be23f5d7efc14830493a1412dba8aa55898d36"
+      "head_sha": "58be23f5d7efc14830493a1412dba8aa55898d36",
+      "state": "open"
     },
     "11707": {
       "number": 11707,
@@ -1278,7 +1304,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ea04f00c9a156846fbbdb55a3bee28745666077f"
+      "head_sha": "ea04f00c9a156846fbbdb55a3bee28745666077f",
+      "state": "open"
     },
     "11729": {
       "number": 11729,
@@ -1340,7 +1367,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "f4d5c2598bfdf3439984056dc622b640661d54f2"
+      "head_sha": "f4d5c2598bfdf3439984056dc622b640661d54f2",
+      "state": "open"
     },
     "11764": {
       "number": 11764,
@@ -1378,7 +1406,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "e2af8c560eed63901256b2eeb26c96153b7daa2a"
+      "head_sha": "e2af8c560eed63901256b2eeb26c96153b7daa2a",
+      "state": "open"
     },
     "11822": {
       "number": 11822,
@@ -1452,7 +1481,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "fd41862cd9fd38c89f2f982e65d80f98401fd918"
+      "head_sha": "fd41862cd9fd38c89f2f982e65d80f98401fd918",
+      "state": "open"
     },
     "11891": {
       "number": 11891,
@@ -1490,7 +1520,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "5b072d676955a05f94bf5782b3ebeb148d14bdf0"
+      "head_sha": "5b072d676955a05f94bf5782b3ebeb148d14bdf0",
+      "state": "open"
     },
     "11906": {
       "number": 11906,
@@ -1574,7 +1605,8 @@
         "recommend": "owned 的配置与前向透传方向正确，但先修 EP reduced-budget/排序问题、澄清 LoRA 交互并解决 merge 冲突后再批。"
       },
       "review_sha": "fe27710e0d6c",
-      "head_sha": "c86cce52bb3044c92ea7dae6a0a37cd3d7e3a106"
+      "head_sha": "c86cce52bb3044c92ea7dae6a0a37cd3d7e3a106",
+      "state": "open"
     },
     "11916": {
       "number": 11916,
@@ -1612,7 +1644,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "1c07fb5920ab9ff7571ff02a42d4efc76627990e"
+      "head_sha": "1c07fb5920ab9ff7571ff02a42d4efc76627990e",
+      "state": "open"
     },
     "11941": {
       "number": 11941,
@@ -1643,7 +1676,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "7b2bfbe0aecdb9727dd58ffe4dcac71857d2125a"
+      "head_sha": "7b2bfbe0aecdb9727dd58ffe4dcac71857d2125a",
+      "state": "open"
     },
     "11963": {
       "number": 11963,
@@ -1681,7 +1715,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "67e8d17e724220b94b074d0383c35ae8a08a42e2"
+      "head_sha": "67e8d17e724220b94b074d0383c35ae8a08a42e2",
+      "state": "open"
     }
   }
 }

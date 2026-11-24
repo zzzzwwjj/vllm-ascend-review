@@ -150,13 +150,21 @@
     const q = r?.questions?.length
       ? '<details class="rc-q"><summary>要问作者（' + r.questions.length + '）</summary><ol>' + r.questions.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ol></details>'
       : '';
+    const st = prStateOf(p);
+    let acts = '';
+    if (st === 'open') {
+      acts = '<button type="button" class="act" data-act="remind" data-pr="' + p.number + '">提醒检视</button>' +
+        '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">刷新检视</button>' +
+        (markState(p).cls === 'no' ? '<button type="button" class="act ok" data-act="done" data-pr="' + p.number + '">完成检视</button>' : '');
+    } else if (st === 'merged') {
+      acts = '<span class="muted small">已合入，不再支持操作</span>';
+    } else {
+      acts = '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">需要检视</button>' +
+        '<span class="muted small">' + (st === 'draft' ? '草稿' : '已关闭') + '状态下仅可发起检视请求</span>';
+    }
     return (r?.tests ? '<p class="rc-tests"><b>测试</b>' + esc(r.tests) + '</p>' : '') + q +
       '<div class="rc-foot"><span class="rec"><b>建议</b>' + esc(r?.recommend || '—') + '</span>' +
-      '<span class="acts">' +
-      '<button type="button" class="act" data-act="remind" data-pr="' + p.number + '">提醒检视</button>' +
-      '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">刷新检视</button>' +
-      (markState(p).cls === 'no' ? '<button type="button" class="act ok" data-act="done" data-pr="' + p.number + '">完成检视</button>' : '') +
-      '</span></div>';
+      '<span class="acts">' + acts + '</span></div>';
   }
 
   function card(p) {
@@ -203,7 +211,8 @@
       '<td class="num2" data-label="已有批准">' + (p.reviews?.approvals ?? 0) + '</td>' +
       '<td class="num2" data-label="排队">' + p.age_days + 'd</td>' +
       '<td data-label="结论">' + (r ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>'
-        : '<button type="button" class="mini" data-act="refresh" data-pr="' + p.number + '">需要检视</button>') + '</td></tr>';
+        : (isMerged(p) ? '<span class="muted small">已合入</span>'
+          : '<button type="button" class="mini" data-act="refresh" data-pr="' + p.number + '">需要检视</button>')) + '</td></tr>';
   }
 
   const skeleton = '<h2>本期精读</h2><div class="sk"></div><div class="sk"></div><div class="sk"></div><h2>其余新增</h2><div class="sk"></div>';
@@ -226,13 +235,16 @@
         '<span class="fb-who">' + esc(who) + '</span><span class="fb-time">' + esc(tz(e.at)) + '</span>' +
         '<div class="fb-text">' + esc(e.text) + '</div>' + ack + '</div>';
     }).join('');
+    const st = prStateOf(p);
+    const editor = st === 'open'
+      ? '<textarea data-fb-input="' + p.number + '" data-sha="' + esc(p.review_sha || '') + '" rows="3" ' +
+        'placeholder="写下回复或对精读的疑问；@' + esc(state.idx?.user || '') + ' 的回复会当作批注改进规则。"></textarea>' +
+        '<div class="fb-actions"><button type="button" data-fb-submit="' + p.number + '">提交回复</button>' +
+        '<span class="fb-hint" data-fb-hint="' + p.number + '">' + esc(state.fbStatus[p.number] || defaultHint()) + '</span></div>'
+      : '<p class="muted small">该 PR 已' + (st === 'merged' ? '合入' : st === 'draft' ? '是草稿' : '关闭') + '，不再支持回复。</p>';
     return '<details class="fb" data-pr="' + p.number + '">' +
       '<summary>✎ 回复' + (entries.length ? '（' + entries.length + '）' : '') + '</summary>' +
-      (list ? '<div class="fb-list">' + list + '</div>' : '') +
-      '<textarea data-fb-input="' + p.number + '" data-sha="' + esc(p.review_sha || '') + '" rows="3" ' +
-      'placeholder="写下回复或对精读的疑问；@' + esc(state.idx?.user || '') + ' 的回复会当作批注改进规则。"></textarea>' +
-      '<div class="fb-actions"><button type="button" data-fb-submit="' + p.number + '">提交回复</button>' +
-      '<span class="fb-hint" data-fb-hint="' + p.number + '">' + esc(state.fbStatus[p.number] || defaultHint()) + '</span></div>' +
+      (list ? '<div class="fb-list">' + list + '</div>' : '') + editor +
       '</details>';
   }
 
@@ -305,6 +317,54 @@
     if (btn) btn.textContent = '○ 连接 GitHub（页面内提交）';
   }
 
+  const prStateOf = (p) => p?.state || 'open';
+  const isMerged = (p) => prStateOf(p) === 'merged';
+  const isFrozen = (p) => ['merged', 'closed', 'draft'].includes(prStateOf(p));
+
+  async function postToThread(pr, kind, text, title) {
+    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const issueTitle = '[PR #' + pr + '] ' + String(title || '').slice(0, 90);
+    const marker = kind === 'feedback' ? '<!-- feedback -->' : '<!-- review-action: ' + kind + ' -->';
+    const body = marker + '\n\n' + text;
+    const labels = kind === 'remind' ? ['review-remind'] : kind === 'refresh' ? ['review-refresh'] : ['review-feedback'];
+    const headers = { authorization: 'Bearer ' + state.token, accept: 'application/vnd.github+json', 'content-type': 'application/json' };
+
+    let existing = null;
+    try {
+      const q = encodeURIComponent('repo:' + site + ' in:title "PR #' + pr + '" type:issue');
+      const s = await fetch('https://api.github.com/search/issues?q=' + q + '&per_page=5', { headers });
+      if (s.ok) { const j = await s.json(); existing = (j.items || [])[0] || null; }
+    } catch (e) { /* search failed: fall through to create */ }
+
+    if (existing) {
+      const c = await fetch('https://api.github.com/repos/' + site + '/issues/' + existing.number + '/comments', {
+        method: 'POST', headers, body: JSON.stringify({ body }),
+      });
+      if (!c.ok) throw new Error('回复已有 issue 失败（HTTP ' + c.status + '）');
+      if (existing.state === 'closed') {
+        await fetch('https://api.github.com/repos/' + site + '/issues/' + existing.number, {
+          method: 'PATCH', headers, body: JSON.stringify({ state: 'open' }),
+        });
+      }
+      return { number: existing.number, html_url: existing.html_url, reopened: existing.state === 'closed' };
+    }
+
+    const r = await fetch('https://api.github.com/repos/' + site + '/issues', {
+      method: 'POST', headers, body: JSON.stringify({ title: issueTitle, body, labels }),
+    });
+    if (!r.ok) throw new Error('创建 issue 失败（HTTP ' + r.status + '）');
+    return r.json();
+  }
+
+  function prefilledThreadUrl(pr, kind, text, title) {
+    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const marker = kind === 'feedback' ? '<!-- feedback -->' : '<!-- review-action: ' + kind + ' -->';
+    const labels = kind === 'remind' ? 'review-remind' : kind === 'refresh' ? 'review-refresh' : 'review-feedback';
+    const t = '[PR #' + pr + '] ' + String(title || '').slice(0, 90);
+    return 'https://github.com/' + site + '/issues/new?labels=' + labels +
+      '&title=' + encodeURIComponent(t) + '&body=' + encodeURIComponent(marker + '\n\n' + text);
+  }
+
   async function createIssue(title, body, labels) {
     const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
     const r = await fetch('https://api.github.com/repos/' + site + '/issues', {
@@ -329,29 +389,23 @@
     const edition = state.editionId || '';
     const data = state.cache.get(edition);
     const prMeta = (data?.deep || []).find((x) => x.number === pr) || {};
-    const domTitle = document.querySelector('#pr-' + pr + ' h3')?.textContent || '';
-    const title = ('[feedback] PR #' + pr + ' · ' + (prMeta.title || domTitle || '')).slice(0, 140);
-    const body = '<!-- review-feedback v1\npr: ' + pr + '\nedition: ' + edition + '\nreview_sha: ' + (ta?.dataset.sha || '') +
-      '\n-->\n\n**回复**\n\n' + text + '\n\n---\n提交自 ' + location.origin + location.pathname + '?e=' + encodeURIComponent(edition) + '#pr-' + pr + '\n';
-    const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
+    const title = prMeta.title || document.querySelector('#pr-' + pr + ' h3')?.textContent || '';
     const openPrefilled = () => {
-      const url = 'https://github.com/' + site + '/issues/new?labels=review-feedback' +
-        '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
       try { navigator.clipboard?.writeText(text); } catch (e) { /* ignore */ }
-      window.open(url, '_blank', 'noopener');
+      window.open(prefilledThreadUrl(pr, 'feedback', text, title), '_blank', 'noopener');
       state.fbStatus[pr] = '未连接 GitHub，已打开预填 issue；点 Submit 即可。';
       if (hint) hint.textContent = state.fbStatus[pr];
     };
     if (!state.token) { openPrefilled(); return; }
     if (hint) hint.textContent = '提交中…';
-    createIssue(title, body).then((issue) => {
-      const entry = { id: issue.number, at: new Date().toISOString(), text, edition, review_sha: ta?.dataset.sha || '', pending: true, url: issue.html_url };
-      (state.feedback[String(pr)] ||= []).unshift(entry);
+    postToThread(pr, 'feedback', text, title).then((issue) => {
+      const entry = { id: issue.number, at: new Date().toISOString(), author: state.idx?.user || '', kind: 'note', text, edition, pending: true, url: issue.html_url };
+      (state.feedback[String(pr)] ||= []).push(entry);
       try { localStorage.removeItem(draftKey(pr)); } catch (e) { /* ignore */ }
       const details = ta?.closest('details');
       if (details) details.open = false;
-      render(state.editionId, state.cache.get(state.editionId) || null);
-      state.fbStatus[pr] = '已提交；下一期任务收录后会显示我的回应。';
+      reRender();
+      state.fbStatus[pr] = '已提交；下一期任务收录后会显示回应。';
       const h2 = document.querySelector('[data-fb-hint="' + pr + '"]');
       if (h2) h2.textContent = state.fbStatus[pr];
     }).catch((e) => {
@@ -639,16 +693,14 @@
       (p.html_url ? '\n\n' + p.html_url : '') + '\n';
     const labels = kind === 'remind' ? ['review-remind'] : kind === 'done' ? ['review-done'] : ['review-refresh'];
 
+    const words = kind === 'remind' ? '提醒我优先检视这个 PR。' : '请求重新精读这个 PR。';
     const issuePath = async () => {
-      const site = state.idx?.site || 'zzzzwwjj/vllm-ascend-review';
       const openPrefilled = () => {
-        const url = 'https://github.com/' + site + '/issues/new?labels=' + labels.join(',') +
-          '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
-        window.open(url, '_blank', 'noopener');
+        window.open(prefilledThreadUrl(pr, kind, words, p.title), '_blank', 'noopener');
         addPending(kind, pr, p.title);
       };
       if (!state.token) { openPrefilled(); return; }
-      try { await createIssue(title, body, labels); addPending(kind, pr, p.title); }
+      try { await postToThread(pr, kind, words, p.title); addPending(kind, pr, p.title); }
       catch (e) { openPrefilled(); }
     };
 

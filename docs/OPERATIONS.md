@@ -10,7 +10,8 @@ vllm-ascend-review/
 │   ├── collect.mjs             采集 + 去重 + 排序（每期入口）
 │   ├── split-deep.mjs          拆分精读输入
 │   ├── fetch-file.mjs          取 head 处文件内容
-│   ├── ingest-feedback.mjs     收录 [feedback]/[remind]/[refresh]/[done] issue（按提交人区分批注/回复）
+│   ├── refresh-states.mjs      刷新所有 PR 状态（open/draft/closed/merged，GraphQL 批量）
+│   ├── ingest-feedback.mjs     处理每 PR 一个 issue 的评论线程（动作/批注/回复）
 │   ├── reply-feedback.mjs      把回应写回看板并回复 issue
 │   ├── apply-review-update.mjs 原地更新某 PR 的精读结论
 │   ├── apply-refresh.mjs       应用一次“重新精读”结果并迁移期次
@@ -41,7 +42,8 @@ vllm-ascend-review/
 ```bash
 cd /workspace/project/vllm-ascend-review
 rm -rf work/reviews && mkdir -p work/reviews
-node scripts/ingest-feedback.mjs    # 先收录批注 / 提醒 / 刷新 / 完成标记（决定本期优先级）
+node scripts/refresh-states.mjs     # 先刷新 PR 状态（决定按钮可用性与请求是否受理）
+node scripts/ingest-feedback.mjs    # 处理 issue 评论线程（动作/批注/回复，决定本期优先级）
 node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、请求优先排序
 node scripts/split-deep.mjs         # 拆分本期精读输入（请求 PR + 新增 PR）
 # 子代理写 work/reviews/<n>.json
@@ -101,6 +103,7 @@ node scripts/publish.mjs            # 单次提交
 
 - `state/state.json`：`last_run_at`、`runs`、`prs`（去重主键，约 1100 条）
 - `state/feedback.json` / `lessons.json` / `highlights.json` / `marks.json`
+- `state/processed-comments.json`：已处理的 issue 评论 id（线程去重靠它）
 - 若本地 `state/editions.json` 丢失，`collect.mjs` 会从线上 `data/db/manifest.json` 恢复期次列表；
   `state.prs` 丢失则无法恢复去重历史（新 PR 会重复出现一次），需从 `data/db` 重建；
   `state/marks.json` 丢失也不要紧，`render.mjs` 会从线上 `data/db/marks.json` 合并回来。

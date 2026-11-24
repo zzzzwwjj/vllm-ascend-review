@@ -104,6 +104,8 @@ node scripts/build-backlog-edition.mjs  # 写成首期（backlog: true，只列�
 - [ ] 卡片显示总改动量（`+X / −Y · N 个文件`）；文件链接跳到 `blob/<head_sha>/<path>`
 - [ ] 文件多时左栏可滚动，滚到边缘继续滚会带动整页
 - [ ] 「紧凑模式」切换后保持（localStorage）
+- [ ] 重复点击「提醒检视」不会新建 issue，而是在同一个 `[PR #n]` issue 里盖楼并 reopen
+- [ ] 已合入 PR 的卡片没有操作按钮；closed/draft 只剩「需要检视」
 - [ ] 「提醒检视」后，侧栏出现「高优检视」批次入口（含色点与待处理数）
 - [ ] 「完成检视」直接写入 `data/db/marks.json`，约 1 分钟内状态变为“已检视”
 - [ ] 已完成的 PR 从高优检视消失

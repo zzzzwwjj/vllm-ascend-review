@@ -29,7 +29,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "afb45fc86b0ca53f5eb38376482519563f507b31"
+      "head_sha": "afb45fc86b0ca53f5eb38376482519563f507b31",
+      "state": "open"
     },
     "15003": {
       "number": 15003,
@@ -79,7 +80,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "f0248360ba834cfd3756a94f92b18a8a12bb8f85"
+      "head_sha": "f0248360ba834cfd3756a94f92b18a8a12bb8f85",
+      "state": "open"
     },
     "15005": {
       "number": 15005,
@@ -110,7 +112,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "089fe2067f51c96ac61c2283c765f012024aaced"
+      "head_sha": "089fe2067f51c96ac61c2283c765f012024aaced",
+      "state": "open"
     },
     "15016": {
       "number": 15016,
@@ -141,7 +144,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8b81affba86f5081045ee9614373361f63c7413e"
+      "head_sha": "8b81affba86f5081045ee9614373361f63c7413e",
+      "state": "open"
     },
     "15018": {
       "number": 15018,
@@ -172,7 +176,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "568ddef688904c3413b6d363d055cbc70a00ccbe"
+      "head_sha": "568ddef688904c3413b6d363d055cbc70a00ccbe",
+      "state": "open"
     },
     "15020": {
       "number": 15020,
@@ -203,7 +208,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "3de646ba39f2048c0e3f8c7934b4df461b565e4b"
+      "head_sha": "3de646ba39f2048c0e3f8c7934b4df461b565e4b",
+      "state": "open"
     },
     "15022": {
       "number": 15022,
@@ -241,7 +247,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9603d6b934dc4309e725e62c11e07c73180a0f7f"
+      "head_sha": "9603d6b934dc4309e725e62c11e07c73180a0f7f",
+      "state": "open"
     },
     "15026": {
       "number": 15026,
@@ -279,7 +286,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ae1f50a007d47586932cc04e1e421ad814aa3acf"
+      "head_sha": "ae1f50a007d47586932cc04e1e421ad814aa3acf",
+      "state": "open"
     },
     "15048": {
       "number": 15048,
@@ -355,7 +363,8 @@
         "recommend": "建议作为重复 PR 关闭；若仍有复现路径，rebase 后附最小复现与失败日志再评估。"
       },
       "review_sha": "4d6dffa0f178",
-      "head_sha": "230cd86e0a26ca117fd623c9dc1d1b78f68beca0"
+      "head_sha": "230cd86e0a26ca117fd623c9dc1d1b78f68beca0",
+      "state": "open"
     },
     "15057": {
       "number": 15057,
@@ -386,7 +395,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "50345f02228649c21b4b3c40f1754351aa80d8b0"
+      "head_sha": "50345f02228649c21b4b3c40f1754351aa80d8b0",
+      "state": "open"
     },
     "15061": {
       "number": 15061,
@@ -417,7 +427,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "e8ae1d8b5c8ddf6bb998cd78a79c1b9ad4c8aaee"
+      "head_sha": "e8ae1d8b5c8ddf6bb998cd78a79c1b9ad4c8aaee",
+      "state": "open"
     },
     "15062": {
       "number": 15062,
@@ -455,7 +466,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "5587985628e4a06119a4b6dd770c198772366410"
+      "head_sha": "5587985628e4a06119a4b6dd770c198772366410",
+      "state": "open"
     },
     "15072": {
       "number": 15072,
@@ -499,7 +511,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "5d5bf084323cec9a4bc47d6dca1dfbfe0928ec58"
+      "head_sha": "5d5bf084323cec9a4bc47d6dca1dfbfe0928ec58",
+      "state": "open"
     },
     "15076": {
       "number": 15076,
@@ -543,7 +556,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ba9c1c8a1ff7b53a9e4d84cbef7a6dabc6b9401e"
+      "head_sha": "ba9c1c8a1ff7b53a9e4d84cbef7a6dabc6b9401e",
+      "state": "open"
     },
     "15090": {
       "number": 15090,
@@ -581,7 +595,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "5d2ad851d874875a82de0dda607ea08699f7d3e9"
+      "head_sha": "5d2ad851d874875a82de0dda607ea08699f7d3e9",
+      "state": "open"
     },
     "15111": {
       "number": 15111,
@@ -612,7 +627,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9df0ac757207bc6066ccb5b0b6656edc28435877"
+      "head_sha": "9df0ac757207bc6066ccb5b0b6656edc28435877",
+      "state": "open"
     },
     "15121": {
       "number": 15121,
@@ -643,7 +659,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c7c7c7d326faf65e40c551dd7c0a61da6633c2fa"
+      "head_sha": "c7c7c7d326faf65e40c551dd7c0a61da6633c2fa",
+      "state": "open"
     },
     "15124": {
       "number": 15124,
@@ -705,7 +722,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "04eb01fd147aa7535909fabb5d221a550e36ead4"
+      "head_sha": "04eb01fd147aa7535909fabb5d221a550e36ead4",
+      "state": "open"
     },
     "15162": {
       "number": 15162,
@@ -755,7 +773,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9082742026e64e0311b4f4913850817dbc752875"
+      "head_sha": "9082742026e64e0311b4f4913850817dbc752875",
+      "state": "open"
     },
     "15168": {
       "number": 15168,
@@ -786,7 +805,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "fd8125e531052237a99db346a88d9bced1b06510"
+      "head_sha": "fd8125e531052237a99db346a88d9bced1b06510",
+      "state": "open"
     },
     "15176": {
       "number": 15176,
@@ -830,7 +850,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "4f93d879daec400d5ebe38ed25633a9aee6e9ca4"
+      "head_sha": "4f93d879daec400d5ebe38ed25633a9aee6e9ca4",
+      "state": "open"
     },
     "15180": {
       "number": 15180,
@@ -874,7 +895,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2575522885a5358bf1242186e8d19625bb503107"
+      "head_sha": "2575522885a5358bf1242186e8d19625bb503107",
+      "state": "open"
     },
     "15207": {
       "number": 15207,
@@ -912,7 +934,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ff7a6f4e3765fbaaf3fe72aaa0822a1c7731907a"
+      "head_sha": "ff7a6f4e3765fbaaf3fe72aaa0822a1c7731907a",
+      "state": "open"
     },
     "15208": {
       "number": 15208,
@@ -980,7 +1003,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "622c3bfca0b506b8e934ca321337dc78dffa7c12"
+      "head_sha": "622c3bfca0b506b8e934ca321337dc78dffa7c12",
+      "state": "open"
     },
     "15218": {
       "number": 15218,
@@ -1011,7 +1035,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "98c94f052c4256ff9fcbe6613ca4dff3d71e9e94"
+      "head_sha": "98c94f052c4256ff9fcbe6613ca4dff3d71e9e94",
+      "state": "open"
     },
     "15227": {
       "number": 15227,
@@ -1042,7 +1067,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "61827e87ea94f253a048ccda8e44704258c184b6"
+      "head_sha": "61827e87ea94f253a048ccda8e44704258c184b6",
+      "state": "open"
     },
     "15233": {
       "number": 15233,
@@ -1073,7 +1099,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a748a74fb56c0b23cfe1c3f8c3e6244310f713cb"
+      "head_sha": "a748a74fb56c0b23cfe1c3f8c3e6244310f713cb",
+      "state": "open"
     },
     "15240": {
       "number": 15240,
@@ -1117,7 +1144,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "641c67b1b4e11d642db94ed369991a9a63fe65ca"
+      "head_sha": "641c67b1b4e11d642db94ed369991a9a63fe65ca",
+      "state": "open"
     },
     "15244": {
       "number": 15244,
@@ -1161,7 +1189,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a80141f852c40b2e86785b68f67d81cc1ce00f17"
+      "head_sha": "a80141f852c40b2e86785b68f67d81cc1ce00f17",
+      "state": "open"
     },
     "15258": {
       "number": 15258,
@@ -1229,7 +1258,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "555ea170a6a2b82bc1b0150de54c66c5d237338d"
+      "head_sha": "555ea170a6a2b82bc1b0150de54c66c5d237338d",
+      "state": "open"
     },
     "15284": {
       "number": 15284,
@@ -1291,7 +1321,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "784c9481d61b14cb55122ca5abecfcb55243238e"
+      "head_sha": "784c9481d61b14cb55122ca5abecfcb55243238e",
+      "state": "open"
     },
     "15285": {
       "number": 15285,
@@ -1353,7 +1384,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b2a3576c9b35526db74bf1446aff91e6df9b46c0"
+      "head_sha": "b2a3576c9b35526db74bf1446aff91e6df9b46c0",
+      "state": "open"
     },
     "15286": {
       "number": 15286,
@@ -1415,7 +1447,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "272708ccf6c35b1fbe287221ccaeabfd07d98a1e"
+      "head_sha": "272708ccf6c35b1fbe287221ccaeabfd07d98a1e",
+      "state": "open"
     },
     "15287": {
       "number": 15287,
@@ -1477,7 +1510,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ea97c119d532f0e472afc42868af7505bfa4961e"
+      "head_sha": "ea97c119d532f0e472afc42868af7505bfa4961e",
+      "state": "open"
     },
     "15288": {
       "number": 15288,
@@ -1539,7 +1573,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "f92da5a51cc4277020387e633756b9a6b5c37b0a"
+      "head_sha": "f92da5a51cc4277020387e633756b9a6b5c37b0a",
+      "state": "open"
     },
     "15293": {
       "number": 15293,
@@ -1570,7 +1605,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "51bee71fb585878110583097628b2042946f2b48"
+      "head_sha": "51bee71fb585878110583097628b2042946f2b48",
+      "state": "open"
     },
     "15310": {
       "number": 15310,
@@ -1601,7 +1637,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "1641e0d8e0687d7354531124e7af2ccf8225e474"
+      "head_sha": "1641e0d8e0687d7354531124e7af2ccf8225e474",
+      "state": "open"
     },
     "15311": {
       "number": 15311,
@@ -1632,7 +1669,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9a2671560ca07b86d3be8913f0e63bed2b1e0dfa"
+      "head_sha": "9a2671560ca07b86d3be8913f0e63bed2b1e0dfa",
+      "state": "open"
     },
     "15312": {
       "number": 15312,
@@ -1663,7 +1701,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2a07c11d970992a826342d2fbeb1144682415d02"
+      "head_sha": "2a07c11d970992a826342d2fbeb1144682415d02",
+      "state": "open"
     },
     "15313": {
       "number": 15313,
@@ -1694,7 +1733,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "10efd5c52e6589b620b9f827867c6722f61da898"
+      "head_sha": "10efd5c52e6589b620b9f827867c6722f61da898",
+      "state": "open"
     },
     "15325": {
       "number": 15325,
@@ -1732,7 +1772,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "be8e55b7ab81c8bf201851da187c09e7c37bdbd7"
+      "head_sha": "be8e55b7ab81c8bf201851da187c09e7c37bdbd7",
+      "state": "open"
     },
     "15336": {
       "number": 15336,
@@ -1794,7 +1835,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "bec19b8dea1e538e64838f3064f7e91a3fa9ee72"
+      "head_sha": "bec19b8dea1e538e64838f3064f7e91a3fa9ee72",
+      "state": "open"
     },
     "15341": {
       "number": 15341,
@@ -1838,7 +1880,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "de55359d549dfd4c0f9c5a72bf779c520269e04b"
+      "head_sha": "de55359d549dfd4c0f9c5a72bf779c520269e04b",
+      "state": "open"
     },
     "15343": {
       "number": 15343,
@@ -1894,7 +1937,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "e576d4858647c2e3cd6de5e5ec050104725df024"
+      "head_sha": "e576d4858647c2e3cd6de5e5ec050104725df024",
+      "state": "open"
     },
     "15344": {
       "number": 15344,
@@ -1950,7 +1994,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "d40daff778a0b542e3f185f52fa76d7c1eaa9561"
+      "head_sha": "d40daff778a0b542e3f185f52fa76d7c1eaa9561",
+      "state": "open"
     },
     "15377": {
       "number": 15377,
@@ -1994,7 +2039,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "08d857fd08d5e550034fda16f2937953f5485726"
+      "head_sha": "08d857fd08d5e550034fda16f2937953f5485726",
+      "state": "open"
     },
     "15382": {
       "number": 15382,
@@ -2025,7 +2071,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8fec6a6ffbb90977810483034c433ecbb804d4e5"
+      "head_sha": "8fec6a6ffbb90977810483034c433ecbb804d4e5",
+      "state": "open"
     },
     "15395": {
       "number": 15395,
@@ -2056,7 +2103,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a145ea27e0473a8d448206d80e15446a68e374f2"
+      "head_sha": "a145ea27e0473a8d448206d80e15446a68e374f2",
+      "state": "open"
     },
     "15429": {
       "number": 15429,
@@ -2094,7 +2142,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ef9d6dd8e1996141f47f557cf3b7d5eb7205a7e6"
+      "head_sha": "ef9d6dd8e1996141f47f557cf3b7d5eb7205a7e6",
+      "state": "open"
     },
     "15430": {
       "number": 15430,
@@ -2125,7 +2174,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a583ef238ae5cfba44179a6181f9703c6256c0f7"
+      "head_sha": "a583ef238ae5cfba44179a6181f9703c6256c0f7",
+      "state": "open"
     },
     "15432": {
       "number": 15432,
@@ -2163,7 +2213,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "10474ce76d97f1dde8a91f9f5e2d76648fa1e54b"
+      "head_sha": "10474ce76d97f1dde8a91f9f5e2d76648fa1e54b",
+      "state": "open"
     },
     "15438": {
       "number": 15438,
@@ -2213,7 +2264,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "32f53a424163a80eb0cc27fad9832d1cb7c950a5"
+      "head_sha": "32f53a424163a80eb0cc27fad9832d1cb7c950a5",
+      "state": "open"
     },
     "15452": {
       "number": 15452,
@@ -2263,7 +2315,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "142facde52b49e071da31b4cfe0179fe7483a5d2"
+      "head_sha": "142facde52b49e071da31b4cfe0179fe7483a5d2",
+      "state": "open"
     },
     "15454": {
       "number": 15454,
@@ -2294,7 +2347,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "540b9672704a3a184177aa3feee91ee95db2bd36"
+      "head_sha": "540b9672704a3a184177aa3feee91ee95db2bd36",
+      "state": "open"
     },
     "15487": {
       "number": 15487,
@@ -2338,7 +2392,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2ef7cbb608f9ca62acf7dfe59b0d36538b4985bb"
+      "head_sha": "2ef7cbb608f9ca62acf7dfe59b0d36538b4985bb",
+      "state": "open"
     },
     "15501": {
       "number": 15501,
@@ -2369,7 +2424,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "6da51fee6a0b06cf7253e70de4a0bd1b82ec9801"
+      "head_sha": "6da51fee6a0b06cf7253e70de4a0bd1b82ec9801",
+      "state": "open"
     },
     "15511": {
       "number": 15511,
@@ -2400,7 +2456,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "720584aa5ebc5d19c4e47fdf6bcc56c06e5bdf15"
+      "head_sha": "720584aa5ebc5d19c4e47fdf6bcc56c06e5bdf15",
+      "state": "open"
     },
     "15526": {
       "number": 15526,
@@ -2431,7 +2488,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "09e38e0d813c0e52d0f4bee1ded726f2c7535e1d"
+      "head_sha": "09e38e0d813c0e52d0f4bee1ded726f2c7535e1d",
+      "state": "open"
     },
     "15529": {
       "number": 15529,
@@ -2481,7 +2539,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "65f495adda3a61d0e02c342fb9eaf880a06e6845"
+      "head_sha": "65f495adda3a61d0e02c342fb9eaf880a06e6845",
+      "state": "open"
     },
     "15544": {
       "number": 15544,
@@ -2512,7 +2571,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "671a2f2fc803f244e25a8eb67611bdd23efc3866"
+      "head_sha": "671a2f2fc803f244e25a8eb67611bdd23efc3866",
+      "state": "open"
     },
     "15553": {
       "number": 15553,
@@ -2543,7 +2603,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9a3b697961048d3e11bec72d7091f24aef4cdc97"
+      "head_sha": "9a3b697961048d3e11bec72d7091f24aef4cdc97",
+      "state": "open"
     },
     "15555": {
       "number": 15555,
@@ -2599,7 +2660,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "7fe925c679a7be503434aad8abcf13481053bf29"
+      "head_sha": "7fe925c679a7be503434aad8abcf13481053bf29",
+      "state": "open"
     },
     "15568": {
       "number": 15568,
@@ -2630,7 +2692,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "81153be45fb6a55a31649d2e84be6eb4d97001f2"
+      "head_sha": "81153be45fb6a55a31649d2e84be6eb4d97001f2",
+      "state": "open"
     },
     "15572": {
       "number": 15572,
@@ -2661,7 +2724,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ac9e2826c0f8f4d062e676384f2dfedd3f72dfba"
+      "head_sha": "ac9e2826c0f8f4d062e676384f2dfedd3f72dfba",
+      "state": "open"
     },
     "15587": {
       "number": 15587,
@@ -2692,7 +2756,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "86defded22fb7cae3e71f6f94583c79d90dee114"
+      "head_sha": "86defded22fb7cae3e71f6f94583c79d90dee114",
+      "state": "open"
     },
     "15589": {
       "number": 15589,
@@ -2736,7 +2801,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c5482b07db066181822b7e5e00a85ac72847b83b"
+      "head_sha": "c5482b07db066181822b7e5e00a85ac72847b83b",
+      "state": "open"
     },
     "15592": {
       "number": 15592,
@@ -2767,7 +2833,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "e73da88f95067fbb944f3fb38e835824564243e3"
+      "head_sha": "e73da88f95067fbb944f3fb38e835824564243e3",
+      "state": "open"
     },
     "15598": {
       "number": 15598,
@@ -2811,7 +2878,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "947af9fee86216d8431077d8ca4671c638a17696"
+      "head_sha": "947af9fee86216d8431077d8ca4671c638a17696",
+      "state": "open"
     },
     "15599": {
       "number": 15599,
@@ -2849,7 +2917,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a0112053b44ec155739f9eb616a7db14ffe1b8af"
+      "head_sha": "a0112053b44ec155739f9eb616a7db14ffe1b8af",
+      "state": "open"
     },
     "15601": {
       "number": 15601,
@@ -2880,7 +2949,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "aee194bc8ef5110cfd5df60fbdae83e2984c1911"
+      "head_sha": "aee194bc8ef5110cfd5df60fbdae83e2984c1911",
+      "state": "open"
     },
     "15620": {
       "number": 15620,
@@ -2911,7 +2981,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b043b099869304310e45296925be5c42bbf28132"
+      "head_sha": "b043b099869304310e45296925be5c42bbf28132",
+      "state": "open"
     },
     "15626": {
       "number": 15626,
@@ -2942,7 +3013,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8d4e0f8aebb7e50df4265778abbe8187cbe7ea57"
+      "head_sha": "8d4e0f8aebb7e50df4265778abbe8187cbe7ea57",
+      "state": "open"
     },
     "15640": {
       "number": 15640,
@@ -2992,7 +3064,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c0ff03ec6c0475c4bf3a2ec9dac993cd7d8efae8"
+      "head_sha": "c0ff03ec6c0475c4bf3a2ec9dac993cd7d8efae8",
+      "state": "open"
     },
     "15642": {
       "number": 15642,
@@ -3036,7 +3109,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "525a60af5996a17f9be61ee0baf66035b1f42849"
+      "head_sha": "525a60af5996a17f9be61ee0baf66035b1f42849",
+      "state": "open"
     },
     "15681": {
       "number": 15681,
@@ -3067,7 +3141,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "161cbe86db13364e10af53d6c4aa8e97657529b7"
+      "head_sha": "161cbe86db13364e10af53d6c4aa8e97657529b7",
+      "state": "open"
     },
     "15689": {
       "number": 15689,
@@ -3098,7 +3173,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "e0e4bb6e9bdca6c184938ca28d182414b90a3026"
+      "head_sha": "e0e4bb6e9bdca6c184938ca28d182414b90a3026",
+      "state": "open"
     },
     "15714": {
       "number": 15714,
@@ -3129,7 +3205,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "bbf68bdf6b8afe0258a0d82e53071912964b2b00"
+      "head_sha": "bbf68bdf6b8afe0258a0d82e53071912964b2b00",
+      "state": "open"
     },
     "15715": {
       "number": 15715,
@@ -3167,7 +3244,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c071c5f9a942a341bb6b1a5593fef2091e56b7f8"
+      "head_sha": "c071c5f9a942a341bb6b1a5593fef2091e56b7f8",
+      "state": "open"
     },
     "15717": {
       "number": 15717,
@@ -3205,7 +3283,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b1b09b63ae5b84a12ce95c2a907a2aa678f62a63"
+      "head_sha": "b1b09b63ae5b84a12ce95c2a907a2aa678f62a63",
+      "state": "open"
     },
     "15725": {
       "number": 15725,
@@ -3236,7 +3315,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "1df454250c4ab8b52112d4ab15efead66b7be9ec"
+      "head_sha": "1df454250c4ab8b52112d4ab15efead66b7be9ec",
+      "state": "open"
     },
     "15733": {
       "number": 15733,
@@ -3267,7 +3347,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8fce6e9ea7ea38cb073f1273c6ce072cb22ab335"
+      "head_sha": "8fce6e9ea7ea38cb073f1273c6ce072cb22ab335",
+      "state": "open"
     },
     "15740": {
       "number": 15740,
@@ -3305,7 +3386,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "3eb808938821597cf9bec07d0b174e255c9b4b25"
+      "head_sha": "3eb808938821597cf9bec07d0b174e255c9b4b25",
+      "state": "open"
     },
     "15742": {
       "number": 15742,
@@ -3336,7 +3418,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "1288b174a40160fc2c6d4fff46835a35987f4771"
+      "head_sha": "1288b174a40160fc2c6d4fff46835a35987f4771",
+      "state": "open"
     },
     "15748": {
       "number": 15748,
@@ -3380,7 +3463,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "d53c352e5c9a51774b2f7cc3e3f2f7f405c35021"
+      "head_sha": "d53c352e5c9a51774b2f7cc3e3f2f7f405c35021",
+      "state": "open"
     },
     "15751": {
       "number": 15751,
@@ -3411,7 +3495,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "c1dfeeae6a748ad7f4078154f1c00e849699185a"
+      "head_sha": "c1dfeeae6a748ad7f4078154f1c00e849699185a",
+      "state": "open"
     },
     "15772": {
       "number": 15772,
@@ -3449,7 +3534,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "7f802fb1a4add28e8e080847b17cb8214fa3c999"
+      "head_sha": "7f802fb1a4add28e8e080847b17cb8214fa3c999",
+      "state": "open"
     },
     "15805": {
       "number": 15805,
@@ -3505,7 +3591,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "08cf64c02b065436c63feb798bcbb7c7286492ce"
+      "head_sha": "08cf64c02b065436c63feb798bcbb7c7286492ce",
+      "state": "open"
     },
     "15813": {
       "number": 15813,
@@ -3549,7 +3636,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "84c10e84ac92db129e3fec5dfa32e79d3c5c4809"
+      "head_sha": "84c10e84ac92db129e3fec5dfa32e79d3c5c4809",
+      "state": "open"
     },
     "15827": {
       "number": 15827,
@@ -3587,7 +3675,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "181c406d3c7514883ad203c0abb0b35fd45635d7"
+      "head_sha": "181c406d3c7514883ad203c0abb0b35fd45635d7",
+      "state": "open"
     },
     "15837": {
       "number": 15837,
@@ -3618,7 +3707,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "df43d876d43cdb716da89b2d33cd3d16622fc9d4"
+      "head_sha": "df43d876d43cdb716da89b2d33cd3d16622fc9d4",
+      "state": "open"
     },
     "15839": {
       "number": 15839,
@@ -3649,7 +3739,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2e86a41a8863a91a9efd4343708aaa1baab9b288"
+      "head_sha": "2e86a41a8863a91a9efd4343708aaa1baab9b288",
+      "state": "open"
     },
     "15872": {
       "number": 15872,
@@ -3693,7 +3784,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ab048f9a158d9d178b367b1a48e1b1fdf454bce1"
+      "head_sha": "ab048f9a158d9d178b367b1a48e1b1fdf454bce1",
+      "state": "open"
     },
     "15874": {
       "number": 15874,
@@ -3724,7 +3816,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "2c31025d4805803f594dfa240d54e6e1dc3c7e7f"
+      "head_sha": "2c31025d4805803f594dfa240d54e6e1dc3c7e7f",
+      "state": "open"
     },
     "15876": {
       "number": 15876,
@@ -3762,7 +3855,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "417674d5b7f880415e4a88d579e2e8d5a0e4ac6d"
+      "head_sha": "417674d5b7f880415e4a88d579e2e8d5a0e4ac6d",
+      "state": "open"
     },
     "15880": {
       "number": 15880,
@@ -3793,7 +3887,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "ce57091679c71e2fcfe4bafae43ce3665a41cfe3"
+      "head_sha": "ce57091679c71e2fcfe4bafae43ce3665a41cfe3",
+      "state": "open"
     },
     "15883": {
       "number": 15883,
@@ -3890,7 +3985,8 @@
         "recommend": "先修 envs 解析并补 Mooncake 路径的可用性说明，CI ci-gate 转绿后再进入批准流程。"
       },
       "review_sha": "76b72ef3f4b8",
-      "head_sha": "dd10571141a2b516af7e9aac1148cac256b4dad0"
+      "head_sha": "dd10571141a2b516af7e9aac1148cac256b4dad0",
+      "state": "open"
     },
     "15885": {
       "number": 15885,
@@ -3928,7 +4024,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "8743a2b5e4be853d12d7e141e32f6101394959f5"
+      "head_sha": "8743a2b5e4be853d12d7e141e32f6101394959f5",
+      "state": "open"
     },
     "15886": {
       "number": 15886,
@@ -3959,7 +4056,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "1b015d6bd38dc4453ebaa26bca55d6c8acd1b525"
+      "head_sha": "1b015d6bd38dc4453ebaa26bca55d6c8acd1b525",
+      "state": "open"
     },
     "15887": {
       "number": 15887,
@@ -3990,7 +4088,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "9057bd6eb26f2ea4155f23f4019768a2f337cba9"
+      "head_sha": "9057bd6eb26f2ea4155f23f4019768a2f337cba9",
+      "state": "open"
     },
     "15891": {
       "number": 15891,
@@ -4028,7 +4127,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "f09446790ee04bce253a107240356b19245c3009"
+      "head_sha": "f09446790ee04bce253a107240356b19245c3009",
+      "state": "open"
     },
     "15893": {
       "number": 15893,
@@ -4066,7 +4166,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "4742a81d295d0d08b9b34ba18ba03c29f074b81a"
+      "head_sha": "4742a81d295d0d08b9b34ba18ba03c29f074b81a",
+      "state": "open"
     },
     "15899": {
       "number": 15899,
@@ -4122,7 +4223,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "b45c18c48e69fc38cc5edd45603526f16ebd5d6a"
+      "head_sha": "b45c18c48e69fc38cc5edd45603526f16ebd5d6a",
+      "state": "open"
     },
     "15952": {
       "number": 15952,
@@ -4153,7 +4255,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "66733f3acb89740dedacd602a7339152eb5e3cb9"
+      "head_sha": "66733f3acb89740dedacd602a7339152eb5e3cb9",
+      "state": "open"
     },
     "15994": {
       "number": 15994,
@@ -4184,7 +4287,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a633ca5a79a7dfc22f58e5bd4c04914e770f50d4"
+      "head_sha": "a633ca5a79a7dfc22f58e5bd4c04914e770f50d4",
+      "state": "open"
     },
     "15996": {
       "number": 15996,
@@ -4215,7 +4319,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "33d716867bf53fdf1170008fac48dc82e73e0b96"
+      "head_sha": "33d716867bf53fdf1170008fac48dc82e73e0b96",
+      "state": "open"
     }
   }
 }

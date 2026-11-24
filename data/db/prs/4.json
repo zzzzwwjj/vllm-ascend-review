@@ -66,7 +66,8 @@
       "first_edition": "2026-11-23-0015",
       "review": null,
       "review_sha": null,
-      "head_sha": "a494b2999c5d148cf649452e8a39a7274e7059a5"
+      "head_sha": "a494b2999c5d148cf649452e8a39a7274e7059a5",
+      "state": "open"
     }
   }
 }
