@@ -43,7 +43,8 @@
       "review": null,
       "review_sha": null,
       "head_sha": "294490e1b33b96b23048b0ecc757948903990d09",
-      "state": "open"
+      "state": "open",
+      "merge": "dirty"
     }
   }
 }

@@ -1,13 +1,12 @@
 {
-  "updated_at": "2026-11-25T05:10:29.948Z",
+  "updated_at": "2026-11-25T08:42:24.364Z",
   "items": [
     {
       "pr": 22244,
       "kind": "remind",
       "title": "[Refactor] Remove remaining Model Runner V1 EPLB implementation",
       "at": "2026-11-24T14:53:26.081Z",
-      "manual": true,
-      "v": "look"
+      "manual": true
     }
   ]
 }

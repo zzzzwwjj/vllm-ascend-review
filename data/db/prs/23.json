@@ -93,7 +93,8 @@
       },
       "review_sha": "d7828bac7b52",
       "head_sha": "ba189462011845827e117b639e5e64828ee0e978",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23017": {
       "number": 23017,
@@ -192,7 +193,8 @@
       },
       "review_sha": "5ba158d8b1fc",
       "head_sha": "d047a56eb861eb83e6dbab6119defdef421515e3",
-      "state": "open"
+      "state": "open",
+      "merge": "blocked"
     },
     "23022": {
       "number": 23022,
@@ -289,7 +291,8 @@
       },
       "review_sha": "00a3755a2c03",
       "head_sha": "7e3429d33bb3237a75f9d33a23afda0b7b4ea662",
-      "state": "open"
+      "state": "open",
+      "merge": "blocked"
     },
     "23025": {
       "number": 23025,
@@ -406,7 +409,8 @@
       },
       "review_sha": "6d359499f562",
       "head_sha": "99321ad841f39a9e773aa5268595ee83d8a40446",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23046": {
       "number": 23046,
@@ -502,7 +506,8 @@
       },
       "review_sha": "ac416f941693",
       "head_sha": "a1ab365e96615ad0df6130969292ff463ad9077e",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23047": {
       "number": 23047,
@@ -776,7 +781,8 @@
       },
       "review_sha": "1f9d0a141cfa",
       "head_sha": "b033ba04bea1c7bfd439145e6862c014e3080542",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23052": {
       "number": 23052,
@@ -864,7 +870,8 @@
       },
       "review_sha": "95e1063b4561",
       "head_sha": "576393a2c6af47849ac435ccafa700d626fe7b81",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23057": {
       "number": 23057,
@@ -971,7 +978,9 @@
         "recommend": "文档方向认可，请先补 TODO(issue) 并统一 warning 文案再合入。",
         "mode": "deep"
       },
-      "review_sha": "e43630bc5b46"
+      "review_sha": "e43630bc5b46",
+      "state": "open",
+      "merge": "dirty"
     },
     "23065": {
       "number": 23065,
@@ -1088,7 +1097,8 @@
         "mode": "deep"
       },
       "review_sha": "01456634d704",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23080": {
       "number": 23080,
@@ -1200,7 +1210,8 @@
         "mode": "deep"
       },
       "review_sha": "17f92cc06669",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23087": {
       "number": 23087,
@@ -1304,7 +1315,8 @@
         "mode": "deep"
       },
       "review_sha": "1358de4a529c",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23106": {
       "number": 23106,
@@ -1467,7 +1479,8 @@
         "mode": "deep"
       },
       "review_sha": "cbe2dc6a0e8f",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23108": {
       "number": 23108,
@@ -1590,7 +1603,8 @@
         "mode": "deep"
       },
       "review_sha": "b4f22d27753b",
-      "state": "open"
+      "state": "open",
+      "merge": "blocked"
     },
     "23115": {
       "number": 23115,
@@ -1712,7 +1726,8 @@
         "mode": "deep"
       },
       "review_sha": "71b4b780626a",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23116": {
       "number": 23116,
@@ -1821,7 +1836,8 @@
         "mode": "deep"
       },
       "review_sha": "f69d41cc0733",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23117": {
       "number": 23117,
@@ -1934,7 +1950,8 @@
         "mode": "deep"
       },
       "review_sha": "2c43cb09997e",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23122": {
       "number": 23122,
@@ -2040,7 +2057,8 @@
         "mode": "deep"
       },
       "review_sha": "31a00e456517",
-      "state": "open"
+      "state": "open",
+      "merge": "blocked"
     },
     "23123": {
       "number": 23123,
@@ -2157,7 +2175,8 @@
         "mode": "deep"
       },
       "review_sha": "33f874c3f117",
-      "state": "open"
+      "state": "open",
+      "merge": "blocked"
     },
     "23125": {
       "number": 23125,
@@ -2300,7 +2319,8 @@
         "mode": "deep"
       },
       "review_sha": "7a9c516e1726",
-      "state": "open"
+      "state": "open",
+      "merge": "unstable"
     },
     "23131": {
       "number": 23131,
@@ -2396,7 +2416,8 @@
         "mode": "deep"
       },
       "review_sha": "f74637047dfb",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23132": {
       "number": 23132,
@@ -2538,7 +2559,8 @@
         "mode": "deep"
       },
       "review_sha": "35e6f9ce0c2d",
-      "state": "open"
+      "state": "open",
+      "merge": "unknown"
     },
     "23135": {
       "number": 23135,
@@ -2652,7 +2674,9 @@
         "recommend": "逻辑与既有 fill/zeroer 语义一致，建议先补 end-to-end（或 main 依赖下的设备）验证并确认 MultiConnector 展开路径，再合入。",
         "mode": "deep"
       },
-      "review_sha": "09ae97be2a4e"
+      "review_sha": "09ae97be2a4e",
+      "state": "open",
+      "merge": "blocked"
     },
     "23154": {
       "number": 23154,
@@ -2903,7 +2927,9 @@
         "recommend": "补齐描述与测试说明、拆分为按特性的若干 PR，并先清掉无消费点的新配置/新入口，再进入正式评审。",
         "mode": "deep"
       },
-      "review_sha": "61e87ea2ad12"
+      "review_sha": "61e87ea2ad12",
+      "state": "open",
+      "merge": "unstable"
     },
     "23156": {
       "number": 23156,
@@ -3137,7 +3163,9 @@
         "recommend": "先把两条 lane 的 NPU 失败分片修绿，并为 gdn_checkpoint/linear.py/platform.py 三处放宽补上游依据与 TODO，再合入。",
         "mode": "deep"
       },
-      "review_sha": "9a31fd6bf820"
+      "review_sha": "9a31fd6bf820",
+      "state": "open",
+      "merge": "dirty"
     },
     "23160": {
       "number": 23160,
@@ -3239,7 +3267,9 @@
         "recommend": "可以合入；建议顺手更新类 docstring 并确认 release note 覆盖 env 解析放宽。",
         "mode": "deep"
       },
-      "review_sha": "8e32aead6b6c"
+      "review_sha": "8e32aead6b6c",
+      "state": "open",
+      "merge": "unknown"
     },
     "23172": {
       "number": 23172,
@@ -3342,7 +3372,9 @@
         "recommend": "认可默认关闭的实现，请补配置读取点说明与退役/验证条件。",
         "mode": "deep"
       },
-      "review_sha": "abad5742f6b7"
+      "review_sha": "abad5742f6b7",
+      "state": "open",
+      "merge": "unknown"
     },
     "23173": {
       "number": 23173,
@@ -3465,7 +3497,9 @@
         "recommend": "先修绿 pre-commit，补 v0.34.0 padding 断言与 load_head_shard 调用点说明，并与 #23156 约定合入顺序后再合。",
         "mode": "deep"
       },
-      "review_sha": "a24b8ecd3851"
+      "review_sha": "a24b8ecd3851",
+      "state": "open",
+      "merge": "unknown"
     },
     "23177": {
       "number": 23177,
@@ -3586,7 +3620,9 @@
         "recommend": "实现方向正确，请先澄清 use_dcp/DCP>1 的覆盖范围并考虑合并架构清单常量。",
         "mode": "deep"
       },
-      "review_sha": "94fba645b6e9"
+      "review_sha": "94fba645b6e9",
+      "state": "open",
+      "merge": "blocked"
     },
     "23181": {
       "number": 23181,
@@ -3695,7 +3731,9 @@
         "recommend": "逻辑可接受，建议补一条探测失败告警/断言并修绿 ci-gate 后再合入。",
         "mode": "deep"
       },
-      "review_sha": "6ac8c6185b52"
+      "review_sha": "6ac8c6185b52",
+      "state": "open",
+      "merge": "unknown"
     },
     "23183": {
       "number": 23183,
@@ -3826,7 +3864,9 @@
         "recommend": "方向认可，请补 TODO 追踪、assert 改 ValueError，并说明 mapping 生命周期后再合入。",
         "mode": "deep"
       },
-      "review_sha": "040f2ff2d0c2"
+      "review_sha": "040f2ff2d0c2",
+      "state": "open",
+      "merge": "unknown"
     }
   }
 }

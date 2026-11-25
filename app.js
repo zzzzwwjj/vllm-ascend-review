@@ -74,11 +74,20 @@
     return '<div class="bar"><i style="width:' + aW + '%"></i>' + (dW ? '<u style="width:' + dW + '%"></u>' : '') + '</div>';
   }
 
+  function stateChip(p) {
+    const st = p.state || 'open';
+    if (st === 'merged') return '<span class="st st-merged">已合入</span>';
+    if (st === 'closed') return '<span class="st st-closed">已关闭</span>';
+    if (st === 'draft') return '<span class="st st-draft">草稿</span>';
+    if ((p.merge || '').toLowerCase() === 'clean') return '<span class="st st-ready">待合入</span>';
+    return '<span class="st st-open">进行中</span>';
+  }
+
   const isLight = (p) => !!(p.review && (p.review.mode === 'light' || !(p.owned || []).length));
 
   function topRow(p, v) {
     return '<div class="rc-head"><span class="pill ' + pillClass(v) + '">' + v.label + '</span>' +
-      (isLight(p) ? '<span class="pill ghost">简单检视</span>' : '') +
+      (isLight(p) ? '<span class="pill ghost">简单检视</span>' : '') + stateChip(p) +
       '<a class="num" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' +
       '<a class="ttl" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' +
       '<a class="gh" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">GitHub ↗</a></div>';
@@ -203,7 +212,7 @@
     const r = p.review || null;
     const v = verdictMeta[r?.verdict] || verdictMeta.pending;
     return '<tr data-verdict="' + esc(r?.verdict || 'pending') + '">' +
-      '<td data-label="PR"><a href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a></td>' +
+      '<td data-label="PR"><a href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' + stateChip(p) + '</td>' +
       '<td class="t">' + esc(p.title) + '</td><td data-label="作者">@' + esc(p.author) + '</td>' +
       '<td class="num2" data-label="我负责/全部">' + (p.owned?.length ?? 0) + '/' + p.changed_files + '</td>' +
       '<td class="num2" data-label="改动">+' + p.owned_add + '/-' + p.owned_del + '</td>' +
