@@ -18,8 +18,8 @@
     "skipped_other": 0
   },
   "verdicts": {
-    "approve": 11,
-    "look": 7,
+    "approve": 7,
+    "look": 6,
     "pushback": 2,
     "pending": 0
   },
@@ -121,5 +121,16 @@
       "n": 22926,
       "role": "rest"
     }
-  ]
+  ],
+  "states": {
+    "merged": 3,
+    "closed": 2,
+    "draft": 0,
+    "ready": 0,
+    "conflict": 2,
+    "ci": 0,
+    "blocked": 6,
+    "behind": 0,
+    "open": 11
+  }
 }

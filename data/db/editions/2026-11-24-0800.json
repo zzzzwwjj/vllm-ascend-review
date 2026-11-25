@@ -19,7 +19,7 @@
   },
   "verdicts": {
     "approve": 6,
-    "look": 10,
+    "look": 7,
     "pushback": 1,
     "pending": 0
   },
@@ -93,5 +93,16 @@
       "n": 18434,
       "role": "deep"
     }
-  ]
+  ],
+  "states": {
+    "merged": 0,
+    "closed": 2,
+    "draft": 1,
+    "ready": 2,
+    "conflict": 0,
+    "ci": 0,
+    "blocked": 1,
+    "behind": 0,
+    "open": 11
+  }
 }

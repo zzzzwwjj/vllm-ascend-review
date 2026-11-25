@@ -20,7 +20,7 @@
     "approve": 0,
     "look": 0,
     "pushback": 0,
-    "pending": 962
+    "pending": 0
   },
   "backlog": true,
   "label": "历史积压",
@@ -3873,5 +3873,16 @@
       "n": 7223,
       "role": "rest"
     }
-  ]
+  ],
+  "states": {
+    "merged": 11,
+    "closed": 10,
+    "draft": 2,
+    "ready": 22,
+    "conflict": 399,
+    "ci": 89,
+    "blocked": 81,
+    "behind": 0,
+    "open": 348
+  }
 }

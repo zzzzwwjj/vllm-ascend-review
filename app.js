@@ -47,7 +47,7 @@
       lastDay = day;
       return head + '<a class="ed' + (e.id === state.current ? ' active' : '') + '" data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">' +
         '<span class="ed-when">' + esc(e.label || tz(e.at).slice(6)) + '</span>' +
-        '<span class="ed-nums">新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0) + '</span>' +
+        '<span class="ed-nums">' + editionStateSummary(e) + '</span>' +
         '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
     }).join('');
     const user = state.idx?.user || '';
@@ -74,22 +74,29 @@
     return '<div class="bar"><i style="width:' + aW + '%"></i>' + (dW ? '<u style="width:' + dW + '%"></u>' : '') + '</div>';
   }
 
-  function stateClass(p) {
+  function stateKeyOf(p) {
     const st = p.state || 'open';
-    if (st === 'merged') return 's-merged';
-    if (st === 'closed') return 's-closed';
-    if (st === 'draft') return 's-draft';
-    if ((p.merge || '').toLowerCase() === 'clean') return 's-ready';
-    return 's-open';
+    if (st === 'merged' || st === 'closed' || st === 'draft') return st;
+    const m = (p.merge || '').toLowerCase();
+    if (m === 'clean') return 'ready';
+    if (m === 'dirty') return 'conflict';
+    if (m === 'unstable') return 'ci';
+    if (m === 'blocked') return 'blocked';
+    if (m === 'behind') return 'behind';
+    return 'open';
+  }
+
+  function stateClass(p) {
+    return 's-' + stateKeyOf(p);
   }
 
   function stateChip(p) {
-    const st = p.state || 'open';
-    if (st === 'merged') return '<span class="st st-merged">已合入</span>';
-    if (st === 'closed') return '<span class="st st-closed">已关闭</span>';
-    if (st === 'draft') return '<span class="st st-draft">草稿</span>';
-    if ((p.merge || '').toLowerCase() === 'clean') return '<span class="st st-ready">待合入</span>';
-    return '<span class="st st-open">进行中</span>';
+    const k = stateKeyOf(p);
+    const label = {
+      merged: '已合入', closed: '已关闭', draft: '草稿', ready: '待合入',
+      conflict: '有冲突', ci: 'CI 未过', blocked: '待评审', behind: '待更新', open: '进行中',
+    }[k] || '进行中';
+    return '<span class="st st-' + k + '">' + label + '</span>';
   }
 
   const isLight = (p) => !!(p.review && (p.review.mode === 'light' || !(p.owned || []).length));
@@ -563,6 +570,15 @@
       if (!items.some((x) => x.pr === p.pr && x.kind === p.kind)) items.unshift({ ...p, pending: true });
     }
     return items.filter((h) => !(state.marks && state.marks[String(h.pr)]));
+  }
+
+  function editionStateSummary(e) {
+    const st = e.states || {};
+    const order = [['conflict', '冲突'], ['ci', 'CI 未过'], ['blocked', '待评审'], ['behind', '待更新'],
+      ['open', '进行中'], ['ready', '待合入'], ['draft', '草稿'], ['merged', '已合入'], ['closed', '已关闭']];
+    const parts = order.filter(([k]) => st[k]).slice(0, 3).map(([k, label]) => label + ' ' + st[k]);
+    if (parts.length) return parts.join(' · ');
+    return '新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0);
   }
 
   function highlightsSection() {

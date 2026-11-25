@@ -12,6 +12,7 @@ vllm-ascend-review/
 │   ├── fetch-file.mjs          取 head 处文件内容
 │   ├── refresh-states.mjs      刷新所有 PR 状态（open/draft/closed/merged，GraphQL 批量）
 │   ├── sync-review-status.mjs  把我在 GitHub 上的检视同步为 marks（并与请求时间比较）
+│   ├── refresh-edition-stats.mjs 重算各期状态统计与结论色点（排除已合入/关闭/草稿）
 │   ├── merge-threads.mjs       合并同一 PR 的重复 issue（无 token 用户造成）
 │   ├── ingest-feedback.mjs     处理每 PR 一个 issue 的评论线程（动作/批注/回复）
 │   ├── reply-feedback.mjs      把回应写回看板并回复 issue
@@ -46,6 +47,7 @@ cd /workspace/project/vllm-ascend-review
 rm -rf work/reviews && mkdir -p work/reviews
 node scripts/refresh-states.mjs     # 先刷新 PR 状态（决定按钮可用性与请求是否受理）
 node scripts/sync-review-status.mjs # 同步我在 GitHub 上的检视状态（早于请求则视为未检视）
+node scripts/refresh-edition-stats.mjs # 重算期次状态统计与色点
 node scripts/merge-threads.mjs      # 合并重复 issue（无 token 用户会新建 issue）
 node scripts/ingest-feedback.mjs    # 处理 issue 评论线程（动作/批注/回复，决定本期优先级）
 node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、请求优先排序

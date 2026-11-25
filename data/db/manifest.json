@@ -1,6 +1,6 @@
 {
   "schema": "reviewboard-db/1",
-  "updated_at": "2026-11-25T08:42:04.757Z",
+  "updated_at": "2026-11-25T09:02:20.026Z",
   "current": "2026-11-25-1300",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
@@ -33,8 +33,19 @@
         "pushback": 1,
         "pending": 0
       },
-      "v": "8d05cccf1248",
-      "legacy": false
+      "v": "7c1e14fb7965",
+      "legacy": false,
+      "states": {
+        "merged": 0,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 2,
+        "ci": 1,
+        "blocked": 2,
+        "behind": 0,
+        "open": 5
+      }
     },
     {
       "id": "2026-11-25-0800",
@@ -64,8 +75,19 @@
         "pushback": 2,
         "pending": 0
       },
-      "v": "abe6b2104a1f",
-      "legacy": false
+      "v": "9131b6ad668c",
+      "legacy": false,
+      "states": {
+        "merged": 0,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 0,
+        "ci": 1,
+        "blocked": 5,
+        "behind": 0,
+        "open": 11
+      }
     },
     {
       "id": "2026-11-24-1800",
@@ -89,13 +111,24 @@
         "api_calls": 474
       },
       "verdicts": {
-        "approve": 2,
+        "approve": 1,
         "look": 9,
         "pushback": 0,
         "pending": 0
       },
-      "v": "f01c8fabc4b3",
-      "legacy": false
+      "v": "06223c92c69d",
+      "legacy": false,
+      "states": {
+        "merged": 1,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 0,
+        "ci": 1,
+        "blocked": 4,
+        "behind": 0,
+        "open": 5
+      }
     },
     {
       "id": "2026-11-24-1300",
@@ -119,13 +152,24 @@
         "api_calls": 390
       },
       "verdicts": {
-        "approve": 3,
-        "look": 11,
+        "approve": 2,
+        "look": 9,
         "pushback": 2,
         "pending": 0
       },
-      "v": "39f0a5d34d97",
-      "legacy": false
+      "v": "2500245e79c2",
+      "legacy": false,
+      "states": {
+        "merged": 3,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 0,
+        "ci": 0,
+        "blocked": 2,
+        "behind": 0,
+        "open": 11
+      }
     },
     {
       "id": "2026-11-24-0800",
@@ -148,12 +192,23 @@
       },
       "verdicts": {
         "approve": 6,
-        "look": 10,
+        "look": 7,
         "pushback": 1,
         "pending": 0
       },
       "legacy": false,
-      "v": "a9deb9f24582"
+      "v": "d7bdfb03ce3d",
+      "states": {
+        "merged": 0,
+        "closed": 2,
+        "draft": 1,
+        "ready": 2,
+        "conflict": 0,
+        "ci": 0,
+        "blocked": 1,
+        "behind": 0,
+        "open": 11
+      }
     },
     {
       "id": "2026-11-23-1800",
@@ -175,13 +230,24 @@
         "skipped_other": 0
       },
       "verdicts": {
-        "approve": 11,
-        "look": 7,
+        "approve": 7,
+        "look": 6,
         "pushback": 2,
         "pending": 0
       },
       "legacy": false,
-      "v": "1a3dafb28453"
+      "v": "9bb0ee2772b9",
+      "states": {
+        "merged": 3,
+        "closed": 2,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 2,
+        "ci": 0,
+        "blocked": 6,
+        "behind": 0,
+        "open": 11
+      }
     },
     {
       "id": "2026-11-23-1300",
@@ -203,13 +269,24 @@
         "skipped_other": 4
       },
       "verdicts": {
-        "approve": 3,
-        "look": 15,
+        "approve": 2,
+        "look": 11,
         "pushback": 1,
         "pending": 0
       },
       "legacy": false,
-      "v": "2f4c8b363778"
+      "v": "b1a612e2765b",
+      "states": {
+        "merged": 5,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 5,
+        "ci": 0,
+        "blocked": 3,
+        "behind": 0,
+        "open": 6
+      }
     },
     {
       "id": "2026-11-23-0800",
@@ -232,12 +309,23 @@
       },
       "verdicts": {
         "approve": 0,
-        "look": 5,
+        "look": 4,
         "pushback": 5,
         "pending": 0
       },
       "legacy": false,
-      "v": "23ff11f6485a"
+      "v": "776b143a9589",
+      "states": {
+        "merged": 0,
+        "closed": 1,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 8,
+        "ci": 0,
+        "blocked": 0,
+        "behind": 0,
+        "open": 1
+      }
     },
     {
       "id": "2026-11-23-0015",
@@ -260,12 +348,23 @@
         "approve": 0,
         "look": 0,
         "pushback": 0,
-        "pending": 962
+        "pending": 0
       },
-      "v": "4d7fcc3d8666",
+      "v": "56560a7020b7",
       "legacy": false,
       "backlog": true,
-      "label": "历史积压"
+      "label": "历史积压",
+      "states": {
+        "merged": 11,
+        "closed": 10,
+        "draft": 2,
+        "ready": 22,
+        "conflict": 399,
+        "ci": 89,
+        "blocked": 81,
+        "behind": 0,
+        "open": 348
+      }
     }
   ],
   "shards": {
