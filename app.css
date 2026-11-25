@@ -380,3 +380,9 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .st-draft{color:var(--wait);border-color:color-mix(in srgb,var(--wait) 45%,transparent);background:color-mix(in srgb,var(--wait) 10%,transparent)}
 .rc-head .st{margin-left:auto;font-size:12px;padding:1px 9px}
 .rc-head .gh{display:none}
+/* PR state drives the card's top edge, so it reads before the verdict */
+.card.rc.s-open{border-top-color:var(--blue)}
+.card.rc.s-ready{border-top-color:var(--ok)}
+.card.rc.s-merged{border-top-color:#8b5cf6}
+.card.rc.s-closed{border-top-color:var(--muted)}
+.card.rc.s-draft{border-top-color:var(--wait)}

@@ -74,6 +74,15 @@
     return '<div class="bar"><i style="width:' + aW + '%"></i>' + (dW ? '<u style="width:' + dW + '%"></u>' : '') + '</div>';
   }
 
+  function stateClass(p) {
+    const st = p.state || 'open';
+    if (st === 'merged') return 's-merged';
+    if (st === 'closed') return 's-closed';
+    if (st === 'draft') return 's-draft';
+    if ((p.merge || '').toLowerCase() === 'clean') return 's-ready';
+    return 's-open';
+  }
+
   function stateChip(p) {
     const st = p.state || 'open';
     if (st === 'merged') return '<span class="st st-merged">已合入</span>';
@@ -179,7 +188,7 @@
   function card(p) {
     const r = p.review || null;
     const v = verdictMeta[r?.verdict] || verdictMeta.pending;
-    return '<article class="card rc ' + v.cls + '" id="pr-' + p.number + '">' +
+    return '<article class="card rc ' + v.cls + ' ' + stateClass(p) + '" id="pr-' + p.number + '">' +
       topRow(p, v) + metaRow(p) +
       (r ? '<p class="rc-summary" title="' + esc(r.summary) + '">' + esc(r.summary) + '</p>' + (r.intent ? '<p class="rc-intent" title="' + esc(r.intent) + '"><b>为什么改</b>' + esc(r.intent) + '</p>' : '')
         : '<p class="rc-summary muted">该 PR 的精读未生成。</p>') +
