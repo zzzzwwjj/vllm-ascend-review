@@ -87,10 +87,10 @@
 
   function topRow(p, v) {
     return '<div class="rc-head"><span class="pill ' + pillClass(v) + '">' + v.label + '</span>' +
-      (isLight(p) ? '<span class="pill ghost">简单检视</span>' : '') + stateChip(p) +
+      (isLight(p) ? '<span class="pill ghost">简单检视</span>' : '') +
       '<a class="num" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">#' + p.number + '</a>' +
       '<a class="ttl" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' +
-      '<a class="gh" href="' + esc(p.html_url) + '" target="_blank" rel="noopener">GitHub ↗</a></div>';
+      stateChip(p) + '</div>';
   }
 
 
