@@ -826,7 +826,7 @@
     const hl = activeHighlights().length;
     return '<div class="landing">' +
       '<header class="lp-nav">' +
-        '<a class="lp-brand" href="./">vLLM-Ascend <span>待我检视</span></a>' +
+        '<a class="lp-brand" href="https://github.com/' + esc(state.idx?.site || 'zzzzwwjj/vllm-ascend-review') + '" target="_blank" rel="noopener">vLLM-Ascend <span>待我检视</span></a>' +
         '<nav class="lp-nav-right">' +
           '<a class="lp-cta" data-nav="' + esc(cur) + '" href="?e=' + encodeURIComponent(cur) + '">进入检视列表 →</a>' +
         '</nav>' +
@@ -871,7 +871,9 @@
 
       '<footer class="lp-foot">' +
         '<span>@' + esc(user) + ' · vLLM-Ascend</span>' +
-        '<span><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></span>' +
+        '<span><a href="https://github.com/' + esc(state.idx?.site || 'zzzzwwjj/vllm-ascend-review') + '/blob/main/docs/RULES.md" target="_blank" rel="noopener">规则与口径</a> · ' +
+        '<a href="https://github.com/' + esc(state.idx?.site || 'zzzzwwjj/vllm-ascend-review') + '/blob/main/docs/OPERATIONS.md" target="_blank" rel="noopener">运维</a> · ' +
+        '<a href="https://github.com/' + esc(state.idx?.site || 'zzzzwwjj/vllm-ascend-review') + '/blob/main/docs/MIGRATION.md" target="_blank" rel="noopener">迁移</a></span>' +
       '</footer>' +
     '</div>';
   }
