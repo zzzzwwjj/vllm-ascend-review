@@ -2287,6 +2287,119 @@
       "head_sha": "55aca3876acea9cfb18c9fab190693f516aed45d",
       "state": "open"
     },
+    "22346": {
+      "number": 22346,
+      "title": "[Performance] Remove redundant work from Kimi decode operators",
+      "author": "ALIA333",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22346",
+      "changed_files": 12,
+      "head_sha": "0f283416d5f41cc99768ec9585aadc5670936189",
+      "areas": [
+        {
+          "p": "vllm_ascend/attention",
+          "n": 3
+        },
+        {
+          "p": "tests/e2e",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 2
+        },
+        {
+          "p": "csrc/attention",
+          "n": 1
+        },
+        {
+          "p": "csrc/torch_binding.cpp",
+          "n": 1
+        },
+        {
+          "p": "csrc/torch_binding_meta.cpp",
+          "n": 1
+        }
+      ],
+      "additions": 182,
+      "deletions": 68,
+      "age_days": 6.4,
+      "ci": {
+        "total": 31,
+        "failed": 4,
+        "failed_names": [
+          "ci-gate",
+          "select-tests",
+          "cpu-ut (vllm@v0.33.0) / cpu-ut card-",
+          "cpu-ut (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / cpu-ut card-"
+        ],
+        "pending": 0,
+        "skipped": 21,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 4
+        }
+      ],
+      "owned_add": 8,
+      "owned_del": 4,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-0800",
+      "review": {
+        "number": 22346,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A3 DCP 候选不再归一化、改由 pack 按可见长度掩码，A5 仍强制初始化；未初始化尾部可靠性需作者确认。",
+        "intent": "为 Kimi decode 去冗余：A3 路径跳过候选填充与归一化，把每行本地可见长度交给 pack 掩码；新增 initialize_outputs 开关，A5 保持初始化。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/device_op.py",
+            "point": "indexer_select_dcp_candidates 新增 initialize_outputs 后 A3 直接返回原生 indices/scores（不再 normalize），返回值契约变化是否被所有调用方按 pack 契约消费；A5 实现接收该参数却硬编码 True 的一致性；initialize_outputs=False 时未写槽位由谁保证是安全哨兵。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "正确性依赖内核写覆盖：A3 传 initialize_outputs=False 时输出由 torch 侧空张量承载，而 pack 侧的掩码只有“行级”判据（visible_lengths>0）与“列级”哨兵过滤（local>=0 且 |score|<inf）。对 0<visible_lengths<local_k 的短行，若内核未把剩余槽位写成 -1/-inf，未初始化内存里的随机 int32 可能 >=0、随机 fp32 大概率有限，两者组合会通过过滤，进而映射出越界 global_id 参与 merge/后续 gather。A5 处的注释“until its write coverage is independently established”正说明写覆盖尚未被确证。"
+          },
+          {
+            "level": "medium",
+            "text": "接口语义不一致（规则 3 部分不符）：A5 的 indexer_select_dcp_candidates 接受 initialize_outputs 但无条件传 True，该开关在 A5 实现里没有生效路径，调用方按 A5 分支期望“跳过填充”的收益不存在，且未来若 A5 也传 False、调用方据 pack_visible_lengths 跳过掩码，风险不可见。建议 assert/显式文档化或拆分接口。"
+          },
+          {
+            "level": "medium",
+            "text": "删除 normalize_dcp_candidates 后，该公共 DeviceOperator 方法的默认返回值从“已归一化”变为“原生候选”，而默认 initialize_outputs 仍是 True；仓库内仅 vllm_ascend/attention/indexer.py 两处调用（均按 pack 契约消费），但外部/单测中若有引用已删函数或依赖归一化结果，会静默拿到未净化索引。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用。本 PR 没有新增对外配置键或公开配置项，initialize_outputs 是算子封装层的内部参数（csrc 绑定早已有同名 kwarg，默认 True）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：部分适用。A5 保留强制初始化属对“写覆盖未确证”的临时绕行，只有行内注释，缺 TODO(github id)、根因引用与日落计划；A3 侧同样缺少“内核写满槽位”这一点的事实依据（issue/算子文档）。"
+          }
+        ],
+        "tests": "CI 失败 4 项：ci-gate、select-tests、cpu-ut(v0.33.0) 与 cpu-ut(pinned main)。两项 cpu-ut 同时失败，且本 PR 改了 DeviceOperator 公共签名并删除 normalize_dcp_candidates 后处理，判定极可能由本 PR 引入（具体用例需 CI 日志确认），不像既有 flaky。",
+        "questions": [
+          "需要作者确认：A3 QLI 在 initialize_outputs=False 时，对 0<visible_lengths<local_k 的行是否把全部 local_k 槽位写成 -1/-inf 哨兵？否则 pack 的 valid 过滤拦不住未初始化内存里的合法 index + 有限分数组合。",
+          "需要作者确认：cpu-ut 两项失败的具体用例，是否仍有测试引用已删除的 normalize_dcp_candidates，或依赖该方法的归一化返回？",
+          "A5 为何保留 initialize_outputs 参数却忽略？能否加 assert 或从 A5 签名移除，并补 TODO(github id) 说明写覆盖验证完成后的日落动作？",
+          "是否考虑把 pack 的掩码从 visible_lengths>0 扩展为列级 col<visible（或用内核保证的哨兵），以免依赖内核内部行为？"
+        ],
+        "recommend": "先定位 cpu-ut 两项失败，并补 A3 内核写覆盖证据或列级掩码后再合入。",
+        "mode": "deep"
+      },
+      "review_sha": "3d726a165e17"
+    },
     "22363": {
       "number": 22363,
       "title": "[BugFix] Add NPUWorker._make_model_runner hook",
@@ -4175,6 +4288,127 @@
       "head_sha": "d9944c83a9bbd0c27a4bdea22c3e3ccaf573e89e",
       "state": "open"
     },
+    "22649": {
+      "number": 22649,
+      "title": "[BugFix][Attention] Fix the HND/LBHNC KV cache read path (FIA EZ0037 crash at first page-attention read)",
+      "author": "valvarl",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22649",
+      "changed_files": 10,
+      "head_sha": "d713ee653ad4c306fef5748e80ff9318d27d8dc6",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 3
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        }
+      ],
+      "additions": 1583,
+      "deletions": 53,
+      "age_days": 4.6,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 8,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 70,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-0800",
+      "review": {
+        "number": 22649,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "回绑 impl 并复检 FULL 门禁，逻辑与 attention_v1 钩子一致；分支冲突、缺 TODO(id)、布局若以对象传入会静默失效。",
+        "intent": "修复 HND/LBHNC head-major 布局下 FIA 分页读的 EZ0037 崩溃：NPUWorker 在 set_kv_cache_layout RPC 中把最终布局回绑给已构造的 impl，并复检 FULL 门禁。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "set_kv_cache_layout 覆盖：super() 调用前置、参数名与上游 GPUWorker RPC 签名是否逐字一致（含 kv_cache_layout 可能为 None 却标注 str）。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "_rebind_attention_kv_layouts：只遍历 static_forward_context 的 module.impl，核对是否覆盖所有持有 kv_cache_layout 状态的 impl（MLA/SFA/DSA/线性注意力），以及钩子缺失时是否应告警而不是静默跳过。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "_check_effective_layout_full_graph_gate：与 PR #23065 在 platform.py 的同类门禁是否重复/冲突，字符串比较 (LBHNC/HND) 在布局以对象或别名传入时的行为。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "分支处于 dirty 且带 merge-conflicts 标签（base_sha 15ecf4a，CI 8 项 5 skipped 全绿），需先解决冲突并 rebase；冲突若落在 worker.py 会直接影响本 PR 的核心逻辑。"
+          },
+          {
+            "level": "medium",
+            "text": "布局匹配全部依赖字符串：`kv_cache_layout not in (\"LBHNC\", \"HND\")` 与 impl 侧 `self.kv_cache_layout == kv_cache_layout`。上游已有 get_resolved_kv_cache_layout() 返回带 is_layer_compact 等属性的对象，若 RPC 参数改为对象/枚举或归一化名称变化，两处比较会静默不成立（rebind 与门禁同时失效），且日志只在 rebound>0 时打印，难以发现。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照（不满足，需补）：FULL + head-major 的拒绝是对硬件/内核缺陷（设备错误 507011、FIA EZ0037）的临时规避，报错文案已写根因与替代方案，但 owned 代码没有任何 TODO(github id) 与日落计划（上游 CANN/FIA 修复或 vLLM 支持后可移除）。"
+          },
+          {
+            "level": "low",
+            "text": "钩子覆盖存在静默空洞：只有同时具备 module.impl 与 rebind_kv_cache_layout 的 impl 会被回绑，其余 impl 保留构造期的 provisional 绑定；建议统计 total/changed 并对「有 kv_cache_layout 但无 rebind 钩子」的 impl 打 warning，避免 HND 崩溃在个别路径复现。"
+          },
+          {
+            "level": "medium",
+            "text": "与 #23065 的门禁重复：两 PR 都新增同一 RuntimeError（文案几乎逐字相同，均引用 docs/source/user_guide/feature_guide/graph_mode.md）。若两者都合入，平台侧与 worker 侧是「预解析 + 后解析」双重校验，可接受但应抽公共函数/常量，避免后续只改一处。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用——未新增对外配置或公开接口，HND/LBHNC 是上游 vLLM 已有的 VLLM_KV_CACHE_LAYOUT，本 PR 是让 Ascend 正确消费上游解析结果，方向与「推动上游」一致。"
+          },
+          {
+            "level": "low",
+            "text": "报错文案指向 graph_mode.md，但 22649 head 的该文档没有「KV cache layout compatibility」支持矩阵段（该段只由 #23065 新增，我在 a6cee819 上核对到、在 d713ee65 上未找到）；单独合入时用户得到的指引落空，建议两 PR 一起合入或本 PR 内补该段。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：满足——两个新增私有方法都在本 PR 的 set_kv_cache_layout 内有调用点，且有真实生效路径（engine core 的 resolve 结果经 RPC 下发到 NPUWorker，attention_v1.py:716 的 rebind_kv_cache_layout 提供契约实现）。"
+          }
+        ],
+        "tests": "CI 8 项全绿但 5 项 skipped（覆盖率有限）；PR 含 5 个 tests/ut 文件覆盖 rebind/门禁，未见真实 HND 端到端（910C 复现用例）在 CI 中固化。",
+        "questions": [
+          "需要作者确认：上游 set_kv_cache_layout RPC 的参数在可预见版本内保证是字符串名称吗？若可能传 KVCacheLayout 对象，是否应在这里做一次归一化（str/name）并对不识别形态报错而非静默跳过？",
+          "需要作者确认：除 module.impl 之外，是否还有持有 layout 绑定状态的 impl 挂载点（例如 MLA / 线性注意力 / 草稿模型）需要回绑？能否把「有 kv_cache_layout 却无 rebind_kv_cache_layout」的 impl 打 warning？",
+          "该门禁与 #23065 的 platform.py 门禁是否计划合并为一处（或其一是另一处的冗余）？两者报错文案重复，后续维护哪一处为准？",
+          "按 lesson-002 约定，请为 FULL+head-major 的临时拒绝补 TODO(github id)：根因（FIA/CANN 对 head-major 分页读的支持）、规避方式、以及移除条件与跟踪 issue。",
+          "本 PR 与 #23065 的合入顺序是什么？错误信息引用的 graph_mode.md 支持矩阵段只由 #23065 引入，若本 PR 先合入，是否需要在本 PR 内补该文档段？"
+        ],
+        "recommend": "先解决 merge-conflicts 并 rebase，再补 TODO(github id)、把布局归一化/告警加进 rebind 路径，然后与 #23065 对齐门禁归属后合入。",
+        "mode": "deep"
+      },
+      "review_sha": "1cb9c8443388"
+    },
     "22650": {
       "number": 22650,
       "title": "[BugFix][Core] Refuse kv_load_failure_policy='repair' on paths that cannot dispatch repairs",
@@ -4866,6 +5100,133 @@
       "review_sha": null,
       "head_sha": "a2c42e54913e511fe5d9119ce44f675cd1305aa6",
       "state": "merged"
+    },
+    "22750": {
+      "number": 22750,
+      "title": "[Feature][Quantization] Support HiF8 C8 KV cache for sparse-attention MLA",
+      "author": "kunpengW-code",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22750",
+      "changed_files": 18,
+      "head_sha": "ca7557b8b9dc520c0979a9131745ce0dae4ca9d2",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/quantization",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        }
+      ],
+      "additions": 777,
+      "deletions": 36,
+      "age_days": 3.5,
+      "ci": {
+        "total": 53,
+        "failed": 6,
+        "failed_names": [
+          "ci-gate",
+          "run-selected-tests (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / a2-1 card-(part 1-7)",
+          "run-selected-tests (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / a3-4 card-(part 1-5)",
+          "run-selected-tests (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / a2-1 card-(part 2-7)"
+        ],
+        "pending": 0,
+        "skipped": 18,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 9,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 5
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 23,
+      "owned_del": 5,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-0800",
+      "review": {
+        "number": 22750,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "新增 hif8 判定与 sparse offload 互斥校验，与 mxfp8 前例一致；但 CI 6 项红、hif8 借上游公共 flag 需说明上游化计划。",
+        "intent": "为 GLM-5.3-Flash(A5) 稀疏 MLA 加 HIF8 C8 KV cache：owned 提供 is_hif8_c8_kv_quant 判定与常量，并在配置派生期让它与 sparse KV offload 互斥。",
+        "focus": [
+          {
+            "file": "vllm_ascend/utils.py",
+            "point": "新增 HIF8_C8_KV_CACHE_DTYPE 常量与 is_hif8_c8_kv_quant：与相邻 is_c8_mxfp_kv_quant 写法一致（getattr 容错、字符串比较），核对 cache_dtype 是否就是用户输入的 'hif8' 字面量、常量是否被其它模块真正引用。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "derive_and_validate 把 is_hif8_c8_kv_quant(vllm_config) 传入 _validate_sparse_packed_kv_offload_compatibility，核对 vc 与 vllm_config 是同一对象、hif8 确实不会被 enable_sparse_sfa_c8/uses_packed_sfa_main_cache 判定覆盖、且该私有方法仅一处调用。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "互斥报错文案与参数命名：形参名 is_hif8_c8_kv_quant 与同名 helper 冲突、缺类型注解，核对是否影响可读性与后续复用。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "规则 1 对照（适用，需作者回应）：`--kv-cache-dtype hif8` 是新增用户可见取值，却搭载在上游 vLLM 的公共 CLI flag 上；本 PR 未说明 vLLM CacheConfig 如何接受该字符串（上游允许值枚举/插件接口/本地 patch），属硬件专属 dtype 长期分叉点，建议明确推动上游插件化并记录。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照（可能适用）：若为让上游 CacheConfig 接受 'hif8' 而在框架侧打 patch/临时规避，需按约定加 TODO(github id)，写明根因、规避方案与日落计划；owned 的 utils.py 注释只描述了用途，未给出上游跟踪 id。"
+          },
+          {
+            "level": "medium",
+            "text": "CI 红：53 项中 6 项失败（ci-gate、run-selected-tests a2-1 part 1-7、a2-1 part 2-7、a3-4 part 1-5），另有 18 skipped；owned 改动本身很小，但当前状态无法判断失败是否来自本 PR，不能带红合入。"
+          },
+          {
+            "level": "low",
+            "text": "互斥校验只覆盖 sparse KV offload 一条：hif8 与 PD/异构 KV transfer、enable_kv_nz、indexer_kv_dtype 组合等是否也需在派生期拦截，owned 文件内看不到约束；若由非责任田的 validate_sparse_sfa_hif8 兜住，请作者指出。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照（满足）：新增的 is_hif8_c8_kv_quant 在 ascend_config.py:1103 有真实调用点，且 hif8 语义经 spec 的 cache_sparse_sfa_hif8 字段进入 KV 规划，不是只定义不调用；但 HIF8_C8_KV_CACHE_DTYPE 常量在 ascend_config/hif8_c8/kv_cache_interface/sfa_v1 中均未被引用，需确认是否另有消费方，避免与注册处的字面量 'hif8' 重复定义。"
+          }
+        ],
+        "tests": "PR 只给出手工链路验证（msmodelslim 量化 + vllm serve GLM-5.3-Flash），owned 的 offload 互斥分支未见单测；CI 6 项失败含 ci-gate 与 run-selected-tests(a2-1 part1-7/part2-7、a3-4 part1-5)、18 skipped。",
+        "questions": [
+          "需要作者确认：'hif8' 如何通过上游 vLLM CacheConfig 的取值校验？是上游已支持的枚举、本地 patch 还是其它机制？若是 patch，请补 TODO(github id) 与上游化/日落计划。",
+          "需要作者确认：HIF8_C8_KV_CACHE_DTYPE 常量当前有哪些消费方？若只有 is_hif8_c8_kv_quant 使用，建议让注册处（hif8_c8.py / spec 构造）引用该常量，避免字面量多处重复。",
+          "需要作者确认：hif8 与 PD 分离、enable_kv_nz、indexer_kv_dtype 各组合是否已在 validate_sparse_sfa_hif8 或别处做前置校验？owned 的互斥表只加了 sparse offload 一项。",
+          "CI 的 6 项失败是已知环境/基线问题还是本 PR 引入？请给出失败日志摘要与重跑结果。"
+        ],
+        "recommend": "先把 CI 跑绿并就 hif8 的上游承载方式与日落计划给出说明；owned 侧建议补类型注解、常量单一来源，并在互斥表上补 PD/kv_nz 组合结论。",
+        "mode": "deep"
+      },
+      "review_sha": "f0398b75e6a9"
     },
     "22755": {
       "number": 22755,

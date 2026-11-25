@@ -1840,6 +1840,125 @@
       "head_sha": "f3c9f8b132ed1302fc395a8af21c1305d4d96029",
       "state": "open"
     },
+    "19699": {
+      "number": 19699,
+      "title": "[BugFix][Config] Complete FlashComm1/SP configuration migration",
+      "author": "Suixing5208",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19699",
+      "changed_files": 10,
+      "head_sha": "b33ddd14cb67a99b230a4825cf4845d5841fa981",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 3
+        },
+        {
+          "p": "docs/source",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/patch",
+          "n": 1
+        }
+      ],
+      "additions": 218,
+      "deletions": 13,
+      "age_days": 31.7,
+      "ci": {
+        "total": 37,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 28,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 28,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 31,
+      "owned_del": 5,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-0800",
+      "review": {
+        "number": 19699,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "显式 enable_flashcomm1 覆盖环境变量；无 current config 时回退 init 配置判定 SP，全局引用隔离待确认。",
+        "intent": "修正 FlashComm1/SP 配置读取：显式 enable_flashcomm1 优先于 env，Worker 早期无 current config 时回退 init 配置判定 SP。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "显式键/环境变量分支优先级是否符合描述；dense SP 处再调 enable_sp(vllm_config=vc) 与 patch_qwen3_5.enable_dense_sp 的二次解析是否会分歧；_INIT_VLLM_CONFIG 的写入条件与 clear_ascend_config 清理是否成对。"
+          },
+          {
+            "file": "vllm_ascend/utils.py",
+            "point": "enable_sp 只在 AssertionError 时回退到 get_init_vllm_config，需确认回退值不是过期配置，且不会把“未初始化”误判为“SP 关闭”而静默降级。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "_INIT_VLLM_CONFIG 是新引入的进程级全局，指向最后一次成功初始化（is_draft=False 分支）的 VllmConfig；同进程存在第二个引擎或 spec-decode draft 配置时不会写入/恢复旧值，无参 enable_sp() 可能读到另一套配置，使 SP 开关与实际并行配置不一致（集合通信形状不一致风险）。clear_ascend_config 会清理，但嵌套 init 不恢复。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2 对照：该回退是对上游 get_current_vllm_config 线程局部在 Worker 构造期不可用的框架侧规避，docstring 写明了根因，但缺 TODO(github id) 与日落计划（上游暴露 config 后如何删除），不满足 lesson-002。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用。enable_flashcomm1 在 base 已作为 additional_config 键存在（base 用 .get + validate），本 PR 只改“显式覆盖 env”的优先级语义并补文档/release note，未新增对外配置键或公开接口；但显式 false 覆盖 VLLM_ASCEND_ENABLE_FLASHCOMM1=1 属用户可见行为变更，已在 PR 描述中声明。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：通过。新增 get_init_vllm_config 的唯一调用点就是 utils.enable_sp 的 AssertionError 分支，路径可达且未新增开关；未用上游 patch 替代既有入口。"
+          },
+          {
+            "level": "low",
+            "text": "冲突提示只在键显式存在且解析值与环境变量不同时打印，解析与 patch_qwen3_5.enable_dense_sp（bool 快路径 + 同一 validate_additional_config_bool）已核对一致，未发现语义分叉。"
+          }
+        ],
+        "tests": "CI 失败项仅有 ci-gate（门禁，非用例），其余 28 项 skipped，无用例失败证据，不能判定为本 PR 引入；PR 自述 CPU UT 608 passed 与 A3 双卡 4 场景 e2e 通过，但门禁解除后仍需在真实 CI 复跑。",
+        "questions": [
+          "需要作者确认：同一进程初始化第二个引擎，或 draft engine 走 is_draft 早退不写 _INIT_VLLM_CONFIG 时，无参 enable_sp() 会不会读到别的配置？是否需要 set/restore 语义？",
+          "需要作者确认：该回退对应的上游 issue/PR 编号，能否补 TODO(github id) 与日落计划（上游在 Worker 构造期可提供 config 后删除该全局）？",
+          "e2e 是否覆盖“同进程两次 init_ascend_config + clear_ascend_config”的交叉场景？"
+        ],
+        "recommend": "补 TODO(github id) 和多引擎/草稿配置下的隔离说明（或改为不新增进程级全局的入口）后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "ed849af35a48"
+    },
     "19700": {
       "number": 19700,
       "title": "[Test][AscendStore] Stabilize pooled-layer unit test coverage",

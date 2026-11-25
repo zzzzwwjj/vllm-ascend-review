@@ -1,5 +1,109 @@
 [
   {
+    "n": 23132,
+    "t": "[Bugfix][SpecDecode] Isolate MRV2 draft MoE communication and filter draft ACLGraph sizes",
+    "a": "KeyanHu-git",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23131,
+    "t": "[Feature][xlite] Support EAGLE3/extract_hidden_states/dflash/dspark speculative decoding",
+    "a": "SijieFu",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23125,
+    "t": "[Attention][Feature] B1 paged verify for Gemma4 512-dim MTP (v0.32.0rc)",
+    "a": "JinGuoju001",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23123,
+    "t": "[Refactor][KV Cache] Remove legacy storage_block_size shims and unify on num_states",
+    "a": "Angazenn",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23122,
+    "t": "[Feature][Model] Adopt fused MsaIndexScore TopK with forced-block support",
+    "a": "bzncu",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23117,
+    "t": "[WIP]engram offload via memfabric",
+    "a": "jamesjxliu",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23116,
+    "t": "[Feature][MC2] Enable dispatch_ffn_combine on Ascend A2 via the KFC context",
+    "a": "huangwanjian",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "pushback"
+  },
+  {
+    "n": 23115,
+    "t": "[Refactor][MRV2] Use unified KV cache allocation for Qwen4Exp",
+    "a": "lilillian",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23108,
+    "t": "[BugFix][Platform] Align automatic hybrid KV block sizes with draft pages",
+    "a": "zhangjinchi0013",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23106,
+    "t": "[Feature][KV Pool] Fused sparse KV offload V2: LIM/Copy-SFA serving with AscendVMM-addressable host KV",
+    "a": "booksiyi999",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "pushback"
+  },
+  {
+    "n": 23087,
+    "t": "fix(compilation): cap PIECEWISE graph count below NPU stream budget, degrade on EE1023",
+    "a": "982945902",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23080,
+    "t": "[Feature] Add GLM5.3-Flash LoRA support",
+    "a": "Annarine",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23065,
+    "t": "[BugFix][Platform] Refuse cudagraph_mode=FULL with the head-major KV cache layout at init",
+    "a": "valvarl",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23052,
     "t": "[BugFix] Skip 2 MiB device KV alignment for native CPU offloading",
     "a": "Enguikong",
@@ -336,6 +440,14 @@
     "v": "look"
   },
   {
+    "n": 22750,
+    "t": "[Feature][Quantization] Support HiF8 C8 KV cache for sparse-attention MLA",
+    "a": "kunpengW-code",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 22742,
     "t": "[Feature][KV Pool] Enable prefill KV offload for GLM-5.3",
     "a": "bowgneo",
@@ -454,6 +566,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 22649,
+    "t": "[BugFix][Attention] Fix the HND/LBHNC KV cache read path (FIA EZ0037 crash at first page-attention read)",
+    "a": "valvarl",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 22646,
@@ -758,6 +878,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 22346,
+    "t": "[Performance] Remove redundant work from Kimi decode operators",
+    "a": "ALIA333",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 22343,
@@ -2862,6 +2990,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 19699,
+    "t": "[BugFix][Config] Complete FlashComm1/SP configuration migration",
+    "a": "Suixing5208",
+    "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 19698,

@@ -1,10 +1,41 @@
 {
   "schema": "reviewboard-db/1",
-  "updated_at": "2026-11-24T17:26:15.853Z",
-  "current": "2026-11-24-1800",
+  "updated_at": "2026-11-25T00:06:14.729Z",
+  "current": "2026-11-25-0800",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
   "editions": [
+    {
+      "id": "2026-11-25-0800",
+      "at": "2026-11-25T00:00:34.013Z",
+      "window": {
+        "start": "2026-11-24T10:00:08.985Z",
+        "end": "2026-11-25T00:00:34.013Z",
+        "reason": "自上次运行 11-24 18:00",
+        "hours": 14
+      },
+      "stats": {
+        "search_hits": 97,
+        "loaded": 17,
+        "fresh": 17,
+        "deep": 17,
+        "rest": 0,
+        "skipped": 0,
+        "requested": 0,
+        "skipped_seen": 80,
+        "skipped_other": 0,
+        "owned_prs": 17,
+        "api_calls": 70
+      },
+      "verdicts": {
+        "approve": 0,
+        "look": 15,
+        "pushback": 2,
+        "pending": 0
+      },
+      "v": "abe6b2104a1f",
+      "legacy": false
+    },
     {
       "id": "2026-11-24-1800",
       "at": "2026-11-24T10:00:08.985Z",
@@ -264,8 +295,8 @@
       "count": 62
     },
     "19": {
-      "v": "817a3ea63834",
-      "count": 70
+      "v": "aaedbc1c0aa7",
+      "count": 71
     },
     "20": {
       "v": "cfabf32c8de2",
@@ -276,12 +307,12 @@
       "count": 121
     },
     "22": {
-      "v": "e33c128eca35",
-      "count": 131
+      "v": "62344aa2d61a",
+      "count": 134
     },
     "23": {
-      "v": "3f074d0d29fe",
-      "count": 8
+      "v": "4c57746cd8a8",
+      "count": 21
     }
   }
 }
