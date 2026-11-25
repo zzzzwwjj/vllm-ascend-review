@@ -1,5 +1,77 @@
 [
   {
+    "n": 23183,
+    "t": "[Feature][LoRA] Enable LoRA inference on Ascend A5 and preserve active LoRAs in DP idle steps",
+    "a": "Windfeng8",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23181,
+    "t": "[BugFix][Worker] Only pass num_actual_reqs to GDN builders that accept it",
+    "a": "cppez",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23177,
+    "t": "[BugFix][Attention] Fix Kimi GQA DSpark caches and enable device-length FlashAttn",
+    "a": "SparrowMu",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23173,
+    "t": "[Refactor][Attention] Share GLM and Kimi KDA head parallelism",
+    "a": "HXL0024",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23172,
+    "t": "[BugFix][KV Pool] Bound Memcache layerwise GVA read submissions",
+    "a": "tomleeai",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23160,
+    "t": "[BugFix] Harden EplbConfig validation for bool and EXPERT_MAP_RECORD",
+    "a": "lsyx6399",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23156,
+    "t": "[Misc] Main2Main November 24 vLLM upgrade and dual-version CI",
+    "a": "zhao-stack",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23154,
+    "t": "Releases/v0.30.0",
+    "a": "showMeYourCode1997",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "pushback"
+  },
+  {
+    "n": 23135,
+    "t": "[BugFix] Restore C8 V scales after Mooncake Pull admission in MRv2",
+    "a": "kitaikuyo421esfj-hub",
+    "e": "2026-11-25-1300",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23132,
     "t": "[Bugfix][SpecDecode] Isolate MRV2 draft MoE communication and filter draft ACLGraph sizes",
     "a": "KeyanHu-git",
@@ -100,6 +172,14 @@
     "t": "[BugFix][Platform] Refuse cudagraph_mode=FULL with the head-major KV cache layout at init",
     "a": "valvarl",
     "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23057,
+    "t": "[Misc][Scheduler] Sync Ascend copied schedulers with upstream vLLM",
+    "a": "wei-yubo",
+    "e": "2026-11-25-1300",
     "r": "deep",
     "v": "look"
   },

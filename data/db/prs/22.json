@@ -2398,7 +2398,8 @@
         "recommend": "先定位 cpu-ut 两项失败，并补 A3 内核写覆盖证据或列级掩码后再合入。",
         "mode": "deep"
       },
-      "review_sha": "3d726a165e17"
+      "review_sha": "3d726a165e17",
+      "state": "open"
     },
     "22363": {
       "number": 22363,
@@ -2437,7 +2438,7 @@
       "review": null,
       "review_sha": null,
       "head_sha": "76b2bab7e705b12c907627ef6ceabdc009013dc1",
-      "state": "open"
+      "state": "closed"
     },
     "22375": {
       "number": 22375,
@@ -4407,7 +4408,8 @@
         "recommend": "先解决 merge-conflicts 并 rebase，再补 TODO(github id)、把布局归一化/告警加进 rebind 路径，然后与 #23065 对齐门禁归属后合入。",
         "mode": "deep"
       },
-      "review_sha": "1cb9c8443388"
+      "review_sha": "1cb9c8443388",
+      "state": "open"
     },
     "22650": {
       "number": 22650,
@@ -5226,7 +5228,8 @@
         "recommend": "先把 CI 跑绿并就 hif8 的上游承载方式与日落计划给出说明；owned 侧建议补类型注解、常量单一来源，并在互斥表上补 PD/kv_nz 组合结论。",
         "mode": "deep"
       },
-      "review_sha": "f0398b75e6a9"
+      "review_sha": "f0398b75e6a9",
+      "state": "open"
     },
     "22755": {
       "number": 22755,
@@ -5484,7 +5487,7 @@
       "review": null,
       "review_sha": null,
       "head_sha": "7c847c9d2e65fed3b3a300ec48e5b1734ddf12b9",
-      "state": "open"
+      "state": "closed"
     },
     "22772": {
       "number": 22772,

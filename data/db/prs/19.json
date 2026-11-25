@@ -1957,7 +1957,8 @@
         "recommend": "补 TODO(github id) 和多引擎/草稿配置下的隔离说明（或改为不新增进程级全局的入口）后可 approve。",
         "mode": "deep"
       },
-      "review_sha": "ed849af35a48"
+      "review_sha": "ed849af35a48",
+      "state": "open"
     },
     "19700": {
       "number": 19700,

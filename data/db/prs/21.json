@@ -1838,7 +1838,7 @@
       },
       "review_sha": "2c1b7b278024",
       "head_sha": "817e5c915af7a5d12f4a62f9a49f5f5f298325af",
-      "state": "open"
+      "state": "merged"
     },
     "21417": {
       "number": 21417,
@@ -4790,7 +4790,7 @@
       "review": null,
       "review_sha": null,
       "head_sha": "277b6f87e38e3285290e50f924da34da44cf970a",
-      "state": "open"
+      "state": "closed"
     },
     "21841": {
       "number": 21841,

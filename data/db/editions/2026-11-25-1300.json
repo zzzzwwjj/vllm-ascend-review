@@ -1,0 +1,72 @@
+{
+  "id": "2026-11-25-1300",
+  "at": "2026-11-25T05:00:28.045Z",
+  "user": "zzzzwwjj",
+  "window": {
+    "start": "2026-11-25T00:00:34.013Z",
+    "end": "2026-11-25T05:00:28.045Z",
+    "reason": "自上次运行 11-25 08:00",
+    "hours": 5
+  },
+  "stats": {
+    "search_hits": 87,
+    "loaded": 10,
+    "fresh": 10,
+    "deep": 10,
+    "rest": 0,
+    "skipped": 0,
+    "requested": 0,
+    "skipped_seen": 77,
+    "skipped_other": 0,
+    "owned_prs": 10,
+    "api_calls": 45
+  },
+  "verdicts": {
+    "approve": 1,
+    "look": 8,
+    "pushback": 1,
+    "pending": 0
+  },
+  "members": [
+    {
+      "n": 23057,
+      "role": "deep"
+    },
+    {
+      "n": 23172,
+      "role": "deep"
+    },
+    {
+      "n": 23160,
+      "role": "deep"
+    },
+    {
+      "n": 23183,
+      "role": "deep"
+    },
+    {
+      "n": 23177,
+      "role": "deep"
+    },
+    {
+      "n": 23181,
+      "role": "deep"
+    },
+    {
+      "n": 23135,
+      "role": "deep"
+    },
+    {
+      "n": 23173,
+      "role": "deep"
+    },
+    {
+      "n": 23156,
+      "role": "deep"
+    },
+    {
+      "n": 23154,
+      "role": "deep"
+    }
+  ]
+}
