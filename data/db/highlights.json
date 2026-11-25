@@ -1,12 +1,13 @@
 {
-  "updated_at": "2026-11-25T08:42:24.364Z",
+  "updated_at": "2026-11-25T10:09:40.263Z",
   "items": [
     {
-      "pr": 22244,
-      "kind": "remind",
-      "title": "[Refactor] Remove remaining Model Runner V1 EPLB implementation",
-      "at": "2026-11-24T14:53:26.081Z",
-      "manual": true
+      "pr": 21730,
+      "kind": "refresh",
+      "title": "[BugFix] Correct Qwen3.8-Flash-Next Mamba state and PLE numerical precision",
+      "at": "2026-11-25T09:34:22Z",
+      "issue": 10,
+      "v": "look"
     }
   ]
 }

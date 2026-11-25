@@ -418,7 +418,7 @@
       "review_sha": null,
       "head_sha": "4a86282c2441b245adeb9eee3cf294c1a3605a1b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "18071": {
       "number": 18071,

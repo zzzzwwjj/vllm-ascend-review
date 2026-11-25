@@ -409,8 +409,111 @@
       },
       "review_sha": "6d359499f562",
       "head_sha": "99321ad841f39a9e773aa5268595ee83d8a40446",
-      "state": "open",
-      "merge": "unknown"
+      "state": "closed",
+      "merge": "dirty"
+    },
+    "23034": {
+      "number": 23034,
+      "title": "[Model][A5] Adapt DeepSeek-V4.1 for HiSparse selective KV offload",
+      "author": "zyz111222",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23034",
+      "changed_files": 11,
+      "head_sha": "27e870781cb526d95df072ca2d1fcf3b220713dc",
+      "areas": [
+        {
+          "p": "vllm_ascend/models",
+          "n": 4
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 2
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/hisparse",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 1
+        }
+      ],
+      "additions": 720,
+      "deletions": 14,
+      "age_days": 1.1,
+      "ci": {
+        "total": 10,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 7,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23034,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "DSV4.1 hisparse 的 spec 分派方向正确，但提前 return 绕过通用对齐且无直接单测，需作者确认后合。",
+        "intent": "在 worker/v2 的 KV spec 计算中，为 DeepSeek-V4.1 + HiSparse 走专用 resolve_specs 生成 resident/hot 分组；其余模型仍走上游通用 hisparse 对齐路径。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "is_deepseek_v41_cache 判定可靠性与提前 return 语义：是否绕过 align_hisparse_indexer_specs 中仍需要的 indexer 分组/打包/页对齐。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "新分支直接 return resolve_specs，跳过通用路径的 align_hisparse_indexer_specs；DSV4.1 的 indexer 角色分组由 cache_config.cache_groups 负责（已核对 get_hisparse_kv_cache_groups + SparseCacheRole.INDEXER），仍需作者确认无遗漏的 packed_row_bytes/C8 对齐。"
+          },
+          {
+            "level": "medium",
+            "text": "is_deepseek_v41_cache 只要求任一 spec 的 model_version==deepseek_v41；若出现 DSV4.1 与其它架构混跑，或 hisparse_config 与 DSV4.1 不匹配，会整体走 DSV4.1 分支，cache_groups 可能抛错或误分组。"
+          },
+          {
+            "level": "low",
+            "text": "新增分支无直接单测：tests/ut/models/test_deepseek_v41_hisparse.py 覆盖 prepare_cache_views/resolve_attention 等，但没有 get_kv_cache_spec 用例；CI 通过。改动仅落 worker/v2，v1 是否需要同族处理待确认。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外配置，复用既有 hisparse_config，属 Ascend 模型侧适配。规则 2 待确认：依赖上游 WIP #65970/#65905，若含临时规避需 TODO(github id)。规则 3 通过：分支在 get_kv_cache_spec 内被调用，resolve_specs 同 PR 内生效。标题 [Model][A5] 符合规范。"
+          }
+        ],
+        "tests": "新增 hisparse UT 6 个用例，未覆盖 attn_utils.get_kv_cache_spec 的 DSV4.1 分派分支；端到端 A5 精度套件 5 项全过，CI 通过。",
+        "questions": [
+          "需要作者确认：跳过 align_hisparse_indexer_specs 后，DSV4.1 的 indexer packed row/page padding 是否已全部由 resolve_specs/cache_groups 处理？",
+          "需要作者确认：是否存在 DSV4.1 draft 与其它架构混跑、或 hisparse_config 指向非 DSV4.1 的场景，此时 is_deepseek_v41_cache 的 any() 判定是否安全？",
+          "规则 2：PR 依赖上游 #65970/#65905，若代码中有对上游接口的临时规避，是否已按 TODO(github id) 标注？"
+        ],
+        "recommend": "look：补一个 get_kv_cache_spec 的 DSV4.1 hisparse 单测并确认提前 return 的对齐等价性后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "4773395606cf"
     },
     "23046": {
       "number": 23046,
@@ -980,7 +1083,7 @@
       },
       "review_sha": "e43630bc5b46",
       "state": "open",
-      "merge": "dirty"
+      "merge": "blocked"
     },
     "23065": {
       "number": 23065,
@@ -1604,7 +1707,7 @@
       },
       "review_sha": "b4f22d27753b",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "23115": {
       "number": 23115,
@@ -1951,7 +2054,7 @@
       },
       "review_sha": "2c43cb09997e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23122": {
       "number": 23122,
@@ -2058,7 +2161,7 @@
       },
       "review_sha": "31a00e456517",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "23123": {
       "number": 23123,
@@ -2176,7 +2279,7 @@
       },
       "review_sha": "33f874c3f117",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "23125": {
       "number": 23125,
@@ -2320,7 +2423,7 @@
       },
       "review_sha": "7a9c516e1726",
       "state": "open",
-      "merge": "unstable"
+      "merge": "clean"
     },
     "23131": {
       "number": 23131,
@@ -3867,6 +3970,583 @@
       "review_sha": "040f2ff2d0c2",
       "state": "open",
       "merge": "unknown"
+    },
+    "23195": {
+      "number": 23195,
+      "title": "[BugFix] Order KV block zeroing before synchronous external loads",
+      "author": "tyy0829",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23195",
+      "changed_files": 3,
+      "head_sha": "159dcd562e49d479fde086d1cfa335dcfc7a3838",
+      "areas": [
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 31,
+      "deletions": 0,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23195,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "小改动修外部 KV 同步加载与块清零的竞态：清零入队后同步当前流，硬件验证命中由 0/10 升至 10/10，标题规范。",
+        "intent": "在 V2 runner 的 update_requests 中，当本步既需清零新块又有同步外部 KV 加载时同步当前 NPU 流，保证清零先于连接器的 SDMA 写入，避免命中后历史被清空。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "update_requests 覆写（新增 6 行）：super() 清零入队后再同步当前流的时机；new_block_ids_to_zero / has_sync_kv_loads 为 None/空时的短路是否安全。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "整流通同步的代价：只要本步两个条件同时为真就 synchronize() 当前流，会排空此前所有排队工作。若 has_sync_kv_loads 实际是连接器能力标记而非“本步真的会发起同步加载”，则启用该类连接器的用户在每个清零步都会白付一次同步；PR 描述称“每受影响步一次”，但代码本身无法区分。"
+          },
+          {
+            "level": "medium",
+            "text": "顺序覆盖范围依赖 upstream：只有在 super().update_requests() 内入队清零、且所有传输都在其后于 host 侧提交时，这次同步才有效。若存在 layerwise/异步连接器在同一步更早提交，或清零内核被放到旁路流，单次 current_stream 同步会漏。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外配置或公开接口，纯内部排序修复。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 部分不满足：这是框架侧对“清零与设备 SDMA 无顺序保证”的规避，代码注释只写了现象，没有 TODO(#22798) 说明根因、规避方案与日落计划；建议补 TODO，或在连接器侧改为事件级等待后逐步撤掉这道屏障。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 满足：复用既有 update_requests 入口、未新增函数；分支有明确调用点（worker 每步调用 update_requests），生效路径完整。v1 runner 无对应清零逻辑（我核对 head 版 model_runner_v1.py 无 zeroer/new_block_ids_to_zero 引用），不存在 v1 漏改。"
+          }
+        ],
+        "tests": "PR 另带 1 个 tests/ut 用例与发布说明（非我责任田，未评审）；CI 9 项 0 失败 5 跳过，为绿灯。",
+        "questions": [
+          "需要作者确认：scheduler_output.has_sync_kv_loads 是“本步实际发起同步外部加载”的逐 step 布尔，还是连接器能力标记？两者决定是否存在无谓的全流通同步。",
+          "需要作者确认：所有连接器（含 layerwise/异步回退路径）的传输提交都严格发生在 update_requests 之后吗？有没有在同一流之外提前提交的路径？",
+          "是否同意按规则 2 补一条 TODO(#22798)：写明根因（清零内核与设备 SDMA 无顺序保证）、本规避与撤销/日落计划？"
+        ],
+        "recommend": "方向正确、证据充分，可批准；建议补 TODO(#22798) 与一条断言两分支的 UT，并在 PR 中说明 has_sync_kv_loads 的逐 step 语义。",
+        "mode": "deep"
+      },
+      "review_sha": "89d35ee622f1"
+    },
+    "23205": {
+      "number": 23205,
+      "title": "[Performance] Fuse GDN decode prepare sequence into one Triton launch",
+      "author": "xiapeih628-bit",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23205",
+      "changed_files": 5,
+      "head_sha": "4fa79b882c204cd702fdf58324f0a6f0ebe9f5c2",
+      "areas": [
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/envs.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 1
+        }
+      ],
+      "additions": 298,
+      "deletions": 14,
+      "age_days": 0.1,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 3,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 0,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23205,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "新增 VLLM_ASCEND_GDN_FUSED_PREPARE 开关注册规范、默认开启且在 gdn.py 有消费与回退，owned 变更可 approve。",
+        "intent": "把 GDN decode 的 3 次 QKV split copy、gating 与 2 次 l2norm 合成一次 Triton launch；新增默认开启的 env 开关，不支持的布局回退原路径。",
+        "focus": [
+          {
+            "file": "vllm_ascend/envs.py",
+            "point": "env 名称/默认值/注释与 _bool_env 契约（仅接受 1/0）是否一致，以及文档生成器能否收录该条目。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "开关在 vllm_ascend/attention/gdn.py:773 每层每次 forward 读取 envs，触发 os.getenv 解析；相对其要消除的 host gap 影响很小，但可考虑模块级缓存以避免每步重复解析。"
+          },
+          {
+            "level": "low",
+            "text": "融合 kernel 用默认 beta=1.0/threshold=20.0/eps=1e-6，调用点未显式传入；当前与原 fused_gdn_gating/l2norm_fwd 默认值一致，但依赖上游默认值不变，建议显式传参或断言。"
+          },
+          {
+            "level": "low",
+            "text": "默认开启意味着所有 GDN decode 走新数值路径；作者称 bit-identical 并提供 fallback 单测，建议在 release note 明确可用本开关回退。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 部分适用：新增 env 属对外配置，但仅控制 Ascend 专有融合 kernel，上游无等价接口，保留回退开关合理。规则 2 不适用：无上游规避。规则 3 通过：env 在 gdn.py:773 有消费点，kernel 调用与回退均在 PR 内。标题 [Performance] 符合规范。"
+          }
+        ],
+        "tests": "tests/ut/ops/test_gdn.py 新增 off-NPU、非连续、错行宽、零 token、gate 形状不匹配的 fallback 用例；NPU 数值等价为作者手工 A/B，CI 通过。",
+        "questions": [
+          "建议在调用点显式传 beta/threshold/eps，或加断言锁定与上游默认值一致，是否同意？",
+          "需要作者确认：开关是否只在启动时读取（若每 step 读取可改为缓存），以及 NPU 数值等价是否有可入库的回归用例？"
+        ],
+        "recommend": "approve：owned 注册正确；建议补 NPU 等价回归并明确常量绑定。",
+        "mode": "deep"
+      },
+      "review_sha": "33cc8917fce4"
+    },
+    "23214": {
+      "number": 23214,
+      "title": "[Performance][A3] Skip the paired K3.1 DSpark host length copy and wait",
+      "author": "jcy1112",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23214",
+      "changed_files": 5,
+      "head_sha": "5a49ddd095cdc93e67beeb236d002f24d11299bf",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 372,
+      "deletions": 5,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 1,
+        "failed_names": [
+          "PR create action"
+        ],
+        "pending": 0,
+        "skipped": 6,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 56,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 56,
+      "owned_del": 2,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23214,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A3 DSpark 跳过修正后 num_computed_tokens 的 D2H 与次步 host 等待；策略保守，但 CI 红且与 #23221 重复。",
+        "intent": "在 KV 初始化时判定 A3 目标长度消费者资格；通过后在 _can_skip_spec_cpu_length_sync 放行 K3.1 路径，跳过 num_computed_tokens 的 D2H 快照及其次步 event 同步。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_configure_a3_target_lengths（1380-1417）：严格 type 检查、PCP==1、supported builder 白名单、仅置 True 的幂等；失败即回退旧策略。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "initialize_spec_cpu_length_sync 中 _a3_target_device_lengths 的 AND 组合（speculator.use_a3_mla_sink 且 builder 资格）与调用位置（597 行，KV 初始化之后）。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_can_skip_spec_cpu_length_sync 1490-1500 的 a3_device_lengths 项，与 _copy_num_computed_tokens_to_cpu（1588）和 _update_seq_lens_cpu（1612）两处成对跳过的对应关系。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "生产者/消费者成对性依赖一个可能在运行期翻转的谓词：_can_skip 里含 speculator.attn_backends（注释明确“Before set_attn, keep syncing”），即 set_attn 后可能由 False 变 True。若某步已 _copy 并 record 了 event，而下一步跳过 wait，属事件不配对但无人读取；反向翻转（True→False）会让 event.synchronize() 等在未 record 的事件上。需要确认资格单调、以及未 record 时 synchronize 的行为。"
+          },
+          {
+            "level": "medium",
+            "text": "跳过 D2H 后 req_states.num_computed_tokens_cpu 保持上游乐观上界，seq_lens_cpu 直接消费该镜像；白名单只校验 metadata builder 类型，若还有未列出的 CPU 消费者（PCP/调度器之外）读它，会拿到偏大的长度。建议在 PR 中列出全部 CPU 消费者或加断言。"
+          },
+          {
+            "level": "low",
+            "text": "与 #23221 的重复：两分支 head（5a49ddd0/01acbaa7）在 1380-1433 与 1496 行是逐字相同的 _configure_a3_target_lengths 和 _a3_target_device_lengths 赋值；两者是 stack 关系，需作者写明合并顺序，否则后合者冲突或重复。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 部分适用：未新增对外配置/公开接口（这部分不适用）；但“消费者是否支持 device lengths”的资格判定硬编码为 builder 类型白名单，属 A3 专属分叉，若上游能暴露消费者声明，应优先上游解决。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：本改动不是规避上游缺陷，而是启用上游既有 device-length 通路，无需 TODO(github id)；但若上游 RecoverSSM 的 device-length 提交契约变化，此白名单需要同步更新，建议在注释里写明依赖的上游类。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 满足：新增函数有唯一调用点（initialize_spec_cpu_length_sync），开关 _a3_target_device_lengths 有消费点（_can_skip），未新增多余入口，生效路径完整。"
+          }
+        ],
+        "tests": "CI 失败项仅 'PR create action'（PR 创建期自动化工作流，不执行本 PR 的 Python 单测），与本改动无直接因果但会阻塞合入；代码覆盖来自作者报告的 28 个 policy/RecoverSSM CPU 单测，A5 回退仅单测覆盖。",
+        "questions": [
+          "需要作者确认 'PR create action' 失败的具体步骤（标题/模板/label/文档校验？），以及是否需要改标题或 PR 描述后重跑。",
+          "需要作者确认 _can_skip 的资格在运行期是否单调（set_attn 后只变 True 不变回 False），event 未 record 时 _update_seq_lens_cpu 的 synchronize 是否安全。",
+          "跳过 host 长度后，除 metadata builder 与 scheduler 外还有哪些消费者读 req_states.num_computed_tokens_cpu？能否在 PR 中列全或加断言？",
+          "需要作者明确本 PR 与 #23221 的合并顺序；重复定义是否意味着其中一个是替代方案（#23221 描述为 alternative split）？"
+        ],
+        "recommend": "策略保守、可回退，方向可接受；请先修复 PR create action 并明确与 #23221 的合并顺序，再考虑合入。",
+        "mode": "deep"
+      },
+      "review_sha": "454da20d2f10"
+    },
+    "23221": {
+      "number": 23221,
+      "title": "[Feature][A3] Sink K3.1 DSpark MLA tiling and consume device lengths",
+      "author": "jcy1112",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23221",
+      "changed_files": 14,
+      "head_sha": "01acbaa72203b92a763da37c9206fdbe15273208",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 4
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 1
+        }
+      ],
+      "additions": 2076,
+      "deletions": 79,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 64,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 64,
+      "owned_del": 3,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23221,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A3 K3.1 DSpark 原生 MLA 提供者与设备长度策略；attn_groups 重写时机与下游消费者需核对，且与 #23214 重复。",
+        "intent": "为 A3 Kimi K3.1 DSpark 引入原生 MLA 提供者与设备长度策略：新增资格判定函数，KV 初始化后剔除纯 draft FlashMLA 组，并放宽 _can_skip 的 A3 分支。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_configure_a3_target_lengths（1380-1433）与 initialize_spec_cpu_length_sync 的 AND 组合：严格 type 检查、PCP==1、builder 白名单、只置 True 的幂等性。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "608 行 attn_groups 重写：位置在 _initialize_kv_cache_upstream 之后、use_fia/kvpp/capture 之前；被移除的纯 draft 组已参与过 zeroer、kernel block-table buffer、PCP 的构建。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_can_skip_spec_cpu_length_sync（1488-1500）：a3_device_lengths 与 use_flashmla/device_metadata 的或关系是否覆盖全部 K3.1 消费者与回退路径。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "attn_groups 在 608 行被整体替换，但 upstream KV 初始化（约 520 行）此时已执行：zeroer（_init_kv_zero_meta 用 attn_groups_iter）、initialize_kernel_block_table_buffers、PCP 都基于旧组构建，而 use_fia（612）、KVPP（617）、后续 capture/运行期元数据基于新组。同一初始化流程内出现两套“权威”组视图，draft 层的清零/块表覆盖是否仍完整需要作者确认；若目标只是让 capture/元数据少建 draft builder，建议把过滤前移到 upstream 初始化之前，或明确写出为什么必须保留旧组给 zeroer。"
+          },
+          {
+            "level": "medium",
+            "text": "过滤条件为“全组 layer 都在 draft_layer_names 且 get_metadata_builder(0).use_a3_mla_sink”，混组（target+draft 同 group）会被保留；此时 A3 长度策略仍会为 draft 组按 target 长度构建元数据，PR 声称的“少提交无用 schedule”在混组布局下静默失效。需要 UT 覆盖纯 draft / 混组两种分组。"
+          },
+          {
+            "level": "low",
+            "text": "与 #23214 的重复：两分支 head（01acbaa7 与本 PR vs 5a49ddd0）在 1380-1433 行及 1496 行出现逐字相同的 _configure_a3_target_lengths 与 _a3_target_device_lengths 赋值；先合一个会让另一个 rebase 冲突或重复，需作者明确 stack 顺序或关闭其中一个。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 部分适用：本 PR 未新增对外配置/公开接口（这部分不适用）；但 use_a3_mla_sink 与“剔除 draft 组”属 A3 专属分叉，若上游能提供“draft 组不参与 target 元数据构建”的插件钩子，应优先推上游以免长期分叉，建议在 PR 里写明上游接口诉求。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：本 PR 是新增 A3 provider/策略，不是对上游缺陷的临时规避，无需 TODO(github id)。但它依赖社区可选包（缺失即回退 FIA），版本与锁定策略应在依赖声明/文档中固化（相关文件非我责任田，仅提示）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 满足：新增 _configure_a3_target_lengths 有调用点（initialize_spec_cpu_length_sync），allow_a3_device_lengths 的消费点存在（sfa_v1.py:722 getattr），生效路径完整，未新增多余入口。"
+          }
+        ],
+        "tests": "作者报告 169 个 CPU 单测通过；7 个依赖 sibling DCP 的集成用例在本分支单独跳过（A3 多 rank 路径本次 CI 未覆盖），CI 9 项 0 失败 6 跳过。",
+        "questions": [
+          "需要作者确认：608 行为何放在 _initialize_kv_cache_upstream 之后？zeroer / kernel block-table 用的旧组仍需包含 draft 层吗（是漏清零，还是 draft KV 本就由 speculator 自己管理）？",
+          "需要作者确认与 #23214 的合并顺序；重复的 _configure_a3_target_lengths 在后合分支上会不会冲突或双重赋值？",
+          "混组（target+draft 同 group）时过滤不生效，是否已有用例覆盖？没有的话建议补一个。",
+          "需要作者确认：只对纯 draft FlashMLA 组生效的判定，是否覆盖 A3 与 A5 的组形态差异（A5 fallback 逻辑是否走同一入口）？"
+        ],
+        "recommend": "方向认可但需细看：建议把 attn_groups 过滤前移到 upstream 初始化前（或明确两套视图边界），补混组用例，并澄清与 #23214 的合并顺序。",
+        "mode": "deep"
+      },
+      "review_sha": "d4c472a5966e"
+    },
+    "23222": {
+      "number": 23222,
+      "title": "[Feature][KV Transfer] Support Mooncake V2 DSA Host offload",
+      "author": "Shichang-Zhang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23222",
+      "changed_files": 40,
+      "head_sha": "30d5998cd6009b46f824be1bcb9033d34e9c7464",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 15
+        },
+        {
+          "p": "vllm_ascend/distributed",
+          "n": 11
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 2
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        }
+      ],
+      "additions": 4421,
+      "deletions": 241,
+      "age_days": 0.1,
+      "ci": {
+        "total": 21,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "cpu-ut (vllm@v0.34.0) / cpu-ut card-"
+        ],
+        "pending": 0,
+        "skipped": 13,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 40,
+          "deletions": 30
+        }
+      ],
+      "owned_add": 68,
+      "owned_del": 30,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 23222,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "Mooncake V2 DSA Host offload 的配置/环境变量/分配回调改动；cpu-ut 红，Host 分配强依赖全局 manager，需先修。",
+        "intent": "为 Sparse KV offload 增加 mooncake Host 后端：新增 host_backend/lru_max_threads 与两个 env，Host KV 分配统一走 manager 回调。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "SparseKVOffloadConfig 新增 host_backend/lru_max_threads：enabled+mooncake 时的 use_fused_overlap/keep_device_kv_cache 组合校验，以及 before-validator 只接受真 int 的严格性。"
+          },
+          {
+            "file": "vllm_ascend/envs.py",
+            "point": "两个新开关用 bool(int(os.getenv(...))) 而非本文件已有的 _bool_env：空串/非 0-1 值的解析行为与既有约定是否一致。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "store_on_host 分支无条件调用 get_sparse_kv_offload_manager()（内部 assert 非 None）并传 allocate_host_kv_tensors，使 _allocate_kv_cache 强依赖 manager 已初始化且已 prepare。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "prepare_host_kv_allocation 的 device_id/data_parallel_index 来源（与 store_url 的 data_parallel_index 语义一致）、调用时机（upstream 分配前）、shutdown 的 try/finally 与重复调用幂等。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "attn_utils 的 store_on_host 分支现在无条件调用 get_sparse_kv_offload_manager()，该函数在未初始化时直接 assert 失败（我已核对 head：sparse_kv_offload_manager.py:2818-2820）；同时 allocate_host_kv_tensors 在未 prepare 时抛 RuntimeError（697/750 行）。这让 _allocate_kv_cache 从“可独立调用”变成“必须先 init manager + prepare_host_kv_allocation”，任何绕过 runner 初始化直接调用它的路径（CPU UT、profile/复用路径）都会立刻失败，与本次 cpu-ut 红高度吻合，需要作者定位失败用例是否命中这条链。"
+          },
+          {
+            "level": "high",
+            "text": "默认 memfabric 路径的分配方式也被改了：以前 tp_rank==0 时由 allocate_kv_cache_tensors_for_sparse_kv_offload 内部 empty_aligned_int8_cpu_tensors 分配（manager:435-441），现在所有后端都走 manager.allocate_host_kv_tensors（MemFabricHostKVAllocator/MooncakeHostPool），且 prepare_host_kv_allocation 在所有 rank 上处理并执行 tp_group.barrier()（memfabric 分支）。PR 只声明支持 mooncake，但回归范围覆盖全部既有 sparse offload 用户，需 memfabric 路径的等价性证据。"
+          },
+          {
+            "level": "medium",
+            "text": "envs.py 两个新变量用 bool(int(os.getenv(...,\"0\"))) 绕开了同文件的 _bool_env，正是该 helper 注释要避免的情形：export VAR= 空串或设成 \"true\"/\"yes\" 会在读取属性时抛 ValueError（int('')），且 \"2\" 会被当成 True。建议统一改用 _bool_env(name, default)。"
+          },
+          {
+            "level": "medium",
+            "text": "VLLM_ASCEND_SKIP_MIGRATEPAGES 我在 owned 文件与 manager 中都没找到消费点（另一个 VLLM_ASCEND_FSA_PAIRED_CURRENT_SCATTER 在 manager:930 有使用）；若消费方在非责任田文件，请作者给出文件/行，否则属“只定义未使用”的新全局开关，应删除。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 部分适用：host_backend 属 Ascend sparse-offload 的存储后端差异，放在 additional_config 内可接受；但两个 env 是进程级全局开关，优先并入 SparseKVOffloadConfig（可按需生效、可校验），减少环境耦合与长期分叉。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：owned 改动未见对上游缺陷的临时规避；shutdown 的 try/finally 是健壮性重构，不需要 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 部分满足：host_backend（manager:632/670/707/1263）与 lru_max_threads（manager:1461）都找到调用点；SKIP_MIGRATEPAGES 缺调用点证据。新回调参数改变了默认后端的分配路径，需在本 PR 内用 memfabric UT 证明不回归。标题 [Feature][KV Transfer] 符合规范。"
+          }
+        ],
+        "tests": "CI 失败：cpu-ut (vllm@v0.34.0) / cpu-ut card- 与 ci-gate；cpu-ut 与本 PR 直接相关（新增 manager 单例/prepare 前置、envs 与 ascend_config 校验都可能在 CPU 单测里触发），ci-gate 通常是汇总闸门、因 cpu-ut 红而红。",
+        "questions": [
+          "需要作者确认：cpu-ut 失败的具体用例名，是否命中 get_sparse_kv_offload_manager()/allocate_host_kv_tensors 这条新依赖链？ci-gate 是否只是汇总红？",
+          "VLLM_ASCEND_SKIP_MIGRATEPAGES 的消费文件与行号在哪？若本 PR 只定义不消费，建议删除。",
+          "默认 memfabric 用户的 Host 分配从 empty_aligned_int8_cpu_tensors 改为 manager 回调后，非 0 TP rank 的 None 语义、对齐与 barrier 位置是否仍等价？请指认覆盖该路径的 UT。",
+          "shutdown 里 manager.close() 放在 finally：与 engram 的 _shared_engram_shutdown_pending 重试语义是否互不影响？重复 shutdown 时 close() 是否幂等（allocator 已置 None 后二次 close 的行为）？",
+          "需要作者确认：parallel_config.data_parallel_index 在非 DP/外部 LB 场景是否恒为 int（这里做了 int() 强转），与 resolve_sparse_kv_offload_store_url 的端口语义是否一致？"
+        ],
+        "recommend": "先修 cpu-ut 与 env 解析（改用 _bool_env）、补齐 SKIP_MIGRATEPAGES 的消费证据，并给出 memfabric 不回归的 UT，再复审。",
+        "mode": "deep"
+      },
+      "review_sha": "b3717a9ef2ff"
     }
   }
 }

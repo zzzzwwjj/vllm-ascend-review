@@ -62,7 +62,7 @@
       "review_sha": null,
       "head_sha": "ca44e31f602ff05f0cdd1c6adfc8279ccf7c3a36",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21016": {
       "number": 21016,
@@ -273,7 +273,7 @@
       "review_sha": null,
       "head_sha": "66523342022001de737202178233d49711abea8c",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21030": {
       "number": 21030,
@@ -496,7 +496,7 @@
       "review_sha": null,
       "head_sha": "4d603dae65fd1b81330f0024bd315edd530368b6",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "21124": {
       "number": 21124,
@@ -671,8 +671,8 @@
       },
       "review_sha": "5d77b6d51b75",
       "head_sha": "e6d680128d40cbefe1eb7b07c09df05a326ec5c5",
-      "state": "open",
-      "merge": "blocked"
+      "state": "merged",
+      "merge": "unknown"
     },
     "21153": {
       "number": 21153,
@@ -778,7 +778,7 @@
       "review_sha": null,
       "head_sha": "3a73c46c0e13fa230f0ebf6c78fe0d8405300bf5",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "21183": {
       "number": 21183,
@@ -851,7 +851,7 @@
       "review_sha": null,
       "head_sha": "f761793d6668e1afe3b08f5e9099e7a0b2f7c87b",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21190": {
       "number": 21190,
@@ -1415,7 +1415,7 @@
       "review_sha": "6c3be03ed7c2",
       "head_sha": "eabfbc9f18a7d2541399a03b07ea24c5a1134f26",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21302": {
       "number": 21302,
@@ -1905,7 +1905,7 @@
       "review_sha": null,
       "head_sha": "27309d14d121185e63701de59fc928cbfecbc6f2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "21429": {
       "number": 21429,
@@ -2396,7 +2396,7 @@
       "review_sha": null,
       "head_sha": "a4f2208d4b14bb2f4d82f716d05ff5c0ac0edacf",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21483": {
       "number": 21483,
@@ -3763,7 +3763,7 @@
       "review_sha": null,
       "head_sha": "1e50456502141c2f27e8967a5898f3d005e75d78",
       "state": "open",
-      "merge": "blocked"
+      "merge": "dirty"
     },
     "21688": {
       "number": 21688,
@@ -3808,7 +3808,7 @@
       "review": null,
       "review_sha": null,
       "head_sha": "6c6075d3f59e3ffd8e25c6965693e8918891c03f",
-      "state": "open",
+      "state": "merged",
       "merge": "unknown"
     },
     "21697": {
@@ -4289,12 +4289,12 @@
       "changed_files": 10,
       "additions": 266,
       "deletions": 130,
-      "age_days": 11.7,
+      "age_days": 12.9,
       "ci": {
-        "state": "unknown",
         "total": 0,
         "failed": 0,
         "pending": 0,
+        "state": "unknown",
         "failed_names": []
       },
       "reviews": {
@@ -4306,13 +4306,72 @@
       "owned": [],
       "owned_add": 0,
       "owned_del": 0,
-      "reason": "历史积压",
+      "reason": "应请求检视",
       "first_edition": "2026-11-23-0015",
-      "review": null,
-      "review_sha": null,
+      "review": {
+        "number": 21730,
+        "verdict": "look",
+        "confidence": "low",
+        "summary": "无我负责文件，light 检视：合并干净但 CI 无结果，PR 描述中 2 个测试路径在 head 不存在，需 code owner 深入核实。",
+        "intent": "修复 Qwen3.8-Flash-Next 在 Ascend 上 Mamba 状态槽位、PLE 嵌入布局、卷积 stride 与分阶段残差舍入四类精度问题；称不引入新配置，仅纠正错误输出。",
+        "focus": [
+          {
+            "file": "（全 PR 10 个文件，均不归我负责）",
+            "point": "light 模式不逐文件评审；只确认合并状态、CI 与测试证据，功能正确性由对应 code owner 深入检视。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "CI 检查数为 0（state=unknown），无法确认测试是否实际执行；mergeable_state=clean，未见冲突。"
+          },
+          {
+            "level": "medium",
+            "text": "描述列出的 pytest 路径中，tests/ut/models/qwen4_exp/test_ple_sequence_parallel_rounding.py 与 tests/e2e/.../triton/test_ple_residual_rounding.py 在 head d69573d 均 404，测试证据无法核实；tests/ut/models/test_qwen4_exp_source_regression.py 存在。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用（light）：描述称未新增配置，未逐文件核实。规则 2 不适用：未提及对上游缺陷的临时规避。规则 3 无法判断：light 模式不深挖调用点与生效路径。"
+          },
+          {
+            "level": "low",
+            "text": "标题 [BugFix] 符合规范；diff 266+/130-、10 个文件，规模正常，未见明显接口破坏。"
+          }
+        ],
+        "tests": "CI 无有效检查结果；描述中 4 条 pytest 命令有 2 条指向 head 不存在的文件，其余测试未从元数据核实。",
+        "questions": [
+          "需要作者确认：上述两个测试文件是否随 PR 提交（或已改名/位于其它路径）？若未提交，如何复现描述中的回归？",
+          "需要作者确认：CI 为何没有检查结果，是触发失败还是状态未同步？"
+        ],
+        "recommend": "无我负责文件，由对应 code owner 深入检视；合并前请补齐可复现测试并确认 CI 结果。",
+        "mode": "light"
+      },
+      "review_sha": "3069b9ef37af",
       "head_sha": "d69573d3379f123477a18faf85ffa16959c9ce69",
       "state": "open",
-      "merge": "unstable"
+      "merge": "clean",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 3
+        },
+        {
+          "p": "tests/e2e",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/patch",
+          "n": 1
+        }
+      ]
     },
     "21745": {
       "number": 21745,
@@ -4771,7 +4830,7 @@
       "review_sha": null,
       "head_sha": "cd12a9c7f4fce1fdd0ee7ba9421e750120bea887",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "21837": {
       "number": 21837,
@@ -5174,7 +5233,7 @@
       "review_sha": null,
       "head_sha": "2c4c9cb0fda30db34eb9655b1e11b1f1f527046f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "21853": {
       "number": 21853,
@@ -5240,7 +5299,7 @@
       "review_sha": null,
       "head_sha": "50fbb5a95f56794ab46bd1a943c0b739ef9e9dea",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "21870": {
       "number": 21870,
@@ -5376,7 +5435,7 @@
       "review_sha": "fd2ace22cdbb",
       "head_sha": "d687878d3d7d0f10f5d67c25c013014c1dbd8718",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "21885": {
       "number": 21885,
@@ -5883,7 +5942,7 @@
       "review_sha": "c5664adfed90",
       "head_sha": "f6a5c95d3566d0a0b1e129012b5b508a95d01c5c",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "21937": {
       "number": 21937,
@@ -6049,7 +6108,7 @@
       "review_sha": null,
       "head_sha": "350d728330cb4c3a0033d36b32a27f755ff95c47",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "21996": {
       "number": 21996,

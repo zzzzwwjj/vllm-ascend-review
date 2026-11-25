@@ -1,5 +1,45 @@
 [
   {
+    "n": 23222,
+    "t": "[Feature][KV Transfer] Support Mooncake V2 DSA Host offload",
+    "a": "Shichang-Zhang",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23221,
+    "t": "[Feature][A3] Sink K3.1 DSpark MLA tiling and consume device lengths",
+    "a": "jcy1112",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23214,
+    "t": "[Performance][A3] Skip the paired K3.1 DSpark host length copy and wait",
+    "a": "jcy1112",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23205,
+    "t": "[Performance] Fuse GDN decode prepare sequence into one Triton launch",
+    "a": "xiapeih628-bit",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23195,
+    "t": "[BugFix] Order KV block zeroing before synchronous external loads",
+    "a": "tyy0829",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
     "n": 23183,
     "t": "[Feature][LoRA] Enable LoRA inference on Ascend A5 and preserve active LoRAs in DP idle steps",
     "a": "Windfeng8",
@@ -216,6 +256,14 @@
     "v": "look"
   },
   {
+    "n": 23034,
+    "t": "[Model][A5] Adapt DeepSeek-V4.1 for HiSparse selective KV offload",
+    "a": "zyz111222",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23025,
     "t": "Revert #20758: [Refactor][V2] Move kernel block handling into AttentionGroup",
     "a": "vllm-ascend-ci",
@@ -310,6 +358,14 @@
     "e": "2026-11-24-0800",
     "r": "deep",
     "v": "approve"
+  },
+  {
+    "n": 22928,
+    "t": "[Performance][GDN] Support standalone prefix-only checkpoint reuse on MRV2",
+    "a": "Dwight2458",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 22926,
@@ -454,6 +510,14 @@
     "e": "2026-11-24-0800",
     "r": "deep",
     "v": "look"
+  },
+  {
+    "n": 22782,
+    "t": "[Performance][Model] Fuse DeepSeek V4.1 Long KV writes on A2",
+    "a": "zzy-6666",
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "approve"
   },
   {
     "n": 22779,
@@ -1603,9 +1667,9 @@
     "n": 21730,
     "t": "[BugFix] Correct Qwen3.8-Flash-Next Mamba state and PLE numerical precision",
     "a": "sustech-lz",
-    "e": "2026-11-23-0015",
-    "r": "rest",
-    "v": null
+    "e": "2026-11-25-1801",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 21726,

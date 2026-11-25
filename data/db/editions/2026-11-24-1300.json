@@ -22,7 +22,7 @@
   },
   "verdicts": {
     "approve": 2,
-    "look": 9,
+    "look": 8,
     "pushback": 2,
     "pending": 0
   },
@@ -93,13 +93,13 @@
     }
   ],
   "states": {
-    "merged": 3,
+    "merged": 4,
     "closed": 0,
     "draft": 0,
     "ready": 0,
     "conflict": 0,
     "ci": 0,
-    "blocked": 2,
+    "blocked": 1,
     "behind": 0,
     "open": 11
   }

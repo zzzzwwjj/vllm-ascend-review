@@ -1876,7 +1876,7 @@
       "review_sha": null,
       "head_sha": "f3c9f8b132ed1302fc395a8af21c1305d4d96029",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "19699": {
       "number": 19699,
@@ -3064,7 +3064,7 @@
       "review_sha": null,
       "head_sha": "7cae48cb97c52bee4aacfe97e942461350efecbd",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "19886": {
       "number": 19886,

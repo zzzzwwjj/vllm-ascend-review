@@ -31,7 +31,7 @@
       "review_sha": null,
       "head_sha": "ff75a6faa3188a4a2b9b14db795e37d8c63e66d5",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "22059": {
       "number": 22059,
@@ -255,7 +255,7 @@
       "review_sha": null,
       "head_sha": "13bfb14bc9c40714aeade5a358978471c37a7289",
       "state": "open",
-      "merge": "clean"
+      "merge": "unknown"
     },
     "22087": {
       "number": 22087,
@@ -335,7 +335,7 @@
       "review_sha": null,
       "head_sha": "2d0952a955c965e313a046710a1d7574a7ec9055",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "22093": {
       "number": 22093,
@@ -757,7 +757,7 @@
       "review_sha": null,
       "head_sha": "1c1631cd625c862a4c8e2d44cc541fc1bcb26a36",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "22147": {
       "number": 22147,
@@ -1187,7 +1187,7 @@
       "review_sha": null,
       "head_sha": "21a1d3344a52b976735b8703b3b630a57c09221e",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "22217": {
       "number": 22217,
@@ -1348,7 +1348,11 @@
         "approvals": 0,
         "changes_requested": 0,
         "total": 1,
-        "mine": null
+        "mine": {
+          "state": "APPROVED",
+          "commit_id": "85c7584328c325fe609839dc89d2c0a14439c012",
+          "submitted_at": "2026-11-25T09:05:26Z"
+        }
       },
       "owned": [
         {
@@ -1774,7 +1778,7 @@
       "review_sha": "5e79d15142ed",
       "head_sha": "d8344a9f9091d2061a010b9679b4e1f63f0d1dd0",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "22261": {
       "number": 22261,
@@ -2133,8 +2137,8 @@
       "review": null,
       "review_sha": null,
       "head_sha": "b35f3119a136e1d1d0987f8921428e4e3620f007",
-      "state": "open",
-      "merge": "blocked"
+      "state": "merged",
+      "merge": "unknown"
     },
     "22317": {
       "number": 22317,
@@ -2439,7 +2443,7 @@
       },
       "review_sha": "3d726a165e17",
       "state": "open",
-      "merge": "blocked"
+      "merge": "dirty"
     },
     "22363": {
       "number": 22363,
@@ -2577,7 +2581,7 @@
       "review_sha": "c0495265ffb4",
       "head_sha": "02766aacbd8b867716fc22028b418eb08bd9bc82",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "22385": {
       "number": 22385,
@@ -2956,7 +2960,7 @@
       "review_sha": null,
       "head_sha": "4acbdf23732e3c95bfa34ffd03ab2ff64c64bad0",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "22492": {
       "number": 22492,
@@ -3246,7 +3250,7 @@
       "review_sha": null,
       "head_sha": "9c26a99baf41d30a36d7561a4238b3c73af68b14",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "22509": {
       "number": 22509,
@@ -3390,7 +3394,7 @@
       "review_sha": null,
       "head_sha": "03c2feb7d29f58256a6183fe0fefecd3f517f620",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "22539": {
       "number": 22539,
@@ -3656,7 +3660,7 @@
       "review_sha": null,
       "head_sha": "0c9d18d70a538f00a7497fe283ce334f61f99add",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "22564": {
       "number": 22564,
@@ -3779,7 +3783,7 @@
       "review_sha": "37ad7308b2be",
       "head_sha": "bc8e0b1f3b060da3feb4730a604d5e5af102028a",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "22590": {
       "number": 22590,
@@ -4359,7 +4363,7 @@
       "review_sha": null,
       "head_sha": "d9944c83a9bbd0c27a4bdea22c3e3ccaf573e89e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "22649": {
       "number": 22649,
@@ -5319,8 +5323,8 @@
         "mode": "deep"
       },
       "review_sha": "f0398b75e6a9",
-      "state": "open",
-      "merge": "blocked"
+      "state": "merged",
+      "merge": "unknown"
     },
     "22755": {
       "number": 22755,
@@ -5760,6 +5764,107 @@
       "head_sha": "27a4e1f1fb451f549d11755b47cd9e43875eacb6",
       "state": "open",
       "merge": "unknown"
+    },
+    "22782": {
+      "number": 22782,
+      "title": "[Performance][Model] Fuse DeepSeek V4.1 Long KV writes on A2",
+      "author": "zzy-6666",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22782",
+      "changed_files": 9,
+      "head_sha": "c4c4d2e60e310396b75b26009ca2d3f1713a484f",
+      "areas": [
+        {
+          "p": "vllm_ascend/ops",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/device",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 1
+        }
+      ],
+      "additions": 460,
+      "deletions": 17,
+      "age_days": 3,
+      "ci": {
+        "total": 12,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 9,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 3,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 22782,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "A2 新增 DSV41_LONG_KV_STORE 能力枚举并接入 A2 profile，消费点与测试齐全，仅能力位变更可 approve。",
+        "intent": "为 DeepSeek-V4.1 纯 decode 融合 compressor 归一化、部分 RoPE 与 BF16 paged Long KV 写入；用能力位限定 A2，不满足布局时回退原 writer。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "DSV41_LONG_KV_STORE 仅加入 A2 capabilities，未误加 A3/A5；枚举注释是否说明 Triton/PCP/布局等调用方前置条件。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "能力位在 vllm_ascend/attention/dsa_v41.py:606 被消费，与 HAS_TRITON、纯 decode、metadata 同一、head_dim、BF16/stride 等检查共同把关，生效路径成立。"
+          },
+          {
+            "level": "low",
+            "text": "能力只声明硬件 A2，Triton/布局约束由调用方二次判断，符合 FLASH_ATTN_NPU_3 等既有模式；但枚举注释未写这些前置条件，后续维护者可能误解。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：新增为内部 HardwareCapability 枚举而非对外配置，融合 kernel 属 Ascend 专有实现，上游无对应插件点。规则 2 不适用：未见对上游缺陷的临时规避（设计参考 vllm#67364）。规则 3 通过：枚举在 PR 内有消费点与回退分支。"
+          },
+          {
+            "level": "low",
+            "text": "标题 [Performance][Model] 符合规范；9 文件 460+/17-，规模正常；CI 12 项通过（9 skipped）。"
+          }
+        ],
+        "tests": "新增 e2e test_dsv41_long_kv_store.py，覆盖 ratio 1/2 × eager/ACL Graph、负槽位跳过、带 gap 页 stride 与 ring 状态；CI 12 项通过。",
+        "questions": [
+          "建议在枚举注释补一句：仅 A2，且调用方需另行校验 Triton、PCP1 与 BF16 标准 Long KV 布局，是否同意？"
+        ],
+        "recommend": "owned 变更正确，可 approve；kernel 数值与图捕获细节请由该领域 reviewer 继续把关。",
+        "mode": "deep"
+      },
+      "review_sha": "aeabbede1159"
     },
     "22789": {
       "number": 22789,
@@ -6984,7 +7089,7 @@
       "review_sha": "f735ecf164e8",
       "head_sha": "c257414ae80b53a3f34d5967a9cc0a891cd85b09",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "22924": {
       "number": 22924,
@@ -7110,6 +7215,129 @@
       "state": "open",
       "merge": "unknown"
     },
+    "22928": {
+      "number": 22928,
+      "title": "[Performance][GDN] Support standalone prefix-only checkpoint reuse on MRV2",
+      "author": "Dwight2458",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/22928",
+      "changed_files": 9,
+      "head_sha": "1b7e80c03b5101ef1222575a05460f2d718dfbe3",
+      "areas": [
+        {
+          "p": "vllm_ascend/core",
+          "n": 3
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/platform.py",
+          "n": 1
+        }
+      ],
+      "additions": 409,
+      "deletions": 7,
+      "age_days": 2,
+      "ci": {
+        "total": 10,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 12,
+      "owned_del": 2,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-25-1801",
+      "review": {
+        "number": 22928,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "policy 配置与 spec 转换接线正确，但作者自述强抢占后输出分歧未定位，且新分支无单测，建议先解释再合。",
+        "intent": "为 MRV2 增加 gdn_checkpoint_policy=prefix_only：命中本地前缀的 GDN 请求不再发布后缀 checkpoint，调度器按页/预算复用共享前缀，减少一次拆分 prefill。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "gdn_checkpoint_policy 字段默认 all、Literal 校验；作为用户可见 additional_config 的长期分叉面是否必要。"
+          },
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "仅在 prefix_only 时调用 configure；校验函数对 MRV2/align/prefix caching/spec/kv transfer/balance/内部 checkpoint 的拒绝路径与调用顺序。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "MambaSpec(GDN_ATTN)→AscendGDNPrefixOnlySpec 转换是否覆盖所有形态（含 UniformTypeKVCacheSpecs 包裹），避免 scheduler 已生效而 spec 未转换的半生效状态。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "作者在测试章节自述 forced-preemption 重入后输出从第 7 个 token 起与未抢占对照分歧，根因未定位；prefix_only 正是改变 checkpoint/状态复用的路径，存在正确性风险。"
+          },
+          {
+            "level": "medium",
+            "text": "新增用户配置 gdn_checkpoint_policy 一旦发布难以删除；需确认上游 vLLM 的 mamba cache/checkpoint 机制无法承载该语义，避免 lesson-001 所述长期分叉。"
+          },
+          {
+            "level": "low",
+            "text": "model_runner 仅对直接 isinstance(MambaSpec) 且 mamba_type==GDN_ATTN 的条目转换；若 GDN spec 被 UniformTypeKVCacheSpecs 包裹则静默跳过，而 scheduler 已按 prefix_only 配置。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 见上（需说明上游不可行的理由）。规则 2 不适用：未 patch 上游，通过 scheduler_cls 继承实现。规则 3 通过：字段→platform 校验/配置→model_runner spec 转换均有 PR 内调用点。标题 [Performance][GDN] 符合规范。"
+          }
+        ],
+        "tests": "新增 3 个 scheduler UT（页/预算拆分、preemption 后重分类），但无 spec 转换、配置拒绝路径与抢占后数值等价测试；CI 通过。",
+        "questions": [
+          "需要作者确认：forced-preemption 后输出从 token 7 分歧的根因是什么？是否由 prefix_only 的状态/checkpoint 复用引起，还是既有 GDN 行为？",
+          "需要作者确认：GDN spec 是否可能以 UniformTypeKVCacheSpecs 形式返回；若会，转换与 manager 选择如何处理？",
+          "规则 1：为何该策略不能在上游 vLLM 的 mamba_cache_mode/prefix caching 内解决，是否已与上游讨论？"
+        ],
+        "recommend": "look：在解释并消除抢占后分歧、补 spec 转换/配置校验测试前，保持 opt-in，暂不默认启用。",
+        "mode": "deep"
+      },
+      "review_sha": "a18249055025"
+    },
     "22935": {
       "number": 22935,
       "title": "[Feature] Support mrope_section [8, 12, 12] in fused MRoPE",
@@ -7183,8 +7411,8 @@
       },
       "review_sha": "9e20931feaa8",
       "head_sha": "cfb5bb8f193bf97435f01e06b66bd2ebd26279af",
-      "state": "open",
-      "merge": "clean"
+      "state": "merged",
+      "merge": "unknown"
     },
     "22965": {
       "number": 22965,

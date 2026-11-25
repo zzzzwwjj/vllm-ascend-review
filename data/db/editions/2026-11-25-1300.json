@@ -74,9 +74,9 @@
     "closed": 0,
     "draft": 0,
     "ready": 0,
-    "conflict": 2,
+    "conflict": 1,
     "ci": 1,
-    "blocked": 2,
+    "blocked": 3,
     "behind": 0,
     "open": 5
   }

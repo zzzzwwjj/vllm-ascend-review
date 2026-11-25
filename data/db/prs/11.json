@@ -1638,7 +1638,7 @@
       "review_sha": "fe27710e0d6c",
       "head_sha": "c86cce52bb3044c92ea7dae6a0a37cd3d7e3a106",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "11916": {
       "number": 11916,
@@ -1678,7 +1678,7 @@
       "review_sha": null,
       "head_sha": "1c07fb5920ab9ff7571ff02a42d4efc76627990e",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "11941": {
       "number": 11941,
@@ -1711,7 +1711,7 @@
       "review_sha": null,
       "head_sha": "7b2bfbe0aecdb9727dd58ffe4dcac71857d2125a",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "11963": {
       "number": 11963,
@@ -1751,7 +1751,7 @@
       "review_sha": null,
       "head_sha": "67e8d17e724220b94b074d0383c35ae8a08a42e2",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     }
   }
 }

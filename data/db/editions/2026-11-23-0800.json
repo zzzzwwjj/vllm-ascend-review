@@ -71,10 +71,10 @@
     "closed": 1,
     "draft": 0,
     "ready": 0,
-    "conflict": 8,
+    "conflict": 3,
     "ci": 0,
     "blocked": 0,
     "behind": 0,
-    "open": 1
+    "open": 6
   }
 }

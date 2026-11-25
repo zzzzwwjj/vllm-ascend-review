@@ -287,7 +287,7 @@
       "review_sha": null,
       "head_sha": "151d97e781cf06bd3055c0258169c4307828dd5c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20138": {
       "number": 20138,
@@ -333,7 +333,7 @@
       "review_sha": null,
       "head_sha": "c4b7a4b3236334dfcc5040e0426d125cd9b0aed3",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "20141": {
       "number": 20141,
@@ -2667,7 +2667,7 @@
       "review_sha": null,
       "head_sha": "44ccbe6255894158c542660cd02f40c16eae32c6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20879": {
       "number": 20879,
