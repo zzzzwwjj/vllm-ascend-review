@@ -765,8 +765,6 @@
       '<header class="lp-nav">' +
         '<a class="lp-brand" href="./">vLLM-Ascend <span>待我检视</span></a>' +
         '<nav class="lp-nav-right">' +
-          '<a class="lp-link" href="docs/RULES.md">规则</a>' +
-          '<a class="lp-link" href="docs/OPERATIONS.md">运维</a>' +
           '<a class="lp-cta" data-nav="' + esc(cur) + '" href="?e=' + encodeURIComponent(cur) + '">进入检视列表 →</a>' +
         '</nav>' +
       '</header>' +
@@ -786,7 +784,6 @@
             '<span>数据来自 GitHub 公开信息</span>' +
           '</div>' +
         '</div>' +
-        '<aside class="lp-side">' + latestCard() + '</aside>' +
       '</section>' +
 
       '<section id="home-results" class="lp-results"></section>' +
@@ -814,19 +811,6 @@
         '<span><a href="docs/RULES.md">规则与口径</a> · <a href="docs/OPERATIONS.md">运维</a> · <a href="docs/MIGRATION.md">迁移</a></span>' +
       '</footer>' +
     '</div>';
-  }
-
-  function latestCard() {
-    const e = state.editions[0];
-    if (!e) return '';
-    const v = e.verdicts || {};
-    return '<div class="lp-side-card">' +
-      '<div class="lp-side-head"><span>最新一期</span><a data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">全部期次 →</a></div>' +
-      '<p class="lp-side-when">' + esc(e.label || tz(e.at)) + '</p>' +
-      '<div class="lp-side-stats"><span>新增 <b>' + (e.stats?.fresh ?? 0) + '</b></span><span>精读 <b>' + (e.stats?.deep ?? 0) + '</b></span><span>列表 <b>' + (e.stats?.rest ?? 0) + '</b></span></div>' +
-      '<div class="lp-side-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</div>' +
-      '<a class="lp-side-cta" data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">进入检视列表 →</a>' +
-      '</div>';
   }
 
   function renderHome() {
