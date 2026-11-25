@@ -45,7 +45,7 @@
       const day = dayOf(e.at);
       const head = day !== lastDay ? '<div class="ed-day">' + esc(day) + '</div>' : '';
       lastDay = day;
-      return head + '<a class="ed' + (e.id === state.current ? ' active' : '') + '" data-nav="' + esc(e.id) + '" href="?e=' + encodeURIComponent(e.id) + '">' +
+      return head + '<a class="ed' + (e.id === state.current ? ' active' : '') + '" data-nav="' + esc(e.id) + '" data-tip="' + esc(editionStateSummaryFull(e)) + '" href="?e=' + encodeURIComponent(e.id) + '">' +
         '<span class="ed-when">' + esc(e.label || tz(e.at).slice(6)) + '</span>' +
         '<span class="ed-nums">' + editionStateSummary(e) + '</span>' +
         '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
@@ -581,6 +581,16 @@
     return '新增 ' + (e.stats?.fresh ?? 0) + ' · 精读 ' + (e.stats?.deep ?? 0);
   }
 
+  function editionStateSummaryFull(e) {
+    const st = e.states || {};
+    const order = [['conflict', '有冲突'], ['ci', 'CI 未过'], ['blocked', '待评审'], ['behind', '待更新'],
+      ['open', '进行中'], ['ready', '待合入'], ['draft', '草稿'], ['merged', '已合入'], ['closed', '已关闭']];
+    const lines = order.filter(([k]) => st[k]).map(([k, label]) => label + ' ' + st[k]);
+    const v = e.verdicts || {};
+    lines.push('可批准 ' + (v.approve || 0) + ' / 需细看 ' + (v.look || 0) + ' / 建议打回 ' + (v.pushback || 0));
+    return lines.join('\n');
+  }
+
   function highlightsSection() {
     const items = activeHighlights();
     if (!items.length) return '';
@@ -690,6 +700,25 @@
       if (tries < 60) setTimeout(tick, 5000);
     };
     setTimeout(tick, 4000);
+  }
+
+  function showTip(text, rect) {
+    let el = document.querySelector('.tip');
+    if (!el) { el = document.createElement('div'); el.className = 'tip'; document.body.appendChild(el); }
+    el.textContent = text;
+    el.classList.add('show');
+    const maxW = 340;
+    el.style.left = Math.max(8, Math.min(rect.left, (window.innerWidth || 1024) - maxW)) + 'px';
+    el.style.top = (rect.bottom + 8) + 'px';
+    const h = el.offsetHeight || 0;
+    if (rect.bottom + h + 16 > (window.innerHeight || 768)) {
+      el.style.top = Math.max(8, rect.top - h - 8) + 'px';
+    }
+  }
+
+  function hideTip() {
+    const el = document.querySelector('.tip');
+    if (el) el.classList.remove('show');
   }
 
   function toast(message) {
@@ -823,7 +852,7 @@
           '<h2>怎么用</h2>' +
           '<ol>' +
             '<li><b>搜索</b>：输入 PR 编号查单条，或输入 GitHub ID 查该作者的全部 PR。</li>' +
-            '<li><b>请求</b>：没有收录时点「需要检视」，提交 issue 即可。</li>' +
+            '<li><b>催我检视</b>：没有收录时点「需要检视」，提交 issue 即可。若已收录，可以点「提醒检视」让我高优检视；若 PR 有更新，可以点「刷新检视」，让 AI 重新检视。</li>' +
             '<li><b>浏览</b>：点右上角「进入检视列表」，按批次查看精读结果。</li>' +
           '</ol>' +
         '</aside>' +
@@ -1001,6 +1030,14 @@
       window.scrollTo(0, 0);
     }
   }
+
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest && e.target.closest('[data-tip]');
+    if (t) showTip(t.dataset.tip, t.getBoundingClientRect());
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest && e.target.closest('[data-tip]')) hideTip();
+  });
 
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-nav]');
