@@ -774,16 +774,25 @@
           '<p class="lp-eyebrow">每个工作日 08:00 · 13:00 · 18:00 自动更新</p>' +
           '<h1>PR 检视看板</h1>' +
           '<p class="lp-sub">@' + esc(user) + ' 对 vLLM-Ascend 待检视 PR 的精读结论，按 CODEOWNERS 责任田聚焦。<br>输入 PR 编号或 GitHub ID 开始。</p>' +
-          '<div class="lp-search">' +
-            '<input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879">' +
-            '<button type="button" data-home-search>搜索</button>' +
+          '<div class="lp-search-row">' +
+            '<div class="lp-search"><input id="hs" type="search" autocomplete="off" spellcheck="false" placeholder="例如 22244 或 Dean11879"></div>' +
+            '<button type="button" class="lp-search-btn" data-home-search>搜索</button>' +
           '</div>' +
           '<div class="lp-quick">' +
             '<span><b>' + state.editions.length + '</b> 期次归档</span>' +
             '<span><b>' + hl + '</b> 个高优先处理</span>' +
             '<span>数据来自 GitHub 公开信息</span>' +
           '</div>' +
+          '<div class="lp-gh">' + ghBox() + '</div>' +
         '</div>' +
+        '<aside class="lp-steps">' +
+          '<h2>怎么用</h2>' +
+          '<ol>' +
+            '<li><b>搜索</b>：输入 PR 编号查单条，或输入 GitHub ID 查该作者的全部 PR。</li>' +
+            '<li><b>请求</b>：没有收录时点「需要检视」，提交 issue 即可。</li>' +
+            '<li><b>浏览</b>：点右上角「进入检视列表」，按批次查看精读结果。</li>' +
+          '</ol>' +
+        '</aside>' +
       '</section>' +
 
       '<section id="home-results" class="lp-results"></section>' +
@@ -795,15 +804,6 @@
           '<div class="lp-card"><h3>请求检视</h3><p>作者搜索不到自己的 PR 时，可直接点「需要检视」，下一期会精读并进入高优检视。</p></div>' +
           '<div class="lp-card"><h3>按期归档</h3><p>每个工作日三次，历史期次永久保留；可按作者查看全部 PR，也能按编号直达单条。</p></div>' +
         '</div>' +
-      '</section>' +
-
-      '<section class="lp-steps">' +
-        '<h2>怎么用</h2>' +
-        '<ol>' +
-          '<li><b>搜索</b>：输入 PR 编号查单条，或输入 GitHub ID 查该作者的全部 PR。</li>' +
-          '<li><b>请求</b>：没有收录时点「需要检视」，提交 issue 即可。</li>' +
-          '<li><b>浏览</b>：点右上角「进入检视列表」，按批次查看精读结果。</li>' +
-        '</ol>' +
       '</section>' +
 
       '<footer class="lp-foot">' +
