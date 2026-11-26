@@ -565,11 +565,28 @@
 
 
   function activeHighlights() {
-    const items = (state.highlights || []).slice();
-    for (const p of state.pendingHl || []) {
-      if (!items.some((x) => x.pr === p.pr && x.kind === p.kind)) items.unshift({ ...p, pending: true });
+    const server = (state.highlights || []).slice();
+    const serverPrs = new Set(server.map((h) => h.pr));
+    const marks = state.marks || {};
+    const now = Date.now();
+    const pending = (state.pendingHl || [])
+      .filter((p) => !serverPrs.has(p.pr) && !marks[String(p.pr)])
+      .filter((p) => !p.at || now - new Date(p.at).getTime() < 3 * 86400000);
+    const byPr = new Map();
+    for (const p of pending) {
+      const prev = byPr.get(p.pr);
+      if (!prev || new Date(p.at) > new Date(prev.at)) byPr.set(p.pr, p);
     }
-    return items.filter((h) => !(state.marks && state.marks[String(h.pr)]));
+    try { localStorage.setItem('board-pending-hl', JSON.stringify([...byPr.values()])); } catch (e) { /* ignore */ }
+    const merged = [...server, ...[...byPr.values()].map((p) => ({ ...p, pending: true }))];
+    const out = [];
+    const seen = new Set();
+    for (const h of merged) {
+      if (seen.has(h.pr)) continue;
+      seen.add(h.pr);
+      out.push(h);
+    }
+    return out.filter((h) => !marks[String(h.pr)]);
   }
 
   function editionStateSummary(e) {
@@ -614,7 +631,10 @@
       app().innerHTML = shell('<header><h1>高优检视</h1></header><div class="content"><p class="muted">暂无待处理的高优 PR。</p></div>');
       return;
     }
+    const seenPr = new Set();
     const recs = (await Promise.all(items.map(async (h) => {
+      if (seenPr.has(h.pr)) return null;
+      seenPr.add(h.pr);
       const r = await loadRecord(h.pr).catch(() => null);
       return r ? { ...r, _hl: h } : null;
     }))).filter(Boolean).filter((r) => markState(r).cls !== 'yes');
@@ -624,7 +644,7 @@
       '<p class="sub">提醒检视 / 已刷新的 PR；标记完成检视后会自动移出</p></header>';
     const body = '<div class="content">' +
       (deep.length ? '<h2>精读（' + deep.length + '）</h2>' + deep.map(card).join('') : '') +
-      (rest.length ? tableBlock(rest.map(row).join(''), '未精读（' + rest.length + '）') : '') +
+      (rest.length ? tableBlock(rest.map(row).join(''), '未精读（' + rest.length + '）· 待本期补充精读') : '') +
       '</div>';
     app().innerHTML = shell(header + body);
   }
@@ -798,7 +818,7 @@
       state.pendingMarks.unshift({ pr, at: new Date().toISOString() });
       try { localStorage.setItem('board-pending-marks', JSON.stringify(state.pendingMarks.slice(0, 50))); } catch (e) { /* ignore */ }
     } else {
-      state.pendingHl = (state.pendingHl || []).filter((x) => !(x.pr === pr && x.kind === kind));
+      state.pendingHl = (state.pendingHl || []).filter((x) => x.pr !== pr);
       state.pendingHl.unshift({ pr, kind, title: title || '', at: new Date().toISOString() });
       try { localStorage.setItem('board-pending-hl', JSON.stringify(state.pendingHl.slice(0, 30))); } catch (e) { /* ignore */ }
     }
