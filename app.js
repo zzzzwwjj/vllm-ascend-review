@@ -112,6 +112,7 @@
     { key: 'ci', label: 'CI', options: [['success', '通过'], ['failure', '失败'], ['pending', '进行中']] },
     { key: 'size', label: '规模', options: [['s', '小 ≤50'], ['m', '中'], ['l', '大 ≥300']] },
     { key: 'disc', label: '讨论', options: [['1', '有批注/回复']] },
+    { key: 'base', label: '分支', dynamic: true },
   ];
   const fid = (r) => (r.n != null ? r.n : r.number);
   const sizeBandOf = (r) => {
@@ -129,6 +130,7 @@
       case 'ci': return r.c || r.ci?.state || 'unknown';
       case 'size': return r.z || sizeBandOf(r);
       case 'disc': return r.fb != null ? r.fb : ((state.feedback[String(fid(r))] || []).length ? 1 : 0);
+      case 'base': return r.b || r.base || 'unknown';
       default: return '';
     }
   }
@@ -159,25 +161,33 @@
     const out = {};
     for (const g of FILTER_GROUPS) {
       out[g.key] = {};
-      for (const [v] of g.options) out[g.key][v] = 0;
       for (const r of list) {
         const v = String(accessorValue(g.key, r));
-        if (out[g.key][v] != null) out[g.key][v]++;
+        out[g.key][v] = (out[g.key][v] || 0) + 1;
       }
     }
     return out;
   }
+  function optionsFor(g, scope) {
+    if (!g.dynamic) return g.options;
+    const counts = {};
+    for (const r of scope) {
+      const v = String(accessorValue(g.key, r));
+      counts[v] = (counts[v] || 0) + 1;
+    }
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([v]) => [v, v]);
+  }
   function filterBar(scope) {
     const counts = facetCounts(scope);
     const sel = (g) => (state.filters[g.key] || []).map(String);
-    const menu = (g) => g.options.map(([v, label]) =>
+    const menu = (g) => optionsFor(g, scope).map(([v, label]) =>
       '<label class="fopt"><input type="checkbox" data-filter="' + g.key + '" value="' + v + '"' + (sel(g).includes(v) ? ' checked' : '') + '> <span>' + label + '</span><em>' + (counts[g.key][v] || 0) + '</em></label>').join('');
     const primary = FILTER_GROUPS.filter((g) => ['state', 'done', 'verdict'].includes(g.key));
     const more = FILTER_GROUPS.filter((g) => !['state', 'done', 'verdict'].includes(g.key));
     const moreCount = more.reduce((n, g) => n + sel(g).length, 0);
     const chips = [];
     for (const g of FILTER_GROUPS) for (const v of sel(g)) {
-      const opt = g.options.find((o) => String(o[0]) === v);
+      const opt = optionsFor(g, scope).find((o) => String(o[0]) === v);
       chips.push('<button type="button" class="fchip" data-unfilter="' + g.key + '" data-val="' + v + '">' + g.label + '：' + (opt ? opt[1] : v) + ' ×</button>');
     }
     const drop = (g, label) => '<details class="fdrop" data-fkey="' + g.key + '"' + (state.openFilter === g.key ? ' open' : '') + '><summary>' + label + (sel(g).length ? ' <b>' + sel(g).length + '</b>' : '') + '</summary><div class="fmenu">' + menu(g) + '</div></details>';
@@ -216,6 +226,7 @@
       ciBadge(p.ci) +
       (p.reviews?.approvals ? '<span>已有 ' + p.reviews.approvals + ' 人批准</span>' : '') +
       '<span>改动 <b class="add">+' + fmtNum(p.additions) + '</b> / <b class="del">−' + fmtNum(p.deletions) + '</b> · ' + p.changed_files + ' 个文件</span>' +
+      (p.base ? '<span class="tag">→ ' + esc(p.base) + '</span>' : '') +
       '<span>' + (p.owned?.length ? '我负责 ' + p.owned.length + '/' + p.changed_files : '无我负责文件') + '</span>' +
       '<span>排队 ' + p.age_days + ' 天</span>' +
       (r?.confidence ? '<span>把握 ' + confLabel(r.confidence) + '</span>' : '') +
@@ -1163,6 +1174,7 @@
       '<td class="t">' + esc(it.t) + '</td>' +
       '<td data-label="作者">@' + esc(it.a) + '</td>' +
       '<td data-label="期次">' + esc(it.e) + '</td>' +
+      '<td data-label="分支">' + esc(it.b || 'unknown') + '</td>' +
       '<td data-label="检视">' + (it.d ? '已完成' : '待检视') + '</td>' +
       '<td data-label="结论">' + (v ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>' : '—') + '</td></tr>';
   }
@@ -1189,11 +1201,13 @@
         '<span>' + state.allPage + ' / ' + pages + '</span>' +
         '<button type="button" data-page="' + (state.allPage + 1) + '"' + (state.allPage === pages ? ' disabled' : '') + '>下一页</button></div>'
       : '';
+    const table = '<table id="all"><thead><tr><th>PR</th><th>标题</th><th>作者</th><th>期次</th><th>分支</th><th>检视</th><th>结论</th></tr></thead><tbody>' +
+      (slice.map(indexRow).join('') || '<tr><td colspan="7" class="muted">没有符合筛选条件的 PR。</td></tr>') + '</tbody></table>';
     app().innerHTML = shell(
       '<header><h1>全部 PR <span class="at">' + filtered.length + ' / ' + all.length + '</span></h1>' +
       '<p class="sub">跨期次浏览与筛选，点编号查看详情</p></header>' +
       filterBar(all) +
-      '<div class="content">' + tableBlock(slice.map(indexRow).join(''), '') + pager + '</div>');
+      '<div class="content">' + table + pager + '</div>');
   }
 
   function refreshWithFilters(push) {

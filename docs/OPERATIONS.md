@@ -72,13 +72,13 @@ node scripts/publish.mjs            # 单次提交
 |---|---|---|
 | `manifest.json` | 期次列表、期次版本、分片版本 | render |
 | `editions/<期号>.json` | 单期元数据 + 成员角色（deep/rest） | render / apply-refresh |
-| `prs/<千位>.json` | PR 元数据（检索/列表/状态，主键 PR 编号） | render / apply-* |
+| `prs/<千位>.json` | PR 元数据（检索/列表/状态/目标分支，主键 PR 编号） | render / apply-* |
 | `prs/detail/<千位>.json` | PR 精读详情（打开卡片时才加载） | render / apply-review-update / apply-refresh |
 | `feedback.json` | 批注及其采纳结论 | render（源自 state） |
 | `lessons.json` | 从批注蒸馏的规则 | render |
 | `highlights.json` | 高优检视（已过滤完成项，含结论 `v`） | render |
 | `marks.json` | 完成检视标记 | 浏览器直接提交，render 发布前合并 |
-| `search.json` | 检索与筛选索引（n/t/a/e/r/v/s/d/m/o/c/z/u） | build-search-index |
+| `search.json` | 检索与筛选索引（n/t/a/e/r/v/s/d/m/o/c/z/u/b） | build-search-index |
 
 ## 5. 发布机制
 
