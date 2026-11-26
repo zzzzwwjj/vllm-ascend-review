@@ -424,3 +424,5 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .topbar-all{font-size:12.5px;color:var(--muted);text-decoration:none;padding:6px 8px;white-space:nowrap}
 .topbar-all:hover{color:var(--blue)}
 @media(max-width:900px){.fmenu{position:fixed;left:12px;right:12px;top:auto;bottom:12px;max-height:60vh;min-width:0}}
+.topbar-back{font-size:12.5px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap}
+.topbar-back:hover{border-color:var(--blue);color:var(--blue)}

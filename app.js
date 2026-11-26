@@ -1019,6 +1019,7 @@
     const box = document.getElementById('home-results');
     const q = (raw || '').trim();
     if (!box) return;
+    try { history.replaceState({ q }, '', location.pathname + (q ? '?q=' + encodeURIComponent(q) : '')); } catch (e) { /* ignore */ }
     if (!q) { box.innerHTML = ''; return; }
     box.innerHTML = '<p class="muted small">搜索中…</p>';
     if (box.scrollIntoView) box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -1045,6 +1046,7 @@
     return '<div class="topbar"><input id="gs" type="search" autocomplete="off" spellcheck="false" placeholder="搜索 PR 编号（如 20758）或 GitHub ID（如 stdjhs）" value="' + esc(state.query || '') + '">' +
       '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button>' +
       '<button type="button" data-compact title="切换卡片密度">' + (state.compact ? '舒适模式' : '紧凑模式') + '</button>' +
+      (state.view && state.view.type === 'pr' ? '<button type="button" class="topbar-back" data-back>← 返回</button>' : '') +
       '<a class="topbar-all" href="?all=1">全部 PR</a>' +
       '<a class="lp-cta topbar-home" href="./">← 回到主页</a></div>';
   }
@@ -1246,6 +1248,28 @@
     go(a.dataset.nav, true);
   });
 
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href*="?pr="]');
+    if (!a || a.hasAttribute('data-pr-nav')) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const u = new URL(a.href, location.href);
+    if (u.pathname !== location.pathname) return;
+    const pr = u.searchParams.get('pr');
+    if (!pr) return;
+    e.preventDefault();
+    history.replaceState({ ...(history.state || {}), from: location.pathname + location.search }, '', location.href);
+    doSearch(pr, true);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-back]')) {
+      e.preventDefault();
+      if (history.length > 1) history.back();
+      else location.href = './';
+      return;
+    }
+  });
+
   document.addEventListener('change', (e) => {
     const el = e.target.closest && e.target.closest('[data-filter]');
     if (!el) return;
@@ -1376,6 +1400,7 @@
   window.addEventListener('popstate', () => {
     const p = new URLSearchParams(location.search);
     parseFilters(p);
+    if (p.get('q')) { renderHome(); homeSearch(p.get('q')); return; }
     if (p.get('all')) { renderAll(false); return; }
     if (p.get('hl')) { doHighlights(false); return; }
     if (p.get('pr')) { doSearch(p.get('pr'), false); return; }
@@ -1413,7 +1438,8 @@
           }).catch(() => {}),
       ]);
       parseFilters(params);
-      if (params.get('all')) { await renderAll(false); }
+      if (params.get('q')) { renderHome(); await homeSearch(params.get('q')); }
+      else if (params.get('all')) { await renderAll(false); }
       else if (params.get('hl')) { await doHighlights(false); }
       else if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
