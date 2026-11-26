@@ -187,7 +187,9 @@
       acts = '<button type="button" class="act primary" data-act="refresh" data-pr="' + p.number + '">需要检视</button>' +
         '<span class="muted small">' + (st === 'draft' ? '草稿' : '已关闭') + '状态下仅可发起检视请求</span>';
     }
-    return (r?.tests ? '<p class="rc-tests"><b>测试</b>' + esc(r.tests) + '</p>' : '') + q +
+    const rules = (r?.rules || []).filter(Boolean);
+    return (r?.tests ? '<p class="rc-tests"><b>测试</b>' + esc(r.tests) + '</p>' : '') +
+      (rules.length ? '<p class="rc-rules"><b>规则依据</b>' + rules.map(esc).join(' · ') + '</p>' : '') + q +
       '<div class="rc-foot"><span class="rec"><b>建议</b>' + esc(r?.recommend || '—') + '</span>' +
       '<span class="acts">' + acts + '</span></div>';
   }

@@ -10,6 +10,7 @@ vllm-ascend-review/
 │   ├── collect.mjs             采集 + 去重 + 排序（每期入口）
 │   ├── split-deep.mjs          拆分精读输入
 │   ├── fetch-file.mjs          取 head 处文件内容
+│   ├── fetch-agent-review.mjs  同步上游 .github/agent-review 检视知识库
 │   ├── refresh-states.mjs      刷新所有 PR 状态（open/draft/closed/merged，GraphQL 批量）
 │   ├── sync-review-status.mjs  把我在 GitHub 上的检视同步为 marks（并与请求时间比较）
 │   ├── refresh-edition-stats.mjs 重算各期状态统计与结论色点（排除已合入/关闭/草稿）
@@ -45,6 +46,7 @@ vllm-ascend-review/
 ```bash
 cd /workspace/project/vllm-ascend-review
 rm -rf work/reviews && mkdir -p work/reviews
+node scripts/fetch-agent-review.mjs  # 同步上游检视规则（L1/L2 清单）
 node scripts/refresh-states.mjs     # 先刷新 PR 状态（决定按钮可用性与请求是否受理）
 node scripts/sync-review-status.mjs # 同步我在 GitHub 上的检视状态（早于请求则视为未检视）
 node scripts/refresh-edition-stats.mjs # 重算期次状态统计与色点

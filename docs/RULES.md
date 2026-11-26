@@ -51,6 +51,17 @@
 - `mode` 写在精读 JSON 里，缺省按 `deep` 处理；
 - 页面在无责任田文件的卡片上显示“简单检视”标记；老数据即使没写 `mode`，只要 `owned` 为空也按简单检视展示。
 
+## 4.2 上游 agent-review 规则
+
+精读必须对照 upstream `.github/agent-review/` 的知识库（每期由 `fetch-agent-review.mjs` 同步）：
+
+- 先读 `L1/checklist.md`（全局规则），再读 PR 命中领域的 `L2/<domain>/checklist.md`；
+- 命中领域由 `split-deep.mjs` 按 `domains.yaml` 的 glob 与我的责任田文件计算，写在 `work/deep/<n>.json` 的 `kb.domains`；
+- 结论必须用 `rules` 字段引用读过的规则 ID（如 `L1#no-item-sync`、`L2-exec#310p-parity`）；
+- 严重度：`MUST-FIX` → 风险 `high`，`SHOULD-FIX` → `medium`，`NIT` → `low`；
+- 只报清单违规与本次改动引入/暴露的真实缺陷，风格问题与 CI 覆盖项跳过。
+- 规则清单与映射见 `docs/REVIEW-RULES.md`。
+
 ## 5. 历史积压期
 
 首期（`2026-11-23-0015`）是历史积压，不是某一轮增量：
