@@ -51,8 +51,8 @@
         '<span class="ed-dots"><i class="dot ok"></i>' + (v.approve || 0) + '<i class="dot look"></i>' + (v.look || 0) + '<i class="dot push"></i>' + (v.pushback || 0) + '</span></a>';
     }).join('');
     const user = state.idx?.user || '';
-    return '<aside class="side"><div class="side-head"><a href="./" class="brand" data-nav="' + esc(state.idx?.current || '') + '">vLLM-Ascend<br><span>待我检视</span></a>' +
-      '<p class="side-sub">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
+    return '<aside class="side"><div class="side-head"><a href="https://github.com/' + esc(state.idx?.site || 'zzzzwwjj/vllm-ascend-review') + '" target="_blank" rel="noopener" class="brand">vLLM-Ascend<br><span>待我检视</span></a>' +
+      '<p class="side-sub" data-tip="@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00 自动更新">@' + esc(user) + ' · 每工作日 08:00 / 13:00 / 18:00</p></div>' +
       highlightsSection() +
       '<div class="side-title">历史记录 <span>' + state.editions.length + '</span></div>' +
       '<nav class="eds side-scroll">' + (items || '<p class="muted">暂无</p>') + '</nav>' +
@@ -939,7 +939,8 @@
   function topbar() {
     return '<div class="topbar"><input id="gs" type="search" autocomplete="off" spellcheck="false" placeholder="搜索 PR 编号（如 20758）或 GitHub ID（如 stdjhs）" value="' + esc(state.query || '') + '">' +
       '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button>' +
-      '<button type="button" data-compact title="切换卡片密度">' + (state.compact ? '舒适模式' : '紧凑模式') + '</button></div>';
+      '<button type="button" data-compact title="切换卡片密度">' + (state.compact ? '舒适模式' : '紧凑模式') + '</button>' +
+      '<a class="lp-cta topbar-home" href="./">← 回到主页</a></div>';
   }
 
   function shell(inner) {
