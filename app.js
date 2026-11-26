@@ -569,9 +569,12 @@
     const serverPrs = new Set(server.map((h) => h.pr));
     const marks = state.marks || {};
     const now = Date.now();
+    // a run that finished after the click already had its chance to accept the request
+    const runAt = state.idx?.updated_at ? new Date(state.idx.updated_at).getTime() : 0;
     const pending = (state.pendingHl || [])
       .filter((p) => !serverPrs.has(p.pr) && !marks[String(p.pr)])
-      .filter((p) => !p.at || now - new Date(p.at).getTime() < 3 * 86400000);
+      .filter((p) => !p.at || now - new Date(p.at).getTime() < 3 * 86400000)
+      .filter((p) => !runAt || !p.at || new Date(p.at).getTime() > runAt);
     const byPr = new Map();
     for (const p of pending) {
       const prev = byPr.get(p.pr);
