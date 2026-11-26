@@ -496,11 +496,22 @@
     return state.searchIndex;
   }
 
+  async function loadDetailShard(name, ver) {
+    const key = 'd:' + name + ':' + (ver || '');
+    if (detailCache.has(key)) return detailCache.get(key);
+    const p = fetchJson('data/db/prs/detail/' + name + '.json?v=' + (ver || '')).catch(() => ({ items: {} }));
+    detailCache.set(key, p);
+    return p;
+  }
+
   async function loadRecord(n) {
     const shard = String(Math.floor(n / 1000));
     const ver = state.idx?.shards?.[shard]?.v;
-    const data = await loadShard(shard, ver);
-    return (data.items || {})[String(n)] || null;
+    const dver = state.idx?.details?.[shard]?.v;
+    const [meta, detail] = await Promise.all([loadShard(shard, ver), loadDetailShard(shard, dver)]);
+    const m = (meta.items || {})[String(n)];
+    if (!m) return null;
+    return { ...m, ...((detail.items || {})[String(n)] || {}) };
   }
 
   function notFoundHtml(kind, q) {
@@ -988,6 +999,7 @@
   }
 
   const shardCache = new Map();
+  const detailCache = new Map();
   function loadShard(name, ver) {
     const key = name + ':' + (ver || '');
     if (shardCache.has(key)) return shardCache.get(key);
@@ -1006,10 +1018,19 @@
           d = { ...meta, legacy_content_html: meta.legacy_html };
         } else {
           const verOf = (shard) => state.idx?.shards?.[shard]?.v;
+          const dverOf = (shard) => state.idx?.details?.[shard]?.v;
           const names = [...new Set((meta.members || []).map((m) => String(Math.floor(m.n / 1000))))];
           const parts = await Promise.all(names.map((sName) => loadShard(sName, verOf(sName))));
           const items = Object.assign({}, ...parts.map((x) => x.items || {}));
-          const pick = (role) => (meta.members || []).filter((m) => m.role === role).map((m) => items[m.n]).filter(Boolean);
+          // reviews are only needed for the deep cards, not for the rest table
+          const deepShards = [...new Set((meta.members || []).filter((m) => m.role === 'deep').map((m) => String(Math.floor(m.n / 1000))))];
+          const dparts = await Promise.all(deepShards.map((sName) => loadDetailShard(sName, dverOf(sName))));
+          const details = Object.assign({}, ...dparts.map((x) => x.items || {}));
+          const pick = (role) => (meta.members || []).filter((m) => m.role === role).map((m) => {
+            const base = items[m.n];
+            if (!base) return null;
+            return role === 'deep' ? { ...base, ...(details[m.n] || {}) } : base;
+          }).filter(Boolean);
           d = { id: meta.id, at: meta.at, user: meta.user || state.idx?.user, window: meta.window, stats: meta.stats, verdicts: meta.verdicts, backlog: !!meta.backlog, deep: pick('deep'), rest: pick('rest') };
         }
         state.cache.set(id, d); state.pending.delete(id); return d;

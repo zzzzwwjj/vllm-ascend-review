@@ -27,7 +27,8 @@
 |---|---|
 | `manifest.json` | 期次列表、期次版本、分片版本 |
 | `editions/<期号>.json` | 单期元数据 + 成员角色（deep / rest） |
-| `prs/<千位>.json` | 以 PR 为主记录（元数据、精读、head_sha、areas） |
+| `prs/<千位>.json` | PR 元数据（检索 / 列表 / 状态，主键 PR 编号） |
+| `prs/detail/<千位>.json` | PR 精读详情（打开卡片时才下载） |
 | `feedback.json` / `lessons.json` | 批注与蒸馏出的检视规则 |
 | `highlights.json` | 高优检视（已过滤完成项，含结论） |
 | `marks.json` | 完成检视标记（浏览器直接提交，发布前合并） |

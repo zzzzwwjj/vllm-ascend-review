@@ -71,7 +71,8 @@ node scripts/publish.mjs            # 单次提交
 |---|---|---|
 | `manifest.json` | 期次列表、期次版本、分片版本 | render |
 | `editions/<期号>.json` | 单期元数据 + 成员角色（deep/rest） | render / apply-refresh |
-| `prs/<千位>.json` | PR 记录（元数据 + 精读 + head_sha + areas） | render / apply-refresh |
+| `prs/<千位>.json` | PR 元数据（检索/列表/状态，主键 PR 编号） | render / apply-* |
+| `prs/detail/<千位>.json` | PR 精读详情（打开卡片时才加载） | render / apply-review-update / apply-refresh |
 | `feedback.json` | 批注及其采纳结论 | render（源自 state） |
 | `lessons.json` | 从批注蒸馏的规则 | render |
 | `highlights.json` | 高优检视（已过滤完成项，含结论 `v`） | render |

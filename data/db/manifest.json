@@ -1,6 +1,6 @@
 {
   "schema": "reviewboard-db/1",
-  "updated_at": "2026-11-26T10:10:06.341Z",
+  "updated_at": "2026-11-26T15:48:19.317Z",
   "current": "2026-11-26-1802",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
@@ -531,79 +531,157 @@
   ],
   "shards": {
     "4": {
-      "v": "351ee811f9f9",
+      "v": "50e8e35203ba",
       "count": 1
     },
     "6": {
-      "v": "63ad61d4c298",
+      "v": "cdda5e951de9",
       "count": 1
     },
     "7": {
-      "v": "6e1aed197ce1",
+      "v": "1e115bfea5a3",
       "count": 23
     },
     "8": {
-      "v": "2b0b56c4a7ed",
+      "v": "bc68119ce97b",
       "count": 38
     },
     "9": {
-      "v": "f6dcabeac9d4",
+      "v": "64e551001b67",
       "count": 30
     },
     "10": {
-      "v": "b31c70939501",
+      "v": "b0de643dd60d",
       "count": 33
     },
     "11": {
-      "v": "ad42f3ee8ae2",
+      "v": "482b4f8efe32",
       "count": 36
     },
     "12": {
-      "v": "aa919572194d",
+      "v": "3e3e4454f986",
       "count": 37
     },
     "13": {
-      "v": "84429442b8b4",
+      "v": "b52e15d7b21b",
       "count": 33
     },
     "14": {
-      "v": "27a7aeea851a",
+      "v": "ded6a3f039f3",
       "count": 64
     },
     "15": {
-      "v": "10b19fd769a2",
+      "v": "4485b2e5877f",
       "count": 105
     },
     "16": {
-      "v": "f749b9a2215e",
+      "v": "58dab5bff8ff",
       "count": 89
     },
     "17": {
-      "v": "e321859b9e4a",
+      "v": "2cb31d664b7d",
       "count": 111
     },
     "18": {
-      "v": "475893daff58",
+      "v": "5354fc26df03",
       "count": 62
     },
     "19": {
-      "v": "c30652182eb7",
+      "v": "e17f13cc759d",
       "count": 74
     },
     "20": {
-      "v": "1ee6ab013f9f",
+      "v": "6ca4e3d99b3a",
       "count": 70
     },
     "21": {
-      "v": "0750cb9209ee",
+      "v": "d3b3ec48b0d6",
       "count": 121
     },
     "22": {
-      "v": "e5ffb0b943fe",
+      "v": "0d9044e38a73",
       "count": 138
     },
     "23": {
-      "v": "4f05e59b3020",
+      "v": "e78ec888481a",
+      "count": 69
+    }
+  },
+  "details": {
+    "4": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "6": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "7": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "8": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "9": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "10": {
+      "v": "2b0fb0a6b3e3",
+      "count": 0
+    },
+    "11": {
+      "v": "3730f5f4a3a4",
+      "count": 6
+    },
+    "12": {
+      "v": "bc4b219e147f",
+      "count": 5
+    },
+    "13": {
+      "v": "eee9201f73a6",
+      "count": 2
+    },
+    "14": {
+      "v": "c00c2f88e18d",
+      "count": 1
+    },
+    "15": {
+      "v": "51a7e31fca38",
+      "count": 2
+    },
+    "16": {
+      "v": "3bd841defcd4",
+      "count": 4
+    },
+    "17": {
+      "v": "7e274a223559",
+      "count": 2
+    },
+    "18": {
+      "v": "b8a9ffdd6bc5",
+      "count": 2
+    },
+    "19": {
+      "v": "e6717cea77de",
+      "count": 6
+    },
+    "20": {
+      "v": "7eea6af65b34",
+      "count": 9
+    },
+    "21": {
+      "v": "400a38f1407b",
+      "count": 24
+    },
+    "22": {
+      "v": "efe4a884f442",
+      "count": 40
+    },
+    "23": {
+      "v": "ff6be255ec0b",
       "count": 69
     }
   }
