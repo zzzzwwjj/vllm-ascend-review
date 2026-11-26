@@ -71,7 +71,7 @@
       "review_sha": null,
       "head_sha": "12941f2ebfd509e267db41d2735fc63d71168132",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20083": {
       "number": 20083,
@@ -184,7 +184,9 @@
         "recommend": "修掉 device_type 恒为 '?' 的报错内容、把注释改成函数名引用并补一条 FP8 用例后可批准。",
         "mode": "deep"
       },
-      "review_sha": "0c3fe4ee03eb"
+      "review_sha": "0c3fe4ee03eb",
+      "state": "open",
+      "merge": "blocked"
     },
     "20093": {
       "number": 20093,
@@ -263,7 +265,7 @@
       "review_sha": null,
       "head_sha": "ab2dbe493eff5c85d4b4a69b63cfe092ac4c8a8e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20114": {
       "number": 20114,
@@ -348,7 +350,7 @@
       "review_sha": null,
       "head_sha": "edd3eb862ed7da97c9d6e60ff0db1a99809cb854",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20125": {
       "number": 20125,
@@ -400,7 +402,7 @@
       "review_sha": null,
       "head_sha": "151d97e781cf06bd3055c0258169c4307828dd5c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20138": {
       "number": 20138,
@@ -446,7 +448,7 @@
       "review_sha": null,
       "head_sha": "c4b7a4b3236334dfcc5040e0426d125cd9b0aed3",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20141": {
       "number": 20141,
@@ -479,7 +481,7 @@
       "review_sha": null,
       "head_sha": "fb6c67a91f5300256b4c59cee056a606c2ae827e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20145": {
       "number": 20145,
@@ -519,7 +521,7 @@
       "review_sha": null,
       "head_sha": "c0efa37949958ff61420f0015fada461737fadfd",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20164": {
       "number": 20164,
@@ -552,7 +554,7 @@
       "review_sha": null,
       "head_sha": "fad4d678b83d2aa6c03e2a9812b2883eb4ffe2e7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20171": {
       "number": 20171,
@@ -604,7 +606,7 @@
       "review_sha": null,
       "head_sha": "90e1a7165bec104563efe2f2692c788b2a3cee0d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20185": {
       "number": 20185,
@@ -644,7 +646,7 @@
       "review_sha": null,
       "head_sha": "018fae43de25da60913027f8274059872a3b2c11",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20194": {
       "number": 20194,
@@ -750,7 +752,7 @@
       "review_sha": "d1817c77e3c3",
       "head_sha": "b00b6d94a74069c2e1340299a7fac238e030bc20",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20244": {
       "number": 20244,
@@ -826,7 +828,7 @@
       "review_sha": "551e3870f86d",
       "head_sha": "fc27a66bb50b53046c3f8d6cadf54f2a4ce98869",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20250": {
       "number": 20250,
@@ -866,7 +868,7 @@
       "review_sha": null,
       "head_sha": "5a42e80a0f9e5a3c1a25aa9cd13b5b29ee4266b4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20251": {
       "number": 20251,
@@ -899,7 +901,7 @@
       "review_sha": null,
       "head_sha": "bee300cd97e2a64bf337497fe35ab198240027d5",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20254": {
       "number": 20254,
@@ -932,7 +934,7 @@
       "review_sha": null,
       "head_sha": "7ae7a4bceed10e900841865a162a75e931396003",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20273": {
       "number": 20273,
@@ -965,7 +967,7 @@
       "review_sha": null,
       "head_sha": "3be672913017ef5b6fcfd997ae826dc61d114d15",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20282": {
       "number": 20282,
@@ -1041,7 +1043,7 @@
       "review_sha": null,
       "head_sha": "2024dd1ffaf7c8f84a6ed5bb5e12257b50e57df1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20291": {
       "number": 20291,
@@ -1074,7 +1076,7 @@
       "review_sha": null,
       "head_sha": "0961941ef7a889c66aaa2f6d2d2fc8c5bbc4f2ae",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20299": {
       "number": 20299,
@@ -1213,7 +1215,7 @@
       },
       "review_sha": "e5127673d92c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20331": {
       "number": 20331,
@@ -1291,7 +1293,7 @@
       "review_sha": "456b7146dbac",
       "head_sha": "e601dd4ef77a9b7f22867c26dec3b8d03bc27da4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20345": {
       "number": 20345,
@@ -1343,7 +1345,7 @@
       "review_sha": null,
       "head_sha": "77f030458ebc4a18b0c5506d6ab0d066cfccf092",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20346": {
       "number": 20346,
@@ -1389,7 +1391,7 @@
       "review_sha": null,
       "head_sha": "c69574a501d22cedda1ad71f39b46ec5de469083",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20370": {
       "number": 20370,
@@ -1441,7 +1443,7 @@
       "review_sha": null,
       "head_sha": "b5a8a181c68da6ad7e6eb910a1dc0560f3d4b166",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20371": {
       "number": 20371,
@@ -1474,7 +1476,7 @@
       "review_sha": null,
       "head_sha": "afeb8226dad0cd9507ece3e6973f3b710d263669",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20383": {
       "number": 20383,
@@ -1507,7 +1509,7 @@
       "review_sha": null,
       "head_sha": "9b2a865fc19bf9c666d678ab75bff92dc15bd50a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20386": {
       "number": 20386,
@@ -1540,7 +1542,7 @@
       "review_sha": null,
       "head_sha": "e9526a9aa03ccd94083ca3ab1f81e88a5fbabc62",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20390": {
       "number": 20390,
@@ -1580,7 +1582,7 @@
       "review_sha": null,
       "head_sha": "fbc432e5a496e1425d04034b2ea83e962e73d3df",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20402": {
       "number": 20402,
@@ -1626,7 +1628,7 @@
       "review_sha": null,
       "head_sha": "e860ff4c3bbe74e3da114e4666c805ce8abb38dc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20405": {
       "number": 20405,
@@ -1699,7 +1701,7 @@
       "review_sha": null,
       "head_sha": "3ffdaf376406c57ae17d0dac3fe018351aaf7ce2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20424": {
       "number": 20424,
@@ -1757,7 +1759,7 @@
       "review_sha": null,
       "head_sha": "0a7df1ed68508ee9f88939c7d458242323a2bd30",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20427": {
       "number": 20427,
@@ -1815,7 +1817,7 @@
       "review_sha": null,
       "head_sha": "a01510e176e244b4b9e34cd49fc55a2dfee58b65",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20437": {
       "number": 20437,
@@ -1855,7 +1857,7 @@
       "review_sha": null,
       "head_sha": "8a3bc7648c4641286a20c904765cdace6dfc12d6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20458": {
       "number": 20458,
@@ -1895,7 +1897,7 @@
       "review_sha": null,
       "head_sha": "a0908a3457afd1eb8d79ee37deb3acbb0ad5a7b4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20478": {
       "number": 20478,
@@ -2075,7 +2077,7 @@
       "review_sha": "e9e087c0886a",
       "head_sha": "e1570ebcb421f6bdba6c3d1f842b31199b7673aa",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20479": {
       "number": 20479,
@@ -2201,7 +2203,7 @@
       "review_sha": null,
       "head_sha": "98c58b044f4de2846673f3c4fc30ee929c00d46e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20545": {
       "number": 20545,
@@ -2332,7 +2334,7 @@
       "review_sha": null,
       "head_sha": "0bb5bdec73cb96a74a7c5509128043e3531b8cb8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20577": {
       "number": 20577,
@@ -2424,7 +2426,7 @@
       "review_sha": null,
       "head_sha": "5475d0676acccdd213ff18c778502549ebc1e27f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20633": {
       "number": 20633,
@@ -2457,7 +2459,7 @@
       "review_sha": null,
       "head_sha": "17095b43effc3c4c8c600fe51cbd1f50e8189762",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20669": {
       "number": 20669,
@@ -2509,7 +2511,7 @@
       "review_sha": null,
       "head_sha": "14f38e7bc299be892943fbfe4dc6bf1d351f44aa",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20742": {
       "number": 20742,
@@ -2592,7 +2594,7 @@
       "review_sha": "d95c4e2367fa",
       "head_sha": "58caf97ecac7877ad8722e69c5991c1db9baba34",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20744": {
       "number": 20744,
@@ -2671,7 +2673,7 @@
       "review_sha": null,
       "head_sha": "19ed6d15ebfa5716053d65d937a4c53509078fd8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20787": {
       "number": 20787,
@@ -2759,7 +2761,7 @@
       "review_sha": null,
       "head_sha": "206aaf855f11abe7a71c2c9cc03e9e719681a311",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20797": {
       "number": 20797,
@@ -2799,7 +2801,7 @@
       "review_sha": null,
       "head_sha": "49454abadec16a8d3e3af448cf6b737c1f52bf46",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20811": {
       "number": 20811,
@@ -2839,7 +2841,7 @@
       "review_sha": null,
       "head_sha": "981d8d2cfc572cc164520d9ee9136f1e7644fab6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20822": {
       "number": 20822,
@@ -2879,7 +2881,7 @@
       "review_sha": null,
       "head_sha": "0743f662f26c3aed0ede6f6dc09ba8673ca91792",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20854": {
       "number": 20854,
@@ -2919,7 +2921,7 @@
       "review_sha": null,
       "head_sha": "44ccbe6255894158c542660cd02f40c16eae32c6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20879": {
       "number": 20879,
@@ -2952,7 +2954,7 @@
       "review_sha": null,
       "head_sha": "2a14f05b94fba146c864ba598b5b1b098d5068d7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20882": {
       "number": 20882,
@@ -2985,7 +2987,7 @@
       "review_sha": null,
       "head_sha": "a3ccdd7c4e1d97611cf53d79539105dd3a3b9db2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20883": {
       "number": 20883,
@@ -3043,7 +3045,7 @@
       "review_sha": null,
       "head_sha": "7e8ef5f02c1eaf90dbe9e99637ebc07b3e9ce00a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20885": {
       "number": 20885,
@@ -3076,7 +3078,7 @@
       "review_sha": null,
       "head_sha": "471eb88d29d3a840f9aa6a8302e9d1843d327477",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20887": {
       "number": 20887,
@@ -3122,7 +3124,7 @@
       "review_sha": null,
       "head_sha": "82043fe8b81448563c5c46e3d8a7a816b621b4d9",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20890": {
       "number": 20890,
@@ -3168,7 +3170,7 @@
       "review_sha": null,
       "head_sha": "c8ac337dc68a739f7231feb52ff416275e9219db",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20891": {
       "number": 20891,
@@ -3208,7 +3210,7 @@
       "review_sha": null,
       "head_sha": "172cb26db92c770e2e54740802c5df9c33f092ff",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20892": {
       "number": 20892,
@@ -3260,7 +3262,7 @@
       "review_sha": null,
       "head_sha": "f44166c166a6fa2db9f894bbfb56dc4caf11e093",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20893": {
       "number": 20893,
@@ -3293,7 +3295,7 @@
       "review_sha": null,
       "head_sha": "07f25f27d7ccd5b5018020c0c61a03d58dba358a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20902": {
       "number": 20902,
@@ -3326,7 +3328,7 @@
       "review_sha": null,
       "head_sha": "ba28f3fe58df5285fae552ad35d689212b5f72c1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20949": {
       "number": 20949,
@@ -3405,7 +3407,7 @@
       "review_sha": null,
       "head_sha": "f182335b0907a6649a719b93f3358d9aebc51ccc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20985": {
       "number": 20985,
@@ -3507,7 +3509,9 @@
         "recommend": "无我负责文件，建议由 KV Transfer code owner 深入检视 shutdown 时序与测试，确认 CI 绿灯后再推进；我不代签。",
         "mode": "light"
       },
-      "review_sha": "b84a8b5b4fe4"
+      "review_sha": "b84a8b5b4fe4",
+      "state": "open",
+      "merge": "blocked"
     }
   }
 }

@@ -94,7 +94,7 @@
       "review_sha": "d7828bac7b52",
       "head_sha": "ba189462011845827e117b639e5e64828ee0e978",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23017": {
       "number": 23017,
@@ -292,7 +292,7 @@
       "review_sha": "00a3755a2c03",
       "head_sha": "7e3429d33bb3237a75f9d33a23afda0b7b4ea662",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23025": {
       "number": 23025,
@@ -515,7 +515,7 @@
       },
       "review_sha": "4773395606cf",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23046": {
       "number": 23046,
@@ -612,7 +612,7 @@
       "review_sha": "ac416f941693",
       "head_sha": "a1ab365e96615ad0df6130969292ff463ad9077e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23047": {
       "number": 23047,
@@ -887,7 +887,7 @@
       "review_sha": "1f9d0a141cfa",
       "head_sha": "b033ba04bea1c7bfd439145e6862c014e3080542",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23052": {
       "number": 23052,
@@ -976,7 +976,7 @@
       "review_sha": "95e1063b4561",
       "head_sha": "576393a2c6af47849ac435ccafa700d626fe7b81",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23057": {
       "number": 23057,
@@ -1085,7 +1085,7 @@
       },
       "review_sha": "e43630bc5b46",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23065": {
       "number": 23065,
@@ -1203,7 +1203,7 @@
       },
       "review_sha": "01456634d704",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23069": {
       "number": 23069,
@@ -1320,7 +1320,9 @@
         "recommend": "请作者确认这两个 SchedulerOutput 字段的类型与触发频率、补 TODO(github id) 与用例，并同步更新“仅测试”的描述后再合入。",
         "mode": "deep"
       },
-      "review_sha": "1d5a74e13e2d"
+      "review_sha": "1d5a74e13e2d",
+      "state": "open",
+      "merge": "blocked"
     },
     "23080": {
       "number": 23080,
@@ -1432,8 +1434,8 @@
         "mode": "deep"
       },
       "review_sha": "17f92cc06669",
-      "state": "open",
-      "merge": "unknown"
+      "state": "draft",
+      "merge": "blocked"
     },
     "23087": {
       "number": 23087,
@@ -1702,7 +1704,7 @@
       },
       "review_sha": "cbe2dc6a0e8f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23108": {
       "number": 23108,
@@ -2059,7 +2061,7 @@
       },
       "review_sha": "f69d41cc0733",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23117": {
       "number": 23117,
@@ -2173,7 +2175,7 @@
       },
       "review_sha": "2c43cb09997e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23121": {
       "number": 23121,
@@ -2312,7 +2314,9 @@
         "recommend": "先 rebase 解冲突、修 ci-gate，并澄清 selected_kv_requested 调用点与启动计划跳过的注释，再进入逐文件深读。",
         "mode": "deep"
       },
-      "review_sha": "f4954ecd2a1d"
+      "review_sha": "f4954ecd2a1d",
+      "state": "open",
+      "merge": "dirty"
     },
     "23122": {
       "number": 23122,
@@ -2404,7 +2408,7 @@
       },
       "review_sha": "885d4514c5ab",
       "state": "open",
-      "merge": "unknown"
+      "merge": "clean"
     },
     "23123": {
       "number": 23123,
@@ -2572,7 +2576,11 @@
         "approvals": 0,
         "changes_requested": 0,
         "total": 4,
-        "mine": null
+        "mine": {
+          "state": "APPROVED",
+          "commit_id": "ca3f8260a2c5ec27e1707b4f5acf50aa853943f4",
+          "submitted_at": "2026-11-26T08:32:52Z"
+        }
       },
       "owned": [
         {
@@ -2660,8 +2668,8 @@
         "mode": "deep"
       },
       "review_sha": "c032faf516a5",
-      "state": "open",
-      "merge": "clean"
+      "state": "merged",
+      "merge": "unknown"
     },
     "23131": {
       "number": 23131,
@@ -2758,7 +2766,7 @@
       },
       "review_sha": "f74637047dfb",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23132": {
       "number": 23132,
@@ -2901,7 +2909,7 @@
       },
       "review_sha": "35e6f9ce0c2d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23135": {
       "number": 23135,
@@ -3017,7 +3025,7 @@
       },
       "review_sha": "09ae97be2a4e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "clean"
     },
     "23144": {
       "number": 23144,
@@ -3166,7 +3174,9 @@
         "recommend": "先澄清 QSA DCP 与 PD/KV pool 的兼容性并确认上游元数据字段，再处理冲突后合入。",
         "mode": "deep"
       },
-      "review_sha": "af4a6dacb1df"
+      "review_sha": "af4a6dacb1df",
+      "state": "open",
+      "merge": "blocked"
     },
     "23154": {
       "number": 23154,
@@ -3655,7 +3665,7 @@
       },
       "review_sha": "9a31fd6bf820",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23160": {
       "number": 23160,
@@ -3759,7 +3769,7 @@
       },
       "review_sha": "8e32aead6b6c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23172": {
       "number": 23172,
@@ -3864,7 +3874,7 @@
       },
       "review_sha": "abad5742f6b7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23173": {
       "number": 23173,
@@ -3989,7 +3999,7 @@
       },
       "review_sha": "a24b8ecd3851",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23177": {
       "number": 23177,
@@ -4112,7 +4122,7 @@
       },
       "review_sha": "94fba645b6e9",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23181": {
       "number": 23181,
@@ -4223,7 +4233,7 @@
       },
       "review_sha": "6ac8c6185b52",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23183": {
       "number": 23183,
@@ -4356,7 +4366,7 @@
       },
       "review_sha": "040f2ff2d0c2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23191": {
       "number": 23191,
@@ -4571,7 +4581,7 @@
       },
       "review_sha": "89d35ee622f1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "clean"
     },
     "23205": {
       "number": 23205,
@@ -4671,7 +4681,7 @@
       },
       "review_sha": "33cc8917fce4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23214": {
       "number": 23214,
@@ -4787,7 +4797,7 @@
       },
       "review_sha": "454da20d2f10",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23221": {
       "number": 23221,
@@ -4909,7 +4919,7 @@
       },
       "review_sha": "d4c472a5966e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "clean"
     },
     "23222": {
       "number": 23222,
@@ -5061,7 +5071,7 @@
       },
       "review_sha": "b3717a9ef2ff",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23232": {
       "number": 23232,
@@ -5208,7 +5218,7 @@
       },
       "review_sha": "94908a46f724",
       "state": "open",
-      "merge": "dirty"
+      "merge": "blocked"
     },
     "23235": {
       "number": 23235,
@@ -5457,7 +5467,7 @@
       },
       "review_sha": "46f74e4de234",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23258": {
       "number": 23258,
@@ -5571,7 +5581,7 @@
       },
       "review_sha": "a321caa82913",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23262": {
       "number": 23262,
@@ -5695,7 +5705,7 @@
       },
       "review_sha": "196662ecb891",
       "state": "draft",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23263": {
       "number": 23263,
@@ -5810,7 +5820,7 @@
       },
       "review_sha": "55733ede45b2",
       "state": "open",
-      "merge": "dirty"
+      "merge": "blocked"
     },
     "23267": {
       "number": 23267,
@@ -6008,7 +6018,7 @@
       },
       "review_sha": "c6bfea6d9f16",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23276": {
       "number": 23276,
@@ -6114,7 +6124,7 @@
       },
       "review_sha": "323fbfc4c530",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23286": {
       "number": 23286,
@@ -6387,7 +6397,9 @@
         "recommend": "先给出调用点与原生依赖版本的可追溯证据，并对私有属性访问加防御，再进入合入讨论。",
         "mode": "deep"
       },
-      "review_sha": "8c9d1bc6c1b6"
+      "review_sha": "8c9d1bc6c1b6",
+      "state": "open",
+      "merge": "blocked"
     },
     "23294": {
       "number": 23294,
@@ -6500,7 +6512,9 @@
         "recommend": "口径正确、风险低；ci-gate 转绿后建议批准。",
         "mode": "deep"
       },
-      "review_sha": "39af2682ad39"
+      "review_sha": "39af2682ad39",
+      "state": "open",
+      "merge": "blocked"
     },
     "23324": {
       "number": 23324,
@@ -6719,7 +6733,9 @@
         "recommend": "先 rebase 解冲突，并按上述 5 个关键文件逐项答复（尤其 budget/capture size、idx_mapping 越界、采样约束时机），补齐 owned 侧测试后再谈 approve。",
         "mode": "deep"
       },
-      "review_sha": "d038672ee32f"
+      "review_sha": "d038672ee32f",
+      "state": "open",
+      "merge": "dirty"
     },
     "23326": {
       "number": 23326,
@@ -6853,7 +6869,9 @@
         "recommend": "先确认默认开关语义与 cache dtype 两点，补 NPU 精度/性能证据和标题前缀后再合入。",
         "mode": "deep"
       },
-      "review_sha": "729ddb8b0e49"
+      "review_sha": "729ddb8b0e49",
+      "state": "open",
+      "merge": "blocked"
     },
     "23329": {
       "number": 23329,
@@ -6963,7 +6981,1477 @@
         "recommend": "改动局部、生效路径清晰、四档硬件都有测试，建议批准；可顺手补一条 TODO(#23266) 便于日落清理。",
         "mode": "deep"
       },
-      "review_sha": "9f455a424484"
+      "review_sha": "9f455a424484",
+      "state": "open",
+      "merge": "blocked"
+    },
+    "23344": {
+      "number": 23344,
+      "title": "[BugFix] Sync int64 kernel offsets and MRV2 sampler warm-up from upstream",
+      "author": "wenshanchao",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23344",
+      "changed_files": 10,
+      "head_sha": "f29e1e1a79fa2ce3c280daf41ba86fe5bbdc0d9f",
+      "areas": [
+        {
+          "p": "vllm_ascend/ops",
+          "n": 6
+        },
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 134,
+      "deletions": 38,
+      "age_days": 0.2,
+      "ci": {
+        "total": 54,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "run-selected-tests (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / a3-4 card-(part 1-5)"
+        ],
+        "pending": 0,
+        "skipped": 21,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 17,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23344,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "worker 侧照搬上游 #62560 的 sampler 预热，位置正确；但常驻 sampler 缓冲未计入 KV 建议值，且 CI 有 2 项失败待定位。",
+        "intent": "补上游 #62560 的 sampler 预热：各 PP rank 跑一次 max-batch dummy forward，末 rank 再跑 _dummy_sampler_run，使 sampler 缓冲常驻。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "compile_or_warm_up_model 中 capture_model 之后新增的 17 行：核对插入位置（在 empty_cache 之后、KV 建议值计算之前）、max_num_reqs 取值、PP last rank 条件，以及它对紧随其后的显存记账块的影响。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "显存记账缺口：determine_available_memory（worker.py:761）在 warm-up 前就定了 available_kv_cache_memory_bytes，而本段在 capture_model 的 empty_cache 之后新分配并刻意常驻的 sampler 缓冲（fp32 logits 副本约 max_num_reqs×vocab×4）不在 non_kv_memory（权重+peak_activation+non_torch+npugraph）里；紧接着的 suggested_to_requested 会经 maybe_save_startup_plan 落盘，建议值可能偏大数百 MB 至 GB。"
+          },
+          {
+            "level": "medium",
+            "text": "CI 为 failure：54 项中 ci-gate 与 run-selected-tests(vllm@c410543d)/a3-4 card-(part 1-5) 两项失败。新增的 max-batch dummy forward 会让启动时多一次 batch=min(max_num_seqs,max_num_batched_tokens) 的峰值与常驻分配；作者自述 64GB A3 上 ~300K tokens 的 GDN prefill workspace 在 KV 分配后已 OOM，需先排除失败与本次改动的关联。"
+          },
+          {
+            "level": "low",
+            "text": "基线兼容：直接 `_dummy_sampler_run(...)` 并解包 `_, sample_hidden_states`，依赖两个 pinned 基线（v0.34.0 / c410543d）都提供该方法且 _dummy_run 返回二元组；同一方法末尾对 encoder_compilation_time 用了 getattr 兜底，说明本仓需兼容旧基线，此处没有兜底。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外配置/CLI/公开接口，方向是与上游对齐、收窄分叉，无需推动上游插件接口。规则 2 不适用：不是对上游缺陷的临时规避，而是同步上游修复，注释引用 vllm-project/vllm#62560 可追溯。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过：新增代码段位于 compile_or_warm_up_model（重写 GPUWorker 同名入口，由 engine 调用）内，无新增函数；已核对 NPUWorker310 未覆写该方法，不会漏改同族路径。规则 4 通过：新增注释全英文，worker.py 该区段 CJK 扫描 0 命中。"
+          }
+        ],
+        "tests": "CI failure：54 项中 ci-gate 与 run-selected-tests(vllm@c410543d)/a3-4 card-(part 1-5) 失败（failed=2、skipped=21）；作者给 worker 三个 UT 共 127 passed（rebase 前）与 A3 E2E 对照表。",
+        "questions": [
+          "需要作者确认：新增的常驻 sampler 缓冲是否应从 suggested_to_requested / available_kv_cache_memory_bytes 中扣除，或把这段 warm-up 挪到建议值计算之后？",
+          "两项失败 CI（尤其 a3-4 part 1-5）是否已定位？是否可能由新加的 max-batch dummy forward 引发显存不足或超时？",
+          "两个 pinned vllm 基线是否都有 _dummy_sampler_run 且 _dummy_run 返回 (output, hidden_states)？旧基线缺失时是否需要 getattr 兜底？"
+        ],
+        "recommend": "先定位 ci-gate 与 a3-4 失败、并给出 sampler 缓冲的显存记账结论，再合入。",
+        "mode": "deep"
+      },
+      "review_sha": "e5bcf819fa44"
+    },
+    "23346": {
+      "number": 23346,
+      "title": "[Performance][Model] Disable multistream overlap during DeepSeek V4.1 decoder replay",
+      "author": "zyz111222",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23346",
+      "changed_files": 9,
+      "head_sha": "61cf897d6e22f74838bf94b2dd546dd43a7e3e99",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_forward_context.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 1
+        }
+      ],
+      "additions": 253,
+      "deletions": 16,
+      "age_days": 0.2,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 23,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 23,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23346,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "ContextVar 开关实现干净、4 处调用点已验证、UT 覆盖嵌套与回放；但分支 dirty、A3/图模式未验证，DP 锁步待确认。",
+        "intent": "在 DeepSeek V4.1 有界 decoder replay 的小 token 尾部临时关闭多流 overlap，省掉跨流 record/wait 开销，且不改动用户配置。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "新增 _MULTISTREAM_OVERLAP_DISABLED / disable_multistream_overlap / is_multistream_overlap_disabled：核对与既有 override_mrv2_in_profile_run 同构、finally 恢复、bool() 归一，以及 disabled=False 嵌套语义是否会让后调用方误用。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "开关是进程/上下文级隐式状态，只有 replay tail 进入才置位；若 compact 或 _coordinate_replay_across_dp 分支导致部分 DP rank 不进 forward_context，overlap 在 rank 间不一致，MC2/alltoall 跨流次序可能对不齐（挂死或结果错）。"
+          },
+          {
+            "level": "low",
+            "text": "该 flag 被 4 个远端模块读取（dsa_v41/moe_mlp/shared_experts/replay），属于隐式耦合，后续新增读取点没有编译期约束；建议在 docstring 里列出允许的读取方与作用域约定。"
+          },
+          {
+            "level": "low",
+            "text": "PR 自述仅在 Atlas A5 8 卡、eager 纯 prefill 上验证，A3 / ACLGraph / 共置 / decode 未测，而这些路径同样会读到该开关（关闭重叠后走串行主流分支）。"
+          },
+          {
+            "level": "low",
+            "text": "mergeable_state=dirty 且带 merge-conflicts 标签，合入前必须 rebase；CI 8 项中 5 项 skipped，实际覆盖有限。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外 config/CLI 或公开接口，只是内部作用域开关，不构成硬件差异分叉，无需推动上游插件接口。规则 2 不适用：不是对上游缺陷的临时规避，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过：本 PR 内可查到调用点——decoder_replay_state.py:536 的 with 语句、dsa_v41.py:377 的 property 门控、moe_mlp.py:41、shared_experts.py:196，生效路径闭环。规则 4 通过：owned 文件与 tests/ut/models/test_deepseek_v41_decoder_replay_state.py 注释均为英文，CJK 扫描无命中。"
+          }
+        ],
+        "tests": "CI 8 项 success（0 失败、5 skipped）；UT 覆盖 replay 内禁用、嵌套 + 异常恢复；作者自述 ruff/py_compile/本地 CPU UT 通过。",
+        "questions": [
+          "需要作者确认：_coordinate_replay_across_dp 返回 False 或未走 compact 的 rank，是否也在同一步进入 DecoderReplayState.forward_context 并置位该开关，以保证 DP 锁步？",
+          "需要作者确认：ContextVar 在异步调度或多线程执行器下是否会丢失（例如 MoE 相关读取发生在复制过 context 的线程）？",
+          "dirty 分支是否已 rebase 到最新 base，冲突是否只涉及本 PR 无关区域？"
+        ],
+        "recommend": "作者补 DP 锁步与 A3/ACLGraph 生效说明、完成 rebase 后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "7e2c60aa1d5f"
+    },
+    "23352": {
+      "number": 23352,
+      "title": "[Feature][XLite] Support GLM-5.3-Flash and Qwen3.5 on the xlite backend",
+      "author": "banxiaduhuo",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23352",
+      "changed_files": 7,
+      "head_sha": "37604c26d3566079bc3681a757964651befe2e5f",
+      "areas": [
+        {
+          "p": "vllm_ascend/xlite",
+          "n": 3
+        },
+        {
+          "p": "requirements-dev.txt",
+          "n": 1
+        },
+        {
+          "p": "requirements-nightly.txt",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/patch",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 1222,
+      "deletions": 191,
+      "age_days": 0.1,
+      "ci": {
+        "total": 34,
+        "failed": 3,
+        "failed_names": [
+          "ci-gate",
+          "cpu-ut (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / cpu-ut card-",
+          "cpu-ut (vllm@v0.34.0) / cpu-ut card-"
+        ],
+        "pending": 0,
+        "skipped": 25,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/model_states/mamba_hybrid.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23352,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "owned 仅 +9 行：mamba_hybrid 复用 default 回调接线合理，但 PCP 双路 group_id 互覆盖、条件不对称，且 CI 失败。",
+        "intent": "为 Qwen3.5/GLM-5.3-Flash 接入 xlite；owned 让 mamba hybrid 在 xlite 启用时每步重建 per-group metadata 并回调给适配器。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/model_states/mamba_hybrid.py",
+            "point": "prepare_attn 新清空 _decoder_replay_common_metadata 与 _build_attn_metadata_for_batch 新增 common_metadata_callback 的挂载条件、group_id 语义、与 default.py 的一致性"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "PCP 分支里 _build_attn_metadata_for_batch 被调用两次（local_groups 与 mamba_groups），attn_utils 中回调下标 i 是“本次传入列表”的下标，两次都从 0 起算，同一个 dict 内条目会互相覆盖；xlite 与全局 mamba PCP（kpool/KDA）同时启用时，xlite 侧按 group_id 取到的 common metadata 可能张冠李戴。"
+          },
+          {
+            "level": "medium",
+            "text": "回调挂载条件是 `xlite_graph_config.enabled`，而 default.py 是 `self.decoder_replay is not None or xlite enabled`；当前 hybrid 类没有 decoder_replay 使用点所以不炸，但日后若 hybrid 支持 decoder replay，_decoder_replay_common_metadata 会是空 dict，default.py 的 `next(iter(...))` 会抛 StopIteration。建议与 default.py 对齐条件或加注释说明。"
+          },
+          {
+            "level": "low",
+            "text": "第 352 行无条件清空 dict（xlite 关闭时也执行），与 default.py 行为一致、无副作用，但和“按需挂载回调”不对称，读代码时容易误判；可考虑合并到同一条件内。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：owned 变更未新增对外配置或公开接口，xlite_graph_config 由本 PR 其它文件引入（非我责任田）；按规则 1 请在整体评审中确认该配置是否真需要落在 vllm-ascend 而非推动上游插件接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：owned 变更不是对上游缺陷的临时规避，未引入 hack，不适用（无需 TODO(github id)）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：新增分支在 prepare_attn 内有明确调用点与生效路径（每步执行）；但真正的 consumer 在 vllm_ascend/xlite 适配器（非我责任田），需该侧 code owner 确认确实读取该属性，避免只写不读。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 文件新增注释均为英文（“Same wiring as default.py…”），未发现 CJK；标题 [Feature] 符合规范。"
+          }
+        ],
+        "tests": "无新增/修改单测；CI 为 failure：ci-gate、cpu-ut(vllm@c410543…) 与 cpu-ut(vllm@v0.34.0) 三项失败，需先给出失败用例/日志并修复。",
+        "questions": [
+          "需要作者确认：xlite 侧从哪里读取 `_decoder_replay_common_metadata`（该文件不归我责任田），PCP 双路调用下 group_id 是否与 xlite 期望的全局组 id 语义一致？",
+          "需要作者确认：cpu-ut 两项失败（含 vllm@v0.34.0 leg）是否与本改动相关，能否贴出失败用例名？",
+          "需要作者确认：hybrid 模型后续启用 decoder_replay 时，回调条件是否改为与 default.py 一致的 `decoder_replay is not None or xlite`？"
+        ],
+        "recommend": "先让作者补 CI 失败说明并澄清 PCP 双路 group_id 语义/回调条件对齐，再考虑 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "a96b85bb58b9"
+    },
+    "23353": {
+      "number": 23353,
+      "title": "fix: preserve multistream overlap during superkernel fusion",
+      "author": "faceItCalmly",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23353",
+      "changed_files": 4,
+      "head_sha": "a32471e3f5832fd5de7bbe3e4fc67670f10deb42",
+      "areas": [
+        {
+          "p": "vllm_ascend/attention",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 1
+        }
+      ],
+      "additions": 10,
+      "deletions": 0,
+      "age_days": 0.1,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23353,
+        "verdict": "pushback",
+        "confidence": "medium",
+        "summary": "仅 10 行改动、4 文件且无测试；描述几乎为空、checklist 全未勾选、merge 冲突未解，标题也不符合 [BugFix] 规范。",
+        "intent": "在 SuperKernel capture 期间排除由开关控制的多流（multistream）区域，以保留 multistream overlap；描述未展开根因与影响。",
+        "focus": [
+          {
+            "file": "vllm_ascend/attention/、vllm_ascend/models/、vllm_ascend/ops/ 下各 1 个文件（PR 内文件，均非我负责）",
+            "point": "10 行改动是否只影响 capture 路径、开关判定能否覆盖所有 multistream 区域、非 capture 运行时行为是否保持不变"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "改动落在 SuperKernel 图捕获路径（attention/models/ops 共 4 个文件），却完全没有新增或修改测试，checklist 中“回归测试/边界覆盖”全部未勾选；这类捕获期行为变更缺回归验证风险高。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 描述只有一个标题句，未说明触发场景、涉及哪个开关、排除后对性能（multistream overlap 本身就是性能特性）与正确性的影响，reviewer 无法判断根因是否找对。"
+          },
+          {
+            "level": "medium",
+            "text": "mergeable_state=dirty 且带 merge-conflicts 标签，当前无法评估与 base 的实际合并结果，需 rebase 后重新检视。"
+          },
+          {
+            "level": "low",
+            "text": "标题写作 “fix: preserve multistream overlap during superkernel fusion”，不符合仓库 [Feature]/[BugFix]/[Performance] 前缀规范；CI 也未触发（total=0）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：改动看起来是内部修复，未见新增对外配置或公开接口，规则 1 暂不适用；若引入新开关，需按规则 1 评估能否上游解决。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：需作者说明这是否属于对上游 SuperKernel/multistream 行为的临时规避；若属规避，必须补 TODO(github id) 写明根因、规避方案与日落计划。当前描述无法判断，故不下结论。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：10 行改动应有明确调用点与生效路径，我未逐文件核对（无我负责文件），需对应 ops/attention code owner 确认开关分支确实被走到。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：未取到改动 patch，无法做注释 CJK 扫描；本 PR 无测试文件改动，建议作者在补测试时同时保证注释英文。"
+          }
+        ],
+        "tests": "无任何测试改动或新增；CI 未触发（ci state=unknown，total=0），作者 checklist 中回归测试与边界覆盖均未勾选。",
+        "questions": [
+          "需要作者确认：这是修哪条路径的什么 bug（报错/错误输出/性能回退），能否给出最小复现与失败日志？",
+          "需要作者确认：是否属于对上游 SuperKernel 行为的规避？若是，TODO(github id) 与日落计划在哪里？",
+          "需要作者确认：能否补一条能失败在修复前的回归测试；以及 rebase 解决当前冲突后再请评审？"
+        ],
+        "recommend": "先补描述、回归测试并解决冲突，再把标题改成 [BugFix] 规范；否则不建议进入深评。",
+        "mode": "light"
+      },
+      "review_sha": "6c51908ae208"
+    },
+    "23361": {
+      "number": 23361,
+      "title": "[BugFix] Guard the fused-MC2 HCCL window in the W4A8 dispatch_ffn_combine tiling",
+      "author": "foraxe",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23361",
+      "changed_files": 5,
+      "head_sha": "c3c75ad0de86f2d8165b0b5cdf611805aa2a412a",
+      "areas": [
+        {
+          "p": "csrc/mc2",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_forward_context.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/envs.py",
+          "n": 1
+        }
+      ],
+      "additions": 204,
+      "deletions": 0,
+      "age_days": 0.1,
+      "ci": {
+        "total": 35,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 26,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 98,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 101,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23361,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "融合 MC2 窗口预检公式与实测吻合、有调用点与 UT；但 kv_consumer 判定与既有 helper 重复、MBT 口径不一致。",
+        "intent": "A3 上 enable_fused_mc2 的 W4A8 dispatch_ffn_combine 缺窗口校验导致 MTE 崩溃；PR 在 C++ tiling 补校验、Python 侧加启动预检，并登记 HCCL_BUFFSIZE。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "_validate_fused_mc2_hccl_window 的准入条件（FUSED_OR_CAPACITY / EP≤32 / KV-consumer-only / MegaMoe）、所需 MiB 公式与 C++ tiling 的一致性、调用点位置（set_mc2_tokens_capacity:387）与既有 _is_decode_only_node 的重复判定"
+          },
+          {
+            "file": "vllm_ascend/envs.py",
+            "point": "新增 HCCL_BUFFSIZE 注册是否与 env_variables/__getattr__ 契约一致、是否需同步 docs 环境变量清单"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "同文件已有 _is_decode_only_node（含完全相同的 kv_role/is_kv_consumer 判定），新增 _is_kv_consumer_only_node 重复同一逻辑；两份判定日后容易漂移（例如修改 kv_transfer_config 字段时只改一处），建议抽公共 helper 或在注释中写明两者语义差异。"
+          },
+          {
+            "level": "medium",
+            "text": "预检用 scheduler_config.max_num_batched_tokens，而同文件 set_mc2_tokens_capacity 的 profile 批大小走 get_pcp_profile_num_tokens(vllm_config, MBT, max_num_reqs)；PCP/MegaMoe 下 profile 批可能大于 MBT，两处口径不一致时预检仍可能漏检（作者实测 TP1×DP4×PCP4、MBT=12288 时按 MBT 计与实测 ~1090 MiB 吻合，但需确认 PCP padding 后不超 MBT）。"
+          },
+          {
+            "level": "low",
+            "text": "_FUSED_MC2_MAX_EP_WORLD_SIZE=32 与同文件 _select_fused_or_capacity_moe_comm_method 里的字面量 32 是同一判据，建议选择器也改用该常量，避免两处漂移导致“预检放行但实际走 FUSED_MC2”或反之。"
+          },
+          {
+            "level": "low",
+            "text": "预检挂在 _mc2_tokens_capacity 惰性计算的首次调用上；若该函数实际在首个 forward 才被调用，ValueError 会在服务期而非“启动时”抛出。作者声称在设备使用前，需确认调用时机（我无法在仓库内定位全部调用方）。"
+          },
+          {
+            "level": "low",
+            "text": "Python 侧把 C++ tiling 的“3 份 int8 + 10 MiB 预留”复刻到 Python，两处必须长期同步；PR 自述 C++ 改动要等镜像重建才生效，若 W4A8 tiling 校验延后落地，Python 预检就成了长期并存实现，建议加 TODO(github id) 注明两处同步的日落计划。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：HCCL_BUFFSIZE 是 CANN/HCCL 侧既有的环境变量，仅登记进 vllm_ascend/envs.py 的懒加载表，不属于需要推动上游插件接口的新对外接口，判定合理；未新增用户可见 CLI 参数。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：本 PR 的定位是修复缺失校验而非规避上游缺陷，未使用 monkeypatch/临时绕过，无强制 TODO(github id) 项；仅建议对“Python 复刻 tiling 公式”补同步说明（见上一条）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：新增 _validate_fused_mc2_hccl_window 有明确调用点与生效路径（set_mc2_tokens_capacity:387，启动期一次），_configured_hccl_buffsize_mib/_is_kv_consumer_only_node 均被调用，满足要求；唯一瑕疵是与既有 _is_decode_only_node 逻辑重复。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 两文件新增注释全为英文，新增 UT（tests/ut/test_ascend_forward_context.py）CJK 扫描为空，未发现中文注释；标题 [BugFix] 合规。"
+          }
+        ],
+        "tests": "新增 tests/ut/test_ascend_forward_context.py 覆盖拒绝/接受/TP ceil/A2 跳过/KV-consumer 跳过；CI 唯一失败项为 ci-gate（cpu-ut 未出现在失败列表），C++ tiling 改动本机无法构建、依赖 CI 算子构建验证。",
+        "questions": [
+          "需要作者确认：set_mc2_tokens_capacity 是否确定在设备使用前的初始化阶段被调用（_mc2_tokens_capacity 惰性一次性计算），否则 ValueError 会在服务期才暴露？",
+          "需要作者确认：PCP padding 后的全局批是否会超过 max_num_batched_tokens？若会，是否应改用 get_pcp_profile_num_tokens 的口径？",
+          "需要作者确认：_is_kv_consumer_only_node 与既有 _is_decode_only_node 能否合并，避免两份 kv_consumer 判定漂移？",
+          "需要作者确认：ci-gate 失败原因（是否仅门禁/审批类），以及 W4A8 tiling 的 C++ 改动预计何时进镜像。"
+        ],
+        "recommend": "公式与实测吻合、方向正确，建议作者处理 helper 重复与 MBT 口径两个问题、补 ci-gate 说明后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "1088fc5462bd"
+    },
+    "23374": {
+      "number": 23374,
+      "title": "[Refactor][MRV2] Use unified KV cache allocation and runtime views for GLM 5.2/5.3",
+      "author": "recky-c",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23374",
+      "changed_files": 15,
+      "head_sha": "2ed5541128cb1570cd1cc6e056a96210f0ab98d0",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/distributed",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 885,
+      "deletions": 163,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 169,
+          "deletions": 119
+        }
+      ],
+      "owned_add": 169,
+      "owned_del": 119,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23374,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "把 GLM5.2/5.3 接入统一 KV 分配：新增 contiguous 组件视图与后端协议、准入门控清晰；但只有 CPU UT、无真机 E2E。",
+        "intent": "把 MRV2 统一 KV 分配与后端运行期视图接口扩展到 glm_moe_dsa：保留 num_heads=1，后端提供 runtime shapes 与 contiguous 组件，并加准入判断。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "新增 create_contiguous_cache_component_views、_runtime_cache_groups、_resolve_cache_attention_groups、create_kv_cache_runtime_views 的 contiguous 分支与 _can_use_glm_unified_kv_cache 准入；核对删除 get_shared_kv_cache_layers / DeepseekV41CacheBackend 导入后是否等价、无残留引用。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "整套改动只在 CPU 上做 byte-oracle 断言，没有 GLM 5.2/5.3 真机 E2E/精度验证；涉及真实 KV 布局、PD 传输与多种 checkpoints 格式，建议补一条 NPU 上 GLM 起服 + PD 拆分的最小验证或明确说明未验证范围。"
+          },
+          {
+            "level": "medium",
+            "text": "同一模型的两种布局并存：unified 路径按整层平面排布（key 平面后接 scale 平面），legacy 路径仍是每内核页内 key 后紧跟 scale（make_page_strided_cache_view）。准入靠 _can_use_glm_unified_kv_cache 的 hasattr/block_stride 判断，运行时静默切换；建议在选 unified/legacy 时各打一条 logger.info，便于线上排查错页问题。"
+          },
+          {
+            "level": "low",
+            "text": "create_contiguous_cache_component_views 用 raw_tensor.narrow(0, offset, size) 按元素下标切片，隐含 raw_tensor.element_size()==1（当前 backing 是 int8 才成立），函数内无断言；建议加 assert 或先用 view(torch.uint8) 归一，避免将来传入非 byte 视图时静默错位。"
+          },
+          {
+            "level": "low",
+            "text": "非 contiguous 分支 divmod(shapes[0][0], num_blocks) 在 num_blocks==0 或 shapes[0][0]<num_blocks 时让 pages_per_block=0，随后 block_stride % pages_per_block 抛 ZeroDivisionError 而不是描述性 ValueError，属可读性/健壮性小缺口（已有 UT 覆盖 alignment/bounds）。"
+          },
+          {
+            "level": "low",
+            "text": "DeepSeek V4 的 shared_layers 从上游 get_shared_kv_cache_layers 改为内联 getattr(kv_sharing_target_layer_name) 过滤：若上游对该 helper 有额外语义（多级共享链解析/过滤），unified 路径的别名行为会变化，需作者确认两者等价。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 部分适用：未新增用户可见 config，新增的是 Ascend 后端内部协议（get_runtime_shapes / uses_contiguous_cache_components / wrap_kv_cache_views），属插件式扩展、方向正确；但建议确认上游 #51718 是否已有等价 view/wrap 钩子可复用，避免又形成一层平行接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 部分适用：本 PR 未新增临时规避，但所改文件中 allocate_kv_cache_main 对上游 #51718 API 变更的适配只有 docstring 说明（Ascend 仍需独立 K/V），缺 TODO(github id) 与日落计划，建议顺手补 #51718 的 TODO。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过：create_contiguous_cache_component_views 在 create_kv_cache_runtime_views:1517 调用，_runtime_cache_groups 在 1483/1624/1735 三处使用，_can_use_glm_unified_kv_cache 在 allocate_kv_cache_main 内生效，均在本 PR 内闭环。规则 4 通过：owned 文件与 tests/ut/attention/test_glm_cache_views.py 的 CJK 扫描均为 0，注释全英文。"
+          }
+        ],
+        "tests": "CI 9 项 success（0 失败、6 skipped）；新增 tests/ut/attention/test_glm_cache_views.py 覆盖各格式 byte-oracle、块切分、fail-fast 与 Mooncake/AscendStore KVPP 字节搬运，均为 CPU UT，无 NPU E2E。",
+        "questions": [
+          "需要作者确认：GLM 5.2/5.3 的 v1 worker 路径是否也需要同样的统一分配/contiguous 视图，还是 v1 明确不迁移（判断是否漏改同族路径）？",
+          "需要作者确认：内联出来的 shared_layers 与上游 get_shared_kv_cache_layers 语义完全等价吗（尤其多级共享链与 MTP draft 共享）？",
+          "contiguous 平面布局下，Mooncake / AscendStore 按 descriptor 页搬运的实机行为是否已在真 NPU + PD 拆分上验证过，还是仅 CPU 单测？",
+          "是否考虑在准入处补一条路径选择的 info 日志，便于线上区分 unified / legacy 布局？"
+        ],
+        "recommend": "补一条 NPU 上 GLM 起服/PD 的最小验证与路径选择日志，处理 narrow 的 element_size 假设后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "977be514ec76"
+    },
+    "23375": {
+      "number": 23375,
+      "title": "[Refactor]Reuse unified KV cache allocation for GQA",
+      "author": "Spicy-Stick",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23375",
+      "changed_files": 15,
+      "head_sha": "f7c45b61f660e986e4c1713fcae1ff5d07e7ed89",
+      "areas": [
+        {
+          "p": "vllm_ascend/attention",
+          "n": 8
+        },
+        {
+          "p": "tests/ut",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 792,
+      "deletions": 76,
+      "age_days": 0.1,
+      "ci": {
+        "total": 7,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 43,
+          "deletions": 31
+        }
+      ],
+      "owned_add": 43,
+      "owned_del": 31,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23375,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "字节换算下沉到 backend 新钩子并删除 K3.1 特判；方向合理，但需确认 backend 覆盖与 kimi_k31 路由。",
+        "intent": "统一 KV cache 分配重构：改由各 backend 返回最终 view 形状与 dtype，取代 attn_utils 内按 spec 推导字节布局；并删除 kimi_k31 的 paired backing 特判。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "create_kv_cache_runtime_views:1466 改调 backend.get_runtime_shapes_and_dtypes，删除本地 scale_dtype 兜底与 [B,H,N,C] 字节换算；确认各量化/spec 变体的分量个数与 dtype 与旧实现逐项一致"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "_allocate_kv_cache:1111 删除 is_paired_sfa（hf_config.model_type==kimi_k31）后 hybrid_backing 仅在 use_hybrid_layout（has_mamba and has_attention）时分配；确认 K3.1 PP rank 仅有 recurrent/draft 层时仍有正确 backing"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "create_cache_component_views:1412 的 zip(strict=True) 与 kernel_block_size 优先级（group.kernel_block_size 优先于 kernel_block_sizes[groupId]）是否与 _reshape_kv_cache_v2 既有口径一致"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "删除 is_paired_sfa 的生效范围需确认：allocate_kv_cache_main 的 unified 分派按 hf_text_config.model_type 命中 deepseek_v4/deepseek_v41/kimi_linear/qwen3_5 等列表，其中没有 kimi_k31；若 K3.1 的 hf_text_config.model_type 未命中（如仍是 kimi_k31），它仍走 legacy _allocate_kv_cache。此时 PP rank 只有 recurrent/draft 层时 has_attention=False、use_hybrid_layout=False，会失去原注释明确依赖的 paired hybrid backing。"
+          },
+          {
+            "level": "medium",
+            "text": "新钩子取代了 attn_utils 内的通用兜底：基类 AscendAttentionBackend.get_runtime_shapes_and_dtypes 仅覆盖 dense 形态（tokens_per_state==1、无 num_head_slots/state_content_bytes、KVQuantMode 仅 NONE/FP8_PER_TENSOR），其余直接 raise ValueError。PR 修改了 8 个 attention 文件，但从 owned patch 无法确认所有 AttentionBackend 子类（含 v1 路径与 out-of-tree/插件后端）都已 override；未 override 的后端会从“能跑”变成启动即失败。"
+          },
+          {
+            "level": "medium",
+            "text": "旧实现用 spec.scale_dim/scale_dtype 兜底补 scale 分量，新实现完全信任 backend 返回值；strict=True 只能发现 shapes 与 dtypes 长度不一致，若 backend 同时漏掉二者（都少一个分量）则静默少一个 cache view，下游 swap_blocks/copy_blocks 与 kernel 依分量个数取 scale 时会错位或丢精度。需确认 C8/TurboQuant/NoPE 等量化后端返回完整分量。"
+          },
+          {
+            "level": "low",
+            "text": "group.kernel_block_size 优先于 kernel_block_sizes[group_id] 与 _reshape_kv_cache_v2:1645 的既有写法一致，是改进；但 _build_attn_groups 只在 has_layer_views 且与 layer_spec.block_size 不同时才赋值，未赋值时回退。需确认上游 AttentionGroup 一定有该属性默认值（同文件 332 行已 assert 非 None，风险较低）。"
+          },
+          {
+            "level": "low",
+            "text": "zip(strict=True) 是正确加固，但会改变既有调用方（如 _reshape_mamba_kv_cache 用 MambaSpec.shapes 与 dtypes）在长度不一致时从静默截断变为启动抛错；需确认 Mamba/hybrid spec 两者恒等长，避免回归。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：未新增用户可见配置/CLI；但 get_runtime_shapes_and_dtypes 是对 backend 的公开契约，会约束 out-of-tree 后端，建议在基类 docstring 写清返回契约（分量顺序、token 轴压缩语义、dtype 个数）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用，本 PR 是重构，没有针对上游缺陷的临时规避或 monkeypatch，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：满足，新钩子在同一 PR 有唯一调用点（attn_utils:1466）并已落地到 8 个 backend；无未使用分支。但旧 hook get_runtime_shapes 若已无调用点应同 PR 删除或标 deprecated，避免双接口长期并存。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 文件新增注释全英文；抽查 tests/ut/worker/test_attn_utils.py、tests/ut/test_attn_utils.py、tests/ut/worker/v2/test_attn_utils.py CJK 扫描均为 0。但 deep JSON 不列 PR 实际修改的 5 个测试文件名，建议以 GitHub 文件列表复核其余测试是否有中文注释。"
+          },
+          {
+            "level": "low",
+            "text": "流程问题：PR 描述只有空模板（Why/user-facing/test/checklist 全未填），标题 [Refactor] 也不在 [Feature]/[BugFix]/[Performance] 规范内；无法判断动机与验证方式，建议补齐后再合入。"
+          }
+        ],
+        "tests": "PR 描述自述新增 5 个 UT 但模板未填、deep JSON 只给 owned patch，无法逐个核对；建议补 K3.1 PP-only-recurrent rank 与量化分量个数的用例。",
+        "questions": [
+          "需要作者确认：kimi_k31 的 hf_text_config.model_type 是否会命中 unified 分派（kimi_linear）？若未命中而仍走 legacy _allocate_kv_cache，删除 is_paired_sfa 后仅有 recurrent/draft 层的 PP rank 的 hybrid_backing 由谁提供？",
+          "需要作者确认：所有 AttentionBackend 子类（含 v1 路径、Mamba 相关与 out-of-tree 后端）是否都已实现 get_runtime_shapes_and_dtypes？未实现时基类会抛 ValueError 而非回退旧 get_runtime_shapes，插件后端会启动失败。",
+          "需要作者确认：量化 KV（C8/TurboQuant/NoPE 等）下 backend 返回的分量个数与 dtype 是否与旧 spec.scale_dim 兜底逐项一致？",
+          "需要作者确认：旧 get_runtime_shapes 钩子是否还有调用点？若已无调用建议同 PR 删除或标 deprecated。",
+          "需要作者确认：能否补齐 PR 描述（动机、用户可见变化、测试命令与覆盖场景）？"
+        ],
+        "recommend": "方向正确，先确认 kimi_k31 路由与 backend 覆盖（尤其 out-of-tree/量化分量），并补 PR 描述与测试说明后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "21a52f106cd7"
+    },
+    "23381": {
+      "number": 23381,
+      "title": "[BugFix][LoRA] Apply adapters to absorbed MLA projections",
+      "author": "Annarine",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23381",
+      "changed_files": 12,
+      "head_sha": "2cdc83a439517e6b378d455aec0eaa759625942a",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 3
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 1
+        }
+      ],
+      "additions": 538,
+      "deletions": 18,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23381,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "LoRA 开启时注册 projections 容器并下传后端，路径成立；但重复注册与缺少 NPU 验收需确认。",
+        "intent": "LoRA 下让 Ascend MLA/SFA 后端读到被替换的投影：LoRA 配置存在时 wrapper 把 7 个投影装入 nn.ModuleDict 作 projections 下传后端，消除陈旧引用。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ops/mla.py",
+            "point": "容器仅在 get_current_vllm_config().lora_config 非空时创建（无 LoRA 时零开销），以 projections= 下传；确认 MLAModules 七个字段齐全、None 可入 ModuleDict、以及与后端 _init_projections 的读取口径一致。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "nn.ModuleDict 把同一批投影在 projections.<name> 路径下再注册一次，LoRA 构建时 named_modules()/state_dict() 会多出别名键。UT 只断言 LoRA manager 只包装一次（factory.assert_called_once）且容器与模型属性指向同一 wrapper，未断言 state_dict/named_parameters 不重复；建议加断言或说明别名对权重加载/保存无副作用。"
+          },
+          {
+            "level": "medium",
+            "text": "PR 自述该拆分版本未跑 NPU/e2e（No NPU run was performed on this split revision），TP/DCP all_gather 与别名替换只有 CPU UT（collective 被 mock）；责任田这 9 行正是该路径入口，合入前应有一次真机 MLA/SFA + LoRA 运行。"
+          },
+          {
+            "level": "low",
+            "text": "容器只在构造期按 lora_config 决定是否创建；当前 LoRA 配置启动期固定故安全，但若将来支持运行期挂载适配器，后端会静默回退到本地引用（别名替换失效），建议加断言或注释固化该前提。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：复用既有 --enable-lora，未新增对外配置或公开接口；补齐的是上游 MLA 吸收式 KV-B LoRA 在 Ascend 后端的缺口，属后端实现差异，留在插件侧可接受，但建议记下上游化路径。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2：责任田 mla.py 无对上游缺陷的临时规避，不适用。补充（非责任田，不计结论）：同 PR 的 vllm_ascend/attention/mla_projections.py 有 “Once the vLLM pin includes MLAKVBProjWithLoRA…” TODO 但未带 github id，建议对应 owner 补 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过：新增容器在本 PR 内有完整调用链——mla.py 构造 ModuleDict → AscendMLAAttention(projections=) → AscendMLAImpl/AscendSFAImpl._init_projections 读取（mla_v1.py:1081、mla_projections.py:73），且后端 setter 与容器共享同一存储；未新增多余函数或开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：责任田新增 9 行 CJK 扫描为 0，注释为英文；新增 UT tests/ut/attention/test_mla_lora.py 与 test_mla_lora_cpu.py 已扫描，CJK 命中 0。"
+          }
+        ],
+        "tests": "新增 UT 用真实 LoRAModelManager._create_lora_modules 验证别名替换与容器一致性，另有 27 例数值/workspace 与 3 例因子布局用例；但本拆分版本无 NPU/e2e 实跑，TP/DCP collective 仅 mock，CI 9 项 0 失败、6 skipped。",
+        "questions": [
+          "LoRA 场景下 projections 容器给同一批投影增加了 state_dict/named_modules 别名键，是否已确认真实模型 load_weights 与保存路径不受影响？能否补断言 state_dict/named_parameters 无重复？",
+          "能否在合入前补一次真机 MLA/SFA + LoRA（含 TP>1 或 DCP）运行？现有 e2e 用例 tests/e2e/pull_request/one_card/lora/test_mla_projections.py 在本拆分版本未执行。",
+          "LoRA 开启时后端是否一定拿到容器（mla_modules 缺字段/None 时会怎样）？是否需要断言避免静默回退到本地引用？"
+        ],
+        "recommend": "补一次真机 MLA/SFA + LoRA 验收并确认 state_dict 别名无副作用后即可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "35f67933f3e3"
+    },
+    "23388": {
+      "number": 23388,
+      "title": "[Feature][Attention] Add a startup option for native SFA preprocessing",
+      "author": "31-ryougishiki",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23388",
+      "changed_files": 8,
+      "head_sha": "6ca356c900d0ba549f56d4b2f2976fae1cae7639",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 4
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        }
+      ],
+      "additions": 133,
+      "deletions": 5,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 3,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23388,
+        "verdict": "look",
+        "confidence": "high",
+        "summary": "新增 sfa_preprocess_mode 启动开关强制 native 预处理，实现与测试完整；但 base 较旧且与 #23390 重复，需先收敛为一。",
+        "intent": "SFA 层即使 MLAPO 关闭也可能自动选 PROLOG_V3，难以对比融合与 native 预处理；新增 typed 开关在权重准备前强制 native，覆盖 target/MTP/PCP 层，默认 auto 保持原行为。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "AscendConfig 新增 sfa_preprocess_mode: Literal[\"auto\",\"native\"]=\"auto\"（head 759 行）：Literal 已在 28 行导入，extra=forbid 自动拒非法值；确认该字段与 enable_mlapo 同处 A-family 小节的语义是否一致"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "类 docstring 声称示例“展示所有支持 key”，但未加入 sfa_preprocess_mode；确认是否需同步示例与组合校验（native 与 sparse c8/MLAPO 的关系）"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "与 #23390 重复提交：#23390 自述基于本 PR 原 commit b94f842 转投并 rebase，两 PR 的 owned patch（ascend_config.py 3 行）、配置键与测试完全相同；本 PR base 停在 f35a583，而 #23390 已到 384a9f7（fixture 仅 kwargs 顺序不同）。两个 open PR 并存会双份评审并制造冲突，必须在合入前确定唯一版本。"
+          },
+          {
+            "level": "medium",
+            "text": "base 较旧：上游 main 已前进到 384a9f7，本 PR 仍在 f35a583；即使内容不变，后续合入也需要 rebase 并重跑 CI，#23390 描述中的 fixture 保留（sparse_kv_offload）也应回流到本 PR，否则两者会再次分叉。"
+          },
+          {
+            "level": "medium",
+            "text": "新增用户可见配置未写进 AscendConfig docstring 的示例，而该段明确写“the values below show every supported key with its default value”，配置参考与实现不一致；docs/source 有独立更新，但类内参考是用户查配置的第一入口。"
+          },
+          {
+            "level": "medium",
+            "text": "缺少组合校验：native 与 enable_sparse_sfa_c8、enable_mlapo、mlapo_keep_prefill_weights 之间没有互斥/提示。UT 接受 native+sparse_c8，但只验证 _resolve_preprocess_type；PR 自述 “Ascend NPU inference and performance measurements are pending”，该新路径尚无硬件验证。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 1 对照：这是新的长期对外配置面。PROLOG_V3/MLAPO 是 Ascend 专有融合路径，上游 vLLM 无对应开关，可接受；但建议文档标注为调试/对比用途（或收进 experimental），并说明为何不能复用已有 enable_mlapo（PROLOG_V3 独立于 MLAPO），避免长期分叉出多套预处理开关。"
+          },
+          {
+            "level": "low",
+            "text": "开关只在 process_weights_after_loading 阶段读取（startup-only），运行时修改 additional_config 不会生效；PR 描述已要求重启，建议文档同样写明。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用，本 PR 无针对上游缺陷的临时规避或 monkeypatch，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：满足。字段在 sfa_v1:1167 的 _resolve_preprocess_type 中被读取，早于 _try_enable_type 的融合权重准备；target 与 MTP 共用 AscendSFAImpl，PCP 有 test_sfa_cp 覆盖，无新增死开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 新增注释为英文；CJK 扫描 tests/ut/attention/test_sfa_v1.py、test_sfa_cp.py、tests/ut/test_ascend_config.py、tests/ut/models/test_kimi_k31.py 均为 0。标题 [Feature][Attention] 合规。"
+          }
+        ],
+        "tests": "test_ascend_config 覆盖默认/合法/非法值；test_sfa_v1 断言 native 跳过 _try_enable_type 且保留 KV-consumer 投影；test_sfa_cp 覆盖 PCP 选择；作者自述 NPU 推理与性能待测。",
+        "questions": [
+          "需要作者确认：本 PR 与 #23390 哪个是最终合入版本？若保留本 PR，能否吸收 #23390 的 rebase 与 Kimi K3.1 fixture 保留改动，并保留 31-ryougishiki 的署名？",
+          "需要作者确认：native 与 enable_sparse_sfa_c8=True 的组合是否受支持？若支持，NPU forward 验证计划是什么；若不支持，是否应在 derive_and_validate 加互斥校验？",
+          "需要作者确认：能否把 sfa_preprocess_mode 补进 AscendConfig docstring 的“所有支持 key”示例，并标注其为调试/对比用途？",
+          "需要作者确认：NPU 推理与性能验证预计何时完成？没有硬件 e2e 覆盖时，是否先只作为 experimental 开关合入？"
+        ],
+        "recommend": "实现与测试本身可接受；先与 #23390 收敛为唯一 PR（保留原作者版本并 rebase），处理配置文档与组合校验后再 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "30cf20982c18"
+    },
+    "23390": {
+      "number": 23390,
+      "title": "[Feature][Attention] Add startup native SFA preprocessing override",
+      "author": "danziheng1024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23390",
+      "changed_files": 8,
+      "head_sha": "29d377f572aeabbecae1e87b39187afeb1c238db",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 4
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        }
+      ],
+      "additions": 134,
+      "deletions": 5,
+      "age_days": 0.1,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 5,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 3,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23390,
+        "verdict": "look",
+        "confidence": "high",
+        "summary": "新增 sfa_preprocess_mode 启动开关强制 native 预处理，字段、校验、调用点与 UT 均齐；但与 #23388 内容重复，需先合并其一。",
+        "intent": "SFA 层即使 MLAPO 关闭也可能自动选 PROLOG_V3，难以对比融合与 native 预处理；新增 typed 开关在权重准备前强制 native，覆盖 target/MTP/PCP 层，默认 auto 保持原行为。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "AscendConfig 新增 sfa_preprocess_mode: Literal[\"auto\",\"native\"]=\"auto\"（head 759 行）：Literal 已在 28 行导入，extra=forbid 自动拒非法值；确认放在 “A-family (envs fallback)” 小节是否与实际注入机制一致"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "类 docstring 声称示例“展示所有支持 key”，但未加入 sfa_preprocess_mode；确认是否需同步示例与 derive_and_validate 中的组合校验"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "与 #23388 重复提交：两 PR 的 owned patch（ascend_config.py 3 行）逐字相同、配置键与测试完全相同，且都处于 open、CI 全绿。作者自述 23390 基于 31-ryougishiki 的 b94f842 转投，test_kimi_k31 fixture 仅 kwargs 顺序不同、diff 统计差 1 行。若不先关闭其一，会双份评审并在他处产生冲突，也丢失原作者署名信息。"
+          },
+          {
+            "level": "medium",
+            "text": "新增用户可见配置未写进 AscendConfig docstring 的示例，而该段明确写“the values below show every supported key with its default value”，配置参考与实现不一致；docs/source 有独立更新，但类内参考是用户查配置的第一入口。"
+          },
+          {
+            "level": "medium",
+            "text": "缺少组合校验：native 与 enable_sparse_sfa_c8、enable_mlapo、mlapo_keep_prefill_weights 之间没有互斥/提示。UT 接受 native+sparse_c8 组合，但只验证 _resolve_preprocess_type，未验证 forward；描述在此处被截断、未见 NPU 端到端结果，存在“开关可设但路径未验证”的风险。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 1 对照：这是新的长期对外配置面。PROLOG_V3/MLAPO 是 Ascend 专有融合路径，上游 vLLM 无对应开关，可接受；但建议在文档标注其为调试/对比用途（或收进 experimental），并说明为何不能复用已有 enable_mlapo（PROLOG_V3 独立于 MLAPO），避免长期分叉出多套预处理开关。"
+          },
+          {
+            "level": "low",
+            "text": "开关只在 process_weights_after_loading 阶段读取（startup-only），运行时修改 additional_config 不会生效；PR 描述已要求重启，建议在文档中同样写明。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用，本 PR 无针对上游缺陷的临时规避或 monkeypatch，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：满足。字段在 sfa_v1:1167 的 _resolve_preprocess_type 中被读取，且早于 _try_enable_type 的融合权重准备；target 与 MTP 共用 AscendSFAImpl，PCP 有 test_sfa_cp 覆盖，无新增死开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 新增注释为英文；CJK 扫描 tests/ut/attention/test_sfa_v1.py、test_sfa_cp.py、tests/ut/test_ascend_config.py、tests/ut/models/test_kimi_k31.py 均为 0。标题 [Feature][Attention] 合规。"
+          }
+        ],
+        "tests": "test_ascend_config 覆盖默认/合法/非法值；test_sfa_v1 断言 native 跳过 _try_enable_type 并保留 KV-consumer 投影；test_sfa_cp 覆盖 PCP 下 auto→PROLOG_V3、native→NATIVE；描述中未见 NPU e2e 结果。",
+        "questions": [
+          "需要作者确认：#23390 与 #23388 哪个是最终合入版本？能否关闭其一，并在保留版本中保留原作者 Co-authored-by/sign-off，避免双份评审与冲突？",
+          "需要作者确认：native 与 enable_sparse_sfa_c8=True 的组合是否受支持？若支持，是否有 NPU forward 验证；若不支持，是否应在 ascend_config 的 derive_and_validate 加互斥校验？",
+          "需要作者确认：能否把 sfa_preprocess_mode 补进 AscendConfig docstring 的“所有支持 key”示例，并标注该开关为调试/对比用途？",
+          "需要作者确认：描述称已 rebase 到 f35a583，但 base_sha 是 384a9f7，且两 PR diff 统计差 1 行，能否说明两 PR 的实际差异（除 fixture kwargs 顺序外）？"
+        ],
+        "recommend": "改动本身正确、测试到位；先收敛与 #23388 的重复提交并处理配置文档/组合校验，再 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "bcb52432b17d"
+    },
+    "23394": {
+      "number": 23394,
+      "title": "[Bugfix] Avoid PythonMod in sequence parallel padding to fix npugraph_ex NameError",
+      "author": "zhiyu-wa",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23394",
+      "changed_files": 1,
+      "head_sha": "43f2584e36597557ed64fd47bdef7987c7c43295",
+      "areas": [
+        {
+          "p": "vllm_ascend/utils.py",
+          "n": 1
+        }
+      ],
+      "additions": 1,
+      "deletions": 1,
+      "age_days": 0,
+      "ci": {
+        "total": 16,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 12,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23394,
+        "verdict": "look",
+        "confidence": "high",
+        "summary": "单行将 `%` 改为 ceil-div 算 padding，规避 npugraph_ex PythonMod NameError；等价但缺 TODO 与测试。",
+        "intent": "Dynamo 追踪出的 FX 图含 PythonMod，npugraph_ex codegen 原样写出导致 NameError；改用等价 ceil-div 表达式消除取模算子，作者明确只是规避而非根因修复。",
+        "focus": [
+          {
+            "file": "vllm_ascend/utils.py",
+            "point": "pad_sequence_parallel_tokens（head 1146 行）新公式 (n+tp-1)//tp*tp-n 与旧式 (-n)%tp 在 n>=0 时逐值等价；确认无副作用并检查同文件 pad_num_tokens:1134 已有同式实现可对齐"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "规则 2 未满足：函数内没有任何注释解释为何不能用更直观的 (-n) % tp，也没有 TODO(github id) 记录 npugraph_ex codegen 根因、规避方式与日落计划。这种“看起来可以简化”的表达式极易在后续重构中被改回，缺陷会静默复现，需补英文注释 + TODO(issue id)。"
+          },
+          {
+            "level": "medium",
+            "text": "无回归测试（changed_files=1）：仅作者 A/B 手工验证。建议加纯 CPU 参数化单测，断言 n=0、n=1、n=tp-1、n=tp、n=tp+1 时新式与旧式 (-n)%tp 结果一致，锁定等价性。"
+          },
+          {
+            "level": "medium",
+            "text": "上游缺陷未被跟踪：PR 描述只提到 #19076 是暴露点、根因在 npugraph_ex codegen，但没有可引用的缺陷 issue 号；按规则 2 应把该 issue 写进 TODO，并说明修复后删除本规避。"
+          },
+          {
+            "level": "low",
+            "text": "修复只在 pad_sequence_parallel_tokens 生效；若同一 Dynamo trace 图内其它 SP padding 分支仍用 `%`（v1/v2、PCP/DCP、shared-expert DP 等路径未能全部核对），PythonMod 仍可能进入 FX 图，规避不彻底。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：本 PR 未新增对外配置、CLI 参数或公开接口，属于框架内部实现替换。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 满足：未新增函数/开关/分支，只在既有函数内替换表达式，无新增调用点需求；同文件 pad_num_tokens 已有 (n+tp-1)//tp*tp 写法，建议保持两处一致。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 满足：本 PR 改动行无注释、函数 docstring 为英文，owned 文件与（不存在的）新增测试均未发现 CJK；但按规则 2 补的注释也必须用英文。"
+          },
+          {
+            "level": "low",
+            "text": "标题用 `[Bugfix]`，仓库规范为 `[BugFix]`，大小写不一致（提示级，不阻塞）。"
+          }
+        ],
+        "tests": "无新增/修改测试（changed_files=1），仅作者 A/B 验证；建议补 padding 等价性参数化单测。",
+        "questions": [
+          "需要作者确认：能否给出 npugraph_ex codegen 缺陷的 issue/PR 编号，并在函数内加英文 TODO（根因 + 为何改成 ceil-div + 日落计划）？",
+          "需要作者确认：该函数是否覆盖 v1/v2 全部 SP padding 调用点？同一 FX 图里是否还有其它 `%` 取模（PCP/DCP、shared-expert DP 等）会再次产生 PythonMod？",
+          "需要作者确认：是否愿意补一个纯 CPU 的参数化单测，锁定新式与旧式 padding 结果逐值等价？"
+        ],
+        "recommend": "方向正确且数学等价，建议补英文注释 + TODO(github id) 与等价性单测后再合入。",
+        "mode": "deep"
+      },
+      "review_sha": "ee2be6d4cb15"
+    },
+    "23398": {
+      "number": 23398,
+      "title": "[Feature][KV Cache] Enable fused Copy-SFA sparse decode offload on Atlas A2",
+      "author": "Alicewithrabbit",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23398",
+      "changed_files": 7,
+      "head_sha": "6cb986d40eab3f5b8c1565efb5af6a708df9d18c",
+      "areas": [
+        {
+          "p": "CMakeLists.txt",
+          "n": 1
+        },
+        {
+          "p": "csrc/build_aclnn.sh",
+          "n": 1
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 1
+        }
+      ],
+      "additions": 138,
+      "deletions": 29,
+      "age_days": 0,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23398,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A2 启用融合 Copy-SFA 稀疏 KV offload，描述与实测充分；该项无我负责文件，需对应 code owner 深入检视代码正确性。",
+        "intent": "在 Atlas A2 上让 Decode 的稀疏 KV offload 支持融合 Copy-SFA：每个 TP group 建 POSIX 共享 Host 池、广播各层 K/V 字节偏移，取代广播 rank0 指针。",
+        "focus": [
+          {
+            "file": "vllm_ascend/attention/（PR 内 1 个文件，非我负责）",
+            "point": "每 TP group 一份 POSIX 共享 Host 池的创建/清理、按层 K/V 偏移的广播与本地映射解析是否正确，A3 既有池路径是否零改动"
+          },
+          {
+            "file": "CMakeLists.txt 与 csrc/build_aclnn.sh（PR 内文件，非我负责）",
+            "point": "A2 侧 sparse KV 算子的构建开关是否与新增调用路径匹配（我已核对 head 的 CMakeLists 在 ascend910b 下定义 VLLM_ASCEND_ENABLE_SPARSE_KV_OFFLOAD，与描述一致）"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "CI 尚无结果（ci state=unknown，total=0），mergeable_state=unstable；合入前至少需要 CPU UT 与构建结果，仅靠作者本地 A2 四节点验证不足以覆盖回归。"
+          },
+          {
+            "level": "medium",
+            "text": "作者声明这是用户可见变更：TP worker 必须共享 POSIX 共享内存命名空间，且 /dev/shm 要按该节点所有 Decode 池总量预留。容量不足或命名空间不共享时的失败模式（启动期报错还是 decode 期失败）需在文档中写明，我未核对 docs/source 改动内容。"
+          },
+          {
+            "level": "low",
+            "text": "标签只有 documentation、module:tests，但实际改了 CMakeLists.txt、csrc/build_aclnn.sh、vllm_ascend/attention；标签与改动范围不符，可能影响门禁与 reviewer 路由。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：描述中未新增对外配置项，属启用既有硬件路径，暂不涉及规则 1；若后续为 /dev/shm 或池大小引入新配置，需由 owner 判断能否上游插件化。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：light 检视未逐文件核对，未见对上游缺陷的临时规避的说明，也无 TODO(github id)；不适用（如存在规避，由 owner 深检时要求补 TODO）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：我未核对 owned 文件（本 PR 无我负责文件），新增函数/分支是否有调用点与生效路径需由 attention/csrc code owner 判定，此处不下结论。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：PR 描述为英文；我未取到测试与代码 patch，无法做注释 CJK 扫描，需 owner 或 CI 侧补一次扫描。"
+          }
+        ],
+        "tests": "无 CI 结果（ci state=unknown，0 项）；作者自述 17 个 sparse KV manager UT 通过、A2 四节点 GLM-5.2 端到端 79 层 × 16 Decode rank 字节比对零差异，覆盖度需 owner 复核。",
+        "questions": [
+          "需要作者确认：CI 为何未触发（total=0），预计何时能给出 CPU UT 与构建结果？",
+          "需要作者确认：/dev/shm 不足或 TP 未共享命名空间时，失败发生在启动还是 decode 期？文档是否给出容量计算方式？",
+          "需要作者确认：A3 既有池路径是否完全未改动，A2/A3 是否共用同一路径分支？"
+        ],
+        "recommend": "无我负责文件，由对应 code owner 深入检视；轻量层面建议先补齐 CI 与标签，再推动合入。",
+        "mode": "light"
+      },
+      "review_sha": "479f43e5df9e"
+    },
+    "23406": {
+      "number": 23406,
+      "title": "[BugFix][Worker] Inherit GPUWorker.get_encoder_timing_stats on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23406",
+      "changed_files": 3,
+      "head_sha": "a7a87438f615ee9e25642fe6f7bd8739c88fbfb2",
+      "areas": [
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 66,
+      "deletions": 4,
+      "age_days": 0,
+      "ci": {
+        "total": 27,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 2,
+        "skipped": 20,
+        "state": "pending"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 3
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 3,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 23406,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "删除未验证的 get_encoder_timing_stats 桩，改继承上游纯 Python 实现；UT 断言继承链并覆盖两条分支，方向是减分叉。",
+        "intent": "修 vllm bench mm-processor 在 Ascend 报 NotImplementedError：删除 NPUWorker 的未验证桩，改为继承 GPUWorker 的 runner 委派实现。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "get_compilation_match_table 与 annotate_profile 之间删除的 3 行桩：核对删除后无残留引用、与既有 not-validated 桩块约定一致（同批只删这一项）、且无子类仍自带同名桩。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "CI 当前为 pending：27 项中 2 项仍在跑、20 skipped、0 失败，尚无 run-selected-tests 结论；合入前需等到绿。"
+          },
+          {
+            "level": "low",
+            "text": "删除桩后 NPUWorker 直接继承上游 GPUWorker.get_encoder_timing_stats；正确性依赖上游实现只做 dict 聚合（不碰 device）。已核对 NPUWorker310 无同名桩，但 XliteWorker 未在 UT 中断言，作者自述其同样继承需确认。"
+          },
+          {
+            "level": "low",
+            "text": "作者自述图模式 E2E 在 --gpu-memory-utilization 0.4 下于 KV cache 规划阶段失败（显存规划不足，非本改动引入），实际只验证了 eager；建议在说明里明确边界，避免被当作回归。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：本改动是删除 Ascend 侧分叉、回归上游实现，不新增对外配置或公开接口，也无需上游插件接口。规则 2 不适用：无临时规避代码，无需 TODO(github id)。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过（以删除形式）：桩删除与测试 UNVERIFIED_GPU_WORKER_METHODS 同步移除，测试用 getattr_static/identity 断言 NPUWorker、NPUWorker310 实际拿到 GPUWorker 方法，生效路径可查；未新增函数。规则 4 通过：owned 文件无注释改动，test_worker_inheritance.py 全英文，CJK 扫描 0 命中。"
+          }
+        ],
+        "tests": "CI 27 项状态 pending（0 失败 / 2 进行中 / 20 skipped）；新增 text-only 与 multimodal 两用例（RED→GREEN），作者另给 910B vllm bench mm-processor E2E 通过。",
+        "questions": [
+          "需要作者确认：XliteWorker（以及其他继承 NPUWorker 的 worker）是否都没有同名 get_encoder_timing_stats 桩，是否也值得在 UNVERIFIED 清单旁加一条继承断言？",
+          "上游若将来把 get_encoder_timing_stats 改为返回其他结构（例如带锁的 dataclass），本次删除会让 Ascend 静默跟随，是否需要一条版本兼容说明？",
+          "两项 pending 的 CI 里是否包含 tests/ut/worker 相关 job？"
+        ],
+        "recommend": "等 pending CI 转绿即可 approve，建议顺带补 XliteWorker 继承断言。",
+        "mode": "deep"
+      },
+      "review_sha": "531d044b0ef2"
     }
   }
 }

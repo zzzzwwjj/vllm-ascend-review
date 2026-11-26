@@ -73,11 +73,11 @@
     "merged": 0,
     "closed": 0,
     "draft": 0,
-    "ready": 0,
-    "conflict": 0,
+    "ready": 1,
+    "conflict": 3,
     "ci": 1,
-    "blocked": 0,
+    "blocked": 5,
     "behind": 0,
-    "open": 9
+    "open": 0
   }
 }

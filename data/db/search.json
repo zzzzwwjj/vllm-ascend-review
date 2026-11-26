@@ -1,5 +1,109 @@
 [
   {
+    "n": 23406,
+    "t": "[BugFix][Worker] Inherit GPUWorker.get_encoder_timing_stats on Ascend",
+    "a": "Liuchenbing-2026",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23398,
+    "t": "[Feature][KV Cache] Enable fused Copy-SFA sparse decode offload on Atlas A2",
+    "a": "Alicewithrabbit",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23394,
+    "t": "[Bugfix] Avoid PythonMod in sequence parallel padding to fix npugraph_ex NameError",
+    "a": "zhiyu-wa",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23390,
+    "t": "[Feature][Attention] Add startup native SFA preprocessing override",
+    "a": "danziheng1024",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23388,
+    "t": "[Feature][Attention] Add a startup option for native SFA preprocessing",
+    "a": "31-ryougishiki",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23381,
+    "t": "[BugFix][LoRA] Apply adapters to absorbed MLA projections",
+    "a": "Annarine",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23375,
+    "t": "[Refactor]Reuse unified KV cache allocation for GQA",
+    "a": "Spicy-Stick",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23374,
+    "t": "[Refactor][MRV2] Use unified KV cache allocation and runtime views for GLM 5.2/5.3",
+    "a": "recky-c",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23361,
+    "t": "[BugFix] Guard the fused-MC2 HCCL window in the W4A8 dispatch_ffn_combine tiling",
+    "a": "foraxe",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23353,
+    "t": "fix: preserve multistream overlap during superkernel fusion",
+    "a": "faceItCalmly",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "pushback"
+  },
+  {
+    "n": 23352,
+    "t": "[Feature][XLite] Support GLM-5.3-Flash and Qwen3.5 on the xlite backend",
+    "a": "banxiaduhuo",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23346,
+    "t": "[Performance][Model] Disable multistream overlap during DeepSeek V4.1 decoder replay",
+    "a": "zyz111222",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23344,
+    "t": "[BugFix] Sync int64 kernel offsets and MRV2 sampler warm-up from upstream",
+    "a": "wenshanchao",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23329,
     "t": "[Feature] Add A3/A5 CPU binding deprecation notice",
     "a": "995114879",
@@ -1032,6 +1136,14 @@
     "v": null
   },
   {
+    "n": 22516,
+    "t": "[Performance] Reuse KDA verify records in A5 state commit",
+    "a": "ShyRa1n",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 22511,
     "t": "[Feat][v0.32.0rc] Enable CANN MegaMoe for DeepSeek-V4.1-Flash W4A8 prefill on A2",
     "a": "wxhhuawei",
@@ -1907,9 +2019,9 @@
     "n": 21680,
     "t": "[Feature][MoE] Add opt-in DSpark expert-pool routing for single-device expert offload",
     "a": "jiemeng6",
-    "e": "2026-11-23-0015",
-    "r": "rest",
-    "v": null
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 21677,
@@ -7806,6 +7918,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 11427,
+    "t": "[Feature][Quantization] Support Qwen3 W8A8 compressed-tensors on 310P",
+    "a": "treason258",
+    "e": "2026-11-26-1802",
+    "r": "deep",
+    "v": "approve"
   },
   {
     "n": 11424,

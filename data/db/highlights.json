@@ -1,12 +1,20 @@
 {
-  "updated_at": "2026-11-26T05:13:50.303Z",
+  "updated_at": "2026-11-26T10:10:07.160Z",
   "items": [
     {
-      "pr": 23125,
+      "pr": 21680,
       "kind": "refresh",
-      "title": "[Attention][Feature] B1 paged verify for Gemma4 512-dim MTP (v0.32.0rc)",
-      "at": "2026-11-26T03:49:42Z",
-      "issue": 15,
+      "title": "[Feature][MoE] Add opt-in DSpark expert-pool routing for single-device expert offload",
+      "at": "2026-11-26T06:31:45Z",
+      "issue": 16,
+      "v": "look"
+    },
+    {
+      "pr": 22346,
+      "kind": "remind",
+      "title": "[Performance] Remove redundant work from Kimi decode operators",
+      "at": "2026-11-26T07:03:01Z",
+      "issue": 17,
       "v": "look"
     }
   ]

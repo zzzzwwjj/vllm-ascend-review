@@ -1,10 +1,52 @@
 {
   "schema": "reviewboard-db/1",
-  "updated_at": "2026-11-26T05:13:49.574Z",
-  "current": "2026-11-26-1303",
+  "updated_at": "2026-11-26T10:10:06.341Z",
+  "current": "2026-11-26-1802",
   "user": "zzzzwwjj",
   "site": "zzzzwwjj/vllm-ascend-review",
   "editions": [
+    {
+      "id": "2026-11-26-1802",
+      "at": "2026-11-26T10:02:26.104Z",
+      "window": {
+        "start": "2026-11-26T05:03:00.849Z",
+        "end": "2026-11-26T10:02:26.104Z",
+        "reason": "自上次运行 11-26 13:03",
+        "hours": 5
+      },
+      "stats": {
+        "search_hits": 98,
+        "loaded": 16,
+        "fresh": 16,
+        "deep": 16,
+        "rest": 0,
+        "skipped": 0,
+        "requested": 1,
+        "skipped_seen": 82,
+        "skipped_other": 0,
+        "owned_prs": 14,
+        "api_calls": 64
+      },
+      "verdicts": {
+        "approve": 2,
+        "look": 13,
+        "pushback": 1,
+        "pending": 0
+      },
+      "states": {
+        "merged": 0,
+        "closed": 0,
+        "draft": 0,
+        "ready": 0,
+        "conflict": 0,
+        "ci": 0,
+        "blocked": 0,
+        "behind": 0,
+        "open": 16
+      },
+      "v": "ab4b08efac3c",
+      "legacy": false
+    },
     {
       "id": "2026-11-26-1303",
       "at": "2026-11-26T05:03:00.849Z",
@@ -29,22 +71,22 @@
       },
       "verdicts": {
         "approve": 2,
-        "look": 9,
+        "look": 8,
         "pushback": 0,
         "pending": 0
       },
       "states": {
-        "merged": 0,
+        "merged": 1,
         "closed": 0,
         "draft": 0,
         "ready": 0,
-        "conflict": 0,
+        "conflict": 2,
         "ci": 0,
-        "blocked": 0,
+        "blocked": 8,
         "behind": 0,
-        "open": 11
+        "open": 0
       },
-      "v": "3c11a71bbd15",
+      "v": "2aa3cf6a4d01",
       "legacy": false
     },
     {
@@ -80,13 +122,13 @@
         "closed": 1,
         "draft": 1,
         "ready": 1,
-        "conflict": 2,
+        "conflict": 1,
         "ci": 3,
-        "blocked": 1,
+        "blocked": 10,
         "behind": 0,
-        "open": 8
+        "open": 0
       },
-      "v": "1b52914efbaf",
+      "v": "16e5cafab83b",
       "legacy": false
     },
     {
@@ -121,14 +163,14 @@
         "merged": 1,
         "closed": 0,
         "draft": 0,
-        "ready": 0,
-        "conflict": 0,
+        "ready": 2,
+        "conflict": 3,
         "ci": 0,
-        "blocked": 1,
+        "blocked": 3,
         "behind": 0,
-        "open": 7
+        "open": 0
       },
-      "v": "2e7b438206a8",
+      "v": "b4c4edf188f6",
       "legacy": false
     },
     {
@@ -159,18 +201,18 @@
         "pushback": 1,
         "pending": 0
       },
-      "v": "be00d0744f0e",
+      "v": "347148c776b3",
       "legacy": false,
       "states": {
         "merged": 0,
         "closed": 0,
         "draft": 0,
-        "ready": 0,
-        "conflict": 0,
+        "ready": 1,
+        "conflict": 3,
         "ci": 1,
-        "blocked": 0,
+        "blocked": 5,
         "behind": 0,
-        "open": 9
+        "open": 0
       }
     },
     {
@@ -192,22 +234,22 @@
       },
       "verdicts": {
         "approve": 1,
-        "look": 13,
+        "look": 10,
         "pushback": 2,
         "pending": 0
       },
-      "v": "e5bbfa8fda37",
+      "v": "89d9db7e073a",
       "legacy": false,
       "states": {
         "merged": 2,
         "closed": 0,
-        "draft": 0,
+        "draft": 1,
         "ready": 1,
-        "conflict": 2,
+        "conflict": 5,
         "ci": 0,
-        "blocked": 1,
+        "blocked": 7,
         "behind": 0,
-        "open": 11
+        "open": 0
       }
     },
     {
@@ -237,18 +279,18 @@
         "pushback": 0,
         "pending": 0
       },
-      "v": "f943852fa134",
+      "v": "523bdfbd0d94",
       "legacy": false,
       "states": {
         "merged": 2,
         "closed": 1,
         "draft": 0,
         "ready": 1,
-        "conflict": 0,
+        "conflict": 4,
         "ci": 0,
-        "blocked": 0,
+        "blocked": 3,
         "behind": 0,
-        "open": 7
+        "open": 0
       }
     },
     {
@@ -278,18 +320,18 @@
         "pushback": 2,
         "pending": 0
       },
-      "v": "ed65ced53451",
+      "v": "8979d95d1812",
       "legacy": false,
       "states": {
         "merged": 4,
         "closed": 0,
         "draft": 0,
-        "ready": 0,
-        "conflict": 0,
+        "ready": 1,
+        "conflict": 5,
         "ci": 0,
-        "blocked": 1,
+        "blocked": 6,
         "behind": 0,
-        "open": 11
+        "open": 0
       }
     },
     {
@@ -318,17 +360,17 @@
         "pending": 0
       },
       "legacy": false,
-      "v": "501bd1205584",
+      "v": "2f0e1602a8cb",
       "states": {
         "merged": 1,
         "closed": 2,
         "draft": 1,
-        "ready": 0,
-        "conflict": 2,
+        "ready": 1,
+        "conflict": 10,
         "ci": 0,
-        "blocked": 1,
+        "blocked": 2,
         "behind": 0,
-        "open": 10
+        "open": 0
       }
     },
     {
@@ -357,17 +399,17 @@
         "pending": 0
       },
       "legacy": false,
-      "v": "715aea35736a",
+      "v": "5d306fd2e152",
       "states": {
         "merged": 3,
         "closed": 2,
         "draft": 0,
         "ready": 0,
-        "conflict": 0,
+        "conflict": 8,
         "ci": 0,
-        "blocked": 5,
+        "blocked": 11,
         "behind": 0,
-        "open": 14
+        "open": 0
       }
     },
     {
@@ -396,17 +438,17 @@
         "pending": 0
       },
       "legacy": false,
-      "v": "4ef69dd40f79",
+      "v": "47ba31e0f2f5",
       "states": {
         "merged": 6,
         "closed": 0,
         "draft": 0,
         "ready": 0,
-        "conflict": 4,
+        "conflict": 7,
         "ci": 0,
-        "blocked": 0,
+        "blocked": 6,
         "behind": 0,
-        "open": 9
+        "open": 0
       }
     },
     {
@@ -435,7 +477,7 @@
         "pending": 0
       },
       "legacy": false,
-      "v": "776b143a9589",
+      "v": "f641efce4296",
       "states": {
         "merged": 0,
         "closed": 1,
@@ -443,9 +485,9 @@
         "ready": 0,
         "conflict": 8,
         "ci": 0,
-        "blocked": 0,
+        "blocked": 1,
         "behind": 0,
-        "open": 1
+        "open": 0
       }
     },
     {
@@ -457,9 +499,9 @@
         "reason": "历史积压：尚未合入且待我检视（排除近四期与今早新增）"
       },
       "stats": {
-        "fresh": 960,
+        "fresh": 959,
         "deep": 0,
-        "rest": 960,
+        "rest": 959,
         "skipped": 22,
         "skipped_seen": 0,
         "skipped_other": 22
@@ -470,20 +512,20 @@
         "pushback": 0,
         "pending": 0
       },
-      "v": "46ee424a2e7e",
+      "v": "e4550b8889c9",
       "legacy": false,
       "backlog": true,
       "label": "历史积压",
       "states": {
-        "merged": 17,
-        "closed": 11,
+        "merged": 18,
+        "closed": 13,
         "draft": 2,
-        "ready": 21,
-        "conflict": 255,
-        "ci": 86,
-        "blocked": 44,
+        "ready": 23,
+        "conflict": 644,
+        "ci": 85,
+        "blocked": 175,
         "behind": 0,
-        "open": 524
+        "open": 0
       }
     }
   ],
@@ -513,8 +555,8 @@
       "count": 33
     },
     "11": {
-      "v": "182fa3860968",
-      "count": 35
+      "v": "ad42f3ee8ae2",
+      "count": 36
     },
     "12": {
       "v": "aa919572194d",
@@ -529,40 +571,40 @@
       "count": 64
     },
     "15": {
-      "v": "8e77f4e65a24",
+      "v": "10b19fd769a2",
       "count": 105
     },
     "16": {
-      "v": "1f1804ee3ea0",
+      "v": "f749b9a2215e",
       "count": 89
     },
     "17": {
-      "v": "4a9b3ed4302c",
+      "v": "e321859b9e4a",
       "count": 111
     },
     "18": {
-      "v": "894a0d9f4bbb",
+      "v": "475893daff58",
       "count": 62
     },
     "19": {
-      "v": "6f02e63ede34",
+      "v": "c30652182eb7",
       "count": 74
     },
     "20": {
-      "v": "64d4200134ca",
+      "v": "1ee6ab013f9f",
       "count": 70
     },
     "21": {
-      "v": "cf860a159133",
+      "v": "0750cb9209ee",
       "count": 121
     },
     "22": {
-      "v": "e68c19124bd3",
-      "count": 137
+      "v": "e5ffb0b943fe",
+      "count": 138
     },
     "23": {
-      "v": "b9aa286f8d04",
-      "count": 56
+      "v": "4f05e59b3020",
+      "count": 69
     }
   }
 }

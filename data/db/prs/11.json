@@ -870,7 +870,122 @@
       "review_sha": null,
       "head_sha": "03f7c9159385dd17b5b53720e689e66a84cef73f",
       "state": "open",
-      "merge": "dirty"
+      "merge": "blocked"
+    },
+    "11427": {
+      "number": 11427,
+      "title": "[Feature][Quantization] Support Qwen3 W8A8 compressed-tensors on 310P",
+      "author": "treason258",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/11427",
+      "changed_files": 8,
+      "head_sha": "0ffae5b4e37988389d54a3d8655edaeb228a1a0f",
+      "areas": [
+        {
+          "p": "tests/e2e",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/_310p",
+          "n": 2
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/platform.py",
+          "n": 1
+        }
+      ],
+      "additions": 283,
+      "deletions": 1,
+      "age_days": 145.7,
+      "ci": {
+        "total": 8,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 4,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-1802",
+      "review": {
+        "number": 11427,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "责任田仅 4 行导入改动：把 310P 压缩张量配置并入既有 310P 分支，注册入口与生效路径正确，CI 绿。",
+        "intent": "310P 平台分支额外导入 AscendCompressedTensorsConfig310，靠模块级注册装饰器让 compressed-tensors W8A8 在 310P 生效。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "310P 分支新增 AscendCompressedTensorsConfig310 导入；确认分支判定为 quantization_backend_family != STANDARD（即 310P），且导入的副作用是注册而非仅取符号。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "已核对 head：vllm_ascend/_310p/quantization/__init__.py 导出 AscendCompressedTensorsConfig310，该模块以 @register_quantization_config(COMPRESSED_TENSORS_METHOD) 注册，故本次导入确实产生注册副作用，不是空导入。"
+          },
+          {
+            "level": "low",
+            "text": "310P 与 STANDARD 分支使用同一个 COMPRESSED_TENSORS_METHOD 注册键且互斥导入（由硬件 profile 决定），单进程内不会同时注册；若将来出现跨硬件同进程导入（如混合 UT），后写会覆盖前者，建议确认上游 registry 在此场景的行为。"
+          },
+          {
+            "level": "low",
+            "text": "310P 分支现在 import 期同时加载 modelslim 与 compressed_tensors 两个配置模块，多了一个对 compressed-tensors 依赖的加载点；vLLM 本身已硬依赖该包，风险可接受，但需确认 310P 镜像一致。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：310P 纯硬件专有量化支持，上游 vLLM 无对应概念；且实现复用上游官方 register_quantization_config 注册入口而非给上游打 patch，符合规则 1 精神。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 不适用：改动不含对上游缺陷的临时规避，无 TODO(github id) 需求。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 通过：新增导入在本 PR 内有明确生效路径（310P 分支导入 → 注册量化方法 → 加载 checkpoint 时按 compressed-tensors 解析），未新增多余函数/开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：责任田新增 4 行 CJK 扫描为 0；新增 UT tests/ut/_310p/quantization/test_compressed_tensors_config_310.py 已抽查，无中文注释。"
+          }
+        ],
+        "tests": "作者报告 UT 29 passed / 2 skipped（含新增 4 例配置解析用例）并附 310P 真机 GPQA 与性能数据；本次 CI 8 项 0 失败、4 skipped，测试说明与 CI 一致。",
+        "questions": [
+          "310P 上静态 W8A8 由 AscendCompressedTensorsConfig310 抛 NotImplementedError，错误信息是否足以引导用户改用 W8A8_DYNAMIC？",
+          "该 PR 已等待约 145 天且 mergeable_state=blocked、approvals=0，是否仍有未关闭的 review 意见需要先处理？",
+          "310P 分支与 STANDARD 分支共用同一注册键，是否需要断言/日志避免将来同进程重复注册时静默覆盖？"
+        ],
+        "recommend": "责任田改动可 approve，建议由 310P/量化 owner 复核 scheme 细节并尽快推进合并。",
+        "mode": "deep"
+      },
+      "review_sha": "c1b98c818f3a"
     },
     "11438": {
       "number": 11438,

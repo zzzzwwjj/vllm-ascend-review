@@ -96,11 +96,11 @@
     "merged": 4,
     "closed": 0,
     "draft": 0,
-    "ready": 0,
-    "conflict": 0,
+    "ready": 1,
+    "conflict": 5,
     "ci": 0,
-    "blocked": 1,
+    "blocked": 6,
     "behind": 0,
-    "open": 11
+    "open": 0
   }
 }
