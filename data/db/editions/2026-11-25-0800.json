@@ -11,18 +11,18 @@
   "stats": {
     "search_hits": 97,
     "loaded": 17,
-    "fresh": 17,
-    "deep": 17,
+    "fresh": 16,
+    "deep": 16,
     "rest": 0,
     "skipped": 0,
     "requested": 0,
     "skipped_seen": 80,
     "skipped_other": 0,
-    "owned_prs": 17,
+    "owned_prs": 16,
     "api_calls": 70
   },
   "verdicts": {
-    "approve": 0,
+    "approve": 1,
     "look": 13,
     "pushback": 2,
     "pending": 0
@@ -81,10 +81,6 @@
       "role": "deep"
     },
     {
-      "n": 23125,
-      "role": "deep"
-    },
-    {
       "n": 23106,
       "role": "deep"
     },
@@ -98,14 +94,14 @@
     }
   ],
   "states": {
-    "merged": 1,
+    "merged": 2,
     "closed": 0,
-    "draft": 1,
-    "ready": 2,
-    "conflict": 6,
+    "draft": 0,
+    "ready": 1,
+    "conflict": 2,
     "ci": 0,
-    "blocked": 6,
+    "blocked": 1,
     "behind": 0,
-    "open": 1
+    "open": 11
   }
 }

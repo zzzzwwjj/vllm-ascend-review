@@ -73,8 +73,8 @@
     "ready": 0,
     "conflict": 8,
     "ci": 0,
-    "blocked": 1,
+    "blocked": 0,
     "behind": 0,
-    "open": 0
+    "open": 1
   }
 }

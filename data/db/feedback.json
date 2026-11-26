@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T00:06:41.248Z",
+  "updated_at": "2026-11-26T05:13:49.611Z",
   "entries": {
     "20244": [
       {
@@ -69,6 +69,20 @@
         "ack": {
           "status": "accepted",
           "note": "接受。上期精读没检查注释语言，测试里的中文注释属于合入前必须拦下的规范问题；后续把“注释统一英文”作为硬性检查项。"
+        }
+      },
+      {
+        "id": "body-13",
+        "at": "2026-11-26T03:05:58Z",
+        "author": "bzncu",
+        "kind": "reply",
+        "text": "已改",
+        "edition": "",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/13",
+        "ack": {
+          "status": "replied",
+          "note": "已核实：head b592c5de 上 tests/ut/models/minimax_m3/test_msa_m3.py、vllm_ascend/models/minimax_m3/ops/msa_m3_npu.py、vllm_ascend/device/hardware_profile.py 的中文注释均为 0；看板结论已从「需细看」更新为「可批准」（GitHub 上已在同一 head 批准）。",
+          "at": "2026-11-26T05:02:55.461Z"
         }
       }
     ]

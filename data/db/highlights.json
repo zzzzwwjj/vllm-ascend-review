@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-11-26T00:06:42.382Z",
+  "updated_at": "2026-11-26T05:13:50.303Z",
   "items": [
     {
-      "pr": 16145,
+      "pr": 23125,
       "kind": "refresh",
-      "title": "[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU",
-      "at": "2026-11-25T11:23:44Z",
-      "issue": 11,
-      "v": "pushback"
+      "title": "[Attention][Feature] B1 paged verify for Gemma4 512-dim MTP (v0.32.0rc)",
+      "at": "2026-11-26T03:49:42Z",
+      "issue": 15,
+      "v": "look"
     }
   ]
 }

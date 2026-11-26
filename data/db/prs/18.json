@@ -68,7 +68,7 @@
       "review_sha": null,
       "head_sha": "7242808019e0922d3a1de5a564b7b178c94f4315",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18011": {
       "number": 18011,
@@ -108,7 +108,7 @@
       "review_sha": null,
       "head_sha": "71f336c3172157a864a70f5a3acd9a25cf2c57f9",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18015": {
       "number": 18015,
@@ -141,7 +141,7 @@
       "review_sha": null,
       "head_sha": "891b720af1b8b276c0da3fdc6ee3dfda1e4407c4",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18018": {
       "number": 18018,
@@ -217,7 +217,7 @@
       "review_sha": null,
       "head_sha": "818230adc3167c9b65c3c4422c560d50554c52e9",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18027": {
       "number": 18027,
@@ -293,7 +293,7 @@
       "review_sha": null,
       "head_sha": "3f38ea9e4f5db8c4ed39f5fbaefba0e831eee67f",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18028": {
       "number": 18028,
@@ -326,7 +326,7 @@
       "review_sha": null,
       "head_sha": "af7ad0bbba926e514af7f100e1f05e7aa27551e1",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18036": {
       "number": 18036,
@@ -451,7 +451,7 @@
       "review_sha": null,
       "head_sha": "a581fd5c79c57eb9f87ae1f0f38878fa12d11e84",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18082": {
       "number": 18082,
@@ -491,7 +491,7 @@
       "review_sha": null,
       "head_sha": "b032536949a1438737891c35eea4d387e0020d29",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18131": {
       "number": 18131,
@@ -524,7 +524,7 @@
       "review_sha": null,
       "head_sha": "79369a9d2e153d2293b7ace1b1e36495cc05bb89",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18139": {
       "number": 18139,
@@ -615,7 +615,7 @@
       "review_sha": null,
       "head_sha": "ad1d596fd0a00b15daff196af371e47a54629873",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18162": {
       "number": 18162,
@@ -648,7 +648,7 @@
       "review_sha": null,
       "head_sha": "c83a4a7bd08abf2b779ed0447ae40212d5f1ec01",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18186": {
       "number": 18186,
@@ -681,7 +681,7 @@
       "review_sha": null,
       "head_sha": "098fb523a3a47f30c4706ab4af8c88b6782ebf69",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18211": {
       "number": 18211,
@@ -721,7 +721,7 @@
       "review_sha": null,
       "head_sha": "9f59cbe9678f7814d55c8c26b64a44fb15f8251d",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18219": {
       "number": 18219,
@@ -767,7 +767,7 @@
       "review_sha": null,
       "head_sha": "553a4b4f36c9d6faa6ab3970c12e56395a8f1e25",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18227": {
       "number": 18227,
@@ -819,7 +819,7 @@
       "review_sha": null,
       "head_sha": "cbe8d7430789e42c98799023b52c00f3a0e58b21",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18290": {
       "number": 18290,
@@ -871,7 +871,7 @@
       "review_sha": null,
       "head_sha": "8509c24fc00dfb29e69faa826d9a847dd6c638c7",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18300": {
       "number": 18300,
@@ -944,7 +944,7 @@
       "review_sha": null,
       "head_sha": "7d5a4cd9d7e8c4e2e4f0f6415a71f0e80edcff8e",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18389": {
       "number": 18389,
@@ -984,7 +984,7 @@
       "review_sha": null,
       "head_sha": "d7b90bc84a98bdb64ffb7b36e6064476efa0f10e",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18394": {
       "number": 18394,
@@ -1017,7 +1017,7 @@
       "review_sha": null,
       "head_sha": "df958e15597d0b38f97cf09c4dfeb87c4986df27",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18420": {
       "number": 18420,
@@ -1175,7 +1175,7 @@
       "review_sha": "4591d2fb6427",
       "head_sha": "a43271d556ac7a4a81547f3f73f7c311df9da7b8",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18435": {
       "number": 18435,
@@ -1215,7 +1215,7 @@
       "review_sha": null,
       "head_sha": "fd371ac3b2a320b08d60887b612b30ee1f87f187",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18438": {
       "number": 18438,
@@ -1281,7 +1281,7 @@
       "review_sha": null,
       "head_sha": "90172b355f1349ba9906b9bd3a56a16333066d55",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18478": {
       "number": 18478,
@@ -1357,7 +1357,7 @@
       "review_sha": null,
       "head_sha": "e96b3275caf314d08a13e0486bf291455d2a9ded",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18489": {
       "number": 18489,
@@ -1390,7 +1390,7 @@
       "review_sha": null,
       "head_sha": "179bb08bb02f5126c90865d999ae2efd3bb50538",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18490": {
       "number": 18490,
@@ -1423,7 +1423,7 @@
       "review_sha": null,
       "head_sha": "1b180deb840484c2fe33cbdd7abb68a615085172",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18524": {
       "number": 18524,
@@ -1456,7 +1456,7 @@
       "review_sha": null,
       "head_sha": "a35de84406af282afd01aba7d70360a55dca8492",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18531": {
       "number": 18531,
@@ -1508,7 +1508,7 @@
       "review_sha": null,
       "head_sha": "6d0ed70f90753bc422885551e9c6d5b05c6566bb",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18534": {
       "number": 18534,
@@ -1554,7 +1554,7 @@
       "review_sha": null,
       "head_sha": "813ca08fcb00f85d9474192263fdafa9a3b8fabd",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18556": {
       "number": 18556,
@@ -1594,7 +1594,7 @@
       "review_sha": null,
       "head_sha": "33581970034b4289ad530d68ae3c055891842ebe",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18559": {
       "number": 18559,
@@ -1667,7 +1667,7 @@
       "review_sha": "7599c8ecbe1c",
       "head_sha": "a1c76f8f8865ec451ba9781f6c3d9ec38f8cb82a",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18584": {
       "number": 18584,
@@ -1700,7 +1700,7 @@
       "review_sha": null,
       "head_sha": "6106111f0ec6d69767126c129ed9ab0052116bca",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18594": {
       "number": 18594,
@@ -1733,7 +1733,7 @@
       "review_sha": null,
       "head_sha": "0ed848c28d433798358603c2186f36fc2821bcc0",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18606": {
       "number": 18606,
@@ -1766,7 +1766,7 @@
       "review_sha": null,
       "head_sha": "8955a15cab6bac25a1ddba54dd6ae666e8a2349b",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18612": {
       "number": 18612,
@@ -1812,7 +1812,7 @@
       "review_sha": null,
       "head_sha": "a3de6bd2246220dc7a70d788199432bf0828808c",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18627": {
       "number": 18627,
@@ -2013,7 +2013,7 @@
       "review_sha": null,
       "head_sha": "dfc69bb1198ef9c015d9ce1fd2be6f9e6b2993a1",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18665": {
       "number": 18665,
@@ -2059,7 +2059,7 @@
       "review_sha": null,
       "head_sha": "0f2016eb0bd6bfa435516878037cbad5296560d6",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18708": {
       "number": 18708,
@@ -2226,7 +2226,7 @@
       "review_sha": null,
       "head_sha": "8966f7981661115f6c0234bee31e1a90d32c8b60",
       "state": "open",
-      "merge": "clean"
+      "merge": "unknown"
     },
     "18731": {
       "number": 18731,
@@ -2278,7 +2278,7 @@
       "review_sha": null,
       "head_sha": "7245265a2b71d0ce4073b0b168f1073646d51aeb",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18733": {
       "number": 18733,
@@ -2311,7 +2311,7 @@
       "review_sha": null,
       "head_sha": "2d4fa475f40b79c963168e2117e6a2b27d5f6ef8",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18740": {
       "number": 18740,
@@ -2402,7 +2402,7 @@
       "review_sha": null,
       "head_sha": "622725cd44aa47186dc1f1c9f08485e9013fff7a",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18787": {
       "number": 18787,
@@ -2475,7 +2475,7 @@
       "review_sha": null,
       "head_sha": "0470d5bda0d56df5169ff04eb138bc3d18248a48",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18906": {
       "number": 18906,
@@ -2515,7 +2515,7 @@
       "review_sha": null,
       "head_sha": "28b5e9f20042f335a6a07acc62add3654d07427a",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18921": {
       "number": 18921,
@@ -2597,7 +2597,7 @@
       "review_sha": null,
       "head_sha": "7b058ce1ff9482605f7872770165f37ebd895d8a",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18926": {
       "number": 18926,
@@ -2630,7 +2630,7 @@
       "review_sha": null,
       "head_sha": "702dced6f19f97dd8ccf8c6bbe695fba66cfeb89",
       "state": "open",
-      "merge": "blocked"
+      "merge": "unknown"
     },
     "18928": {
       "number": 18928,
@@ -2749,7 +2749,7 @@
       "review_sha": null,
       "head_sha": "3ec7ae2cc24ed0ed09e13b032751ca54f7d6cdc0",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     },
     "18972": {
       "number": 18972,
@@ -2782,7 +2782,7 @@
       "review_sha": null,
       "head_sha": "0c2f1e35dc8c21614f4e63d8fe33a4bbf9955d28",
       "state": "open",
-      "merge": "dirty"
+      "merge": "unknown"
     }
   }
 }

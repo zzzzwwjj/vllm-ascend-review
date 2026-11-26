@@ -1,5 +1,45 @@
 [
   {
+    "n": 23329,
+    "t": "[Feature] Add A3/A5 CPU binding deprecation notice",
+    "a": "995114879",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23326,
+    "t": "fusion-maybe qknorm_rope",
+    "a": "shuomaster",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23324,
+    "t": "[Feature][Spec Decode] Add Tree Speculative Decoding on Ascend",
+    "a": "magneto0124",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23294,
+    "t": "[Platform][Doc] Add sunset deprecation warnings and documentation for balance scheduling (main)",
+    "a": "FengkunYang1999",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23291,
+    "t": "[Feature][KDA] Support native prefill checkpoints on Ascend A5",
+    "a": "sugm0521",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23286,
     "t": "[Refactor][Docs] Make MoE communication selection a true fast path and document policy",
     "a": "Suixing5208",
@@ -192,6 +232,14 @@
     "v": "pushback"
   },
   {
+    "n": 23144,
+    "t": "[Feature][Attention] Add Qwen3.8-Flash-Next decode context parallelism",
+    "a": "wzx0726",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 23135,
     "t": "[BugFix] Restore C8 V scales after Mooncake Pull admission in MRv2",
     "a": "kitaikuyo421esfj-hub",
@@ -219,7 +267,7 @@
     "n": 23125,
     "t": "[Attention][Feature] B1 paged verify for Gemma4 512-dim MTP (v0.32.0rc)",
     "a": "JinGuoju001",
-    "e": "2026-11-25-0800",
+    "e": "2026-11-26-1303",
     "r": "deep",
     "v": "look"
   },
@@ -236,6 +284,14 @@
     "t": "[Feature][Model] Adopt fused MsaIndexScore TopK with forced-block support",
     "a": "bzncu",
     "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23121,
+    "t": "[Feature][Perf][KV Pool] Gather only TopK-selected Main-KV rows on layerwise DSA prefill",
+    "a": "ZD-euler",
+    "e": "2026-11-26-1303",
     "r": "deep",
     "v": "look"
   },
@@ -292,6 +348,14 @@
     "t": "[Feature] Add GLM5.3-Flash LoRA support",
     "a": "Annarine",
     "e": "2026-11-25-0800",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23069,
+    "t": "[Test] Add KV pool hit watch to A3 multi-nodes nightly cases",
+    "a": "Shelleyaaa",
+    "e": "2026-11-26-1303",
     "r": "deep",
     "v": "look"
   },
@@ -2448,6 +2512,14 @@
     "v": null
   },
   {
+    "n": 20985,
+    "t": "[KV Transfer][BugFix] Drain Mooncake worker resources during shutdown",
+    "a": "wangjianyuweg",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 20952,
     "t": "[Refactor][Ops] Centralize MiniMax-M3 Triton kernels and single-card tests",
     "a": "yingyingzizi",
@@ -2974,6 +3046,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 20083,
+    "t": "[Misc][BugFix] Improve hardware capability checks and handle CPU-only torch builds safely",
+    "a": "lsyx6399",
+    "e": "2026-11-26-1303",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 20054,
