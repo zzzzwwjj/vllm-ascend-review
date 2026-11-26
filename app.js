@@ -7,7 +7,7 @@
   const LOGIN_KEY = 'gh-token-login';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
   const readLogin = () => { try { return localStorage.getItem(LOGIN_KEY) || ''; } catch (e) { return ''; } };
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), tokenLogin: readLogin(), fbStatus: {}, filters: {}, allPage: 1, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), tokenLogin: readLogin(), fbStatus: {}, filters: {}, allPage: 1, openFilter: null, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
     highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })(),
     marks: {}, pendingMarks: (() => { try { return JSON.parse(localStorage.getItem('board-pending-marks') || '[]'); } catch (e) { return []; } })() };
   const params = new URLSearchParams(location.search);
@@ -180,9 +180,10 @@
       const opt = g.options.find((o) => String(o[0]) === v);
       chips.push('<button type="button" class="fchip" data-unfilter="' + g.key + '" data-val="' + v + '">' + g.label + '：' + (opt ? opt[1] : v) + ' ×</button>');
     }
+    const drop = (g, label) => '<details class="fdrop" data-fkey="' + g.key + '"' + (state.openFilter === g.key ? ' open' : '') + '><summary>' + label + (sel(g).length ? ' <b>' + sel(g).length + '</b>' : '') + '</summary><div class="fmenu">' + menu(g) + '</div></details>';
     return '<div class="fbar">' +
-      primary.map((g) => '<details class="fdrop"><summary>' + g.label + (sel(g).length ? ' <b>' + sel(g).length + '</b>' : '') + '</summary><div class="fmenu">' + menu(g) + '</div></details>').join('') +
-      '<details class="fdrop"><summary>更多' + (moreCount ? ' <b>' + moreCount + '</b>' : '') + '</summary><div class="fmenu">' +
+      primary.map((g) => drop(g, g.label)).join('') +
+      '<details class="fdrop" data-fkey="more"' + (state.openFilter === 'more' ? ' open' : '') + '><summary>更多' + (moreCount ? ' <b>' + moreCount + '</b>' : '') + '</summary><div class="fmenu">' +
       more.map((g) => '<div class="fsub">' + g.label + '</div>' + menu(g)).join('') + '</div></details>' +
       (chips.length ? '<div class="fchips">' + chips.join('') + '<button type="button" class="fclear" data-filter-clear>清除</button></div>' : '') +
       '</div>';
@@ -1270,6 +1271,19 @@
     }
   });
 
+  document.addEventListener('click', (e) => {
+    const sum = e.target.closest && e.target.closest('.fdrop > summary');
+    if (sum) {
+      const d = sum.parentElement;
+      state.openFilter = d.open ? null : (d.dataset.fkey || null);
+      return;
+    }
+    if (!e.target.closest || !e.target.closest('.fbar')) {
+      state.openFilter = null;
+      document.querySelectorAll('.fdrop[open]').forEach((x) => { x.open = false; });
+    }
+  }, true);
+
   document.addEventListener('change', (e) => {
     const el = e.target.closest && e.target.closest('[data-filter]');
     if (!el) return;
@@ -1287,6 +1301,7 @@
     if (e.target.closest('[data-filter-clear]')) {
       e.preventDefault();
       for (const g of FILTER_GROUPS) state.filters[g.key] = [];
+      state.openFilter = null;
       state.allPage = 1;
       refreshWithFilters(true);
       return;
@@ -1296,6 +1311,7 @@
       e.preventDefault();
       const key = un.dataset.unfilter;
       state.filters[key] = (state.filters[key] || []).filter((v) => v !== un.dataset.val);
+      state.openFilter = null;
       state.allPage = 1;
       refreshWithFilters(true);
       return;
