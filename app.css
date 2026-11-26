@@ -402,3 +402,25 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .side-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default}
 .topbar-home{margin-left:auto;text-decoration:none;display:inline-flex;align-items:center;flex:0 0 auto}
 @media(max-width:900px){.topbar-home{margin-left:0;flex:1 1 auto;justify-content:center}}
+/* filter bar */
+.fbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 0 8px;border-bottom:1px solid var(--line);margin:4px 0 10px}
+.fdrop{position:relative}
+.fdrop summary{list-style:none;cursor:pointer;font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);user-select:none;white-space:nowrap}
+.fdrop summary::-webkit-details-marker{display:none}
+.fdrop summary b{color:var(--blue);margin-left:3px}
+.fmenu{position:absolute;z-index:60;top:calc(100% + 6px);left:0;min-width:210px;max-height:340px;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(16,24,40,.16);padding:6px}
+.fopt{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:7px;font-size:13px;cursor:pointer;white-space:nowrap}
+.fopt:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.fopt em{margin-left:auto;color:var(--muted);font-style:normal;font-size:11.5px;font-variant-numeric:tabular-nums}
+.fsub{font-size:10.5px;color:var(--muted);padding:8px 8px 2px;text-transform:uppercase;letter-spacing:.5px}
+.fchips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fchip{font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer}
+.fchip:hover{border-color:var(--bad);color:var(--bad)}
+.fclear{font-size:12px;color:var(--muted);background:none;border:0;cursor:pointer;text-decoration:underline}
+.filter-note{font-size:12.5px;color:var(--muted);margin:2px 0 10px}
+.pager{display:flex;gap:12px;align-items:center;justify-content:center;margin:18px 0 6px}
+.pager button{padding:6px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;font:inherit;font-size:13px}
+.pager button:disabled{opacity:.45;cursor:default}
+.topbar-all{font-size:12.5px;color:var(--muted);text-decoration:none;padding:6px 8px;white-space:nowrap}
+.topbar-all:hover{color:var(--blue)}
+@media(max-width:900px){.fmenu{position:fixed;left:12px;right:12px;top:auto;bottom:12px;max-height:60vh;min-width:0}}

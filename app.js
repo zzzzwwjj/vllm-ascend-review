@@ -7,7 +7,7 @@
   const LOGIN_KEY = 'gh-token-login';
   const readToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } };
   const readLogin = () => { try { return localStorage.getItem(LOGIN_KEY) || ''; } catch (e) { return ''; } };
-  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), tokenLogin: readLogin(), fbStatus: {}, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
+  const state = { idx: null, editions: [], current: null, cache: new Map(), pending: new Map(), feedback: {}, lessons: [], editionId: null, token: readToken(), tokenLogin: readLogin(), fbStatus: {}, filters: {}, allPage: 1, compact: (() => { try { return localStorage.getItem('board-compact') === '1'; } catch (e) { return false; } })(), view: null,
     highlights: [], pendingHl: (() => { try { return JSON.parse(localStorage.getItem('board-pending-hl') || '[]'); } catch (e) { return []; } })(),
     marks: {}, pendingMarks: (() => { try { return JSON.parse(localStorage.getItem('board-pending-marks') || '[]'); } catch (e) { return []; } })() };
   const params = new URLSearchParams(location.search);
@@ -90,13 +90,102 @@
     return 's-' + stateKeyOf(p);
   }
 
-  function stateChip(p) {
-    const k = stateKeyOf(p);
+  function stateChipKey(k) {
     const label = {
       merged: '已合入', closed: '已关闭', draft: '草稿', ready: '待合入',
       conflict: '有冲突', ci: 'CI 未过', blocked: '待评审', behind: '待更新', open: '进行中',
     }[k] || '进行中';
     return '<span class="st st-' + k + '">' + label + '</span>';
+  }
+
+  function stateChip(p) {
+    return stateChipKey(stateKeyOf(p));
+  }
+
+  const FILTER_GROUPS = [
+    { key: 'state', label: '状态', options: [['open', '进行中'], ['ready', '待合入'], ['conflict', '有冲突'], ['ci', 'CI 未过'], ['blocked', '待评审'], ['behind', '待更新'], ['draft', '草稿'], ['closed', '已关闭'], ['merged', '已合入']] },
+    { key: 'done', label: '检视', options: [['0', '待检视'], ['1', '已完成']] },
+    { key: 'verdict', label: '结论', options: [['approve', '可批准'], ['look', '需细看'], ['pushback', '建议打回'], ['none', '未精读']] },
+    { key: 'hl', label: '高优', options: [['1', '仅高优']] },
+    { key: 'own', label: '责任田', options: [['1', '涉及我负责'], ['0', '无（简单检视）']] },
+    { key: 'mode', label: '检视方式', options: [['deep', '深度精读'], ['light', '简单检视']] },
+    { key: 'ci', label: 'CI', options: [['success', '通过'], ['failure', '失败'], ['pending', '进行中']] },
+    { key: 'size', label: '规模', options: [['s', '小 ≤50'], ['m', '中'], ['l', '大 ≥300']] },
+    { key: 'disc', label: '讨论', options: [['1', '有批注/回复']] },
+  ];
+  const fid = (r) => (r.n != null ? r.n : r.number);
+  const sizeBandOf = (r) => {
+    const n = (r.owned || []).reduce((a, f) => a + (f.additions || 0) + (f.deletions || 0), 0);
+    return n <= 50 ? 's' : n >= 300 ? 'l' : 'm';
+  };
+  function accessorValue(key, r) {
+    switch (key) {
+      case 'state': return r.s != null ? r.s : stateKeyOf(r);
+      case 'done': return r.d != null ? r.d : (markState(r).cls === 'yes' ? 1 : 0);
+      case 'verdict': return r.v !== undefined ? (r.v || 'none') : (r.review?.verdict || 'none');
+      case 'hl': return r.hl != null ? r.hl : (activeHighlights().some((h) => h.pr === fid(r)) ? 1 : 0);
+      case 'own': return r.o != null ? (r.o > 0 ? 1 : 0) : ((r.owned || []).length ? 1 : 0);
+      case 'mode': return r.m !== undefined ? (r.m || 'none') : (r.review ? ((r.review.mode || 'deep') === 'light' ? 'light' : 'deep') : 'none');
+      case 'ci': return r.c || r.ci?.state || 'unknown';
+      case 'size': return r.z || sizeBandOf(r);
+      case 'disc': return r.fb != null ? r.fb : ((state.feedback[String(fid(r))] || []).length ? 1 : 0);
+      default: return '';
+    }
+  }
+  function parseFilters(params) {
+    state.filters = {};
+    for (const g of FILTER_GROUPS) {
+      const raw = params.get(g.key);
+      state.filters[g.key] = raw ? raw.split(',').filter(Boolean) : [];
+    }
+    state.allPage = Number(params.get('page') || 1) || 1;
+  }
+  function filterQuery() {
+    const p = new URLSearchParams();
+    for (const g of FILTER_GROUPS) {
+      const sel = state.filters[g.key] || [];
+      if (sel.length) p.set(g.key, sel.join(','));
+    }
+    return p.toString();
+  }
+  const hasFilters = () => FILTER_GROUPS.some((g) => (state.filters[g.key] || []).length);
+  function applyFilters(list) {
+    return list.filter((r) => FILTER_GROUPS.every((g) => {
+      const sel = state.filters[g.key] || [];
+      return !sel.length || sel.map(String).includes(String(accessorValue(g.key, r)));
+    }));
+  }
+  function facetCounts(list) {
+    const out = {};
+    for (const g of FILTER_GROUPS) {
+      out[g.key] = {};
+      for (const [v] of g.options) out[g.key][v] = 0;
+      for (const r of list) {
+        const v = String(accessorValue(g.key, r));
+        if (out[g.key][v] != null) out[g.key][v]++;
+      }
+    }
+    return out;
+  }
+  function filterBar(scope) {
+    const counts = facetCounts(scope);
+    const sel = (g) => (state.filters[g.key] || []).map(String);
+    const menu = (g) => g.options.map(([v, label]) =>
+      '<label class="fopt"><input type="checkbox" data-filter="' + g.key + '" value="' + v + '"' + (sel(g).includes(v) ? ' checked' : '') + '> <span>' + label + '</span><em>' + (counts[g.key][v] || 0) + '</em></label>').join('');
+    const primary = FILTER_GROUPS.filter((g) => ['state', 'done', 'verdict'].includes(g.key));
+    const more = FILTER_GROUPS.filter((g) => !['state', 'done', 'verdict'].includes(g.key));
+    const moreCount = more.reduce((n, g) => n + sel(g).length, 0);
+    const chips = [];
+    for (const g of FILTER_GROUPS) for (const v of sel(g)) {
+      const opt = g.options.find((o) => String(o[0]) === v);
+      chips.push('<button type="button" class="fchip" data-unfilter="' + g.key + '" data-val="' + v + '">' + g.label + '：' + (opt ? opt[1] : v) + ' ×</button>');
+    }
+    return '<div class="fbar">' +
+      primary.map((g) => '<details class="fdrop"><summary>' + g.label + (sel(g).length ? ' <b>' + sel(g).length + '</b>' : '') + '</summary><div class="fmenu">' + menu(g) + '</div></details>').join('') +
+      '<details class="fdrop"><summary>更多' + (moreCount ? ' <b>' + moreCount + '</b>' : '') + '</summary><div class="fmenu">' +
+      more.map((g) => '<div class="fsub">' + g.label + '</div>' + menu(g)).join('') + '</div></details>' +
+      (chips.length ? '<div class="fchips">' + chips.join('') + '<button type="button" class="fclear" data-filter-clear>清除</button></div>' : '') +
+      '</div>';
   }
 
   const isLight = (p) => !!(p.review && (p.review.mode === 'light' || !(p.owned || []).length));
@@ -450,15 +539,20 @@
 
   function content(data) {
     if (data.legacy_content_html) return data.legacy_content_html;
-    const rest = (data.rest || []).map(row).join('');
+    const deepFiltered = applyFilters(data.deep || []);
+    const restFiltered = applyFilters(data.rest || []);
+    const total = (data.deep || []).length + (data.rest || []).length;
+    const filteredCount = deepFiltered.length + restFiltered.length;
+    const note = hasFilters() ? '<p class="filter-note">筛选后 ' + filteredCount + ' / 本期 ' + total + '</p>' : '';
+    const rest = restFiltered.map(row).join('');
     if (data.backlog) {
-      return '<p class="backlog-note">这些是尚未合入、待我检视的历史 PR（已排除近四期与今早新增），仅按列表呈现，未做精读。</p>' +
-        tableBlock(rest, '历史积压（' + (data.rest || []).length + '）');
+      return note + '<p class="backlog-note">这些是尚未合入、待我检视的历史 PR（已排除近四期与今早新增），仅按列表呈现，未做精读。</p>' +
+        tableBlock(rest, '历史积压（' + restFiltered.length + '）');
     }
-    const deep = (data.deep || []).map((p) => (state.compact ? compactItem(p) : card(p))).join('');
-    return '<h2>本期精读（' + (data.deep || []).length + '）</h2>' +
-      (deep || '<p class="muted">本期无新增。</p>') +
-      tableBlock(rest, '其余新增（' + (data.rest || []).length + '）');
+    const deep = deepFiltered.map((p) => (state.compact ? compactItem(p) : card(p))).join('');
+    return note + '<h2>本期精读（' + deepFiltered.length + '）</h2>' +
+      (deep || '<p class="muted">' + (hasFilters() ? '没有符合筛选条件的精读 PR。' : '本期无新增。') + '</p>') +
+      tableBlock(rest, '其余新增（' + restFiltered.length + '）');
   }
 
   function header(data, meta, isLatest) {
@@ -951,6 +1045,7 @@
     return '<div class="topbar"><input id="gs" type="search" autocomplete="off" spellcheck="false" placeholder="搜索 PR 编号（如 20758）或 GitHub ID（如 stdjhs）" value="' + esc(state.query || '') + '">' +
       '<button type="button" data-search-btn>搜索</button><button type="button" data-search-clear>回到最新</button>' +
       '<button type="button" data-compact title="切换卡片密度">' + (state.compact ? '舒适模式' : '紧凑模式') + '</button>' +
+      '<a class="topbar-all" href="?all=1">全部 PR</a>' +
       '<a class="lp-cta topbar-home" href="./">← 回到主页</a></div>';
   }
 
@@ -966,6 +1061,7 @@
     state.query = '';
     document.title = (isLatest ? '最新一期' : (meta.label || tz(meta.at))) + ' · vLLM-Ascend 待我检视 · @' + (data?.user || state.idx?.user || '');
     app().innerHTML = shell(header(data, meta, isLatest) +
+      (data ? filterBar([...(data.deep || []), ...(data.rest || [])]) : '') +
       '<div class="content">' + (data ? content(data) + lessonsSection() : skeleton) + '</div>');
     if (data) { attachLegacyFeedback(); restoreDrafts(); }
   }
@@ -1057,10 +1153,64 @@
     }
   }
 
+  function indexRow(it) {
+    const v = it.v ? verdictMeta[it.v] : null;
+    return '<tr>' +
+      '<td data-label="PR"><a href="?pr=' + it.n + '" data-pr-nav="' + it.n + '">#' + it.n + '</a>' + stateChipKey(it.s || 'open') + '</td>' +
+      '<td class="t">' + esc(it.t) + '</td>' +
+      '<td data-label="作者">@' + esc(it.a) + '</td>' +
+      '<td data-label="期次">' + esc(it.e) + '</td>' +
+      '<td data-label="检视">' + (it.d ? '已完成' : '待检视') + '</td>' +
+      '<td data-label="结论">' + (v ? '<span class="b ' + v.cls + ' sm">' + v.label + '</span>' : '—') + '</td></tr>';
+  }
+
+  async function renderAll(push) {
+    state.view = { type: 'all' };
+    await loadSearchIndex();
+    const all = state.searchIndex.slice();
+    const filtered = applyFilters(all);
+    const pageSize = 50;
+    const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+    state.allPage = Math.min(Math.max(1, state.allPage), pages);
+    const slice = filtered.slice((state.allPage - 1) * pageSize, state.allPage * pageSize);
+    if (push) {
+      const q = new URLSearchParams();
+      q.set('all', '1');
+      if (state.allPage > 1) q.set('page', String(state.allPage));
+      const f = filterQuery();
+      history.pushState({ all: 1 }, '', '?' + q.toString() + (f ? '&' + f : ''));
+    }
+    document.title = '全部 PR · vLLM-Ascend 待我检视 · @' + (state.idx?.user || '');
+    const pager = pages > 1
+      ? '<div class="pager"><button type="button" data-page="' + (state.allPage - 1) + '"' + (state.allPage === 1 ? ' disabled' : '') + '>上一页</button>' +
+        '<span>' + state.allPage + ' / ' + pages + '</span>' +
+        '<button type="button" data-page="' + (state.allPage + 1) + '"' + (state.allPage === pages ? ' disabled' : '') + '>下一页</button></div>'
+      : '';
+    app().innerHTML = shell(
+      '<header><h1>全部 PR <span class="at">' + filtered.length + ' / ' + all.length + '</span></h1>' +
+      '<p class="sub">跨期次浏览与筛选，点编号查看详情</p></header>' +
+      filterBar(all) +
+      '<div class="content">' + tableBlock(slice.map(indexRow).join(''), '') + pager + '</div>');
+  }
+
+  function refreshWithFilters(push) {
+    if (state.view && state.view.type === 'all') { renderAll(push); return; }
+    if (state.view && state.view.type === 'edition') {
+      render(state.editionId, state.cache.get(state.editionId));
+      const p = new URLSearchParams();
+      p.set('e', state.editionId);
+      const f = filterQuery();
+      history.replaceState({ id: state.editionId }, '', '?' + p.toString() + (f ? '&' + f : ''));
+    }
+  }
+
   async function go(id, push) {
     if (!state.editions.some((e) => e.id === id)) id = state.idx.current || state.editions[0].id;
     state.current = id;
-    if (push) history.pushState({ id }, '', '?e=' + encodeURIComponent(id));
+    if (push) {
+      const f = filterQuery();
+      history.pushState({ id }, '', '?e=' + encodeURIComponent(id) + (f ? '&' + f : ''));
+    }
     const cached = state.cache.get(id);
     render(id, cached || null);
     if (!cached) {
@@ -1094,6 +1244,45 @@
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     go(a.dataset.nav, true);
+  });
+
+  document.addEventListener('change', (e) => {
+    const el = e.target.closest && e.target.closest('[data-filter]');
+    if (!el) return;
+    const key = el.dataset.filter;
+    const val = el.value;
+    const arr = state.filters[key] || (state.filters[key] = []);
+    const i = arr.indexOf(val);
+    if (el.checked && i < 0) arr.push(val);
+    if (!el.checked && i >= 0) arr.splice(i, 1);
+    state.allPage = 1;
+    refreshWithFilters(true);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-filter-clear]')) {
+      e.preventDefault();
+      for (const g of FILTER_GROUPS) state.filters[g.key] = [];
+      state.allPage = 1;
+      refreshWithFilters(true);
+      return;
+    }
+    const un = e.target.closest('[data-unfilter]');
+    if (un) {
+      e.preventDefault();
+      const key = un.dataset.unfilter;
+      state.filters[key] = (state.filters[key] || []).filter((v) => v !== un.dataset.val);
+      state.allPage = 1;
+      refreshWithFilters(true);
+      return;
+    }
+    const pg = e.target.closest('[data-page]');
+    if (pg && !pg.disabled) {
+      e.preventDefault();
+      state.allPage = Number(pg.dataset.page) || 1;
+      renderAll(true);
+      return;
+    }
   });
 
   document.addEventListener('click', (e) => {
@@ -1186,6 +1375,8 @@
 
   window.addEventListener('popstate', () => {
     const p = new URLSearchParams(location.search);
+    parseFilters(p);
+    if (p.get('all')) { renderAll(false); return; }
     if (p.get('hl')) { doHighlights(false); return; }
     if (p.get('pr')) { doSearch(p.get('pr'), false); return; }
     if (p.get('author')) { doSearch(p.get('author'), false); return; }
@@ -1221,7 +1412,9 @@
             }
           }).catch(() => {}),
       ]);
-      if (params.get('hl')) { await doHighlights(false); }
+      parseFilters(params);
+      if (params.get('all')) { await renderAll(false); }
+      else if (params.get('hl')) { await doHighlights(false); }
       else if (params.get('pr')) { await doSearch(params.get('pr'), false); }
       else if (params.get('author')) { await doSearch(params.get('author'), false); }
       else if (params.get('e')) {

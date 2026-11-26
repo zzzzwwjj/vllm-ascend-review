@@ -119,6 +119,7 @@ node scripts/build-backlog-edition.mjs  # 写成首期（backlog: true，只列�
 - [ ] 无责任田文件的请求类 PR 显示「简单检视」，只指出明显问题
 - [ ] 连续两期之间没有重复 PR
 - [ ] 列表只加载 `prs/<千位>.json`，打开卡片才请求 `prs/detail/<千位>.json`
+- [ ] 全局「全部 PR」与期次页支持标签筛选，条件写入 URL 且刷新不丢
 
 ## 9. 已知限制
 

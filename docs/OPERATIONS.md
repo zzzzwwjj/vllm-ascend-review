@@ -55,7 +55,8 @@ node scripts/ingest-feedback.mjs    # 处理 issue 评论线程（动作/批注/
 node scripts/collect.mjs            # 采集：CODEOWNERS、搜索、去重、请求优先排序
 node scripts/split-deep.mjs         # 拆分本期精读输入（请求 PR + 新增 PR）
 # 子代理写 work/reviews/<n>.json
-node scripts/render.mjs             # 合并远端 marks、写库、骨架、搜索索引、文档
+node scripts/render.mjs             # 合并远端 marks、写库（meta/detail）、骨架、文档
+node scripts/build-search-index.mjs # 重建检索索引（含状态/检视/结论等筛选字段）
 node scripts/publish.mjs            # 单次提交
 ```
 
@@ -77,7 +78,7 @@ node scripts/publish.mjs            # 单次提交
 | `lessons.json` | 从批注蒸馏的规则 | render |
 | `highlights.json` | 高优检视（已过滤完成项，含结论 `v`） | render |
 | `marks.json` | 完成检视标记 | 浏览器直接提交，render 发布前合并 |
-| `search.json` | 全局搜索索引 | build-search-index |
+| `search.json` | 检索与筛选索引（n/t/a/e/r/v/s/d/m/o/c/z/u） | build-search-index |
 
 ## 5. 发布机制
 
