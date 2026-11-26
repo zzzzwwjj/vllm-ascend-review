@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-11-25T10:09:40.263Z",
+  "updated_at": "2026-11-26T00:06:42.382Z",
   "items": [
     {
-      "pr": 21730,
+      "pr": 16145,
       "kind": "refresh",
-      "title": "[BugFix] Correct Qwen3.8-Flash-Next Mamba state and PLE numerical precision",
-      "at": "2026-11-25T09:34:22Z",
-      "issue": 10,
-      "v": "look"
+      "title": "[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU",
+      "at": "2026-11-25T11:23:44Z",
+      "issue": 11,
+      "v": "pushback"
     }
   ]
 }

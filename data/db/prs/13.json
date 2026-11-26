@@ -696,7 +696,7 @@
       "review_sha": "499e7f973c29",
       "head_sha": "2e7688349d774aa00e51221e939089bc2e22e58d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13225": {
       "number": 13225,
@@ -809,7 +809,7 @@
       "review_sha": null,
       "head_sha": "d0268166a8e931b5161e2edb651ffb94b276314b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13331": {
       "number": 13331,
@@ -849,7 +849,7 @@
       "review_sha": null,
       "head_sha": "0e5d9c35b444ef2e39128415d2307edd21e0d29e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13372": {
       "number": 13372,
@@ -882,7 +882,7 @@
       "review_sha": null,
       "head_sha": "18ec686246fc58a9e449f0670467166a8a1dd6c2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13529": {
       "number": 13529,
@@ -1025,7 +1025,7 @@
       "review_sha": null,
       "head_sha": "21ccde40172e26730dc2a8ae21731f3b1d8b9a5d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "13620": {
       "number": 13620,
@@ -1127,7 +1127,7 @@
       "review_sha": "c3d856313a27",
       "head_sha": "be4aba3b090e699797d9174e29e71bf918d5ff7c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13643": {
       "number": 13643,
@@ -1278,7 +1278,7 @@
       "review_sha": null,
       "head_sha": "ee49f982bf2db4fbfe311591130d7ae13bdd5358",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "13678": {
       "number": 13678,
@@ -1384,7 +1384,7 @@
       "review_sha": null,
       "head_sha": "fc7759bbfea21cc6d7b0416bfcdad71338002ffc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13705": {
       "number": 13705,
@@ -1430,7 +1430,7 @@
       "review_sha": null,
       "head_sha": "3806e6f64ac650695edf5328032c6c581e625a48",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13727": {
       "number": 13727,
@@ -1629,7 +1629,7 @@
       "review_sha": null,
       "head_sha": "0aef5c87add80502136bd380be7588d384cf0aae",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "13844": {
       "number": 13844,
@@ -1695,7 +1695,7 @@
       "review_sha": null,
       "head_sha": "d80462a3f4f08af36c8da33dcf983df16a4c2032",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13932": {
       "number": 13932,
@@ -1728,7 +1728,7 @@
       "review_sha": null,
       "head_sha": "eb89f89a491d4ec6ecc487cee73426403609e3d6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "13940": {
       "number": 13940,
@@ -1761,7 +1761,7 @@
       "review_sha": null,
       "head_sha": "127088af1c8b8d32979487652bfc34d4461f02b8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "13954": {
       "number": 13954,

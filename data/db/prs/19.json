@@ -186,7 +186,7 @@
       "review_sha": null,
       "head_sha": "90087431697f8de361b1ca6432e82deb01172c20",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19107": {
       "number": 19107,
@@ -219,7 +219,7 @@
       "review_sha": null,
       "head_sha": "b3c281bf2df5e6a0ca3726bea27ccb06fdd35883",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19109": {
       "number": 19109,
@@ -355,7 +355,7 @@
       "review_sha": null,
       "head_sha": "b32088eadea1257a5b7344ab6482faa5f6f5177f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19153": {
       "number": 19153,
@@ -459,7 +459,7 @@
       "review_sha": null,
       "head_sha": "6a10fd1e37ca968a6bc8e38672b8ab3047595136",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19212": {
       "number": 19212,
@@ -511,7 +511,7 @@
       "review_sha": null,
       "head_sha": "b4e5e11a8116e03facd87b7dc30fb0a119836e06",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19218": {
       "number": 19218,
@@ -544,7 +544,7 @@
       "review_sha": null,
       "head_sha": "ada9c411780c849be6a8361cfdf5a928e746717a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19219": {
       "number": 19219,
@@ -700,7 +700,209 @@
       "review_sha": null,
       "head_sha": "ac329d46c7e721ed1a221c4d46a23d0e525c189c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
+    },
+    "19288": {
+      "number": 19288,
+      "title": "[BugFix][v0.30.0][EPLB] Recording mode silent failure",
+      "author": "deveringham",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19288",
+      "changed_files": 6,
+      "head_sha": "f6c06eec582f12dba15365308dc647710dc97ece",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/eplb",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 151,
+      "deletions": 9,
+      "age_days": 36.5,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 19288,
+        "verdict": "look",
+        "confidence": "low",
+        "summary": "记录模式修复：forward_before 不再发起 D2D，worker 以 record_only 保留基准布局；无我负责文件，CI 缺失。",
+        "intent": "修复设置 eplb_config.expert_map_record_path 后 loader 永久停在 TRANSFERRING、后续周期全被拒的问题：记录模式不再发起权重迁移，仍按周期产出计划供导出，并以真实布局作为下次计划基础。",
+        "focus": [
+          {
+            "file": "vllm_ascend/eplb/core/eplb_updator.py（非我负责）",
+            "point": "forward_before 在记录模式下是否仍 pop 更新信息保持队列对齐，forward_end 已有的跳过条件与新增跳过是否自洽。"
+          },
+          {
+            "file": "vllm_ascend/eplb/core/eplb_worker.py（非我负责）",
+            "point": "record_only 从 EplbProcess 透传到 EplbWorker 的构造链路是否覆盖全部构造点，以及计划发布与基准布局的取舍。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "owned 为空：vllm_ascend/eplb、worker、tests 均不归我负责，以上仅简单检视，深度结论由对应 code owner 给出。"
+          },
+          {
+            "level": "medium",
+            "text": "CI 状态 unknown（total=0），无法确认 cpu-ut；作者自测与复现都在 A2 910B3 上完成，未看到 CI 证据。"
+          },
+          {
+            "level": "medium",
+            "text": "新增 record_only 参数需要贯穿 EplbProcess→EplbWorker 构造；若某条内部构造路径漏传默认 False，记录模式会退回“迁移权重但跳过 update_expert_map_and_weight”的静默失败，需 code owner 核对全部构造点。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：无偏差——未新增对外配置或公开接口（record_only 是内部参数，来源仍是既有 expert_map_record_path）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用——未新增对上游缺陷的临时规避，未见新 TODO。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：不适用——未新增对外函数/开关，改动落在既有 forward_before/forward_end 与 do_update 分支内；record_only 有 EplbProcess 传入的调用点。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：通过——抽查 eplb_updator.py 与新增 test_eplb_worker_record_only.py，CJK 扫描均 0 行；其余改动文件未逐一核对。"
+          }
+        ],
+        "tests": "新增 tests/ut/eplb/test_eplb_updator.py::TestEplbUpdatorRecordMode 与 test_eplb_worker_record_only.py；CI 无数据（total=0），无法核验。",
+        "questions": [
+          "需要作者确认：record_only 的全部构造点（含测试/内部重启路径）是否都已透传，漏传时会否静默退回旧行为？",
+          "需要作者确认：能否补 CI 运行记录？当前抓取到 0 个检查项。",
+          "需要作者确认：记录模式跳过 set_log2phy_map 后，导出文件里的 log2phy 映射是否仍可用于事后复盘？"
+        ],
+        "recommend": "由 eplb code owner 深入检视 record_only 全链路并让作者补 CI 结果；我无责任田文件。",
+        "mode": "light"
+      },
+      "review_sha": "164a64ac1d11"
+    },
+    "19290": {
+      "number": 19290,
+      "title": "[BugFix][v0.30.0][EPLB] Honour a policy's changed flag instead of discarding it",
+      "author": "deveringham",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19290",
+      "changed_files": 3,
+      "head_sha": "b047e377fe3fe836f76edb15d88b0395b5eb932e",
+      "areas": [
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/eplb",
+          "n": 1
+        }
+      ],
+      "additions": 182,
+      "deletions": 6,
+      "age_days": 36.5,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 19290,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "do_update 现遵守 policy 的 changed 标志，head 代码与描述一致；无我负责文件，CI 数据缺失（0 项）。",
+        "intent": "让 EplbWorker.do_update 遵守 policy 返回的 changed：changed=0 时沿用当前布局、不执行 policy 判为不划算的重排；并避免无负载数据时返回 None 造成队列错位。",
+        "focus": [
+          {
+            "file": "vllm_ascend/eplb/core/eplb_worker.py（非我负责）",
+            "point": "do_update(47-135) 对 changed 的判断（isinstance 覆盖 bool/int/np.bool_/np.integer，其余按 apply 处理）与 load_info 为 None 时保留原布局，是否与 forward_before 的 pop(0) 队列语义一致。"
+          },
+          {
+            "file": "tests/ut/eplb/core/test_eplb_worker_changed_flag.py（非我负责）",
+            "point": "十个用例是否真的覆盖 changed=0 不迁移、changed=1 照旧、异常值按 apply、缺失负载数据的 no-op 计划这几条分支。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "owned 为空：PR 改的 eplb/tests/release_notes 都不归我负责，以上仅为简单检视，深度结论应由对应 code owner 给出。"
+          },
+          {
+            "level": "medium",
+            "text": "CI 状态为 unknown（total=0，无检查项可读），无法确认作者所述 cpu-ut 通过；描述中引用的测试结果是 retarget 前在 main 上测的。"
+          },
+          {
+            "level": "medium",
+            "text": "行为变更用户可见：policy 1/2 下不再执行改善不足 5% 的重排，作者自述可考虑加配置开关，需维护者决定是默认生效还是给开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：无偏差——未新增对外配置或公开接口，仅改既有分支行为（若最终加开关则需重新评估配置面）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用——未新增对上游缺陷的临时规避，未见新增 TODO；正文引用上游 vllm#47206 的 5% 先例属说明性引用。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：不适用——未新增函数或开关，改动落在既有 do_update 内。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：通过——抽查 do_update 所在 eplb_worker.py 与新增测试，CJK 扫描均 0 行；release note 片段未逐字核对。"
+          }
+        ],
+        "tests": "新增 tests/ut/eplb/core/test_eplb_worker_changed_flag.py（十例）；CI 无数据（total=0），无法核验运行结果。",
+        "questions": [
+          "需要作者确认：能否补一条 CI 运行记录/链接？当前抓取到 0 个检查项，无法判断 cpu-ut 状态。",
+          "需要作者确认：跳过 <5% 改善的重排是否要 additional_config 开关或 UPPER 级 release note，以免用户感知为“EPLB 不动了”？",
+          "需要作者确认：retarget 到 releases/v0.30.0 后，main 是否仍需要该修复（main 已移除 MRv1 与 eplb 包）？"
+        ],
+        "recommend": "等 code owner 深入检视并让作者补 CI 结果；我这边无责任田文件，仅登记为待观察。",
+        "mode": "light"
+      },
+      "review_sha": "bf9083e2c0e0"
     },
     "19319": {
       "number": 19319,
@@ -733,7 +935,7 @@
       "review_sha": null,
       "head_sha": "d89861fa6ef412ff949787a781492a68ab1b4ccc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19394": {
       "number": 19394,
@@ -827,7 +1029,7 @@
       "review_sha": null,
       "head_sha": "9f3785d9d999fff5e3cabc18327f7a13719f51c1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19396": {
       "number": 19396,
@@ -867,7 +1069,7 @@
       "review_sha": null,
       "head_sha": "cd7f6bb469df0f881a007ab7b317f4ba6729ab33",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19400": {
       "number": 19400,
@@ -946,7 +1148,7 @@
       "review_sha": null,
       "head_sha": "ea04b76894b4f6500cc31fa21aaabdf4aef45cac",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19458": {
       "number": 19458,
@@ -986,7 +1188,7 @@
       "review_sha": null,
       "head_sha": "2a011611a027fd9e4de02249693a6172d21c5fde",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19478": {
       "number": 19478,
@@ -1032,7 +1234,7 @@
       "review_sha": null,
       "head_sha": "9c3a5bef0928f645324e9525f426cb6371df243c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19507": {
       "number": 19507,
@@ -1129,7 +1331,7 @@
       "review_sha": null,
       "head_sha": "bdf2e4b75fdab39de21f54019fc0c338f242bd77",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19536": {
       "number": 19536,
@@ -1162,7 +1364,7 @@
       "review_sha": null,
       "head_sha": "5c379ba30170e6136329c4c43e119c249ccacc3c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19540": {
       "number": 19540,
@@ -1228,7 +1430,102 @@
       "review_sha": null,
       "head_sha": "96ef95c9aeb930ddc239746fdd25611f03f1011a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
+    },
+    "19571": {
+      "number": 19571,
+      "title": "[Performance][KV Pool] Deduplicate MLA reads with sharded exchange",
+      "author": "Suixing5208",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/19571",
+      "changed_files": 7,
+      "head_sha": "23930c4aa35932bb0228ac4d62b6f1cb01cb2c9f",
+      "areas": [
+        {
+          "p": "vllm_ascend/distributed",
+          "n": 4
+        },
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        }
+      ],
+      "additions": 1721,
+      "deletions": 26,
+      "age_days": 33.8,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 19571,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "无我负责文件（7 个文件均非我责任田）；PR 与主干冲突、CI 从未运行、33 天未更新，仅给元数据级结论，深入检视交对应 code owner。",
+        "intent": "为 MLA KV Pool 非 layerwise start_load_kv 做读去重：各 TP rank 读不重叠 key 分片，P2P/AllGather 交换后回填本地 cache，附很窄的 eligibility 与交换预算阈值。",
+        "focus": [
+          {
+            "file": "（无 owned 文件）vllm_ascend/distributed 下 4 个文件 + tests/ut 2 个文件 + release_notes 1 个文件",
+            "point": "非我负责：只需看冲突与流水线状态；读写路径、失败语义、Mamba/non-replicated 保护等请由 distributed/KV Pool 的 code owner 深入。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "mergeable_state=dirty 且带 merge-conflicts 标签，基于 c19e26d32 提交已 33 天未更新；未 rebase 前不存在可评估的最终 diff，不应进入合入讨论。"
+          },
+          {
+            "level": "high",
+            "text": "CI 检查总数 0（state unknown，仅带 ci-run 标签），等于从未跑过流水线；1721 行新增、涉及异步接收与多进程交换，没有任何测试证据支撑。"
+          },
+          {
+            "level": "medium",
+            "text": "1721+/26-/7 文件的较大改动由 first-time contributor 提交，仅 1 个 approve；且 PR 自述实现与 issue 的“单 reader”设计不同（sharded-reader），需要 owner 判断是否可接受该偏离。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：PR 未提新增对外配置，去重是自动生效，属仓库内部实现选择，不涉及上游 vLLM 分叉；但“是否应推动上游 KV connector 提供去重接口”值得 owner 判断，我无 patch 无法确认。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：无法核验——输入中没有 patch，看不到是否存在对上游缺陷的临时规避及其 TODO(github id)；请 owner 检查。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：无法核验——新增的交换/调度入口是否有本 PR 内的调用点与生效路径，需要看 patch；请 owner 确认没有只定义不调用的情况。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：无法核验——我没有文件路径与 patch，无法检查注释语言；请 owner 检查新增 UT 与代码注释是否全英文，发现中文注释需在合入前要求改正。"
+          }
+        ],
+        "tests": "无 CI 结果（0 checks，连 CPU UT 都没跑），无法评估；合入前至少需一次 CPU UT + MLA KV Pool 相关 e2e 绿灯。",
+        "questions": [
+          "能否先 rebase 到最新 main 并触发 ci-run？当前 diff 与主干冲突（dirty），无法评审最终形态。",
+          "需要作者确认：TP 分片交换在部分 rank 无数据、异步接收失败、以及本地 SDMA 预算边界三种情况下的失败语义是否与 legacy 完全一致？",
+          "需要作者确认：是否能先用一次完整 CI（含 tests/ut 两个新增文件）证明 1721 行新增没有破坏非去重路径？"
+        ],
+        "recommend": "由 distributed/KV Pool 的 code owner 深入检视；在此之前请作者 rebase 解决冲突并跑通 CI。",
+        "mode": "light"
+      },
+      "review_sha": "729a77ddf55f"
     },
     "19602": {
       "number": 19602,
@@ -1322,7 +1619,7 @@
       "review_sha": "4557096de626",
       "head_sha": "39a6d293587a54f9329149f761a4c938b314da07",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19603": {
       "number": 19603,
@@ -1368,7 +1665,7 @@
       "review_sha": null,
       "head_sha": "68a5b8e79d400b66d3e4d4119926c563fd800f65",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19604": {
       "number": 19604,
@@ -1420,7 +1717,7 @@
       "review_sha": null,
       "head_sha": "995fa3b8c94012cf265fca347585d811efda85d8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19662": {
       "number": 19662,
@@ -1493,7 +1790,7 @@
       "review_sha": null,
       "head_sha": "b391b3912a3a77418c957fecdbfbcb89416c13cd",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19674": {
       "number": 19674,
@@ -1539,7 +1836,7 @@
       "review_sha": null,
       "head_sha": "262ed681582bf9c923689e504106546dbef8d297",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19675": {
       "number": 19675,
@@ -1618,7 +1915,7 @@
       "review_sha": null,
       "head_sha": "afa4543b9f18716def7f0b8773244252d60b9c72",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19678": {
       "number": 19678,
@@ -1651,7 +1948,7 @@
       "review_sha": null,
       "head_sha": "9eb3840b460cd6eed91db3e9b3bff09a6e8c5537",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19679": {
       "number": 19679,
@@ -1716,7 +2013,7 @@
       "review_sha": null,
       "head_sha": "93e91651e4d041c6c662588fa985e2312e3bb611",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19681": {
       "number": 19681,
@@ -1843,7 +2140,7 @@
       "review_sha": null,
       "head_sha": "9fa6a7f2e79a33362d3096ca72a8d92f3f2de55a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19698": {
       "number": 19698,
@@ -1876,7 +2173,7 @@
       "review_sha": null,
       "head_sha": "f3c9f8b132ed1302fc395a8af21c1305d4d96029",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19699": {
       "number": 19699,
@@ -1997,7 +2294,7 @@
       },
       "review_sha": "ed849af35a48",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19700": {
       "number": 19700,
@@ -2030,7 +2327,7 @@
       "review_sha": null,
       "head_sha": "2ecb61a23e8d29b60ca92a83f54d0bc17fc9b74f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19716": {
       "number": 19716,
@@ -2070,7 +2367,7 @@
       "review_sha": null,
       "head_sha": "0109248a014e0742aec5ec7bc6c680577b33313b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19719": {
       "number": 19719,
@@ -2219,7 +2516,7 @@
       "review_sha": "81da413e3b71",
       "head_sha": "4400e052efc5c51dca76b360ba11f37b18fabc13",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19734": {
       "number": 19734,
@@ -2252,7 +2549,7 @@
       "review_sha": null,
       "head_sha": "dcd1c36cf6dac0860c407df67133cfba05e1163b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19735": {
       "number": 19735,
@@ -2285,7 +2582,7 @@
       "review_sha": null,
       "head_sha": "3653ed16a3ae1712c60cd5ac769065c03310bfe6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19742": {
       "number": 19742,
@@ -2318,7 +2615,7 @@
       "review_sha": null,
       "head_sha": "0f3dd818c4e937ddaf37801b01441568952611eb",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19746": {
       "number": 19746,
@@ -2351,7 +2648,7 @@
       "review_sha": null,
       "head_sha": "3f15f845a77547f93f624a4f336209d03c43e35a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19757": {
       "number": 19757,
@@ -2445,7 +2742,7 @@
       "review_sha": null,
       "head_sha": "38a9c3f75346f2a4c5a2cf4453e91b1676d0dab3",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19762": {
       "number": 19762,
@@ -2485,7 +2782,7 @@
       "review_sha": null,
       "head_sha": "6a9712f034d5b18b54c07e574b367e2b2f509a8c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19769": {
       "number": 19769,
@@ -2531,7 +2828,7 @@
       "review_sha": null,
       "head_sha": "03170fbdb9c7036cc00d721ebc8c3c7e0139a713",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19805": {
       "number": 19805,
@@ -2595,7 +2892,7 @@
       "review_sha": null,
       "head_sha": "77b505c692e7b0276e1d5442c71fd11a28da122c",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19837": {
       "number": 19837,
@@ -2689,7 +2986,7 @@
       "review_sha": null,
       "head_sha": "015f11198547192a3d4eb60aea8d2ad5c64058eb",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19848": {
       "number": 19848,
@@ -2729,7 +3026,7 @@
       "review_sha": null,
       "head_sha": "85ff211a244af9b9329a3045a961fcd0155da2a8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19863": {
       "number": 19863,
@@ -2805,7 +3102,7 @@
       "review_sha": null,
       "head_sha": "648b5313e637cf60f6fbc327bb907f2d09e7b7ad",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19864": {
       "number": 19864,
@@ -2838,7 +3135,7 @@
       "review_sha": null,
       "head_sha": "017ee1a9f20fdbd7f71d40b8e2b5846f10a42b51",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19874": {
       "number": 19874,
@@ -2890,7 +3187,7 @@
       "review_sha": null,
       "head_sha": "73bff82d9cf08d76abe4b42896c1b809b61442e8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19875": {
       "number": 19875,
@@ -2936,7 +3233,7 @@
       "review_sha": null,
       "head_sha": "d4c8c2e440f0ee7f1e653aa174524c3b594f6517",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19876": {
       "number": 19876,
@@ -3018,7 +3315,7 @@
       "review_sha": null,
       "head_sha": "3405b10492ec6410bdd23fcbaae313a289eed739",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19884": {
       "number": 19884,
@@ -3064,7 +3361,7 @@
       "review_sha": null,
       "head_sha": "7cae48cb97c52bee4aacfe97e942461350efecbd",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19886": {
       "number": 19886,
@@ -3144,7 +3441,7 @@
       "review_sha": null,
       "head_sha": "4291053dade4e4dbfc9971decd294ea41a69564b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19890": {
       "number": 19890,
@@ -3190,7 +3487,7 @@
       "review_sha": null,
       "head_sha": "4ab942489ac69ae669d5209b326de80fee5a52bc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19896": {
       "number": 19896,
@@ -3284,7 +3581,7 @@
       "review_sha": null,
       "head_sha": "2c677d155cd635d8fe0639a211bff01708480cd4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19898": {
       "number": 19898,
@@ -3336,7 +3633,7 @@
       "review_sha": null,
       "head_sha": "0f1f3a74d7d11a91f64d02d556d13e8680885e70",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19909": {
       "number": 19909,
@@ -3369,7 +3666,7 @@
       "review_sha": null,
       "head_sha": "db29277cd9f5e1075adcf850587a9c05bebc6b52",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19911": {
       "number": 19911,
@@ -3409,7 +3706,7 @@
       "review_sha": null,
       "head_sha": "2c412609739d63184e48f6a442773a325079faa4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19914": {
       "number": 19914,
@@ -3491,7 +3788,7 @@
       "review_sha": null,
       "head_sha": "dcc23a34f348e1aa64813c52989e650b34716324",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19916": {
       "number": 19916,
@@ -3524,7 +3821,7 @@
       "review_sha": null,
       "head_sha": "75f4ca089f14aea910c7e9d55012f407eb03c302",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "19932": {
       "number": 19932,
@@ -3557,7 +3854,7 @@
       "review_sha": null,
       "head_sha": "c0c9ac0741464f5fc8f74bb16ec971c043f94220",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "19971": {
       "number": 19971,
@@ -3630,7 +3927,7 @@
       "review_sha": null,
       "head_sha": "6fcafe90e9fe4091685935d162a7a3869aa204ee",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     }
   }
 }

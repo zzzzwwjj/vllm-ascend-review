@@ -1,0 +1,111 @@
+{
+  "id": "2026-11-26-0802",
+  "at": "2026-11-26T00:02:06.555Z",
+  "user": "zzzzwwjj",
+  "window": {
+    "start": "2026-11-25T10:01:56.393Z",
+    "end": "2026-11-26T00:02:06.555Z",
+    "reason": "自上次运行 11-25 18:01",
+    "hours": 14
+  },
+  "stats": {
+    "search_hits": 93,
+    "loaded": 18,
+    "fresh": 17,
+    "deep": 17,
+    "rest": 0,
+    "skipped": 1,
+    "requested": 1,
+    "skipped_seen": 75,
+    "skipped_other": 1,
+    "owned_prs": 13,
+    "api_calls": 70
+  },
+  "verdicts": {
+    "approve": 2,
+    "look": 13,
+    "pushback": 2,
+    "pending": 0
+  },
+  "states": {
+    "merged": 0,
+    "closed": 0,
+    "draft": 0,
+    "ready": 0,
+    "conflict": 0,
+    "ci": 0,
+    "blocked": 0,
+    "behind": 0,
+    "open": 17
+  },
+  "members": [
+    {
+      "n": 16145,
+      "role": "deep"
+    },
+    {
+      "n": 23272,
+      "role": "deep"
+    },
+    {
+      "n": 23267,
+      "role": "deep"
+    },
+    {
+      "n": 23262,
+      "role": "deep"
+    },
+    {
+      "n": 23263,
+      "role": "deep"
+    },
+    {
+      "n": 20299,
+      "role": "deep"
+    },
+    {
+      "n": 23258,
+      "role": "deep"
+    },
+    {
+      "n": 19571,
+      "role": "deep"
+    },
+    {
+      "n": 22293,
+      "role": "deep"
+    },
+    {
+      "n": 23232,
+      "role": "deep"
+    },
+    {
+      "n": 19290,
+      "role": "deep"
+    },
+    {
+      "n": 19288,
+      "role": "deep"
+    },
+    {
+      "n": 23235,
+      "role": "deep"
+    },
+    {
+      "n": 23255,
+      "role": "deep"
+    },
+    {
+      "n": 23276,
+      "role": "deep"
+    },
+    {
+      "n": 23286,
+      "role": "deep"
+    },
+    {
+      "n": 23191,
+      "role": "deep"
+    }
+  ]
+}

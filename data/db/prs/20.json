@@ -71,7 +71,7 @@
       "review_sha": null,
       "head_sha": "12941f2ebfd509e267db41d2735fc63d71168132",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20093": {
       "number": 20093,
@@ -150,7 +150,7 @@
       "review_sha": null,
       "head_sha": "ab2dbe493eff5c85d4b4a69b63cfe092ac4c8a8e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20114": {
       "number": 20114,
@@ -235,7 +235,7 @@
       "review_sha": null,
       "head_sha": "edd3eb862ed7da97c9d6e60ff0db1a99809cb854",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20125": {
       "number": 20125,
@@ -333,7 +333,7 @@
       "review_sha": null,
       "head_sha": "c4b7a4b3236334dfcc5040e0426d125cd9b0aed3",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20141": {
       "number": 20141,
@@ -366,7 +366,7 @@
       "review_sha": null,
       "head_sha": "fb6c67a91f5300256b4c59cee056a606c2ae827e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20145": {
       "number": 20145,
@@ -406,7 +406,7 @@
       "review_sha": null,
       "head_sha": "c0efa37949958ff61420f0015fada461737fadfd",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20164": {
       "number": 20164,
@@ -439,7 +439,7 @@
       "review_sha": null,
       "head_sha": "fad4d678b83d2aa6c03e2a9812b2883eb4ffe2e7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20171": {
       "number": 20171,
@@ -491,7 +491,7 @@
       "review_sha": null,
       "head_sha": "90e1a7165bec104563efe2f2692c788b2a3cee0d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20185": {
       "number": 20185,
@@ -531,7 +531,7 @@
       "review_sha": null,
       "head_sha": "018fae43de25da60913027f8274059872a3b2c11",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20194": {
       "number": 20194,
@@ -637,7 +637,7 @@
       "review_sha": "d1817c77e3c3",
       "head_sha": "b00b6d94a74069c2e1340299a7fac238e030bc20",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20244": {
       "number": 20244,
@@ -713,7 +713,7 @@
       "review_sha": "551e3870f86d",
       "head_sha": "fc27a66bb50b53046c3f8d6cadf54f2a4ce98869",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20250": {
       "number": 20250,
@@ -753,7 +753,7 @@
       "review_sha": null,
       "head_sha": "5a42e80a0f9e5a3c1a25aa9cd13b5b29ee4266b4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20251": {
       "number": 20251,
@@ -786,7 +786,7 @@
       "review_sha": null,
       "head_sha": "bee300cd97e2a64bf337497fe35ab198240027d5",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20254": {
       "number": 20254,
@@ -819,7 +819,7 @@
       "review_sha": null,
       "head_sha": "7ae7a4bceed10e900841865a162a75e931396003",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20273": {
       "number": 20273,
@@ -852,7 +852,7 @@
       "review_sha": null,
       "head_sha": "3be672913017ef5b6fcfd997ae826dc61d114d15",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20282": {
       "number": 20282,
@@ -928,7 +928,7 @@
       "review_sha": null,
       "head_sha": "2024dd1ffaf7c8f84a6ed5bb5e12257b50e57df1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20291": {
       "number": 20291,
@@ -961,7 +961,144 @@
       "review_sha": null,
       "head_sha": "0961941ef7a889c66aaa2f6d2d2fc8c5bbc4f2ae",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
+    },
+    "20299": {
+      "number": 20299,
+      "title": "[Feature][Performance] Add mode 3 DeepGEMM MegaMoE for the DeepSeek V4 family",
+      "author": "linfeng-yuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/20299",
+      "changed_files": 39,
+      "head_sha": "a94b7509afc23ca00b1276fba86f1c09b3b1a7ed",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 8
+        },
+        {
+          "p": ".github/workflows",
+          "n": 6
+        },
+        {
+          "p": "tools/deepgemm",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 5
+        },
+        {
+          "p": ".gitignore",
+          "n": 1
+        },
+        {
+          "p": "CMakeLists.txt",
+          "n": 1
+        }
+      ],
+      "additions": 1384,
+      "deletions": 32,
+      "age_days": 26.9,
+      "ci": {
+        "total": 70,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "run-selected-tests (vllm@c410543d9ffff03f5f6c4a8c0ae1d3ad082c4a15) / a2-1 card-(part 5-7)"
+        ],
+        "pending": 1,
+        "skipped": 28,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 12,
+      "owned_del": 4,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 20299,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A5 DeepGEMM MegaMoE 新开关：配置校验与选择器早退基本合理，但有一处死分支、一次静默回退，且 CI 红。",
+        "intent": "新增 A5 DeepGEMM-Ascend FP8×FP4 后端：要求 enable_fused_mc2=3 且 deepgemm_mega_moe，A5 选择器优先返回 FUSED_MC2。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "deepgemm_mega_moe 默认值、字段注释与 _validate_user_input_ranges 的校验时机：校验发生在 model_validator 把 enable_fused_mc2 3→1 归一化之前，是否依赖内部回滚实现。"
+          },
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "早退块是否正确绕过 is_mega_moe_supported()（cann_ops_transformer）依赖，以及 getattr(get_ep_group(), \"_deepgemm_supported\") 缺失时的静默回退是否可接受。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "CI 失败：ci-gate 与 run-selected-tests(vllm@c410543d) a2-1 card-(part 5-7) 红，另有 1 项 pending。deepgemm 只在 A5 生效，A2 分片报错更像回归，需先定位（大概率在非我责任田的构建/工具链改动，但合入前必须绿）。"
+          },
+          {
+            "level": "medium",
+            "text": "derive_and_validate 中把条件改成 (self.enable_fused_mc2 == 1 or self.deepgemm_mega_moe)：validator 已把 2/3 归一化为 1，且 deepgemm_mega_moe 强制要求 =3，因此新增的 or 分支不可达，属死分支，也说明该归一化未被完全理解。"
+          },
+          {
+            "level": "medium",
+            "text": "deepgemm_mega_moe=True 但 EP group 上没有 _deepgemm_supported 时静默退回标准选择，与 body 里“CUBE 核数不符会 warning”的约定不一致；建议加 warning_once，否则用户以为开了 DeepGEMM 实际没开。"
+          },
+          {
+            "level": "medium",
+            "text": "配置层只校验 enable_fused_mc2=3，未校验 body 声称的前置条件（TP1、routed MXFP4、linear expert placement），误配要到后端初始化才失败，错误信息离用户配置太远。"
+          },
+          {
+            "level": "low",
+            "text": "draft 分支硬编码 draft_moe_quant_type == QuantType.W4A8MXFP，与相邻标准路径的 A5_SUPPORT_MEGA_MOE_QUANT_TYPES 集合式判断风格不一致，后续扩量化类型要改两处。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：新增对外配置 deepgemm_mega_moe 属硬件专有后端（DeepGEMM-Ascend），上游 vLLM 无法承载，方向可接受；但它本质是“检测到库+核数即启用”，建议评估改为自动探测、不新增长期对外开关。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：本 PR 未新增规避代码，但 deepgemm 依赖既有 TODO(zzzzwwjj) 的 megamoe 回滚语义（3→1）；该 TODO 一旦移除，本 PR 的校验与 _megamoe_supported 分支会一起失效，建议在代码注释里写明这一依赖或补 TODO。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 3 对照：新增开关在 ascend_forward_context 有调用点，但存在两处“不生效路径”——(a) 上述死分支；(b) _deepgemm_supported 未设置时无日志地走标准路径。建议二选一收敛，保证每条新分支都能被外部观察到。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：owned 两个文件的 diff 与上下文注释均为英文，未发现中文注释；tests/ut（8 个文件）不属我责任田，未逐一看。"
+          }
+        ],
+        "tests": "CI 70 项中 ci-gate 与 a2-1 card-(part 5-7) 失败、1 项 pending；新增 UT 在非我责任田的 tests/ut，我未核对 deepgemm_mega_moe 校验是否有专门用例。",
+        "questions": [
+          "deepgemm_mega_moe 与 enable_fused_mc2=3 的耦合完全依赖 _validate_user_input_ranges 里的内部回滚（3→1）；按既有 TODO 移除该回滚后 flag 会失效。能否在 FusedMC2CommImpl 初始化处再校验一次？",
+          "deepgemm_mega_moe 开启且缺 cann_ops_transformer 时，_megamoe_supported=False 而 megamoe_shared_expert_fusion 仍为 True。请确认 FUSED_MC2 路径中所有读这两个标志的分支在 deepgemm 下都不会走到 cann_ops_transformer。",
+          "a2-1 card-(part 5-7) 失败与这个只在 A5 生效的改动是什么关系？是既有 flaky 还是本 PR 引入？请贴失败日志。",
+          "需要作者确认：deepgemm_mega_moe 能否由“检测到 DeepGEMM-Ascend + CUBE 核数=32”自动启用，避免新增长期对外开关（规则 1）。"
+        ],
+        "recommend": "先修 CI，并去掉死分支、给静默回退加日志；待 EP 侧 _deepgemm_supported 与下游标志消费点确认后再 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "e5127673d92c"
     },
     "20331": {
       "number": 20331,
@@ -1039,7 +1176,7 @@
       "review_sha": "456b7146dbac",
       "head_sha": "e601dd4ef77a9b7f22867c26dec3b8d03bc27da4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20345": {
       "number": 20345,
@@ -1091,7 +1228,7 @@
       "review_sha": null,
       "head_sha": "77f030458ebc4a18b0c5506d6ab0d066cfccf092",
       "state": "open",
-      "merge": "dirty"
+      "merge": "blocked"
     },
     "20346": {
       "number": 20346,
@@ -1137,7 +1274,7 @@
       "review_sha": null,
       "head_sha": "c69574a501d22cedda1ad71f39b46ec5de469083",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20370": {
       "number": 20370,
@@ -1189,7 +1326,7 @@
       "review_sha": null,
       "head_sha": "b5a8a181c68da6ad7e6eb910a1dc0560f3d4b166",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20371": {
       "number": 20371,
@@ -1222,7 +1359,7 @@
       "review_sha": null,
       "head_sha": "afeb8226dad0cd9507ece3e6973f3b710d263669",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20383": {
       "number": 20383,
@@ -1255,7 +1392,7 @@
       "review_sha": null,
       "head_sha": "9b2a865fc19bf9c666d678ab75bff92dc15bd50a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20386": {
       "number": 20386,
@@ -1288,7 +1425,7 @@
       "review_sha": null,
       "head_sha": "e9526a9aa03ccd94083ca3ab1f81e88a5fbabc62",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20390": {
       "number": 20390,
@@ -1328,7 +1465,7 @@
       "review_sha": null,
       "head_sha": "fbc432e5a496e1425d04034b2ea83e962e73d3df",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20402": {
       "number": 20402,
@@ -1374,7 +1511,7 @@
       "review_sha": null,
       "head_sha": "e860ff4c3bbe74e3da114e4666c805ce8abb38dc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20405": {
       "number": 20405,
@@ -1447,7 +1584,7 @@
       "review_sha": null,
       "head_sha": "3ffdaf376406c57ae17d0dac3fe018351aaf7ce2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20424": {
       "number": 20424,
@@ -1505,7 +1642,7 @@
       "review_sha": null,
       "head_sha": "0a7df1ed68508ee9f88939c7d458242323a2bd30",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20427": {
       "number": 20427,
@@ -1563,7 +1700,7 @@
       "review_sha": null,
       "head_sha": "a01510e176e244b4b9e34cd49fc55a2dfee58b65",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20437": {
       "number": 20437,
@@ -1603,7 +1740,7 @@
       "review_sha": null,
       "head_sha": "8a3bc7648c4641286a20c904765cdace6dfc12d6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20458": {
       "number": 20458,
@@ -1643,7 +1780,7 @@
       "review_sha": null,
       "head_sha": "a0908a3457afd1eb8d79ee37deb3acbb0ad5a7b4",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20478": {
       "number": 20478,
@@ -1823,7 +1960,7 @@
       "review_sha": "e9e087c0886a",
       "head_sha": "e1570ebcb421f6bdba6c3d1f842b31199b7673aa",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20479": {
       "number": 20479,
@@ -1949,7 +2086,7 @@
       "review_sha": null,
       "head_sha": "98c58b044f4de2846673f3c4fc30ee929c00d46e",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20545": {
       "number": 20545,
@@ -2080,7 +2217,7 @@
       "review_sha": null,
       "head_sha": "0bb5bdec73cb96a74a7c5509128043e3531b8cb8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20577": {
       "number": 20577,
@@ -2172,7 +2309,7 @@
       "review_sha": null,
       "head_sha": "5475d0676acccdd213ff18c778502549ebc1e27f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20633": {
       "number": 20633,
@@ -2205,7 +2342,7 @@
       "review_sha": null,
       "head_sha": "17095b43effc3c4c8c600fe51cbd1f50e8189762",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20669": {
       "number": 20669,
@@ -2257,7 +2394,7 @@
       "review_sha": null,
       "head_sha": "14f38e7bc299be892943fbfe4dc6bf1d351f44aa",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20742": {
       "number": 20742,
@@ -2340,7 +2477,7 @@
       "review_sha": "d95c4e2367fa",
       "head_sha": "58caf97ecac7877ad8722e69c5991c1db9baba34",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20744": {
       "number": 20744,
@@ -2419,7 +2556,7 @@
       "review_sha": null,
       "head_sha": "19ed6d15ebfa5716053d65d937a4c53509078fd8",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20787": {
       "number": 20787,
@@ -2507,7 +2644,7 @@
       "review_sha": null,
       "head_sha": "206aaf855f11abe7a71c2c9cc03e9e719681a311",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20797": {
       "number": 20797,
@@ -2547,7 +2684,7 @@
       "review_sha": null,
       "head_sha": "49454abadec16a8d3e3af448cf6b737c1f52bf46",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20811": {
       "number": 20811,
@@ -2587,7 +2724,7 @@
       "review_sha": null,
       "head_sha": "981d8d2cfc572cc164520d9ee9136f1e7644fab6",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20822": {
       "number": 20822,
@@ -2627,7 +2764,7 @@
       "review_sha": null,
       "head_sha": "0743f662f26c3aed0ede6f6dc09ba8673ca91792",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20854": {
       "number": 20854,
@@ -2700,7 +2837,7 @@
       "review_sha": null,
       "head_sha": "2a14f05b94fba146c864ba598b5b1b098d5068d7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20882": {
       "number": 20882,
@@ -2733,7 +2870,7 @@
       "review_sha": null,
       "head_sha": "a3ccdd7c4e1d97611cf53d79539105dd3a3b9db2",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20883": {
       "number": 20883,
@@ -2791,7 +2928,7 @@
       "review_sha": null,
       "head_sha": "7e8ef5f02c1eaf90dbe9e99637ebc07b3e9ce00a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20885": {
       "number": 20885,
@@ -2824,7 +2961,7 @@
       "review_sha": null,
       "head_sha": "471eb88d29d3a840f9aa6a8302e9d1843d327477",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20887": {
       "number": 20887,
@@ -2870,7 +3007,7 @@
       "review_sha": null,
       "head_sha": "82043fe8b81448563c5c46e3d8a7a816b621b4d9",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20890": {
       "number": 20890,
@@ -2916,7 +3053,7 @@
       "review_sha": null,
       "head_sha": "c8ac337dc68a739f7231feb52ff416275e9219db",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20891": {
       "number": 20891,
@@ -2956,7 +3093,7 @@
       "review_sha": null,
       "head_sha": "172cb26db92c770e2e54740802c5df9c33f092ff",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20892": {
       "number": 20892,
@@ -3008,7 +3145,7 @@
       "review_sha": null,
       "head_sha": "f44166c166a6fa2db9f894bbfb56dc4caf11e093",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20893": {
       "number": 20893,
@@ -3041,7 +3178,7 @@
       "review_sha": null,
       "head_sha": "07f25f27d7ccd5b5018020c0c61a03d58dba358a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20902": {
       "number": 20902,
@@ -3074,7 +3211,7 @@
       "review_sha": null,
       "head_sha": "ba28f3fe58df5285fae552ad35d689212b5f72c1",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "20949": {
       "number": 20949,
@@ -3120,7 +3257,7 @@
       "review_sha": null,
       "head_sha": "88da0bc0aca21aead2251883e2d009facf2e6f81",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "20952": {
       "number": 20952,
@@ -3153,7 +3290,7 @@
       "review_sha": null,
       "head_sha": "f182335b0907a6649a719b93f3358d9aebc51ccc",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     }
   }
 }

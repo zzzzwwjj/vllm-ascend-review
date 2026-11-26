@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T10:09:39.493Z",
+  "updated_at": "2026-11-26T00:06:41.248Z",
   "entries": {
     "20244": [
       {
@@ -54,6 +54,21 @@
         "ack": {
           "status": "accepted",
           "note": "确实漏了：标题缺 [Feature]/[Performance] 这类规范前缀，且没有质疑“新增函数 + 给上游模型脚本打 patch”相对“在 forward_oot 内判断 residual”的必要性。下期起这两点都按硬性检查项写进结论。"
+        }
+      }
+    ],
+    "23122": [
+      {
+        "id": "body-12",
+        "at": "2026-11-25T12:28:31Z",
+        "author": "zzzzwwjj",
+        "kind": "note",
+        "text": "测试用例中有中文注释，这种发现后不允许合入，要改成英文。",
+        "edition": "",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/12",
+        "ack": {
+          "status": "accepted",
+          "note": "接受。上期精读没检查注释语言，测试里的中文注释属于合入前必须拦下的规范问题；后续把“注释统一英文”作为硬性检查项。"
         }
       }
     ]

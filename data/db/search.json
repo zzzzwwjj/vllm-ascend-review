@@ -1,5 +1,85 @@
 [
   {
+    "n": 23286,
+    "t": "[Refactor][Docs] Make MoE communication selection a true fast path and document policy",
+    "a": "Suixing5208",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23276,
+    "t": "[Bug][Worker] Query the card id, not the logical rank, in check_health",
+    "a": "haidiniao",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23272,
+    "t": "[BugFix][Worker] Resolve the npu-smi card ID in `check_health`",
+    "a": "huapingzhang",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23267,
+    "t": "[Platform][Doc] Add sunset deprecation warnings and documentation for balance scheduling (v0.33)",
+    "a": "FengkunYang1999",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "approve"
+  },
+  {
+    "n": 23263,
+    "t": "[Feature][HiSparse] Unify Ascend sparse-cache layouts with GLM-5.3-Flash",
+    "a": "LZZhang-HW",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23262,
+    "t": "[Feature] Add Qwen3.6-27B DMTP speculative decoding on Ascend",
+    "a": "SkychenLee",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23258,
+    "t": "[Performance][MoE] Produce cumulative boundaries for A2 INT8 routing",
+    "a": "Thymos2027",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23255,
+    "t": "[Observability] Bootstrap MS Service Metric path and default-on",
+    "a": "djh95",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23235,
+    "t": "[Misc][MRV2] Remove MR2 dead code",
+    "a": "zouzy5137",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 23232,
+    "t": "[Feature][PCP] Owner-sharded KV: staged P2P transfer, Engram receive capacity, bounded-replay fix (layer 3, stacked on #22958)",
+    "a": "foraxe",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "pushback"
+  },
+  {
     "n": 23222,
     "t": "[Feature][KV Transfer] Support Mooncake V2 DSA Host offload",
     "a": "Shichang-Zhang",
@@ -38,6 +118,14 @@
     "e": "2026-11-25-1801",
     "r": "deep",
     "v": "approve"
+  },
+  {
+    "n": 23191,
+    "t": "[Bugfix][Worker] Backport synchronous speculative logprobs fix to v0.18.0",
+    "a": "YuZhengYYDS",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 23183,
@@ -1078,6 +1166,14 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 22293,
+    "t": "[BugFix][MoE] Require prefill coordination when the recompute scheduler is enabled",
+    "a": "liu-watson",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 22278,
@@ -2712,6 +2808,14 @@
     "v": "look"
   },
   {
+    "n": 20299,
+    "t": "[Feature][Performance] Add mode 3 DeepGEMM MegaMoE for the DeepSeek V4 family",
+    "a": "linfeng-yuan",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 20291,
     "t": "[Performance] Fuse DSA V4.1 slot-mapping 2D/flat computation into one Triton kernel",
     "a": "csaxie",
@@ -3256,6 +3360,14 @@
     "v": "pushback"
   },
   {
+    "n": 19571,
+    "t": "[Performance][KV Pool] Deduplicate MLA reads with sharded exchange",
+    "a": "Suixing5208",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
     "n": 19570,
     "t": "[Feature] oscar: vendor the INT2 launcher extension sources (r152 fast + r98 bridge) [4/22]",
     "a": "nqz1997",
@@ -3350,6 +3462,22 @@
     "e": "2026-11-23-0015",
     "r": "rest",
     "v": null
+  },
+  {
+    "n": 19290,
+    "t": "[BugFix][v0.30.0][EPLB] Honour a policy's changed flag instead of discarding it",
+    "a": "deveringham",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
+  },
+  {
+    "n": 19288,
+    "t": "[BugFix][v0.30.0][EPLB] Recording mode silent failure",
+    "a": "deveringham",
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "look"
   },
   {
     "n": 19286,
@@ -5459,9 +5587,9 @@
     "n": 16145,
     "t": "[Feature] Add fault tolerance with retry and MC2 scale-down on Ascend NPU",
     "a": "fangyuchu",
-    "e": "2026-11-23-0015",
-    "r": "rest",
-    "v": null
+    "e": "2026-11-26-0802",
+    "r": "deep",
+    "v": "pushback"
   },
   {
     "n": 16104,

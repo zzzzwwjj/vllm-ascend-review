@@ -94,7 +94,7 @@
       "review_sha": "d7828bac7b52",
       "head_sha": "ba189462011845827e117b639e5e64828ee0e978",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23017": {
       "number": 23017,
@@ -193,8 +193,8 @@
       },
       "review_sha": "5ba158d8b1fc",
       "head_sha": "d047a56eb861eb83e6dbab6119defdef421515e3",
-      "state": "open",
-      "merge": "blocked"
+      "state": "merged",
+      "merge": "unknown"
     },
     "23022": {
       "number": 23022,
@@ -292,7 +292,7 @@
       "review_sha": "00a3755a2c03",
       "head_sha": "7e3429d33bb3237a75f9d33a23afda0b7b4ea662",
       "state": "open",
-      "merge": "blocked"
+      "merge": "dirty"
     },
     "23025": {
       "number": 23025,
@@ -513,7 +513,9 @@
         "recommend": "look：补一个 get_kv_cache_spec 的 DSV4.1 hisparse 单测并确认提前 return 的对齐等价性后可 approve。",
         "mode": "deep"
       },
-      "review_sha": "4773395606cf"
+      "review_sha": "4773395606cf",
+      "state": "open",
+      "merge": "dirty"
     },
     "23046": {
       "number": 23046,
@@ -885,7 +887,7 @@
       "review_sha": "1f9d0a141cfa",
       "head_sha": "b033ba04bea1c7bfd439145e6862c014e3080542",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23052": {
       "number": 23052,
@@ -1201,7 +1203,7 @@
       },
       "review_sha": "01456634d704",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23080": {
       "number": 23080,
@@ -1314,7 +1316,7 @@
       },
       "review_sha": "17f92cc06669",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23087": {
       "number": 23087,
@@ -1583,7 +1585,7 @@
       },
       "review_sha": "cbe2dc6a0e8f",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23108": {
       "number": 23108,
@@ -1707,7 +1709,7 @@
       },
       "review_sha": "b4f22d27753b",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23115": {
       "number": 23115,
@@ -1830,7 +1832,7 @@
       },
       "review_sha": "71b4b780626a",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23116": {
       "number": 23116,
@@ -1940,7 +1942,7 @@
       },
       "review_sha": "f69d41cc0733",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23117": {
       "number": 23117,
@@ -2054,7 +2056,7 @@
       },
       "review_sha": "2c43cb09997e",
       "state": "open",
-      "merge": "blocked"
+      "merge": "dirty"
     },
     "23122": {
       "number": 23122,
@@ -2161,7 +2163,7 @@
       },
       "review_sha": "31a00e456517",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23123": {
       "number": 23123,
@@ -2279,7 +2281,7 @@
       },
       "review_sha": "33f874c3f117",
       "state": "open",
-      "merge": "unknown"
+      "merge": "clean"
     },
     "23125": {
       "number": 23125,
@@ -2519,8 +2521,8 @@
         "mode": "deep"
       },
       "review_sha": "f74637047dfb",
-      "state": "open",
-      "merge": "unknown"
+      "state": "draft",
+      "merge": "blocked"
     },
     "23132": {
       "number": 23132,
@@ -2663,7 +2665,7 @@
       },
       "review_sha": "35e6f9ce0c2d",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23135": {
       "number": 23135,
@@ -3477,7 +3479,7 @@
       },
       "review_sha": "abad5742f6b7",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23173": {
       "number": 23173,
@@ -3602,7 +3604,7 @@
       },
       "review_sha": "a24b8ecd3851",
       "state": "open",
-      "merge": "unknown"
+      "merge": "dirty"
     },
     "23177": {
       "number": 23177,
@@ -3725,7 +3727,7 @@
       },
       "review_sha": "94fba645b6e9",
       "state": "open",
-      "merge": "blocked"
+      "merge": "dirty"
     },
     "23181": {
       "number": 23181,
@@ -3836,7 +3838,7 @@
       },
       "review_sha": "6ac8c6185b52",
       "state": "open",
-      "merge": "unknown"
+      "merge": "blocked"
     },
     "23183": {
       "number": 23183,
@@ -3971,6 +3973,122 @@
       "state": "open",
       "merge": "unknown"
     },
+    "23191": {
+      "number": 23191,
+      "title": "[Bugfix][Worker] Backport synchronous speculative logprobs fix to v0.18.0",
+      "author": "YuZhengYYDS",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23191",
+      "changed_files": 6,
+      "head_sha": "4e8ebc1d67651c31b11b9dee21f674dd5fdf8ccf",
+      "areas": [
+        {
+          "p": ".github/workflows",
+          "n": 1
+        },
+        {
+          "p": "csrc/build.sh",
+          "n": 1
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "tools/shellcheck.sh",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 97,
+      "deletions": 11,
+      "age_days": 0.7,
+      "ci": {
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "state": "unknown",
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23191,
+        "verdict": "look",
+        "confidence": "low",
+        "summary": "无我负责文件，仅轻检视：描述自洽，但改动文件与描述不符（含 CI/build/shellcheck/e2e），CI 无状态。",
+        "intent": "backport #7861 两个 commit 到 v0.18.0：修 runner 误把已去 padding 的 LogprobsLists 当 offset 传给 tolist()，并补单卡 suffix 回归测试。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker（非我负责）",
+            "point": "runner 侧是否真的直接用 sampler 过滤后的分数构造 logprobs，不再对 LogprobsLists 调 tolist() 当 offset；请由 worker 的 code owner 深入。"
+          },
+          {
+            "file": "tests/e2e、release_notes/fragments（非我负责）",
+            "point": "单卡 suffix-decoding 回归测试是否能在 release 分支 CI 跑起来、release note fragment 命名/格式是否合规。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "无我负责文件，本结论为轻检视，不构成对代码正确性的判定：PR 改的 6 个文件都不归 @zzzzwwjj，需由对应 code owner 深入检视。"
+          },
+          {
+            "level": "medium",
+            "text": "改动范围与描述不符：描述只讲 runner 修复 + 单卡回归测试 + release note，但文件清单还含 .github/workflows、csrc/build.sh、tools/shellcheck.sh、tests/e2e。backport 应尽量最小化，混入 CI/构建/工具链改动会扩大 release 分支的风险面，也让“与已合并 b5a7c2df74c9 一致”的说法难以自证。"
+          },
+          {
+            "level": "low",
+            "text": "CI 状态未知（采集到 0 条 check，state=unknown）：release 分支 backport 至少需要相关 UT/e2e 与 pre-commit 绿，目前无法判断能否合入。"
+          },
+          {
+            "level": "low",
+            "text": "PR 描述里嵌入第三方产品 logo 与推广性案例链接（numericbridge.com），与变更无关，建议移到评论或删除。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：不适用——纯 backport，没有新增对外配置或公开接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2：描述中的做法是绕开 0.18.0 上游 sampler 的行为差异（直接返回过滤后分数），属版本兼容规避；代码里是否带 TODO(github id)（指向 #7861/上游修复）我未逐文件检视，需 worker code owner 确认。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3：无法判定——未逐文件检视，不知道是否有新增 helper 与真实调用点；由 code owner 核对。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：无法判定——本 PR 新增/修改的测试与注释语言我未检视（light 模式不深挖），请 code owner 顺带确认无中文注释。"
+          }
+        ],
+        "tests": "CI 无任何状态（total=0）；作者称用 CPU harness 复核了 3 个请求下 offset [0,2,3,6]/6 行分数并新增单卡 suffix-decoding 回归测试，但 CI 侧未体现。",
+        "questions": [
+          "需要作者确认：.github/workflows、csrc/build.sh、tools/shellcheck.sh、tests/e2e 的改动是否属于本次 backport？若属于，为何描述未提？",
+          "CI 为什么没有任何状态？release 分支上相关 UT/e2e 是否已经实跑通过？",
+          "代码里对 0.18.0 sampler 行为的规避是否带 TODO(github id)（指向 #7861 或上游后续修复）？需 worker code owner 确认。",
+          "描述中的第三方推广内容能否移除？"
+        ],
+        "recommend": "请 worker 与 CI 相关 code owner 深入检视，并请作者澄清文件清单与描述不一致之处再推进。",
+        "mode": "light"
+      },
+      "review_sha": "0df8e7d09632"
+    },
     "23195": {
       "number": 23195,
       "title": "[BugFix] Order KV block zeroing before synchronous external loads",
@@ -4064,7 +4182,9 @@
         "recommend": "方向正确、证据充分，可批准；建议补 TODO(#22798) 与一条断言两分支的 UT，并在 PR 中说明 has_sync_kv_loads 的逐 step 语义。",
         "mode": "deep"
       },
-      "review_sha": "89d35ee622f1"
+      "review_sha": "89d35ee622f1",
+      "state": "open",
+      "merge": "blocked"
     },
     "23205": {
       "number": 23205,
@@ -4162,7 +4282,9 @@
         "recommend": "approve：owned 注册正确；建议补 NPU 等价回归并明确常量绑定。",
         "mode": "deep"
       },
-      "review_sha": "33cc8917fce4"
+      "review_sha": "33cc8917fce4",
+      "state": "open",
+      "merge": "unknown"
     },
     "23214": {
       "number": 23214,
@@ -4276,7 +4398,9 @@
         "recommend": "策略保守、可回退，方向可接受；请先修复 PR create action 并明确与 #23221 的合并顺序，再考虑合入。",
         "mode": "deep"
       },
-      "review_sha": "454da20d2f10"
+      "review_sha": "454da20d2f10",
+      "state": "open",
+      "merge": "dirty"
     },
     "23221": {
       "number": 23221,
@@ -4396,7 +4520,9 @@
         "recommend": "方向认可但需细看：建议把 attn_groups 过滤前移到 upstream 初始化前（或明确两套视图边界），补混组用例，并澄清与 #23214 的合并顺序。",
         "mode": "deep"
       },
-      "review_sha": "d4c472a5966e"
+      "review_sha": "d4c472a5966e",
+      "state": "open",
+      "merge": "blocked"
     },
     "23222": {
       "number": 23222,
@@ -4546,7 +4672,1162 @@
         "recommend": "先修 cpu-ut 与 env 解析（改用 _bool_env）、补齐 SKIP_MIGRATEPAGES 的消费证据，并给出 memfabric 不回归的 UT，再复审。",
         "mode": "deep"
       },
-      "review_sha": "b3717a9ef2ff"
+      "review_sha": "b3717a9ef2ff",
+      "state": "open",
+      "merge": "blocked"
+    },
+    "23232": {
+      "number": 23232,
+      "title": "[Feature][PCP] Owner-sharded KV: staged P2P transfer, Engram receive capacity, bounded-replay fix (layer 3, stacked on #22958)",
+      "author": "foraxe",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23232",
+      "changed_files": 47,
+      "head_sha": "89d39a0abd9151c9e4a34087d1d17e4e7bd5d610",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 17
+        },
+        {
+          "p": "vllm_ascend/distributed",
+          "n": 13
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 3
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 2
+        }
+      ],
+      "additions": 7549,
+      "deletions": 181,
+      "age_days": 0.6,
+      "ci": {
+        "total": 12,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 8,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 122,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 181,
+          "deletions": 14
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 40,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 343,
+      "owned_del": 18,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23232,
+        "verdict": "pushback",
+        "confidence": "high",
+        "summary": "attn_utils 新增分配函数无调用点且与既有实现重复；PcpConfig 开关多且静默失效；PR 有冲突。",
+        "intent": "PCP owner-sharded KV 第 3 层：owner 模式 P2P 分块暂存与对齐、Engram 接收容量按 HBM 预算推导、bounded-replay SWA 分块暂存、hybrid KV 组数不一致按重叠组传输。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "新增 _allocate_deepseek_v41_shared_cache(793-872) 在 head 全文件中仅出现在定义处，无任何调用点；生产路径实际走 _allocate_unified_kv_cache_backings(1587-1647)，两者逻辑（owner_capacity 报错文案、index_only 判定、owner_allocator.allocate_slab）几乎逐行相同。"
+          },
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "PcpConfig(407-498) 11 个开关的校验一致性：owner_capacity 缺 owner 时强报错，但 local_index/local_kv_write/local_kv_write_source/owner_stage/owner_stage_swa_chunk 在 kv_sharing=replicated 时被静默忽略；另注意 pcp_config_from_vllm_config 与 AscendConfig.pcp_config(893) 是两条取值路径（前者每次从 additional_config 重新解析）。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_kvpd_note_sample(1267-1289) 在 sample() 两个分支（1297/1339）的调用时机、req 集合上限清理，以及在采样热路径上 try/except 的影响面（仅 opt-in 时工作）。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "规则3 违规：attn_utils.py 新增的 _allocate_deepseek_v41_shared_cache 约 80 行，head 版 attn_utils.py 全文 grep 只有定义行 793（另两个 owned 文件与 deepseek_v41/cache_config.py 也无引用），无调用点，且与 _allocate_unified_kv_cache_backings 功能重复——要么删掉，要么接到真实生效路径，否则是 rebase 残留死代码。"
+          },
+          {
+            "level": "high",
+            "text": "mergeable_state=dirty 且带 merge-conflicts 标签；PR 叠加在 #22958 之上、47 文件 +7549/-181，评审范围与可合并性都不成立，需先 rebase 并明确本 PR 可独立评审的提交范围。"
+          },
+          {
+            "level": "medium",
+            "text": "规则1 提醒：additional_config['pcp_config'] 一次新增 11 个对外开关（owner_stage_bytes 默认 1GiB、swa 分块默认 256MiB），对外配置面一旦发布难回收；且多数开关在 kv_sharing!=owner 时静默无效（与 owner_capacity 的强校验不一致），用户误配无提示。"
+          },
+          {
+            "level": "medium",
+            "text": "命名歧义：pcp_config.enable_timing（attention 分区计时）与 kv_connector_extra_config.enable_timing（KVPD 首 token 计时）同名不同域，运维与文档容易混淆。"
+          },
+          {
+            "level": "low",
+            "text": "model_runner 的 _kvpd_note_sample 每次 sample 只做一次属性短路判断，开销可忽略；except 后自置 _kvpd_timing=False，失败只报一次，可接受。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：有偏差，见上条——建议先确认 owner-sharded KV/HIXL 相关差异能否推动上游 PCP 插件接口，至少收敛开关数量，避免长期分叉。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：不适用——我负责的 3 个文件本次改动未新增针对上游缺陷的临时规避，也未新增无 github id 的 TODO。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：不通过——_allocate_deepseek_v41_shared_cache 无调用点、与既有实现重复，正是该规则的反例；_deepseek_v41_owner_allocator 则有生效路径（attn_utils:1621）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：通过——ascend_config.py / attn_utils.py / model_runner.py 的 head 全文 CJK 扫描均 0 行命中；新增 UT 不在我责任田，未逐一核对注释语言。"
+          }
+        ],
+        "tests": "CI 12 项、0 失败、8 跳过；PR 改了 17 个 tests/ut 文件（不在我责任田），我负责的改动（PcpConfig 校验、owner slab 分配、KVPD 打点）没有直接对应单测。",
+        "questions": [
+          "需要作者确认：_allocate_deepseek_v41_shared_cache 是否为 rebase 残留？生产路径已走 _allocate_unified_kv_cache_backings，两份实现是否有意保留？",
+          "需要作者确认：PR 描述写 Draft，但 PR 已非 draft 且 mergeable_state=dirty，是否应先转回 draft、rebase 解冲突再评审？",
+          "需要作者确认：kv_sharing=replicated 时 local_index/local_kv_write/owner_stage 等被静默忽略，是否改为校验报错或至少 warning_once？",
+          "需要作者确认：PcpConfig 是否有 UT 覆盖（含 owner_capacity 缺 owner 的报错路径），owner VMM slab 分配有哪次 NPU 实测记录？",
+          "需要作者确认：pcp_config.enable_timing 与 kv_connector_extra_config.enable_timing 是否会同时开启、两者命名能否区分？"
+        ],
+        "recommend": "先删掉无调用点的 _allocate_deepseek_v41_shared_cache、rebase 解冲突并收敛 pcp_config 开关，再进入评审。",
+        "mode": "deep"
+      },
+      "review_sha": "94908a46f724"
+    },
+    "23235": {
+      "number": 23235,
+      "title": "[Misc][MRV2] Remove MR2 dead code",
+      "author": "zouzy5137",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23235",
+      "changed_files": 15,
+      "head_sha": "fc03fcaafee643d81967ce73e78d6b24018f7c46",
+      "areas": [
+        {
+          "p": "vllm_ascend/patch",
+          "n": 5
+        },
+        {
+          "p": "tests/ut",
+          "n": 4
+        },
+        {
+          "p": ".github/CODEOWNERS",
+          "n": 1
+        },
+        {
+          "p": ".github/agent-review",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/__init__.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/mrv2_utils.py",
+          "n": 1
+        }
+      ],
+      "additions": 1,
+      "deletions": 306,
+      "age_days": 0.6,
+      "ci": {
+        "total": 66,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 33,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 7
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 17,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23235,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "MR2 遗留补丁清理：我负责的 platform.py/worker.py 删除干净、无残留引用；但 ci-gate 失败且合并被 block，需先修 CI。",
+        "intent": "删除 mrv2_utils 强制选择 Model Runner V2 的 monkey patch，及 platform/worker 中的调用与 self.use_v2_model_runner 读取；上游已删 V1、V2 为默认。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "确认 check_and_update_config(751 起) 删掉 apply_v2_model_runner_config_patch 后无残留引用，后续第 1~11 步配置校验顺序与早退路径未被破坏（head 全文 grep 无 use_v2_model_runner / mrv2）。"
+          },
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "__init__ 中删除 patch 调用与 self.use_v2_model_runner 赋值后，本文件已无该属性读取（grep 仅剩 1298 行一条与 MRV2 scheduler 相关的注释）；保留的 allow_v2_model_runner_without_triton() 与本次删除无关，属另一条上游 hook。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "CI 66 项中 ci-gate 失败、mergeable_state=blocked，当前不可合入；需确认失败来自本次删除还是仓库级门禁。"
+          },
+          {
+            "level": "medium",
+            "text": "worker 不再暴露 self.use_v2_model_runner；我只核对了 platform.py 与 worker.py，若仓库其他模块或下游插件读取该属性会 AttributeError，需全仓 grep 确认。"
+          },
+          {
+            "level": "medium",
+            "text": "移除强制 V2 后，运行器选择完全交给上游默认；若任一受支持的 vLLM 版本仍保留 V1 选择路径（如 use_v2_model_runner=False），Ascend 侧会退化或不可用，需给出上游已删 V1 的依据。"
+          },
+          {
+            "level": "low",
+            "text": "已删除 vllm_ascend/mrv2_utils.py（head 404 证实）且 __init__.py 无 mrv2 残留，模块删除与调用点删除自洽。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：不适用——本次只删既有 monkey patch，未新增对外配置或公开接口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：满足——被删代码正是 TODO(wxsIcey) 标注“上游提供 platform hook 后移除”的日落项；但删除后不再追踪该 hook 是否仍需补齐，若上游仍无 hook 应改记在别处。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：满足——只删调用点与属性赋值，未新增函数或开关，删除后平台侧直接走上游默认入口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：通过——platform.py 与 worker.py（head）CJK 扫描均 0 行；本 PR 删除 4 个过时单测、未新增测试，故无中文注释风险。"
+          }
+        ],
+        "tests": "CI 66 项、1 项失败（ci-gate）、33 项跳过；改动以删除为主，删掉了过时的 mrv2 单测，未新增回归测试。",
+        "questions": [
+          "需要作者确认：全仓（含 docs、tests、示例脚本）是否已无 use_v2_model_runner / mrv2_utils / apply_v2_model_runner_config_patch 引用？",
+          "需要作者确认：ci-gate 失败的具体原因是否与本次改动相关，能否重跑或说明它是仓库级门禁问题？",
+          "需要作者确认：所支持的各 vLLM 版本中 V1 是否确已删除、V2 是否无条件默认？若仍有 V1 路径，删掉强制 V2 后如何保证？",
+          "需要作者确认：是否有下游脚本依赖 worker.use_v2_model_runner 做能力探测？"
+        ],
+        "recommend": "请作者贴出全仓 grep 结果并说明 ci-gate 失败原因，CI 转绿后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "d3c94b5079c9"
+    },
+    "23255": {
+      "number": 23255,
+      "title": "[Observability] Bootstrap MS Service Metric path and default-on",
+      "author": "djh95",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23255",
+      "changed_files": 4,
+      "head_sha": "13113144d37ebab37ab02b7a4cb9dbb8f6407bd2",
+      "areas": [
+        {
+          "p": "docs/source",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/observability",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/platform.py",
+          "n": 1
+        }
+      ],
+      "additions": 264,
+      "deletions": 4,
+      "age_days": 0.6,
+      "ci": {
+        "total": 18,
+        "failed": 3,
+        "failed_names": [
+          "refresh-ci-gate",
+          "ci-gate",
+          "pre-commit"
+        ],
+        "pending": 0,
+        "skipped": 11,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23255,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "启动期调 bootstrap：默认开 MS 采集、无条件设多进程指标目录；调用点在组装 parser 阶段，副作用宽、缺开关与接线测试。",
+        "intent": "启动期调 bootstrap_ms_metrics()：尽早设 PROMETHEUS_MULTIPROC_DIR 供 worker 继承，并经共享内存把 MS 采集默认置 ON。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "第 529-534 行新增的 bootstrap_ms_metrics() 调用位置：是否落在 CLI 组装 parser 阶段（任何 vllm 子命令都会触发）、是否应放到 parse_args 之后或加 env 开关；以及它是否只在 launcher 生效、worker 只靠继承环境变量。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "调用点过宽：据本仓库 platform.py:209 注释，pre_register_and_update 是“vLLM 组装 parser 时、parse_args 之前”执行，因此 `vllm --help`、`vllm bench` 等任何 CLI 调用都会触发 bootstrap；其中 enable_ms_metric_collection 走 SharedMemoryManager.send_control_command(send_signal=True)，这是机器级共享内存状态，可能把同机另一个正在运行的 vLLM 实例的采集默认打开。"
+          },
+          {
+            "level": "medium",
+            "text": "PROMETHEUS_MULTIPROC_DIR 被无条件全局设置（用户根本没启用 prometheus 时也设），会改变 vLLM 原生指标的采集/读取路径；且自动创建的目录若不在退出时清理，多进程 collector 可能读到陈旧 .db 造成计数偏差。这属于与本 PR 目标无关的隐式行为变更，建议加 env 开关或在文档显式声明。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 2：新增调用链依赖上游内部模块 vllm.v1.metrics.prometheus.setup_multiprocess_prometheus，且使用条件与上游不同（上游只在 api_server_count>1 时设）。这是对上游行为的替代/规避，但 owned 文件的改动里没有 TODO(github id) 写明根因、规避方案与日落计划（等上游修好后删除），不符 lesson-002。"
+          },
+          {
+            "level": "medium",
+            "text": "规则 1：单 API server 也需要多进程指标目录、MS hook 跑在 engine/worker 进程——这是后端无关的通用诉求，应先判断能否在上游 vLLM 解决（让 vLLM 对所有后端统一设置），而不是长期在 Ascend platform 里分叉；若先落地，需 TODO(github id) 指向对应上游 issue。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3：新增的“默认开启”行为只有运行期 `ms-service-metric off` 一个退出口，且依赖外部 ms_service_metric 包；缺 env/CLI 级关闭入口。另外 bootstrap 只挂在 pre_register_and_update，离线 LLM() 与 Ray/多机（worker 不在同一进程树）是否也能拿到 PROMETHEUS_MULTIPROC_DIR 未说明，生效路径不完整。"
+          },
+          {
+            "level": "low",
+            "text": "测试覆盖：新增 tests/ut/observability/test_ms_metrics_bootstrap.py 只测 bootstrap 两个 helper（用户路径保留、调用 vLLM helper、缺包时跳过、幂等），没有覆盖 owned 文件这 6 行的接线（pre_register_and_update 是否真的调到 bootstrap），也没覆盖 api_server_count>1 时与 vLLM 自身 setup_multiprocess_prometheus 的目录一致性。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：owned 文件新增注释均为英文（Auto-set PROMETHEUS_MULTIPROC_DIR…/if ms_service_metric is installed…），新增测试文件注释亦为英文，规则 4 通过。"
+          }
+        ],
+        "tests": "CI 失败 3 项：pre-commit、ci-gate、refresh-ci-gate；PR 里 4 条手测（含 pytest 与 /metrics 验证）全部未勾选，新增 UT 仅覆盖 bootstrap helper。",
+        "questions": [
+          "api_server_count>1 时 vLLM 自己会调用 setup_multiprocess_prometheus()，它是否会把本 PR 自动设的目录换成另一个临时目录？若会，worker 侧 MS hook 写入的目录与 /metrics 读取的目录就不一致，是否已实测？",
+          "`vllm --help`/`vllm bench` 这类不服务的命令也会向共享内存发 ON 信号（send_signal=True），把同机运行中的实例采集打开，这是预期行为吗？能否加 VLLM_ASCEND_MS_METRICS_DEFAULT_ON 之类的开关，或把 bootstrap 挪到 parse_args 之后？",
+          "PROMETHEUS_MULTIPROC_DIR 自动创建的目录由谁清理？重复启动是否会残留旧 .db 导致计数偏差？",
+          "规则 3：离线 LLM() 与 Ray/多机 worker 不经过 pre_register_and_update，这条路径的 PROMETHEUS_MULTIPROC_DIR 由谁设置（是否依赖用户在 launcher 里 export）？",
+          "需要作者确认：pre-commit 失败是否只是格式/typo（比如行宽或 import 顺序），还是逻辑问题？"
+        ],
+        "recommend": "先补 env 级关闭开关 + platform.py 侧接线 UT，并把与上游 setup_multiprocess_prometheus 的差异写成 TODO(github id) 后再合入。",
+        "mode": "deep"
+      },
+      "review_sha": "46f74e4de234"
+    },
+    "23258": {
+      "number": 23258,
+      "title": "[Performance][MoE] Produce cumulative boundaries for A2 INT8 routing",
+      "author": "Thymos2027",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23258",
+      "changed_files": 7,
+      "head_sha": "f35fc80a797414987ca567eae03db80d15dddfe1",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/ops",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/e2e",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/device",
+          "n": 1
+        }
+      ],
+      "additions": 324,
+      "deletions": 3,
+      "age_days": 0.5,
+      "ci": {
+        "total": 25,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 1,
+        "skipped": 21,
+        "state": "pending"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23258,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "A2 新增 MOE_INT8_CUMULATIVE_GROUP_LIST 能力位，仅授予 A2 profile，注释英文规范；消费点与 A3 覆盖待确认。",
+        "intent": "为 A2 本地 INT8 路由新增硬件能力位，使 fused SwiGLU GMM1 与 grouped GMM2 直接消费累计 expert 边界，省掉 counts→prefix 转换；不改专家分配、不新增 kernel。",
+        "focus": [
+          {
+            "file": "vllm_ascend/device/hardware_profile.py",
+            "point": "能力位是否只授予 A2、枚举注释是否与既有 capability 风格一致、以及新增成员是否影响按设备全量断言 capability 的测试。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "能力位是硬件级，而真正的资格条件（EP 进程组 size=1、无 expert map/冗余专家、无 dynamic EPLB、无 LoRA）只能在 ops 侧运行时判断；若消费点漏判，非法布局会被送进“累计边界”路径，本文件无法兜底。"
+          },
+          {
+            "level": "medium",
+            "text": "A3 与 A2 共享 W8A8/GMM 算子栈，但 capability 只授予 A2；若 A3 同样满足，则属漏给（仅丢性能优化）；若 A3 不满足，建议在枚举注释里写明原因，避免后续被误加。"
+          },
+          {
+            "level": "low",
+            "text": "枚举成员插入在 AUTO_ENABLE_CUSTOM_OPS 与 ATB_EXTENSIONS 之间，若下游有按设备做全量集合相等断言/快照，需同步更新（本 PR tests/ut 已改，但不属我责任田，我未核对）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 对照：只新增内部能力位，不是对外配置也不是公开接口，不涉及上游分叉，规则 1 不适用（无新增用户可见开关）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2 对照：本文件未引入对上游缺陷的规避代码，也没有需要 TODO(github id) 的临时手段，规则 2 不适用。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3 对照：能力位属声明式开关，本 PR 内确实有 ops 侧消费（areas 中 vllm_ascend/ops 2 个文件，非我责任田，patch 不在输入里），我只能确认声明与授予存在，无法确认调用点与生效路径，需 ops owner 确认。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4 对照：新增枚举注释“Local INT8 routing can emit cumulative expert boundaries…”为英文，未发现中文注释；新增/修改测试不在我责任田，未逐字核对。"
+          }
+        ],
+        "tests": "CI 25 项 0 失败、1 pending（尚无最终结论）；PR 含 tests/ut 2 个文件与 1 个 e2e（均非我责任田），需等 CI 全绿。",
+        "questions": [
+          "ops 侧消费点是否对 EP size=1、无 dynamic EPLB、无 LoRA、无 expert map/冗余专家全部做了运行时复核？请指出具体函数行号。",
+          "A3 是否也应授予 MOE_INT8_CUMULATIVE_GROUP_LIST？它与 A2 共用 W8A8/GMM 栈，若不需要请在枚举注释写明原因。",
+          "该 capability 只在 supports_weight_format 附近的 A2 集合里出现，测试是否有“A3/A5 不得拥有该能力”的负向断言？",
+          "需要作者确认：这个优化是否可以在 ops 侧用现有能力探测（如算子支持查询）实现，从而不必新增一个 HardwareCapability 成员（规则 3）。"
+        ],
+        "recommend": "我责任田改动可接受；请 ops owner 确认消费点与运行时前置条件、并说明 A3 是否需要同样能力，CI 全绿后可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "a321caa82913"
+    },
+    "23262": {
+      "number": 23262,
+      "title": "[Feature] Add Qwen3.6-27B DMTP speculative decoding on Ascend",
+      "author": "SkychenLee",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23262",
+      "changed_files": 24,
+      "head_sha": "0184f6ccc682da56680d3d4bfc8a7dcd7454f544",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 6
+        },
+        {
+          "p": "vllm_ascend/patch",
+          "n": 3
+        },
+        {
+          "p": "tests/e2e",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 2
+        },
+        {
+          "p": "docs/source",
+          "n": 1
+        }
+      ],
+      "additions": 1145,
+      "deletions": 18,
+      "age_days": 0.5,
+      "ci": {
+        "total": 10,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 26,
+      "owned_del": 6,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23262,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "DMTP 接入 FA3 选择与长度同步跳过，改动克制；但 custom_method 与示例 method 不一致，可能静默不生效。",
+        "intent": "为 Qwen3.6-27B DMTP 在 Ascend MRV2 增加 FA3 后端选择与引擎配置校验，并让设备长度策略识别 DMTP 以跳过 spec 长度拷贝与事件等待。",
+        "focus": [
+          {
+            "file": "vllm_ascend/platform.py",
+            "point": "check_and_update_config 里 dmtp 分支的判定条件（custom_method / architectures）与校验时机；_uses_qwen_fa3 新分支的空值保护与 model_tag 匹配。"
+          },
+          {
+            "file": "vllm_ascend/worker/v2/model_runner.py",
+            "point": "_can_skip_spec_cpu_length_sync 的 DMTP 分支：architecture 门控、MambaHybridModelState、kv_transfer_config 条件是否与 DMTP 实际配置一致。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "PR 描述给的启动参数是 --speculative-config '{\"method\":\"dmtp\",...}'，而 owned 两处判断都用 getattr(spec, \"custom_method\", None) == \"dmtp\"。若用户按示例配置时 custom_method 不会被置位，则引擎校验、FA3 选择、长度同步跳过会全部静默失效并回落 FIA；需确认 method 与 custom_method 的映射由谁写入。"
+          },
+          {
+            "level": "medium",
+            "text": "platform.py:_uses_qwen_fa3 新增分支直接访问 spec.draft_model_config.architectures，没有 draft_model_config is not None 保护，而同文件 check_and_update_config 的 dmtp 分支却显式判空；custom_method=dmtp 但未配 draft model 时会 AttributeError（而非清晰报错）。"
+          },
+          {
+            "level": "low",
+            "text": "DMTP 判定依赖 architectures 字符串 \"DFlash2T1ResidualDraftModel\" 与 backends.model_tag in (\"backbone\",\"dflash_head\")；任一命名调整都会让 FA3 与长度跳过静默失效且无告警，建议加一次 warning_once 或集中常量。"
+          },
+          {
+            "level": "low",
+            "text": "model_runner.py 的跳过条件仍硬绑 architecture == \"Qwen3_5ForConditionalGeneration\" 与 MambaHybridModelState；DMTP 目标（Qwen3.6-27B）实际 arch 是否等于该值直接决定跳过是否生效，需作者给出该 checkpoint 的 architectures 证据。"
+          },
+          {
+            "level": "low",
+            "text": "dmtp 校验在 check_and_update_config 中执行，每次 worker 构造配置都会走一遍；需确认非责任田的 validate_dmtp_engine_config 幂等、无副作用（仅提示确认，不对该文件下结论）。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：owned 文件未新增对外配置，DMTP 以 custom_method 而非新 CLI 开关接入。规则 2：owned 文件没有规避代码，但 PR 正文承认包装 SamplingParams._validate_spec_decode 是对上游缺失 per-method hook 的规避，需确认该处已写 TODO(github id)（非责任田，仅提请注意）。规则 3：owned 未新增函数，复用 _uses_qwen_fa3/_can_skip_spec_cpu_length_sync 既有入口，新增的 validate_dmtp_engine_config 在本 PR 内有调用点。规则 4：owned 两文件注释均为英文；新增 tests/e2e/pull_request/two_card/spec_decode/test_dmtp.py 未见中文。"
+          }
+        ],
+        "tests": "CI 10 项全绿（6 skip）；作者报 UT 725 例 + 两卡真权重 e2e（含温度校验 400）通过；但 owned 的 DMTP 分支判定（custom_method/arch/tag）缺少针对性单测证据。",
+        "questions": [
+          "需要作者确认：DMTP 到底通过 method 还是 custom_method 配置？示例 method:\"dmtp\" 与代码 custom_method==\"dmtp\" 的映射由哪段代码写入？",
+          "需要作者确认：请给出 Qwen3.6-27B-DMTP checkpoint 的 architectures 字段，证明 \"Qwen3_5ForConditionalGeneration\" 与 \"DFlash2T1ResidualDraftModel\" 两个硬编码匹配都会命中。",
+          "需要作者确认：_uses_qwen_fa3 中是否为 draft_model_config 补空值保护，并让两处 DMTP 判定抽成同一 helper 以免漂移？",
+          "需要作者确认：是否有 UT 直接覆盖 platform.py 与 model_runner.py 的 DMTP 分支（而非仅端到端）？"
+        ],
+        "recommend": "先确认 method/custom_method 映射并补空值保护与分支单测，再推进合入。",
+        "mode": "deep"
+      },
+      "review_sha": "196662ecb891"
+    },
+    "23263": {
+      "number": 23263,
+      "title": "[Feature][HiSparse] Unify Ascend sparse-cache layouts with GLM-5.3-Flash",
+      "author": "LZZhang-HW",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23263",
+      "changed_files": 34,
+      "head_sha": "f9b1364f11b56cb7aad3ed6d9de0f0edb250b842",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 11
+        },
+        {
+          "p": "vllm_ascend/hisparse",
+          "n": 7
+        },
+        {
+          "p": "vllm_ascend/patch",
+          "n": 5
+        },
+        {
+          "p": "vllm_ascend/models",
+          "n": 3
+        },
+        {
+          "p": "vllm_ascend/attention",
+          "n": 2
+        },
+        {
+          "p": "vllm_ascend/core",
+          "n": 2
+        }
+      ],
+      "additions": 1672,
+      "deletions": 119,
+      "age_days": 0.5,
+      "ci": {
+        "total": 13,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 9,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 78,
+          "deletions": 14
+        }
+      ],
+      "owned_add": 78,
+      "owned_del": 14,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23263,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "HiSparse 布局按能力分派清晰，但存在合并冲突、pooled 缺 handle 无负向校验，且开启后 C1 时延约 +11%。",
+        "intent": "HiSparse 布局按能力分派：pooled 走 block-outer KPool+device KDA，native SFA 走原生长页+recurrent 组，并在 get_kv_cache_spec 集中校验。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/v2/attn_utils.py",
+            "point": "get_kv_cache_spec 的 pooled/native_hybrid 分派：新增 hisparse_cache is not None 门控的影响、row_bytes 来源、state_content_bytes/block_stride_alignment/page_size_padded 的取值，以及 packed_sources 的后置覆盖。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "high",
+            "text": "mergeable_state = dirty：当前 head 与目标分支存在冲突，无法直接合入，需先 rebase/解冲突，并确认解完后仍与 pinned Core c410543d 的接口一致。"
+          },
+          {
+            "level": "medium",
+            "text": "原条件 hisparse_config is not None 被加上了 attn_module.hisparse_cache is not None：缺 handle 的稀疏 MLA owner 会静默走通用 AttentionSpec 路径而非报错。native_hybrid 分支有显式 raise 保护，pooled 分支没有等价检查，若某层缺 handle，缓存几何会被静默按非 pooled 规划。"
+          },
+          {
+            "level": "medium",
+            "text": "row_bytes 取自 attn_module.impl.sfa_qsfa_packed_kv_head_dim，取代原来的常量 C8_ROW_BYTES 且无 getattr 兜底；impl 型号/版本不提供该属性时是 AttributeError。另外 pooled=True 而 enable_sparse_sfa_c8=False 时不会写 state_content_bytes，pooled 布局仍继续往下走，语义不完整。"
+          },
+          {
+            "level": "medium",
+            "text": "性能：作者数据 ON 相对 OFF 在 C1 平均 ITL +10.98%、输出吞吐 -7.39%，C8 也有 +5.50%/-4.39%，超过正文所述 5% 目标。虽是 opt-in，仍建议在文档/发行注记显式标注该回归与适用场景，避免被默认打开。"
+          },
+          {
+            "level": "low",
+            "text": "两处 block_stride_alignment 不一致（pooled 分支为 row_bytes，native_hybrid 分支为 SFA_QSFA_TILE_SIZE*row_bytes），需确认是两种页面几何的有意区分而非遗漏。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：未新增对外配置，沿用既有 HiSparse 配置；但 uses_pooled_hisparse/supports_pooled_hisparse 构成新的隐式能力契约（A5、FP8 主/Indexer KV、pool size 4、DP/PP/PCP/DCP=1），建议写进文档。规则 2：不适用，未见对上游缺陷的规避，require_hybrid_hisparse_core 属依赖版本检查。规则 3：owned 新增分支与 5 个导入（SparseCacheRole、SFA_QSFA_TILE_SIZE、hisparse 三件套、has_hybrid_sfa_hisparse_specs）均在本函数内有生效路径，无只定义不调用。规则 4：owned 文件注释全英文；tests/ut 下 11 个新增测试文件我未逐一拉取，注释语言证据不足，需作者/owner 复核无中文。"
+          }
+        ],
+        "tests": "CI 13 项全绿（9 skip）；作者报 148 个 CPU 测试、950DT CANN Indexer 对拍、GSM8K 与前缀复用回归；但缺 pooled 路径“缺 handle 即报错”的负向用例，且冲突未解。",
+        "questions": [
+          "需要作者确认：pooled 路径下若某稀疏 MLA owner 的 hisparse_cache 缺失，是否应像 native_hybrid 一样直接 raise，而不是静默落回通用路径？",
+          "需要作者确认：sfa_qsfa_packed_kv_head_dim 在哪些 impl 上保证存在？是否加 getattr 兜底并给出清晰错误？",
+          "需要作者确认：pooled 的 block_stride_alignment=row_bytes 与 native_hybrid 的 TILE_SIZE*row_bytes 分别对应什么页面几何？",
+          "需要作者确认：dirty 冲突打算如何解决，rebase 后与 Core c410543d 的 pinned 接口是否仍一致？",
+          "需要作者确认：11 个新增 UT 中是否存在非英文注释（我未逐一拉取，此点证据不足）。"
+        ],
+        "recommend": "先解冲突并补 pooled 缺 handle 的负向校验与性能回归说明，再考虑合入。",
+        "mode": "deep"
+      },
+      "review_sha": "55733ede45b2"
+    },
+    "23267": {
+      "number": 23267,
+      "title": "[Platform][Doc] Add sunset deprecation warnings and documentation for balance scheduling (v0.33)",
+      "author": "FengkunYang1999",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23267",
+      "changed_files": 8,
+      "head_sha": "f92ba4fd7fcd071da7e3eb940b14367ab0ab53a5",
+      "areas": [
+        {
+          "p": "docs/source",
+          "n": 5
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_config.py",
+          "n": 1
+        }
+      ],
+      "additions": 101,
+      "deletions": 5,
+      "age_days": 0.5,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 14,
+      "owned_del": 0,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23267,
+        "verdict": "approve",
+        "confidence": "high",
+        "summary": "在 SchedulerConfig 的 after 校验器里发一次 v0.33 弃用告警并附 RFC 日落链接，实现克制、测试到位。",
+        "intent": "按 RFC #23229 Phase 1，在 effective enable_balance_scheduling 为 true（含 legacy 顶层键）时于启动打印一次弃用告警，并补文档与发行注记；不改变功能行为。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_config.py",
+            "point": "SchedulerConfig 新增 _warn_balance_scheduling_deprecated：告警时机（after 校验器）、文案中的版本/日落信息、与 _resolve 优先级合并后的 effective 值是否一致。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "告警文案硬编码 “vLLM Ascend v0.33.0” 且只说 “will be removed in a future release”，未给移除版本；若 backport 到非 v0.33 分支或后续延期，文案会失真，建议由 RFC/常量统一提供版本与日落说明。"
+          },
+          {
+            "level": "low",
+            "text": "告警放在 pydantic after 校验器内，构造 SchedulerConfig 的每条路径都会触发；engine 与 worker 进程各自构造时可能各打印一次（warning_once 仅进程内去重），且可能落在非启动路径（配置再校验），需确认不会造成重复噪声。"
+          },
+          {
+            "level": "low",
+            "text": "作者提到更新了两个既有测试的告警计数断言；按计数断言对后续新增告警很脆弱，建议改为按消息内容或 caplog 记录匹配。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外配置，属既有配置的弃用宣告。规则 2 满足：弃用期保留功能，并在文案给出 RFC #23229 与日落计划。规则 3：新增的是校验器方法，由 SchedulerConfig.from_additional_config→cls(**resolved) 的 pydantic 构造自动调用，本 PR 内即有生效路径。规则 4：owned 文件无注释新增；tests/ut/test_ascend_config.py 未见中文注释。"
+          }
+        ],
+        "tests": "CI 9 项全绿（6 skip）；新增两个 UT 覆盖嵌套/legacy/默认/字符串布尔/优先级，并更新两个既有告警计数断言；未跑 NPU。",
+        "questions": [
+          "需要作者确认：同一配置在 engine 与 worker 进程中会各打印一次弃用告警，这个重复是否接受？",
+          "需要作者确认：移除版本是否已在 RFC #23229 中确定，文案是否需要写死 v0.33.0？",
+          "需要作者确认：既有测试的告警计数断言是否可改为按消息匹配，降低脆弱性？"
+        ],
+        "recommend": "可合入；建议后续把版本号与测试断言改为按消息匹配。",
+        "mode": "deep"
+      },
+      "review_sha": "86f903dfc3f6"
+    },
+    "23272": {
+      "number": 23272,
+      "title": "[BugFix][Worker] Resolve the npu-smi card ID in `check_health`",
+      "author": "huapingzhang",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23272",
+      "changed_files": 5,
+      "head_sha": "412b23e02c8bbc7b96476fac7634cb79710f1cf1",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 2
+        },
+        {
+          "p": "release_notes/fragments",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/cpu_binding.py",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 178,
+      "deletions": 8,
+      "age_days": 0.5,
+      "ci": {
+        "total": 9,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 6,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 32,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 32,
+      "owned_del": 6,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23272,
+        "verdict": "approve",
+        "confidence": "medium",
+        "summary": "用现有 platform 映射把 local_rank 解析成 npu-smi 卡号，主路径正确且有 UT；fallback 依赖的 API 需确认。",
+        "intent": "修 check_health 把逻辑 rank 当 npu-smi 卡号：经 logical→visible→physical 得 chip Phy-ID，再用 npu-smi info -m 映射解析卡号，缺失时退回旧行为。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "check_health 中 card_id 的赋值时机与异常分支引用；新增 resolve_card_id_for_health 的两级映射与 fallback 语义。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "fallback 调用 current_platform.device_id_to_physical_device_id(local_rank)，但 vllm_ascend/platform.py 里只有 visible_device_id_to_physical_device_id，没有该名字；若上游基类也未定义，此分支恒抛 AttributeError 并被 except Exception 吞掉、退回 local_rank，等价旧行为，注释“单芯片上物理 ID 即卡号”与实际不符。"
+          },
+          {
+            "level": "low",
+            "text": "card_id 在 try 内赋值、在 except 分支里被引用；目前 resolver 内部兜底不会抛，但将来改动会让异常处理路径变成 UnboundLocalError，建议 try 之前先 card_id = local_rank。"
+          },
+          {
+            "level": "low",
+            "text": "新增 module 级公开函数 resolve_card_id_for_health，调用点只有 check_health 一处，建议收敛为私有 _resolve_card_id_for_health（规则 3：能用既有入口/私有实现时不要扩公开面）。"
+          },
+          {
+            "level": "low",
+            "text": "每次健康检查多跑一次 npu-smi info -m（execute_command 默认 10s 超时，失败抛 RuntimeError 后仅 debug 记录）；健康检查本身用于发现卡住，多一次子进程可接受，但要注意 -m 与 -t health 两次调用的耗时叠加。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1 不适用：未新增对外配置或公开接口，复用已有 platform 映射与 DeviceInfo.get_npu_phy_id_to_card_id。规则 2 不适用：无对上游缺陷的规避代码。规则 3：新函数有唯一调用点（check_health）且走既有映射入口，仅建议私有化。规则 4：owned 文件与新增测试 test_worker_check_health.py 注释均为英文，未发现中文。"
+          }
+        ],
+        "tests": "CI 9 项全绿（6 skip）；新增/更新 CPU UT 覆盖多芯片卡、Phy-ID 非恒等、npu-smi -m 不可用回退与实际命令行参数，作者报 87 passed；真机仅手工验证。",
+        "questions": [
+          "需要作者确认：current_platform.device_id_to_physical_device_id 是否存在、入参是 visible id 还是 logical rank？若不存在，fallback 实际等价于旧行为，注释需修正。",
+          "需要作者确认：多芯片卡且 npu-smi info -m 无 Chip Phy-ID 时，退回 chip Phy-ID 当卡号是否会指向错误卡（相对旧 local_rank 的行为变化）？",
+          "需要作者确认：是否把 resolver 改为私有函数并预置 card_id 初值，避免 except 内引用未绑定变量？"
+        ],
+        "recommend": "确认 fallback API 语义并私有化函数后可合入。",
+        "mode": "deep"
+      },
+      "review_sha": "c6bfea6d9f16"
+    },
+    "23276": {
+      "number": 23276,
+      "title": "[Bug][Worker] Query the card id, not the logical rank, in check_health",
+      "author": "haidiniao",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23276",
+      "changed_files": 2,
+      "head_sha": "78079cd74adf9850714ee090b37e61a8c6ae35aa",
+      "areas": [
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/worker",
+          "n": 1
+        }
+      ],
+      "additions": 146,
+      "deletions": 6,
+      "age_days": 0.4,
+      "ci": {
+        "total": 16,
+        "failed": 2,
+        "failed_names": [
+          "ci-gate",
+          "pre-commit"
+        ],
+        "pending": 0,
+        "skipped": 11,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 30,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 30,
+      "owned_del": 6,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23276,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "check_health 改走两跳映射查卡号，方向对、与 _init_device 一致；但异常静默回退缺 TODO，新增 UT 未定位。",
+        "intent": "修 #23270：npu-smi info -i 要宿主物理卡号，而 check_health 传了逻辑 rank；新增 _health_query_device_id() 走两跳映射，失败回退 visible 序号并让日志带卡号。",
+        "focus": [
+          {
+            "file": "vllm_ascend/worker/worker.py",
+            "point": "第 1432-1453 行 _health_query_device_id()：logical→visible→physical 两跳是否与 _init_device（556-608 行，含 DP local_rank shift 与 assigned_physical_gpu_ids 分支）完全一致；异常回退的捕获范围与日志级别；以及 check_health 的日志是否真能定位到具体卡。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "medium",
+            "text": "规则 2：第二跳 visible_device_id_to_physical_device_id 会 bootstrap_custom_op_env() 并 import vllm_ascend_C（platform.py:280-289），在未编译自定义算子/无 CANN 上下文时会抛异常；这里用 `except Exception` 静默回退到 visible 序号，只打 debug 日志，没有 TODO(github id) 记录根因、规避范围与日落计划（lesson-002）。回退后的语义等于修复前，在 ASCEND_RT_VISIBLE_DEVICES 重排/容器 remapping 下依然会查错卡。"
+          },
+          {
+            "level": "low",
+            "text": "只有第二跳在 try 内，第一跳 logical_device_id_to_visible_device_id 抛异常仍会冒泡，health probe 还是会 crash，与描述里“健康检查不能变成崩溃”的 fail-open 目标不完全一致。"
+          },
+          {
+            "level": "low",
+            "text": "映射依赖 self.local_rank 已被 _init_device 决议（DP shift 已施加）。若 check_health 走 MultiprocExecutor 在新起的进程里先于 _init_device 调用、或 local_rank 未 shift，映射会与真实绑定设备不一致；建议加注释/断言显式声明这个前提。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：不适用——纯 bugfix，没有新增对外配置或公开接口，纯属 Ascend 侧设备 id 语义纠错。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3：新增方法只有一个调用点（check_health），生效路径明确，不存在“新增函数但无人调用”；也没有重复实现既有入口。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：owned 文件新增代码只有英文注释与英文 docstring；但新增 UT 文件我通过允许的脚本试了 3 条常见路径（tests/ut/worker/test_worker_check_health.py 等）均 404，无法核对测试内注释语言，需作者给出路径。"
+          },
+          {
+            "level": "low",
+            "text": "漏改同族路径核查：worker.py 内只有一处 npu-smi 调用（第 1462 行），仅 NPUWorker 一个类；worker_v1.py / worker_310p.py / npu_worker.py 在 head 上均不存在，不存在 v1/v2 双实现漏改。但仓库其它目录的 npu-smi 健康查询我用本脚本无法全量搜索，需作者确认没有第二处仍用 local_rank 查卡。"
+          }
+        ],
+        "tests": "CI 失败 2 项：ci-gate、pre-commit；作者称新增 CPU-only UT 覆盖两跳映射与回退，但我没能定位该测试文件，实际覆盖待确认。",
+        "questions": [
+          "需要作者确认：新增 UT 的文件路径？请确保覆盖 --device-ids（assigned_physical_gpu_ids 非空）与 ASCEND_RT_VISIBLE_DEVICES 重排两种配置，以及第二跳抛异常时的回退。",
+          "回退到 visible 序号在 remapping 场景可能仍查错卡，是否至少用 warning 而非 debug，让运维能察觉“物理 id 解析失败”？",
+          "规则 2：建议给这段静默回退补 TODO(github id)，写明依赖 CANN 上下文/自定义算子的根因与日落计划。",
+          "第一跳（logical→visible）是否也应放进 try，保证 health probe 永不 crash？",
+          "pre-commit 失败项是什么？需要作者贴失败日志以排除非格式类问题。"
+        ],
+        "recommend": "把回退日志提到 warning、补 TODO(github id) 并兜住第一跳，确认 UT 路径与覆盖后再合入。",
+        "mode": "deep"
+      },
+      "review_sha": "323fbfc4c530"
+    },
+    "23286": {
+      "number": 23286,
+      "title": "[Refactor][Docs] Make MoE communication selection a true fast path and document policy",
+      "author": "Suixing5208",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/23286",
+      "changed_files": 6,
+      "head_sha": "8bb48badf3fa62fab2663981cb11e1078c5eec32",
+      "areas": [
+        {
+          "p": "docs/source",
+          "n": 3
+        },
+        {
+          "p": "mkdocs.yml",
+          "n": 1
+        },
+        {
+          "p": "tests/ut",
+          "n": 1
+        },
+        {
+          "p": "vllm_ascend/ascend_forward_context.py",
+          "n": 1
+        }
+      ],
+      "additions": 182,
+      "deletions": 7,
+      "age_days": 0.1,
+      "ci": {
+        "total": 22,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 13,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 7
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 7,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-26-0802",
+      "review": {
+        "number": 23286,
+        "verdict": "look",
+        "confidence": "medium",
+        "summary": "快路径提前 return 跳过 policy/capacity 查询，逻辑等价且有定向 UT；只剩诊断日志与 LoRA 用例两点。",
+        "intent": "把 EP 关闭或 ep_world_size==1 的 ALLGATHER 判断提前 return，跳过 capacity 与硬件策略查询，并去掉该热路径的逐层 debug 日志；LoRA+EP 条件简化为只判 lora_config。",
+        "focus": [
+          {
+            "file": "vllm_ascend/ascend_forward_context.py",
+            "point": "第 425-468 行 select_moe_comm_method：提前 return 是否与旧 if/elif 分支等价；get_mc2_tokens_capacity()/get_current_hardware_profile() 从“每层都算”变为“只在非快路径算”是否带来首次调用时机变化；debug 日志是否真的只留在非快路径。"
+          }
+        ],
+        "risks": [
+          {
+            "level": "low",
+            "text": "等价性核查通过：旧 `elif lora_config is not None and enable_expert_parallel` 改为 `if lora_config is not None`，因为前面已对 not enable_expert_parallel 早返回，两段逻辑等价；EP 关闭 / ep_world_size==1 → ALLGATHER 的优先级也保持不变。"
+          },
+          {
+            "level": "low",
+            "text": "诊断能力下降：快路径不再打印 “MoE comm method selected…”，用 VLLM_LOGGING_LEVEL=DEBUG 排查最常走的 EP-off 场景时看不到任何选择记录，也分不清“EP 关闭”还是“单 EP rank”。建议改为一次性日志（info/debug once 或首次调用）说明成因。"
+          },
+          {
+            "level": "low",
+            "text": "moe_comm_policy 为 MoECommPolicy.ALLGATHER 时（第 447-449 行）仍会取硬件 profile，且函数尾部第 458-467 行的逐层 logger.debug 照旧执行，PR 声称的“热路径去日志”在该分支未生效；需确认这种 profile 是否会出现在线上配置。"
+          },
+          {
+            "level": "low",
+            "text": "收益归因建议更准确：get_mc2_tokens_capacity()（第 306 行）只是读模块全局，本身几乎零成本；真正省下的是 get_current_hardware_profile() 与 logger.debug 的逐层开销，描述里把 capacity 并列为主要开销容易被误读。"
+          },
+          {
+            "level": "low",
+            "text": "规则 1：不适用——没有新增对外配置或公开接口，只是既有 selector 内部的快慢路径重排。"
+          },
+          {
+            "level": "low",
+            "text": "规则 2：不适用——本 PR 未新增对上游 vLLM 缺陷的规避，也未改上游行为，无 TODO(github id) 需求。"
+          },
+          {
+            "level": "low",
+            "text": "规则 3：通过——没有新增函数/开关/分支入口，唯一入口仍是 select_moe_comm_method；新行为也有 UT 反向断言（capacity 与 hardware profile 不被查询），生效路径可验证。"
+          },
+          {
+            "level": "low",
+            "text": "规则 4：通过——owned 文件新增/保留注释均英文；我扫了 tests/ut/test_ascend_forward_context.py 全文无中文，新增快路径用例的注释也是英文。"
+          },
+          {
+            "level": "low",
+            "text": "测试：新增 test_select_moe_comm_method_fast_path_skips_policy_and_capacity 用 pytest.fail 断言 capacity/policy 不被查询，参数化了 (EP 关闭, ep=8) 与 (EP 开, ep=1)，覆盖到位；但 LoRA+EP→ALLTOALL 这个新形态没有专门用例。"
+          }
+        ],
+        "tests": "CI 失败 1 项：ci-gate；作者称 4 个 UT 文件 314 passed，其中快路径反向断言用例我已在 head 上核对存在。",
+        "questions": [
+          "MoECommPolicy.ALLGATHER 分支仍逐层取硬件 profile 并打 logger.debug，若这是线上常见 profile，本次性能收益是否打折？能否也改成一次性日志？",
+          "快路径不再有逐层 DEBUG 记录，排障时如何区分“EP 关闭”与“ep_world_size==1”？建议一次性打印选择成因。",
+          "LoRA + EP 走 ALLTOALL 的新分支是否有专门 UT（我未在 test_ascend_forward_context.py 找到，若 test_moe_comm_method.py 已覆盖请指明）？",
+          "ci-gate 失败是环境/flaky 还是真实报错？需要作者贴失败项。"
+        ],
+        "recommend": "补一条一次性诊断日志与 LoRA 分支用例、修绿 ci-gate 后即可 approve。",
+        "mode": "deep"
+      },
+      "review_sha": "de04e02acbe2"
     }
   }
 }
