@@ -1285,18 +1285,31 @@
     }
   });
 
+  function closeAllDrops() {
+    state.openFilter = null;
+    document.querySelectorAll('.fdrop[open]').forEach((x) => { x.open = false; });
+  }
+
+  document.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest || !e.target.closest('.fbar')) closeAllDrops();
+  }, true);
+
   document.addEventListener('click', (e) => {
     const sum = e.target.closest && e.target.closest('.fdrop > summary');
     if (sum) {
       const d = sum.parentElement;
-      state.openFilter = d.open ? null : (d.dataset.fkey || null);
+      const willOpen = !d.open;
+      closeAllDrops();
+      if (willOpen) { d.open = true; state.openFilter = d.dataset.fkey || null; }
+      e.preventDefault();
       return;
     }
-    if (!e.target.closest || !e.target.closest('.fbar')) {
-      state.openFilter = null;
-      document.querySelectorAll('.fdrop[open]').forEach((x) => { x.open = false; });
-    }
+    if (!e.target.closest || !e.target.closest('.fbar')) closeAllDrops();
   }, true);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllDrops();
+  });
 
   document.addEventListener('change', (e) => {
     const el = e.target.closest && e.target.closest('[data-filter]');
@@ -1315,7 +1328,7 @@
     if (e.target.closest('[data-filter-clear]')) {
       e.preventDefault();
       for (const g of FILTER_GROUPS) state.filters[g.key] = [];
-      state.openFilter = null;
+      closeAllDrops();
       state.allPage = 1;
       refreshWithFilters(true);
       return;
@@ -1325,7 +1338,7 @@
       e.preventDefault();
       const key = un.dataset.unfilter;
       state.filters[key] = (state.filters[key] || []).filter((v) => v !== un.dataset.val);
-      state.openFilter = null;
+      closeAllDrops();
       state.allPage = 1;
       refreshWithFilters(true);
       return;
