@@ -1,0 +1,67 @@
+{
+  "id": "2026-11-27-1302",
+  "at": "2026-11-27T05:02:06.653Z",
+  "user": "zzzzwwjj",
+  "window": {
+    "start": "2026-11-27T00:02:59.503Z",
+    "end": "2026-11-27T05:02:06.653Z",
+    "reason": "自上次运行 11-27 08:02",
+    "hours": 5
+  },
+  "stats": {
+    "search_hits": 70,
+    "loaded": 6,
+    "fresh": 6,
+    "deep": 6,
+    "rest": 0,
+    "skipped": 0,
+    "requested": 0,
+    "skipped_seen": 64,
+    "skipped_other": 0,
+    "owned_prs": 6,
+    "api_calls": 26
+  },
+  "verdicts": {
+    "approve": 1,
+    "look": 5,
+    "pushback": 0,
+    "pending": 0
+  },
+  "states": {
+    "merged": 0,
+    "closed": 0,
+    "draft": 0,
+    "ready": 0,
+    "conflict": 0,
+    "ci": 0,
+    "blocked": 0,
+    "behind": 0,
+    "open": 6
+  },
+  "members": [
+    {
+      "n": 22855,
+      "role": "deep"
+    },
+    {
+      "n": 22507,
+      "role": "deep"
+    },
+    {
+      "n": 23475,
+      "role": "deep"
+    },
+    {
+      "n": 23476,
+      "role": "deep"
+    },
+    {
+      "n": 23100,
+      "role": "deep"
+    },
+    {
+      "n": 23492,
+      "role": "deep"
+    }
+  ]
+}

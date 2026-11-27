@@ -99,10 +99,10 @@
     "closed": 2,
     "draft": 1,
     "ready": 1,
-    "conflict": 9,
+    "conflict": 3,
     "ci": 0,
-    "blocked": 3,
+    "blocked": 1,
     "behind": 0,
-    "open": 0
+    "open": 8
   }
 }

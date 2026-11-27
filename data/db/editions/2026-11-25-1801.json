@@ -34,9 +34,9 @@
     "ready": 1,
     "conflict": 3,
     "ci": 0,
-    "blocked": 3,
+    "blocked": 2,
     "behind": 0,
-    "open": 0
+    "open": 1
   },
   "members": [
     {

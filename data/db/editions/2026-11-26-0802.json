@@ -23,7 +23,7 @@
   },
   "verdicts": {
     "approve": 2,
-    "look": 13,
+    "look": 11,
     "pushback": 1,
     "pending": 0
   },
@@ -34,9 +34,9 @@
     "ready": 1,
     "conflict": 0,
     "ci": 3,
-    "blocked": 11,
+    "blocked": 4,
     "behind": 0,
-    "open": 0
+    "open": 6
   },
   "members": [
     {

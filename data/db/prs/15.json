@@ -521,7 +521,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "ba9c1c8a1ff7b53a9e4d84cbef7a6dabc6b9401e",
       "state": "open",
-      "merge": "blocked",
+      "merge": "dirty",
       "base": "main"
     },
     "15090": {
