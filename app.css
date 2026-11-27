@@ -408,7 +408,7 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .fdrop summary{list-style:none;cursor:pointer;font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);user-select:none;white-space:nowrap}
 .fdrop summary::-webkit-details-marker{display:none}
 .fdrop summary b{color:var(--blue);margin-left:3px}
-.fmenu{position:absolute;z-index:60;top:calc(100% + 6px);left:0;min-width:210px;max-height:340px;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(16,24,40,.16);padding:6px}
+.fmenu{position:absolute;z-index:60;top:calc(100% + 6px);left:0;min-width:210px;max-width:min(320px,calc(100vw - 16px));max-height:340px;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(16,24,40,.16);padding:6px}
 .fopt{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:7px;font-size:13px;cursor:pointer;white-space:nowrap}
 .fopt:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
 .fopt em{margin-left:auto;color:var(--muted);font-style:normal;font-size:11.5px;font-variant-numeric:tabular-nums}
@@ -423,6 +423,9 @@ button.mini:hover{border-color:var(--blue);color:var(--blue)}
 .pager button:disabled{opacity:.45;cursor:default}
 .topbar-all{font-size:12.5px;color:var(--muted);text-decoration:none;padding:6px 8px;white-space:nowrap}
 .topbar-all:hover{color:var(--blue)}
-@media(max-width:900px){.fmenu{position:fixed;left:12px;right:12px;top:auto;bottom:12px;max-height:60vh;min-width:0}}
+@media(max-width:900px){
+  .fmenu{max-width:calc(100vw - 16px);max-height:52vh;min-width:min(240px,calc(100vw - 16px))}
+}
 .topbar-back{font-size:12.5px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap}
 .topbar-back:hover{border-color:var(--blue);color:var(--blue)}
+.fmenu.align-right{left:auto;right:0}

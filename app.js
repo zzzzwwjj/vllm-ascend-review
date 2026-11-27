@@ -1247,13 +1247,19 @@
     }
   }
 
-  document.addEventListener('mouseover', (e) => {
-    const t = e.target.closest && e.target.closest('[data-tip]');
-    if (t) showTip(t.dataset.tip, t.getBoundingClientRect());
-  });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest && e.target.closest('[data-tip]')) hideTip();
-  });
+  const canHover = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover) {
+    document.addEventListener('mouseover', (e) => {
+      const t = e.target.closest && e.target.closest('[data-tip]');
+      if (t) showTip(t.dataset.tip, t.getBoundingClientRect());
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest && e.target.closest('[data-tip]')) hideTip();
+    });
+  }
+  document.addEventListener('touchstart', hideTip, { passive: true });
+  document.addEventListener('click', hideTip, true);
+  document.addEventListener('scroll', hideTip, { passive: true, capture: true });
 
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-nav]');
@@ -1300,7 +1306,18 @@
       const d = sum.parentElement;
       const willOpen = !d.open;
       closeAllDrops();
-      if (willOpen) { d.open = true; state.openFilter = d.dataset.fkey || null; }
+      if (willOpen) {
+        d.open = true;
+        state.openFilter = d.dataset.fkey || null;
+        const m = d.querySelector('.fmenu');
+        if (m && m.getBoundingClientRect) {
+          const r = m.getBoundingClientRect();
+          if (r.width && r.right > (window.innerWidth || 0) - 8) m.classList.add('align-right');
+          if (r.height && r.bottom > (window.innerHeight || 0) - 8) {
+            m.style.maxHeight = Math.max(160, (window.innerHeight || 0) - r.top - 12) + 'px';
+          }
+        }
+      }
       e.preventDefault();
       return;
     }
