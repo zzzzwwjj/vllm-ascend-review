@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T10:10:06.378Z",
+  "updated_at": "2026-11-27T00:08:29.017Z",
   "entries": {
     "20244": [
       {
@@ -40,6 +40,21 @@
         "ack": {
           "status": "accepted",
           "note": "接受。原精读只评了字段与注入点是否正确，没质疑“是否该在 vllm-ascend 新增对外配置”。应先判断上游 adaptive verification 能否满足，硬件差异应推动上游开插件接口，而不是新增 AscendConfig 字段。"
+        }
+      }
+    ],
+    "22516": [
+      {
+        "id": "body-19",
+        "at": "2026-11-26T15:11:52Z",
+        "author": "zzzzwwjj",
+        "kind": "note",
+        "text": "新增文件需要在.github/CODEOWNERS中加新文件的codeowner。",
+        "edition": "",
+        "url": "https://github.com/zzzzwwjj/vllm-ascend-review/issues/19",
+        "ack": {
+          "status": "accepted",
+          "note": "接受。上期精读没检查新增文件是否补了 CODEOWNERS 条目，属合入前应拦下的仓库规范；已蒸馏为规则。"
         }
       }
     ],

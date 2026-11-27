@@ -31,6 +31,14 @@
       "source_pr": 23122,
       "created_at": "2026-11-26T00:02:05.107Z",
       "status": "active"
+    },
+    {
+      "id": "lesson-005",
+      "rule": "新增文件必须在 .github/CODEOWNERS 里补上对应 codeowner 条目，否则无人负责检视。",
+      "why": "批注指出新增文件缺少 CODEOWNERS 条目，会导致该路径无人 review。",
+      "source_pr": 22516,
+      "created_at": "2026-11-27T00:02:35.909Z",
+      "status": "active"
     }
   ]
 }

@@ -1,1 +1,4251 @@
-{"items":{"15002":{"number":15002,"title":"[Feature][Ops] Sync DeepSeek V4 compressor operator","author":"maoxx241","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15002","changed_files":27,"additions":3029,"deletions":635,"age_days":89.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":7,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"afb45fc86b0ca53f5eb38376482519563f507b31","state":"open","merge":"dirty","base":"main"},"15003":{"number":15003,"title":"[test_kv][Ops][BugFix] Port MegaMoe prefill buffer sizing and mega_moe_max_tokens fixes","author":"U1stRsouland","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15003","changed_files":11,"additions":272,"deletions":55,"age_days":89.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":1,"deletions":1},{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":54,"deletions":3},{"file":"vllm_ascend/utils.py","status":"modified","additions":15,"deletions":7}],"owned_add":70,"owned_del":11,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"f0248360ba834cfd3756a94f92b18a8a12bb8f85","state":"open","merge":"dirty","base":"main"},"15005":{"number":15005,"title":"【draft】Ds lora moe v25","author":"SkychenLee","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15005","changed_files":400,"additions":33982,"deletions":0,"age_days":89.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"089fe2067f51c96ac61c2283c765f012024aaced","state":"open","merge":"unstable","base":"releases/v0.25.1rc"},"15016":{"number":15016,"title":"[Ops][Misc] Bundle sparse KV CPU helpers and register with _C_ascend","author":"grandolantow","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15016","changed_files":7,"additions":634,"deletions":380,"age_days":89.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"8b81affba86f5081045ee9614373361f63c7413e","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15018":{"number":15018,"title":"[BugFix] Align routing weights with model activation dtype","author":"ichaoren","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15018","changed_files":1,"additions":15,"deletions":1,"age_days":89.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"568ddef688904c3413b6d363d055cbc70a00ccbe","state":"open","merge":"dirty","base":"main"},"15020":{"number":15020,"title":"[BugFix] Cast uint8 probs to float32 in AllGather MoE token combine","author":"Wyz-134","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15020","changed_files":1,"additions":8,"deletions":1,"age_days":89.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"3de646ba39f2048c0e3f8c7934b4df461b565e4b","state":"open","merge":"dirty","base":"main"},"15022":{"number":15022,"title":"[Performance]compressor: split projection and compression","author":"Qeeweew","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15022","changed_files":25,"additions":3270,"deletions":49,"age_days":89.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":3,"deletions":0}],"owned_add":3,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9603d6b934dc4309e725e62c11e07c73180a0f7f","state":"open","merge":"dirty","base":"main"},"15026":{"number":15026,"title":"[v0.26.0rc][Backport][Refactor][DSA] Move TP weight switching into quantization methods","author":"GDzhu01","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15026","changed_files":19,"additions":993,"deletions":317,"age_days":89.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":6,"mine":null},"owned":[{"file":"vllm_ascend/ops/linear.py","status":"modified","additions":6,"deletions":1}],"owned_add":6,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ae1f50a007d47586932cc04e1e421ad814aa3acf","state":"open","merge":"dirty","base":"releases/v0.26.0rc"},"15048":{"number":15048,"title":"[BugFix][GDN] Avoid fused chunk op for float16 inputs","author":"UniversePeak","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15048","changed_files":2,"additions":18,"deletions":1,"age_days":88.5,"ci":{"total":15,"failed":1,"failed_names":["ci-gate"],"pending":0,"skipped":8,"state":"failure"},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":11,"deletions":1}],"owned_add":11,"owned_del":1,"reason":"新进入队列","first_edition":"2026-11-23-1800","head_sha":"230cd86e0a26ca117fd623c9dc1d1b78f68beca0","state":"open","merge":"dirty","base":"main"},"15057":{"number":15057,"title":"[BugFix][Spec Decode] Guard DSpark request metadata before RoPE","author":"qijiajin","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15057","changed_files":3,"additions":170,"deletions":11,"age_days":89.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"50345f02228649c21b4b3c40f1754351aa80d8b0","state":"open","merge":"dirty","base":"main"},"15061":{"number":15061,"title":"[Feature] Add DSpark bidirectional SparseFlashMla","author":"wangbj127","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15061","changed_files":5,"additions":416,"deletions":80,"age_days":89.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"e8ae1d8b5c8ddf6bb998cd78a79c1b9ad4c8aaee","state":"open","merge":"dirty","base":"main"},"15062":{"number":15062,"title":"[Feat][MoE] Add DSA-CP MoE dual micro-batch overlap","author":"wangqilin18","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15062","changed_files":9,"additions":759,"deletions":50,"age_days":89.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":9,"deletions":0}],"owned_add":9,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"5587985628e4a06119a4b6dd770c198772366410","state":"open","merge":"dirty","base":"main"},"15072":{"number":15072,"title":"[Feat][Model] support Qwen3.8 Flash-Next on Ascend","author":"Wangbei25","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15072","changed_files":61,"additions":17916,"deletions":50,"age_days":89.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":8,"deletions":0},{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":54,"deletions":4}],"owned_add":62,"owned_del":4,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"5d5bf084323cec9a4bc47d6dca1dfbfe0928ec58","state":"open","merge":"dirty","base":"releases/v0.26.0rc"},"15076":{"number":15076,"title":"[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend","author":"Liuchenbing-2026","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15076","changed_files":30,"additions":4084,"deletions":215,"age_days":89,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":12,"mine":null},"owned":[{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":33,"deletions":6},{"file":"vllm_ascend/worker/v2/model_runner.py","status":"modified","additions":22,"deletions":0}],"owned_add":55,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ba9c1c8a1ff7b53a9e4d84cbef7a6dabc6b9401e","state":"open","merge":"dirty","base":"main"},"15090":{"number":15090,"title":"[BugFix][Kernel] Fix CANN 9.2 build compatibility for GDN chunk operators","author":"Foriv","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15090","changed_files":6,"additions":2,"deletions":7,"age_days":88.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":".gitmodules","status":"modified","additions":1,"deletions":1}],"owned_add":1,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"5d2ad851d874875a82de0dda607ea08699f7d3e9","state":"open","merge":"dirty","base":"main"},"15111":{"number":15111,"title":"[Performance] Fuse shrink and expand into sgmv_lora/bgmv_lora","author":"Agoni-02","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15111","changed_files":7,"additions":873,"deletions":1,"age_days":88.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9df0ac757207bc6066ccb5b0b6656edc28435877","state":"open","merge":"dirty","base":"main"},"15121":{"number":15121,"title":"[Feature]Add Forced Load‑Balancing Feature","author":"shunqinlu","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15121","changed_files":3,"additions":209,"deletions":4,"age_days":88.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":5,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"c7c7c7d326faf65e40c551dd7c0a61da6633c2fa","state":"open","merge":"dirty","base":"main"},"15124":{"number":15124,"title":"[Performance][KDA] Integrate K3 and overlap gate projections on main","author":"Dawn952","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15124","changed_files":243,"additions":49988,"deletions":1943,"age_days":88.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn_attn_builder.py","status":"modified","additions":137,"deletions":21},{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":8,"deletions":0},{"file":"vllm_ascend/ops/mm_encoder_attention.py","status":"modified","additions":2,"deletions":2},{"file":"vllm_ascend/platform.py","status":"modified","additions":4,"deletions":1},{"file":"vllm_ascend/utils.py","status":"modified","additions":8,"deletions":12}],"owned_add":159,"owned_del":36,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"04eb01fd147aa7535909fabb5d221a550e36ead4","state":"open","merge":"dirty","base":"main"},"15162":{"number":15162,"title":"[Performance] Stabilize Qwen3.8 Flash-Next and optimize QSA on Ascend","author":"shaopeng-666","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15162","changed_files":90,"additions":19527,"deletions":15,"age_days":88.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":28,"deletions":0},{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":85,"deletions":5},{"file":"vllm_ascend/ops/gdn_attn_builder.py","status":"modified","additions":1,"deletions":1}],"owned_add":114,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9082742026e64e0311b4f4913850817dbc752875","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15168":{"number":15168,"title":"[Performance][KDA] Compose and overlap gate projections on main","author":"Dawn952","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15168","changed_files":6,"additions":605,"deletions":61,"age_days":88.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"fd8125e531052237a99db346a88d9bced1b06510","state":"open","merge":"dirty","base":"main"},"15176":{"number":15176,"title":"[BugFix][Ops] Only use the custom add_rms_norm kernel when a norm bias was loaded","author":"AlexEisie","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15176","changed_files":3,"additions":62,"deletions":3,"age_days":88.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":7,"deletions":0},{"file":"vllm_ascend/ops/layernorm.py","status":"modified","additions":22,"deletions":2}],"owned_add":29,"owned_del":2,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"4f93d879daec400d5ebe38ed25633a9aee6e9ca4","state":"open","merge":"dirty","base":"main"},"15180":{"number":15180,"title":"[Refactor] Replace DeviceOperator with torch.ops.vllm","author":"CXMTAAA","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15180","changed_files":4,"additions":2,"deletions":448,"age_days":88.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":0,"deletions":58},{"file":"vllm_ascend/ops/__init__.py","status":"modified","additions":0,"deletions":1}],"owned_add":0,"owned_del":59,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"2575522885a5358bf1242186e8d19625bb503107","state":"open","merge":"dirty","base":"main"},"15207":{"number":15207,"title":"[Feature][Ops] Add variable-length GDN operators","author":"czfsdg","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15207","changed_files":8,"additions":482,"deletions":97,"age_days":87.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":4,"deletions":1}],"owned_add":4,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ff7a6f4e3765fbaaf3fe72aaa0822a1c7731907a","state":"open","merge":"dirty","base":"main"},"15208":{"number":15208,"title":"Snapshot 0.26.0 refactor","author":"lbr711","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15208","changed_files":58,"additions":3034,"deletions":177,"age_days":87.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/linear.py","status":"modified","additions":7,"deletions":1},{"file":"vllm_ascend/ops/rope_dsv4.py","status":"modified","additions":85,"deletions":21},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":41,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":4,"deletions":0},{"file":"vllm_ascend/utils.py","status":"modified","additions":7,"deletions":0},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":37,"deletions":11}],"owned_add":181,"owned_del":36,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"622c3bfca0b506b8e934ca321337dc78dffa7c12","state":"closed","merge":"dirty","base":"releases/v0.26.0rc"},"15218":{"number":15218,"title":"[BugFix] Fix catlass fetch + reduce Ascend opc compilation parallelism","author":"JavaPythonAIForBAT","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15218","changed_files":2,"additions":73,"deletions":3,"age_days":87.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"98c94f052c4256ff9fcbe6613ca4dff3d71e9e94","state":"open","merge":"blocked","base":"main"},"15227":{"number":15227,"title":"[Feature][Attention] Support Kimi K3 A3 MLA C8 on main","author":"q664171689","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15227","changed_files":20,"additions":1455,"deletions":101,"age_days":87.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"61827e87ea94f253a048ccda8e44704258c184b6","state":"open","merge":"dirty","base":"main"},"15233":{"number":15233,"title":"[Feature][Ops] Add AttnResFwd operator for Kimi K3","author":"hust17yixuan","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15233","changed_files":27,"additions":4219,"deletions":0,"age_days":87.8,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a748a74fb56c0b23cfe1c3f8c3e6244310f713cb","state":"open","merge":"dirty","base":"main"},"15240":{"number":15240,"title":"[Feature][Ops] Add grouped matmul SiTU quant fusion","author":"hust17yixuan","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15240","changed_files":46,"additions":10239,"deletions":1,"age_days":87.6,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":11,"deletions":0},{"file":"vllm_ascend/ops/grouped_matmul_situ_quant.py","status":"added","additions":203,"deletions":0}],"owned_add":214,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"641c67b1b4e11d642db94ed369991a9a63fe65ca","state":"open","merge":"dirty","base":"main"},"15244":{"number":15244,"title":"[Feature][Ops] Port grouped matmul SiTU quant fusion to main","author":"hust17yixuan","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15244","changed_files":45,"additions":10232,"deletions":2,"age_days":87.6,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":11,"deletions":0},{"file":"vllm_ascend/ops/grouped_matmul_situ_quant.py","status":"added","additions":199,"deletions":0}],"owned_add":210,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a80141f852c40b2e86785b68f67d81cc1ce00f17","state":"open","merge":"dirty","base":"main"},"15258":{"number":15258,"title":"fused_norm_gate反合至main分支","author":"yuqingfeng-tech","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15258","changed_files":176,"additions":29946,"deletions":1110,"age_days":87.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":69,"deletions":19},{"file":"vllm_ascend/ops/gdn_attn_builder.py","status":"modified","additions":137,"deletions":21},{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":8,"deletions":0},{"file":"vllm_ascend/ops/mm_encoder_attention.py","status":"modified","additions":2,"deletions":2},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":0},{"file":"vllm_ascend/utils.py","status":"modified","additions":8,"deletions":12}],"owned_add":233,"owned_del":54,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"555ea170a6a2b82bc1b0150de54c66c5d237338d","state":"open","merge":"dirty","base":"main"},"15284":{"number":15284,"title":"[BugFix][Misc] Adapt imports to upstream vLLM module moves and API changes","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15284","changed_files":32,"additions":1256,"deletions":61,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":5,"deletions":0},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":13,"deletions":2},{"file":"vllm_ascend/utils.py","status":"modified","additions":10,"deletions":2},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":5,"deletions":0}],"owned_add":42,"owned_del":7,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"784c9481d61b14cb55122ca5abecfcb55243238e","state":"open","merge":"dirty","base":"main"},"15285":{"number":15285,"title":"[BugFix][Core] Tolerate upstream KV cache spec field differences","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15285","changed_files":29,"additions":1377,"deletions":54,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":5,"deletions":0},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":13,"deletions":2},{"file":"vllm_ascend/utils.py","status":"modified","additions":10,"deletions":2},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":18,"deletions":5}],"owned_add":55,"owned_del":12,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"b2a3576c9b35526db74bf1446aff91e6df9b46c0","state":"open","merge":"dirty","base":"main"},"15286":{"number":15286,"title":"[BugFix][Worker] Dispatch bind_kv_cache to each layer's own override","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15286","changed_files":30,"additions":1282,"deletions":51,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":5,"deletions":0},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":13,"deletions":2},{"file":"vllm_ascend/utils.py","status":"modified","additions":10,"deletions":2},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":5,"deletions":0}],"owned_add":42,"owned_del":7,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"272708ccf6c35b1fbe287221ccaeabfd07d98a1e","state":"open","merge":"dirty","base":"main"},"15287":{"number":15287,"title":"[BugFix][Worker] Support the upstream aliasing KV cache layout","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15287","changed_files":28,"additions":1328,"deletions":66,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":5,"deletions":0},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":13,"deletions":2},{"file":"vllm_ascend/utils.py","status":"modified","additions":10,"deletions":2},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":5,"deletions":0}],"owned_add":42,"owned_del":7,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ea97c119d532f0e472afc42868af7505bfa4961e","state":"open","merge":"dirty","base":"main"},"15288":{"number":15288,"title":"[BugFix][Quantization] Tolerate GLM-5.3-Flash draft models in ModelSlim config","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15288","changed_files":29,"additions":1315,"deletions":54,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":5,"deletions":0},{"file":"vllm_ascend/ops/rotary_embedding.py","status":"modified","additions":9,"deletions":3},{"file":"vllm_ascend/platform.py","status":"modified","additions":13,"deletions":2},{"file":"vllm_ascend/utils.py","status":"modified","additions":10,"deletions":2},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":5,"deletions":0}],"owned_add":42,"owned_del":7,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"f92da5a51cc4277020387e633756b9a6b5c37b0a","state":"open","merge":"dirty","base":"main"},"15293":{"number":15293,"title":"[Add][Kernel] expose fused GroupedMatmulSituQuant via torch.vllm_ascendC","author":"grandolantow","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15293","changed_files":5,"additions":1413,"deletions":1,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"51bee71fb585878110583097628b2042946f2b48","state":"open","merge":"dirty","base":"releases/v0.26.0rc"},"15310":{"number":15310,"title":"[Doc][Ops] Add the muls_add Triton operator description","author":"Foriv","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15310","changed_files":1,"additions":50,"deletions":0,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"1641e0d8e0687d7354531124e7af2ccf8225e474","state":"open","merge":"blocked","base":"main"},"15311":{"number":15311,"title":"[Doc][Ops] Add the clear_ssm_states Triton operator description","author":"Foriv","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15311","changed_files":1,"additions":51,"deletions":0,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9a2671560ca07b86d3be8913f0e63bed2b1e0dfa","state":"open","merge":"blocked","base":"main"},"15312":{"number":15312,"title":"[Doc][Ops] Add the prepare_inputs_padded Triton operator description","author":"Foriv","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15312","changed_files":1,"additions":60,"deletions":0,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"2a07c11d970992a826342d2fbeb1144682415d02","state":"open","merge":"blocked","base":"main"},"15313":{"number":15313,"title":"[Doc][Ops] Add standard, multimodal, and TP QKV RMSNorm RoPE operator descriptions","author":"Foriv","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15313","changed_files":3,"additions":231,"deletions":0,"age_days":86.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"10efd5c52e6589b620b9f827867c6722f61da898","state":"open","merge":"blocked","base":"main"},"15325":{"number":15325,"title":"[Feat][MoE] Wire A3 GroupedMatmulSituQuant into W4A8 SiTU path","author":"MaybeChz","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15325","changed_files":8,"additions":1727,"deletions":109,"age_days":86.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":5,"deletions":0}],"owned_add":5,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"be8e55b7ab81c8bf201851da187c09e7c37bdbd7","state":"open","merge":"dirty","base":"main"},"15336":{"number":15336,"title":"[Feature][Attention] Sink attention tiling to device metadata","author":"maoxx241","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15336","changed_files":359,"additions":63185,"deletions":139,"age_days":86.3,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/fia_v2_sink.py","status":"added","additions":123,"deletions":0},{"file":"vllm_ascend/ops/flash_attn.py","status":"added","additions":50,"deletions":0},{"file":"vllm_ascend/ops/flash_mla.py","status":"added","additions":55,"deletions":0},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":53,"deletions":0},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":5,"deletions":1}],"owned_add":286,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"bec19b8dea1e538e64838f3064f7e91a3fa9ee72","state":"open","merge":"dirty","base":"main"},"15341":{"number":15341,"title":"[Feature][Ops] Migrate causal conv1d updates from fla-npu PR #390","author":"maoxx241","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15341","changed_files":23,"additions":3962,"deletions":3076,"age_days":86.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":7,"deletions":1},{"file":"vllm_ascend/ops/gdn_attn_builder.py","status":"modified","additions":5,"deletions":0}],"owned_add":12,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"de55359d549dfd4c0f9c5a72bf779c520269e04b","state":"open","merge":"dirty","base":"main"},"15343":{"number":15343,"title":"[Feature] Support Mistral4 on Ascend","author":"Liuchenbing-2026","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15343","changed_files":17,"additions":827,"deletions":5,"age_days":86,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/layernorm.py","status":"modified","additions":5,"deletions":1},{"file":"vllm_ascend/utils.py","status":"modified","additions":9,"deletions":2},{"file":"vllm_ascend/worker/v2/input_batch.py","status":"modified","additions":1,"deletions":1},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":5,"deletions":0}],"owned_add":20,"owned_del":4,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"e576d4858647c2e3cd6de5e5ec050104725df024","state":"open","merge":"dirty","base":"main"},"15344":{"number":15344,"title":"[Feature] Support Shieldstral on Ascend","author":"Liuchenbing-2026","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15344","changed_files":13,"additions":376,"deletions":6,"age_days":86,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/layernorm.py","status":"modified","additions":59,"deletions":0},{"file":"vllm_ascend/utils.py","status":"modified","additions":9,"deletions":2},{"file":"vllm_ascend/worker/v2/input_batch.py","status":"modified","additions":1,"deletions":1},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":5,"deletions":0}],"owned_add":74,"owned_del":3,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"d40daff778a0b542e3f185f52fa76d7c1eaa9561","state":"open","merge":"dirty","base":"main"},"15377":{"number":15377,"title":"[Model] Add Hy4 (HYV4) model support for Ascend NPU","author":"voidvelocity","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15377","changed_files":9,"additions":929,"deletions":41,"age_days":85,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":8,"deletions":4},{"file":"vllm_ascend/utils.py","status":"modified","additions":11,"deletions":2}],"owned_add":19,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"08d857fd08d5e550034fda16f2937953f5485726","state":"open","merge":"dirty","base":"main"},"15382":{"number":15382,"title":"[BugFix][MTP] Fix embed_input_ids issue for MTP and graph mode","author":"Lethobenthos20","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15382","changed_files":1,"additions":3,"deletions":0,"age_days":85,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"8fec6a6ffbb90977810483034c433ecbb804d4e5","state":"open","merge":"blocked","base":"main"},"15395":{"number":15395,"title":"[Doc][Attention] Correct misleading attention docstrings","author":"jiangkuaixue123","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15395","changed_files":7,"additions":18,"deletions":61,"age_days":84.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a145ea27e0473a8d448206d80e15446a68e374f2","state":"open","merge":"dirty","base":"main"},"15429":{"number":15429,"title":"[Perf][Ops] Fused mHC via AscendC npu_hc_pre_v2/npu_hc_post","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15429","changed_files":2,"additions":1168,"deletions":0,"age_days":84.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/mhc_ascendc.py","status":"added","additions":610,"deletions":0}],"owned_add":610,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ef9d6dd8e1996141f47f557cf3b7d5eb7205a7e6","state":"open","merge":"blocked","base":"main"},"15430":{"number":15430,"title":"[Perf][Ops] AscendC causal_conv1d_update with small-pool staging","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15430","changed_files":1,"additions":356,"deletions":0,"age_days":84.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a583ef238ae5cfba44179a6181f9703c6256c0f7","state":"open","merge":"blocked","base":"main"},"15432":{"number":15432,"title":"A3 debug","author":"grandolantow","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15432","changed_files":8,"additions":1877,"deletions":109,"age_days":84.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":5,"deletions":0}],"owned_add":5,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"10474ce76d97f1dde8a91f9f5e2d76648fa1e54b","state":"open","merge":"dirty","base":"main"},"15438":{"number":15438,"title":"Szy a5 test","author":"grandolantow","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15438","changed_files":54,"additions":10594,"deletions":4,"age_days":84.2,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":11,"deletions":0},{"file":"vllm_ascend/ops/activation.py","status":"modified","additions":10,"deletions":0},{"file":"vllm_ascend/ops/grouped_matmul_situ_quant.py","status":"added","additions":283,"deletions":0}],"owned_add":304,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"32f53a424163a80eb0cc27fad9832d1cb7c950a5","state":"open","merge":"dirty","base":"main"},"15452":{"number":15452,"title":"[BugFix][Model] Reuse DeepSeek-V4 compressor tail workspace","author":"jiangkuaixue123","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15452","changed_files":36,"additions":3083,"deletions":100,"age_days":84.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":105,"deletions":0},{"file":"vllm_ascend/platform.py","status":"modified","additions":8,"deletions":1},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":4,"deletions":1}],"owned_add":117,"owned_del":2,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"142facde52b49e071da31b4cfe0179fe7483a5d2","state":"open","merge":"dirty","base":"releases/v0.26.0rc"},"15454":{"number":15454,"title":"[WIP]Megamoe a5","author":"nakairika","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15454","changed_files":3,"additions":36,"deletions":18,"age_days":84.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"540b9672704a3a184177aa3feee91ee95db2bd36","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15487":{"number":15487,"title":"[Feature] Migrate MegaMoe operator support from main to v0.23.0 branch","author":"nanshen3000","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15487","changed_files":7,"additions":366,"deletions":80,"age_days":83.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":56,"deletions":2},{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":33,"deletions":35}],"owned_add":89,"owned_del":37,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"2ef7cbb608f9ca62acf7dfe59b0d36538b4985bb","state":"open","merge":"unstable","base":"releases/v0.23.0"},"15501":{"number":15501,"title":"[Performance][Ops] fuse residual add and layernorm into the Kimi K3 attention-residual triton kernel","author":"Levi-JQ","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15501","changed_files":3,"additions":179,"deletions":17,"age_days":83.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"6da51fee6a0b06cf7253e70de4a0bd1b82ec9801","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15511":{"number":15511,"title":"[Feature][KDA] Support non-contiguous recurrent KDA inputs","author":"maoxx241","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15511","changed_files":9,"additions":405,"deletions":47,"age_days":83.6,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"720584aa5ebc5d19c4e47fdf6bcc56c06e5bdf15","state":"open","merge":"dirty","base":"main"},"15526":{"number":15526,"title":"[Feature][Ops] Add VectorPagedAttention, a vector-core paged decode attention","author":"Junbo2002","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15526","changed_files":14,"additions":1140,"deletions":0,"age_days":83.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"09e38e0d813c0e52d0f4bee1ded726f2c7535e1d","state":"open","merge":"dirty","base":"main"},"15529":{"number":15529,"title":"[Bugfix][V2][MTP] Fix GDN metadata handling in ACL graph mode","author":"Tame21","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15529","changed_files":8,"additions":156,"deletions":7,"age_days":83.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn_attn_builder.py","status":"modified","additions":8,"deletions":1},{"file":"vllm_ascend/worker/v2/model_runner.py","status":"modified","additions":8,"deletions":1},{"file":"vllm_ascend/worker/v2/model_states/mamba_hybrid.py","status":"modified","additions":9,"deletions":0}],"owned_add":25,"owned_del":2,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"65f495adda3a61d0e02c342fb9eaf880a06e6845","state":"open","merge":"dirty","base":"main"},"15544":{"number":15544,"title":"[CI] Read Torch version from package metadata","author":"ShuhaoZhangTony","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15544","changed_files":2,"additions":13,"deletions":2,"age_days":83,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"671a2f2fc803f244e25a8eb67611bdd23efc3866","state":"open","merge":"blocked","base":"main"},"15553":{"number":15553,"title":"[Performance][KDA] Drop redundant Kimi KDA padding mask","author":"MaybeChz","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15553","changed_files":2,"additions":325,"deletions":83,"age_days":82.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9a3b697961048d3e11bec72d7091f24aef4cdc97","state":"open","merge":"dirty","base":"main"},"15555":{"number":15555,"title":"Fix/310p dflash full and piecewise route","author":"HaonanWu1","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15555","changed_files":164,"additions":28703,"deletions":960,"age_days":82.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":73,"deletions":0},{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":20,"deletions":0},{"file":"vllm_ascend/envs.py","status":"modified","additions":30,"deletions":0},{"file":"vllm_ascend/platform.py","status":"modified","additions":47,"deletions":0}],"owned_add":170,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"7fe925c679a7be503434aad8abcf13481053bf29","state":"open","merge":"dirty","base":"main"},"15568":{"number":15568,"title":"[Performance][Attention] Fuse local SFA LSE formation into DCP pack","author":"Ruiqiu-Zheng","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15568","changed_files":6,"additions":693,"deletions":13,"age_days":82.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"81153be45fb6a55a31649d2e84be6eb4d97001f2","state":"open","merge":"dirty","base":"main"},"15572":{"number":15572,"title":"[Feature] Add FFN op for Ascend950","author":"chenchris2","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15572","changed_files":127,"additions":27474,"deletions":0,"age_days":82.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ac9e2826c0f8f4d062e676384f2dfedd3f72dfba","state":"open","merge":"dirty","base":"main"},"15587":{"number":15587,"title":"[Performance][Attention] Fuse MLA query projection transposes","author":"sustech-lz","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15587","changed_files":400,"additions":46960,"deletions":4488,"age_days":82.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"86defded22fb7cae3e71f6f94583c79d90dee114","state":"open","merge":"dirty","base":"main"},"15589":{"number":15589,"title":"[Performance][Ops] Split fused qkvz projection into separate qkv and z linears in GDN","author":"leijie-ww","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15589","changed_files":5,"additions":657,"deletions":4,"age_days":82.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":7,"mine":null},"owned":[{"file":"vllm_ascend/ops/gdn.py","status":"modified","additions":72,"deletions":3},{"file":"vllm_ascend/utils.py","status":"modified","additions":17,"deletions":0}],"owned_add":89,"owned_del":3,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"c5482b07db066181822b7e5e00a85ac72847b83b","state":"open","merge":"dirty","base":"main"},"15592":{"number":15592,"title":"[BugFix][Mamba] Overlap-safe state copies for align-mode block moves","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15592","changed_files":2,"additions":45,"deletions":7,"age_days":82.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"e73da88f95067fbb944f3fb38e835824564243e3","state":"open","merge":"dirty","base":"main"},"15598":{"number":15598,"title":"[BugFix][Perf] Combine CPU binding mapping and KV cache fixes","author":"CXY-Katrina","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15598","changed_files":4,"additions":42,"deletions":28,"age_days":82.6,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":6,"deletions":5},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":4,"deletions":1}],"owned_add":10,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"947af9fee86216d8431077d8ca4671c638a17696","state":"open","merge":"dirty","base":"main"},"15599":{"number":15599,"title":"[v0.26.0rc][Perf] Restore ND PA KV cache write performance","author":"CXY-Katrina","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15599","changed_files":2,"additions":17,"deletions":19,"age_days":82.6,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":6,"deletions":5}],"owned_add":6,"owned_del":5,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a0112053b44ec155739f9eb616a7db14ffe1b8af","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15601":{"number":15601,"title":"[Bugfix][Hybrid] Fix overly strict hash_block_size assertion blocking prefix caching on hybrid models","author":"Autumnsnow919","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15601","changed_files":1,"additions":36,"deletions":12,"age_days":82.5,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"aee194bc8ef5110cfd5df60fbdae83e2984c1911","state":"open","merge":"dirty","base":"main"},"15620":{"number":15620,"title":"[Performance][Ops] Kimi k3 Fuse recurrent KDA padding-tail zeroing","author":"sustech-lz","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15620","changed_files":6,"additions":113,"deletions":74,"age_days":82.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"b043b099869304310e45296925be5c42bbf28132","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15626":{"number":15626,"title":"[Performance] Fuse build_dspark_swa_indices into a single AscendC kernel for DSv4 DSpark decode","author":"ivyilike","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15626","changed_files":11,"additions":686,"deletions":0,"age_days":82.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"8d4e0f8aebb7e50df4265778abbe8187cbe7ea57","state":"open","merge":"dirty","base":"main"},"15640":{"number":15640,"title":"[Ops][Feature] Add overflow guards and fallback to all2all for MegaMoe and dispatch_ffn_combine","author":"coder-fny","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15640","changed_files":6,"additions":282,"deletions":3,"age_days":81.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":17,"deletions":0},{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":91,"deletions":3},{"file":"vllm_ascend/envs.py","status":"modified","additions":7,"deletions":0}],"owned_add":115,"owned_del":3,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"c0ff03ec6c0475c4bf3a2ec9dac993cd7d8efae8","state":"open","merge":"dirty","base":"main"},"15642":{"number":15642,"title":"[Feature][Attention] Add fused sparse attention overlap decode support for Ascend SFA KV offload","author":"Bourn3z","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15642","changed_files":29,"additions":14536,"deletions":252,"age_days":81.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":1,"deletions":0},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":40,"deletions":39}],"owned_add":41,"owned_del":39,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"525a60af5996a17f9be61ee0baf66035b1f42849","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15681":{"number":15681,"title":"[Bugfix] Bypass Kimi K3 graph padding handling","author":"Dawn952","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15681","changed_files":2,"additions":4,"deletions":2,"age_days":81.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"161cbe86db13364e10af53d6c4aa8e97657529b7","state":"open","merge":"dirty","base":"main"},"15689":{"number":15689,"title":"[Doc] Document Ascend Triton operators","author":"yanhao5023","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15689","changed_files":15,"additions":652,"deletions":0,"age_days":81.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"e0e4bb6e9bdca6c184938ca28d182414b90a3026","state":"open","merge":"blocked","base":"main"},"15714":{"number":15714,"title":"[Performance][MoE] Reuse a persistent pad buffer in the MC2 prepare path","author":"MirkoDeVita98","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15714","changed_files":1,"additions":37,"deletions":2,"age_days":81.4,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"bbf68bdf6b8afe0258a0d82e53071912964b2b00","state":"open","merge":"dirty","base":"main"},"15715":{"number":15715,"title":"[BugFix][Device] Restore eager ATB registration on 310P","author":"Tflowers-0129","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15715","changed_files":3,"additions":14,"deletions":0,"age_days":81.3,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/hardware_profile.py","status":"modified","additions":1,"deletions":0}],"owned_add":1,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"c071c5f9a942a341bb6b1a5593fef2091e56b7f8","state":"open","merge":"blocked","base":"main"},"15717":{"number":15717,"title":"[BugFix][Attention] Restore 310P paged-attention selection","author":"Tflowers-0129","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15717","changed_files":4,"additions":20,"deletions":7,"age_days":81.3,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/hardware_profile.py","status":"modified","additions":1,"deletions":0}],"owned_add":1,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"b1b09b63ae5b84a12ce95c2a907a2aa678f62a63","state":"open","merge":"blocked","base":"main"},"15725":{"number":15725,"title":"[Performance][Kernel] Narrow tiling-key 1 scale synchronization in GroupedMatmulSwigluQuantWeightNZ","author":"Ruiqiu-Zheng","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15725","changed_files":1,"additions":7,"deletions":6,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"1df454250c4ab8b52112d4ab15efead66b7be9ec","state":"open","merge":"blocked","base":"main"},"15733":{"number":15733,"title":"[Cherry-pick][releases/v0.27.1rc][Performance] Fuse DSV4 multi-group slot mapping (from #15289)","author":"vllm-ascend-ci","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15733","changed_files":2,"additions":336,"deletions":0,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"8fce6e9ea7ea38cb073f1273c6ce072cb22ab335","state":"open","merge":"unstable","base":"releases/v0.27.1rc"},"15740":{"number":15740,"title":"[BugFix][Model] Align DeepSeek V4 Vision runtime contracts","author":"QwertyJack","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15740","changed_files":31,"additions":2047,"deletions":40,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/platform.py","status":"modified","additions":9,"deletions":0}],"owned_add":9,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"3eb808938821597cf9bec07d0b174e255c9b4b25","state":"open","merge":"dirty","base":"main"},"15742":{"number":15742,"title":"[BugFix][DeepSeek] Restore no-clamp shared expert group index for v0.26","author":"Yaphets24","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15742","changed_files":2,"additions":72,"deletions":2,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"1288b174a40160fc2c6d4fff46835a35987f4771","state":"open","merge":"unstable","base":"releases/v0.26.0rc"},"15748":{"number":15748,"title":"[Feature][SFA] Expose optional LightningIndexer selected scores","author":"Ruiqiu-Zheng","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15748","changed_files":5,"additions":230,"deletions":12,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":5,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":22,"deletions":6},{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":11,"deletions":2}],"owned_add":33,"owned_del":8,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"d53c352e5c9a51774b2f7cc3e3f2f7f405c35021","state":"open","merge":"dirty","base":"main"},"15751":{"number":15751,"title":"[Feature][Ops] Support original sparse indices in SCFA","author":"QwertyJack","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15751","changed_files":5,"additions":599,"deletions":45,"age_days":81.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"c1dfeeae6a748ad7f4078154f1c00e849699185a","state":"open","merge":"blocked","base":"main"},"15772":{"number":15772,"title":"[Performance][Model] Add fused split_qkv_index_rmsnorm_rope kernel for MiniMax-M3 sparse prepare","author":"gxy9808","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15772","changed_files":6,"additions":1050,"deletions":1,"age_days":80.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":17,"mine":null},"owned":[{"file":"vllm_ascend/ops/__init__.py","status":"modified","additions":1,"deletions":0}],"owned_add":1,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"7f802fb1a4add28e8e080847b17cb8214fa3c999","state":"open","merge":"dirty","base":"main"},"15805":{"number":15805,"title":"Szy situ debug","author":"grandolantow","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15805","changed_files":106,"additions":17626,"deletions":198,"age_days":80.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/envs.py","status":"modified","additions":16,"deletions":0},{"file":"vllm_ascend/ops/activation.py","status":"modified","additions":10,"deletions":0},{"file":"vllm_ascend/ops/grouped_matmul_situ_quant.py","status":"added","additions":282,"deletions":0},{"file":"vllm_ascend/worker/worker.py","status":"modified","additions":5,"deletions":1}],"owned_add":313,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"08cf64c02b065436c63feb798bcbb7c7286492ce","state":"open","merge":"dirty","base":"main"},"15813":{"number":15813,"title":"[Performance][SFA] Bypass redundant LightningIndexer scoring for eligible full-visible short-prefill cases","author":"Ruiqiu-Zheng","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15813","changed_files":11,"additions":461,"deletions":18,"age_days":80.4,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":8,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":1,"deletions":0},{"file":"vllm_ascend/ops/mla.py","status":"modified","additions":19,"deletions":6}],"owned_add":20,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"84c10e84ac92db129e3fec5dfa32e79d3c5c4809","state":"open","merge":"dirty","base":"main"},"15827":{"number":15827,"title":"[BugFix][MoE] Align MC2 mask capacity with tensor parallelism","author":"Tflowers-0129","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15827","changed_files":3,"additions":86,"deletions":6,"age_days":80,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":7,"deletions":6}],"owned_add":7,"owned_del":6,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"181c406d3c7514883ad203c0abb0b35fd45635d7","state":"open","merge":"dirty","base":"main"},"15837":{"number":15837,"title":"[Bugfix][MoE] Add BF16 MegaMoe regression coverage","author":"BESzk","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15837","changed_files":2,"additions":6,"deletions":1,"age_days":79.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":1,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"df43d876d43cdb716da89b2d33cd3d16622fc9d4","state":"open","merge":"blocked","base":"main"},"15839":{"number":15839,"title":"[Performance][Backport v0.27.1rc] Backport #15416","author":"Dawn952","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15839","changed_files":4,"additions":597,"deletions":52,"age_days":79.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"2e86a41a8863a91a9efd4343708aaa1baab9b288","state":"open","merge":"dirty","base":"releases/v0.27.1rc"},"15872":{"number":15872,"title":"[Ops][Feature] Support Kimi K3 MegaMoe and increase EP size limit to 128","author":"qijiajin","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15872","changed_files":6,"additions":375,"deletions":10,"age_days":79,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":8,"deletions":2},{"file":"vllm_ascend/ascend_forward_context.py","status":"modified","additions":3,"deletions":2}],"owned_add":11,"owned_del":4,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ab048f9a158d9d178b367b1a48e1b1fdf454bce1","state":"open","merge":"unstable","base":"releases/v0.27.1rc"},"15874":{"number":15874,"title":"[Cherry-pick][releases/v0.27.1rc][Performance][MoE] Overlap shared-expert collectives and routed projections (from #15252)","author":"vllm-ascend-ci","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15874","changed_files":6,"additions":536,"deletions":56,"age_days":78.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"2c31025d4805803f594dfa240d54e6e1dc3c7e7f","state":"open","merge":"unstable","base":"releases/v0.27.1rc"},"15876":{"number":15876,"title":"[BugFix][MoE] Avoid pre-AllGather W8A8 quantization on A3","author":"zhenwenqi2024","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15876","changed_files":4,"additions":55,"deletions":3,"age_days":78.9,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/hardware_profile.py","status":"modified","additions":8,"deletions":1}],"owned_add":8,"owned_del":1,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"417674d5b7f880415e4a88d579e2e8d5a0e4ac6d","state":"open","merge":"dirty","base":"main"},"15880":{"number":15880,"title":"[v0.27.1rc][BugFix][SpecDecode] Keep DSpark draft pointers in bounds","author":"Dawn952","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15880","changed_files":6,"additions":333,"deletions":50,"age_days":78.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":4,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"ce57091679c71e2fcfe4bafae43ce3665a41cfe3","state":"open","merge":"dirty","base":"releases/v0.27.1rc"},"15883":{"number":15883,"title":"[Feature] Add decode Mooncake host DRAM allocation for sparse KV offload","author":"TheManyBELL","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15883","changed_files":17,"additions":1487,"deletions":128,"age_days":77.6,"ci":{"total":6,"failed":0,"failed_names":[],"pending":0,"skipped":2,"state":"success"},"reviews":{"approvals":1,"changes_requested":0,"total":5,"mine":null},"owned":[{"file":"vllm_ascend/ascend_config.py","status":"modified","additions":18,"deletions":0},{"file":"vllm_ascend/envs.py","status":"modified","additions":3,"deletions":0},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":2,"deletions":0},{"file":"vllm_ascend/worker/v2/model_runner.py","status":"modified","additions":38,"deletions":29}],"owned_add":61,"owned_del":29,"reason":"新进入队列","first_edition":"2026-11-23-1300","head_sha":"dd10571141a2b516af7e9aac1148cac256b4dad0","state":"open","merge":"blocked","base":"main"},"15885":{"number":15885,"title":"[BugFix][Model] Fix the GLM-5.3-Flash NoPE and KDA convolution paths on Ascend","author":"yiminghub2024","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15885","changed_files":10,"additions":4812,"deletions":4024,"age_days":78.4,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":5,"mine":null},"owned":[{"file":"vllm_ascend/ops/causal_conv1d.py","status":"modified","additions":300,"deletions":297}],"owned_add":300,"owned_del":297,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"8743a2b5e4be853d12d7e141e32f6101394959f5","state":"open","merge":"dirty","base":"main"},"15886":{"number":15886,"title":"[Ops][Feature] Support DFlash2 speculative decoding on Ascend","author":"yiminghub2024","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15886","changed_files":16,"additions":655,"deletions":14,"age_days":78.4,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"1b015d6bd38dc4453ebaa26bca55d6c8acd1b525","state":"open","merge":"dirty","base":"main"},"15887":{"number":15887,"title":"[BugFix][Attention] Do not band-mask a bidirectional batch in full_graph_fia","author":"yiminghub2024","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15887","changed_files":3,"additions":72,"deletions":4,"age_days":78.4,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":3,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"9057bd6eb26f2ea4155f23f4019768a2f337cba9","state":"open","merge":"dirty","base":"main"},"15891":{"number":15891,"title":"[Performance][Gemma] Route RMSNorm through custom npu_gemma_rms_norm op","author":"leijie-ww","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15891","changed_files":1,"additions":0,"deletions":5,"age_days":78.2,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/device/device_op.py","status":"modified","additions":0,"deletions":5}],"owned_add":0,"owned_del":5,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"f09446790ee04bce253a107240356b19245c3009","state":"open","merge":"dirty","base":"main"},"15893":{"number":15893,"title":"Fix/dspark standard cache a3","author":"QiGS","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15893","changed_files":14,"additions":1561,"deletions":933,"age_days":78.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[{"file":"vllm_ascend/ops/rope_dsv4.py","status":"modified","additions":42,"deletions":0}],"owned_add":42,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"4742a81d295d0d08b9b34ba18ba03c29f074b81a","state":"open","merge":"dirty","base":"rfc/vllm_cann"},"15899":{"number":15899,"title":"[Feature][Spec Decode] Enable MLA DSpARK ACLGraph for Kimi K3","author":"kk-ss1999","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15899","changed_files":26,"additions":2715,"deletions":121,"age_days":78.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":0,"mine":null},"owned":[{"file":"vllm_ascend/worker/utils.py","status":"modified","additions":73,"deletions":47},{"file":"vllm_ascend/worker/v2/attn_utils.py","status":"modified","additions":118,"deletions":10},{"file":"vllm_ascend/worker/v2/block_table.py","status":"modified","additions":1,"deletions":0},{"file":"vllm_ascend/worker/v2/model_runner.py","status":"modified","additions":22,"deletions":2}],"owned_add":214,"owned_del":59,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"b45c18c48e69fc38cc5edd45603526f16ebd5d6a","state":"open","merge":"dirty","base":"main"},"15952":{"number":15952,"title":"[0.27.1rc][Performance][KDA] Drop redundant Kimi KDA padding mask","author":"MaybeChz","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15952","changed_files":2,"additions":324,"deletions":83,"age_days":77.7,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":2,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"66733f3acb89740dedacd602a7339152eb5e3cb9","state":"open","merge":"unstable","base":"releases/v0.27.1rc"},"15994":{"number":15994,"title":"[Refactor] Use official CANN operators on A3","author":"massmass","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15994","changed_files":17,"additions":524,"deletions":116,"age_days":77.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"a633ca5a79a7dfc22f58e5bd4c04914e770f50d4","state":"open","merge":"dirty","base":"main"},"15996":{"number":15996,"title":"[BugFix][Ops] Zero-init KDA chunked-prefill pipeline buffers","author":"Liears","html_url":"https://github.com/vllm-project/vllm-ascend/pull/15996","changed_files":4,"additions":129,"deletions":8,"age_days":77.1,"ci":{"state":"unknown","total":0,"failed":0,"pending":0,"failed_names":[]},"reviews":{"approvals":0,"changes_requested":0,"total":1,"mine":null},"owned":[],"owned_add":0,"owned_del":0,"reason":"历史积压","first_edition":"2026-11-23-0015","head_sha":"33d716867bf53fdf1170008fac48dc82e73e0b96","state":"open","merge":"blocked","base":"main"}}}
+{
+  "items": {
+    "15002": {
+      "number": 15002,
+      "title": "[Feature][Ops] Sync DeepSeek V4 compressor operator",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15002",
+      "changed_files": 27,
+      "additions": 3029,
+      "deletions": 635,
+      "age_days": 89.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 7,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "afb45fc86b0ca53f5eb38376482519563f507b31",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15003": {
+      "number": 15003,
+      "title": "[test_kv][Ops][BugFix] Port MegaMoe prefill buffer sizing and mega_moe_max_tokens fixes",
+      "author": "U1stRsouland",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15003",
+      "changed_files": 11,
+      "additions": 272,
+      "deletions": 55,
+      "age_days": 89.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 54,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 7
+        }
+      ],
+      "owned_add": 70,
+      "owned_del": 11,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "f0248360ba834cfd3756a94f92b18a8a12bb8f85",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15005": {
+      "number": 15005,
+      "title": "【draft】Ds lora moe v25",
+      "author": "SkychenLee",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15005",
+      "changed_files": 400,
+      "additions": 33982,
+      "deletions": 0,
+      "age_days": 89.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "089fe2067f51c96ac61c2283c765f012024aaced",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.25.1rc"
+    },
+    "15016": {
+      "number": 15016,
+      "title": "[Ops][Misc] Bundle sparse KV CPU helpers and register with _C_ascend",
+      "author": "grandolantow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15016",
+      "changed_files": 7,
+      "additions": 634,
+      "deletions": 380,
+      "age_days": 89.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "8b81affba86f5081045ee9614373361f63c7413e",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15018": {
+      "number": 15018,
+      "title": "[BugFix] Align routing weights with model activation dtype",
+      "author": "ichaoren",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15018",
+      "changed_files": 1,
+      "additions": 15,
+      "deletions": 1,
+      "age_days": 89.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "568ddef688904c3413b6d363d055cbc70a00ccbe",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15020": {
+      "number": 15020,
+      "title": "[BugFix] Cast uint8 probs to float32 in AllGather MoE token combine",
+      "author": "Wyz-134",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15020",
+      "changed_files": 1,
+      "additions": 8,
+      "deletions": 1,
+      "age_days": 89.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "3de646ba39f2048c0e3f8c7934b4df461b565e4b",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15022": {
+      "number": 15022,
+      "title": "[Performance]compressor: split projection and compression",
+      "author": "Qeeweew",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15022",
+      "changed_files": 25,
+      "additions": 3270,
+      "deletions": 49,
+      "age_days": 89.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 3,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9603d6b934dc4309e725e62c11e07c73180a0f7f",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15026": {
+      "number": 15026,
+      "title": "[v0.26.0rc][Backport][Refactor][DSA] Move TP weight switching into quantization methods",
+      "author": "GDzhu01",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15026",
+      "changed_files": 19,
+      "additions": 993,
+      "deletions": 317,
+      "age_days": 89.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 6,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ae1f50a007d47586932cc04e1e421ad814aa3acf",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.26.0rc"
+    },
+    "15048": {
+      "number": 15048,
+      "title": "[BugFix][GDN] Avoid fused chunk op for float16 inputs",
+      "author": "UniversePeak",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15048",
+      "changed_files": 2,
+      "additions": 18,
+      "deletions": 1,
+      "age_days": 88.5,
+      "ci": {
+        "total": 15,
+        "failed": 1,
+        "failed_names": [
+          "ci-gate"
+        ],
+        "pending": 0,
+        "skipped": 8,
+        "state": "failure"
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 11,
+      "owned_del": 1,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1800",
+      "head_sha": "230cd86e0a26ca117fd623c9dc1d1b78f68beca0",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15057": {
+      "number": 15057,
+      "title": "[BugFix][Spec Decode] Guard DSpark request metadata before RoPE",
+      "author": "qijiajin",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15057",
+      "changed_files": 3,
+      "additions": 170,
+      "deletions": 11,
+      "age_days": 89.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "50345f02228649c21b4b3c40f1754351aa80d8b0",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15061": {
+      "number": 15061,
+      "title": "[Feature] Add DSpark bidirectional SparseFlashMla",
+      "author": "wangbj127",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15061",
+      "changed_files": 5,
+      "additions": 416,
+      "deletions": 80,
+      "age_days": 89.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "e8ae1d8b5c8ddf6bb998cd78a79c1b9ad4c8aaee",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15062": {
+      "number": 15062,
+      "title": "[Feat][MoE] Add DSA-CP MoE dual micro-batch overlap",
+      "author": "wangqilin18",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15062",
+      "changed_files": 9,
+      "additions": 759,
+      "deletions": 50,
+      "age_days": 89.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "5587985628e4a06119a4b6dd770c198772366410",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15072": {
+      "number": 15072,
+      "title": "[Feat][Model] support Qwen3.8 Flash-Next on Ascend",
+      "author": "Wangbei25",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15072",
+      "changed_files": 61,
+      "additions": 17916,
+      "deletions": 50,
+      "age_days": 89.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 54,
+          "deletions": 4
+        }
+      ],
+      "owned_add": 62,
+      "owned_del": 4,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "5d5bf084323cec9a4bc47d6dca1dfbfe0928ec58",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.26.0rc"
+    },
+    "15076": {
+      "number": 15076,
+      "title": "[Feature][LoRA] Support DeepSeek-V4.1 attention and W4A8 MoE LoRA on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15076",
+      "changed_files": 30,
+      "additions": 4084,
+      "deletions": 215,
+      "age_days": 89,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 12,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 33,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 55,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ba9c1c8a1ff7b53a9e4d84cbef7a6dabc6b9401e",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15090": {
+      "number": 15090,
+      "title": "[BugFix][Kernel] Fix CANN 9.2 build compatibility for GDN chunk operators",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15090",
+      "changed_files": 6,
+      "additions": 2,
+      "deletions": 7,
+      "age_days": 88.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": ".gitmodules",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "5d2ad851d874875a82de0dda607ea08699f7d3e9",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15111": {
+      "number": 15111,
+      "title": "[Performance] Fuse shrink and expand into sgmv_lora/bgmv_lora",
+      "author": "Agoni-02",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15111",
+      "changed_files": 7,
+      "additions": 873,
+      "deletions": 1,
+      "age_days": 88.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9df0ac757207bc6066ccb5b0b6656edc28435877",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15121": {
+      "number": 15121,
+      "title": "[Feature]Add Forced Load‑Balancing Feature",
+      "author": "shunqinlu",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15121",
+      "changed_files": 3,
+      "additions": 209,
+      "deletions": 4,
+      "age_days": 88.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "c7c7c7d326faf65e40c551dd7c0a61da6633c2fa",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15124": {
+      "number": 15124,
+      "title": "[Performance][KDA] Integrate K3 and overlap gate projections on main",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15124",
+      "changed_files": 243,
+      "additions": 49988,
+      "deletions": 1943,
+      "age_days": 88.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 137,
+          "deletions": 21
+        },
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mm_encoder_attention.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 12
+        }
+      ],
+      "owned_add": 159,
+      "owned_del": 36,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "04eb01fd147aa7535909fabb5d221a550e36ead4",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15162": {
+      "number": 15162,
+      "title": "[Performance] Stabilize Qwen3.8 Flash-Next and optimize QSA on Ascend",
+      "author": "shaopeng-666",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15162",
+      "changed_files": 90,
+      "additions": 19527,
+      "deletions": 15,
+      "age_days": 88.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 28,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 85,
+          "deletions": 5
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 114,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9082742026e64e0311b4f4913850817dbc752875",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15168": {
+      "number": 15168,
+      "title": "[Performance][KDA] Compose and overlap gate projections on main",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15168",
+      "changed_files": 6,
+      "additions": 605,
+      "deletions": 61,
+      "age_days": 88.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "fd8125e531052237a99db346a88d9bced1b06510",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15176": {
+      "number": 15176,
+      "title": "[BugFix][Ops] Only use the custom add_rms_norm kernel when a norm bias was loaded",
+      "author": "AlexEisie",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15176",
+      "changed_files": 3,
+      "additions": 62,
+      "deletions": 3,
+      "age_days": 88.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 29,
+      "owned_del": 2,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "4f93d879daec400d5ebe38ed25633a9aee6e9ca4",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15180": {
+      "number": 15180,
+      "title": "[Refactor] Replace DeviceOperator with torch.ops.vllm",
+      "author": "CXMTAAA",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15180",
+      "changed_files": 4,
+      "additions": 2,
+      "deletions": 448,
+      "age_days": 88.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 58
+        },
+        {
+          "file": "vllm_ascend/ops/__init__.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 59,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "2575522885a5358bf1242186e8d19625bb503107",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15207": {
+      "number": 15207,
+      "title": "[Feature][Ops] Add variable-length GDN operators",
+      "author": "czfsdg",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15207",
+      "changed_files": 8,
+      "additions": 482,
+      "deletions": 97,
+      "age_days": 87.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 4,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ff7a6f4e3765fbaaf3fe72aaa0822a1c7731907a",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15208": {
+      "number": 15208,
+      "title": "Snapshot 0.26.0 refactor",
+      "author": "lbr711",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15208",
+      "changed_files": 58,
+      "additions": 3034,
+      "deletions": 177,
+      "age_days": 87.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/linear.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/rope_dsv4.py",
+          "status": "modified",
+          "additions": 85,
+          "deletions": 21
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 41,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 37,
+          "deletions": 11
+        }
+      ],
+      "owned_add": 181,
+      "owned_del": 36,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "622c3bfca0b506b8e934ca321337dc78dffa7c12",
+      "state": "closed",
+      "merge": "dirty",
+      "base": "releases/v0.26.0rc"
+    },
+    "15218": {
+      "number": 15218,
+      "title": "[BugFix] Fix catlass fetch + reduce Ascend opc compilation parallelism",
+      "author": "JavaPythonAIForBAT",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15218",
+      "changed_files": 2,
+      "additions": 73,
+      "deletions": 3,
+      "age_days": 87.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "98c94f052c4256ff9fcbe6613ca4dff3d71e9e94",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15227": {
+      "number": 15227,
+      "title": "[Feature][Attention] Support Kimi K3 A3 MLA C8 on main",
+      "author": "q664171689",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15227",
+      "changed_files": 20,
+      "additions": 1455,
+      "deletions": 101,
+      "age_days": 87.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "61827e87ea94f253a048ccda8e44704258c184b6",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15233": {
+      "number": 15233,
+      "title": "[Feature][Ops] Add AttnResFwd operator for Kimi K3",
+      "author": "hust17yixuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15233",
+      "changed_files": 27,
+      "additions": 4219,
+      "deletions": 0,
+      "age_days": 87.8,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a748a74fb56c0b23cfe1c3f8c3e6244310f713cb",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15240": {
+      "number": 15240,
+      "title": "[Feature][Ops] Add grouped matmul SiTU quant fusion",
+      "author": "hust17yixuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15240",
+      "changed_files": 46,
+      "additions": 10239,
+      "deletions": 1,
+      "age_days": 87.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/grouped_matmul_situ_quant.py",
+          "status": "added",
+          "additions": 203,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 214,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "641c67b1b4e11d642db94ed369991a9a63fe65ca",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15244": {
+      "number": 15244,
+      "title": "[Feature][Ops] Port grouped matmul SiTU quant fusion to main",
+      "author": "hust17yixuan",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15244",
+      "changed_files": 45,
+      "additions": 10232,
+      "deletions": 2,
+      "age_days": 87.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/grouped_matmul_situ_quant.py",
+          "status": "added",
+          "additions": 199,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 210,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a80141f852c40b2e86785b68f67d81cc1ce00f17",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15258": {
+      "number": 15258,
+      "title": "fused_norm_gate反合至main分支",
+      "author": "yuqingfeng-tech",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15258",
+      "changed_files": 176,
+      "additions": 29946,
+      "deletions": 1110,
+      "age_days": 87.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 69,
+          "deletions": 19
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 137,
+          "deletions": 21
+        },
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mm_encoder_attention.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 12
+        }
+      ],
+      "owned_add": 233,
+      "owned_del": 54,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "555ea170a6a2b82bc1b0150de54c66c5d237338d",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15284": {
+      "number": 15284,
+      "title": "[BugFix][Misc] Adapt imports to upstream vLLM module moves and API changes",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15284",
+      "changed_files": 32,
+      "additions": 1256,
+      "deletions": 61,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 42,
+      "owned_del": 7,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "784c9481d61b14cb55122ca5abecfcb55243238e",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15285": {
+      "number": 15285,
+      "title": "[BugFix][Core] Tolerate upstream KV cache spec field differences",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15285",
+      "changed_files": 29,
+      "additions": 1377,
+      "deletions": 54,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 18,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 55,
+      "owned_del": 12,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "b2a3576c9b35526db74bf1446aff91e6df9b46c0",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15286": {
+      "number": 15286,
+      "title": "[BugFix][Worker] Dispatch bind_kv_cache to each layer's own override",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15286",
+      "changed_files": 30,
+      "additions": 1282,
+      "deletions": 51,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 42,
+      "owned_del": 7,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "272708ccf6c35b1fbe287221ccaeabfd07d98a1e",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15287": {
+      "number": 15287,
+      "title": "[BugFix][Worker] Support the upstream aliasing KV cache layout",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15287",
+      "changed_files": 28,
+      "additions": 1328,
+      "deletions": 66,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 42,
+      "owned_del": 7,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ea97c119d532f0e472afc42868af7505bfa4961e",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15288": {
+      "number": 15288,
+      "title": "[BugFix][Quantization] Tolerate GLM-5.3-Flash draft models in ModelSlim config",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15288",
+      "changed_files": 29,
+      "additions": 1315,
+      "deletions": 54,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/rotary_embedding.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 13,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 42,
+      "owned_del": 7,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "f92da5a51cc4277020387e633756b9a6b5c37b0a",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15293": {
+      "number": 15293,
+      "title": "[Add][Kernel] expose fused GroupedMatmulSituQuant via torch.vllm_ascendC",
+      "author": "grandolantow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15293",
+      "changed_files": 5,
+      "additions": 1413,
+      "deletions": 1,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "51bee71fb585878110583097628b2042946f2b48",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.26.0rc"
+    },
+    "15310": {
+      "number": 15310,
+      "title": "[Doc][Ops] Add the muls_add Triton operator description",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15310",
+      "changed_files": 1,
+      "additions": 50,
+      "deletions": 0,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "1641e0d8e0687d7354531124e7af2ccf8225e474",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15311": {
+      "number": 15311,
+      "title": "[Doc][Ops] Add the clear_ssm_states Triton operator description",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15311",
+      "changed_files": 1,
+      "additions": 51,
+      "deletions": 0,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9a2671560ca07b86d3be8913f0e63bed2b1e0dfa",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15312": {
+      "number": 15312,
+      "title": "[Doc][Ops] Add the prepare_inputs_padded Triton operator description",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15312",
+      "changed_files": 1,
+      "additions": 60,
+      "deletions": 0,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "2a07c11d970992a826342d2fbeb1144682415d02",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15313": {
+      "number": 15313,
+      "title": "[Doc][Ops] Add standard, multimodal, and TP QKV RMSNorm RoPE operator descriptions",
+      "author": "Foriv",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15313",
+      "changed_files": 3,
+      "additions": 231,
+      "deletions": 0,
+      "age_days": 86.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "10efd5c52e6589b620b9f827867c6722f61da898",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15325": {
+      "number": 15325,
+      "title": "[Feat][MoE] Wire A3 GroupedMatmulSituQuant into W4A8 SiTU path",
+      "author": "MaybeChz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15325",
+      "changed_files": 8,
+      "additions": 1727,
+      "deletions": 109,
+      "age_days": 86.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 5,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "be8e55b7ab81c8bf201851da187c09e7c37bdbd7",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15336": {
+      "number": 15336,
+      "title": "[Feature][Attention] Sink attention tiling to device metadata",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15336",
+      "changed_files": 359,
+      "additions": 63185,
+      "deletions": 139,
+      "age_days": 86.3,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/fia_v2_sink.py",
+          "status": "added",
+          "additions": 123,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/flash_attn.py",
+          "status": "added",
+          "additions": 50,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/flash_mla.py",
+          "status": "added",
+          "additions": 55,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 53,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 286,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "bec19b8dea1e538e64838f3064f7e91a3fa9ee72",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15341": {
+      "number": 15341,
+      "title": "[Feature][Ops] Migrate causal conv1d updates from fla-npu PR #390",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15341",
+      "changed_files": 23,
+      "additions": 3962,
+      "deletions": 3076,
+      "age_days": 86.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 12,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "de55359d549dfd4c0f9c5a72bf779c520269e04b",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15343": {
+      "number": 15343,
+      "title": "[Feature] Support Mistral4 on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15343",
+      "changed_files": 17,
+      "additions": 827,
+      "deletions": 5,
+      "age_days": 86,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/input_batch.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 20,
+      "owned_del": 4,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "e576d4858647c2e3cd6de5e5ec050104725df024",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15344": {
+      "number": 15344,
+      "title": "[Feature] Support Shieldstral on Ascend",
+      "author": "Liuchenbing-2026",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15344",
+      "changed_files": 13,
+      "additions": 376,
+      "deletions": 6,
+      "age_days": 86,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/layernorm.py",
+          "status": "modified",
+          "additions": 59,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/worker/v2/input_batch.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 74,
+      "owned_del": 3,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "d40daff778a0b542e3f185f52fa76d7c1eaa9561",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15377": {
+      "number": 15377,
+      "title": "[Model] Add Hy4 (HYV4) model support for Ascend NPU",
+      "author": "voidvelocity",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15377",
+      "changed_files": 9,
+      "additions": 929,
+      "deletions": 41,
+      "age_days": 85,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 4
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 19,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "08d857fd08d5e550034fda16f2937953f5485726",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15382": {
+      "number": 15382,
+      "title": "[BugFix][MTP] Fix embed_input_ids issue for MTP and graph mode",
+      "author": "Lethobenthos20",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15382",
+      "changed_files": 1,
+      "additions": 3,
+      "deletions": 0,
+      "age_days": 85,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "8fec6a6ffbb90977810483034c433ecbb804d4e5",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15395": {
+      "number": 15395,
+      "title": "[Doc][Attention] Correct misleading attention docstrings",
+      "author": "jiangkuaixue123",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15395",
+      "changed_files": 7,
+      "additions": 18,
+      "deletions": 61,
+      "age_days": 84.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a145ea27e0473a8d448206d80e15446a68e374f2",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15429": {
+      "number": 15429,
+      "title": "[Perf][Ops] Fused mHC via AscendC npu_hc_pre_v2/npu_hc_post",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15429",
+      "changed_files": 2,
+      "additions": 1168,
+      "deletions": 0,
+      "age_days": 84.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/mhc_ascendc.py",
+          "status": "added",
+          "additions": 610,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 610,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ef9d6dd8e1996141f47f557cf3b7d5eb7205a7e6",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15430": {
+      "number": 15430,
+      "title": "[Perf][Ops] AscendC causal_conv1d_update with small-pool staging",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15430",
+      "changed_files": 1,
+      "additions": 356,
+      "deletions": 0,
+      "age_days": 84.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a583ef238ae5cfba44179a6181f9703c6256c0f7",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15432": {
+      "number": 15432,
+      "title": "A3 debug",
+      "author": "grandolantow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15432",
+      "changed_files": 8,
+      "additions": 1877,
+      "deletions": 109,
+      "age_days": 84.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 5,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "10474ce76d97f1dde8a91f9f5e2d76648fa1e54b",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15438": {
+      "number": 15438,
+      "title": "Szy a5 test",
+      "author": "grandolantow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15438",
+      "changed_files": 54,
+      "additions": 10594,
+      "deletions": 4,
+      "age_days": 84.2,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/activation.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/grouped_matmul_situ_quant.py",
+          "status": "added",
+          "additions": 283,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 304,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "32f53a424163a80eb0cc27fad9832d1cb7c950a5",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15452": {
+      "number": 15452,
+      "title": "[BugFix][Model] Reuse DeepSeek-V4 compressor tail workspace",
+      "author": "jiangkuaixue123",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15452",
+      "changed_files": 36,
+      "additions": 3083,
+      "deletions": 100,
+      "age_days": 84.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 105,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 117,
+      "owned_del": 2,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "142facde52b49e071da31b4cfe0179fe7483a5d2",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.26.0rc"
+    },
+    "15454": {
+      "number": 15454,
+      "title": "[WIP]Megamoe a5",
+      "author": "nakairika",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15454",
+      "changed_files": 3,
+      "additions": 36,
+      "deletions": 18,
+      "age_days": 84.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "540b9672704a3a184177aa3feee91ee95db2bd36",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15487": {
+      "number": 15487,
+      "title": "[Feature] Migrate MegaMoe operator support from main to v0.23.0 branch",
+      "author": "nanshen3000",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15487",
+      "changed_files": 7,
+      "additions": 366,
+      "deletions": 80,
+      "age_days": 83.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 56,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 33,
+          "deletions": 35
+        }
+      ],
+      "owned_add": 89,
+      "owned_del": 37,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "2ef7cbb608f9ca62acf7dfe59b0d36538b4985bb",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.23.0"
+    },
+    "15501": {
+      "number": 15501,
+      "title": "[Performance][Ops] fuse residual add and layernorm into the Kimi K3 attention-residual triton kernel",
+      "author": "Levi-JQ",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15501",
+      "changed_files": 3,
+      "additions": 179,
+      "deletions": 17,
+      "age_days": 83.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "6da51fee6a0b06cf7253e70de4a0bd1b82ec9801",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15511": {
+      "number": 15511,
+      "title": "[Feature][KDA] Support non-contiguous recurrent KDA inputs",
+      "author": "maoxx241",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15511",
+      "changed_files": 9,
+      "additions": 405,
+      "deletions": 47,
+      "age_days": 83.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "720584aa5ebc5d19c4e47fdf6bcc56c06e5bdf15",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15526": {
+      "number": 15526,
+      "title": "[Feature][Ops] Add VectorPagedAttention, a vector-core paged decode attention",
+      "author": "Junbo2002",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15526",
+      "changed_files": 14,
+      "additions": 1140,
+      "deletions": 0,
+      "age_days": 83.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "09e38e0d813c0e52d0f4bee1ded726f2c7535e1d",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15529": {
+      "number": 15529,
+      "title": "[Bugfix][V2][MTP] Fix GDN metadata handling in ACL graph mode",
+      "author": "Tame21",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15529",
+      "changed_files": 8,
+      "additions": 156,
+      "deletions": 7,
+      "age_days": 83.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn_attn_builder.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 1
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_states/mamba_hybrid.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 25,
+      "owned_del": 2,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "65f495adda3a61d0e02c342fb9eaf880a06e6845",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15544": {
+      "number": 15544,
+      "title": "[CI] Read Torch version from package metadata",
+      "author": "ShuhaoZhangTony",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15544",
+      "changed_files": 2,
+      "additions": 13,
+      "deletions": 2,
+      "age_days": 83,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "671a2f2fc803f244e25a8eb67611bdd23efc3866",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15553": {
+      "number": 15553,
+      "title": "[Performance][KDA] Drop redundant Kimi KDA padding mask",
+      "author": "MaybeChz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15553",
+      "changed_files": 2,
+      "additions": 325,
+      "deletions": 83,
+      "age_days": 82.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9a3b697961048d3e11bec72d7091f24aef4cdc97",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15555": {
+      "number": 15555,
+      "title": "Fix/310p dflash full and piecewise route",
+      "author": "HaonanWu1",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15555",
+      "changed_files": 164,
+      "additions": 28703,
+      "deletions": 960,
+      "age_days": 82.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 73,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 30,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 47,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 170,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "7fe925c679a7be503434aad8abcf13481053bf29",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15568": {
+      "number": 15568,
+      "title": "[Performance][Attention] Fuse local SFA LSE formation into DCP pack",
+      "author": "Ruiqiu-Zheng",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15568",
+      "changed_files": 6,
+      "additions": 693,
+      "deletions": 13,
+      "age_days": 82.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "81153be45fb6a55a31649d2e84be6eb4d97001f2",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15572": {
+      "number": 15572,
+      "title": "[Feature] Add FFN op for Ascend950",
+      "author": "chenchris2",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15572",
+      "changed_files": 127,
+      "additions": 27474,
+      "deletions": 0,
+      "age_days": 82.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ac9e2826c0f8f4d062e676384f2dfedd3f72dfba",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15587": {
+      "number": 15587,
+      "title": "[Performance][Attention] Fuse MLA query projection transposes",
+      "author": "sustech-lz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15587",
+      "changed_files": 400,
+      "additions": 46960,
+      "deletions": 4488,
+      "age_days": 82.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "86defded22fb7cae3e71f6f94583c79d90dee114",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15589": {
+      "number": 15589,
+      "title": "[Performance][Ops] Split fused qkvz projection into separate qkv and z linears in GDN",
+      "author": "leijie-ww",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15589",
+      "changed_files": 5,
+      "additions": 657,
+      "deletions": 4,
+      "age_days": 82.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 7,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/gdn.py",
+          "status": "modified",
+          "additions": 72,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/utils.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 89,
+      "owned_del": 3,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "c5482b07db066181822b7e5e00a85ac72847b83b",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15592": {
+      "number": 15592,
+      "title": "[BugFix][Mamba] Overlap-safe state copies for align-mode block moves",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15592",
+      "changed_files": 2,
+      "additions": 45,
+      "deletions": 7,
+      "age_days": 82.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "e73da88f95067fbb944f3fb38e835824564243e3",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15598": {
+      "number": 15598,
+      "title": "[BugFix][Perf] Combine CPU binding mapping and KV cache fixes",
+      "author": "CXY-Katrina",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15598",
+      "changed_files": 4,
+      "additions": 42,
+      "deletions": 28,
+      "age_days": 82.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 5
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 10,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "947af9fee86216d8431077d8ca4671c638a17696",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15599": {
+      "number": 15599,
+      "title": "[v0.26.0rc][Perf] Restore ND PA KV cache write performance",
+      "author": "CXY-Katrina",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15599",
+      "changed_files": 2,
+      "additions": 17,
+      "deletions": 19,
+      "age_days": 82.6,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 6,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 6,
+      "owned_del": 5,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a0112053b44ec155739f9eb616a7db14ffe1b8af",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15601": {
+      "number": 15601,
+      "title": "[Bugfix][Hybrid] Fix overly strict hash_block_size assertion blocking prefix caching on hybrid models",
+      "author": "Autumnsnow919",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15601",
+      "changed_files": 1,
+      "additions": 36,
+      "deletions": 12,
+      "age_days": 82.5,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "aee194bc8ef5110cfd5df60fbdae83e2984c1911",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15620": {
+      "number": 15620,
+      "title": "[Performance][Ops] Kimi k3 Fuse recurrent KDA padding-tail zeroing",
+      "author": "sustech-lz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15620",
+      "changed_files": 6,
+      "additions": 113,
+      "deletions": 74,
+      "age_days": 82.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "b043b099869304310e45296925be5c42bbf28132",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15626": {
+      "number": 15626,
+      "title": "[Performance] Fuse build_dspark_swa_indices into a single AscendC kernel for DSv4 DSpark decode",
+      "author": "ivyilike",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15626",
+      "changed_files": 11,
+      "additions": 686,
+      "deletions": 0,
+      "age_days": 82.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "8d4e0f8aebb7e50df4265778abbe8187cbe7ea57",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15640": {
+      "number": 15640,
+      "title": "[Ops][Feature] Add overflow guards and fallback to all2all for MegaMoe and dispatch_ffn_combine",
+      "author": "coder-fny",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15640",
+      "changed_files": 6,
+      "additions": 282,
+      "deletions": 3,
+      "age_days": 81.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 17,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 91,
+          "deletions": 3
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 115,
+      "owned_del": 3,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "c0ff03ec6c0475c4bf3a2ec9dac993cd7d8efae8",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15642": {
+      "number": 15642,
+      "title": "[Feature][Attention] Add fused sparse attention overlap decode support for Ascend SFA KV offload",
+      "author": "Bourn3z",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15642",
+      "changed_files": 29,
+      "additions": 14536,
+      "deletions": 252,
+      "age_days": 81.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 40,
+          "deletions": 39
+        }
+      ],
+      "owned_add": 41,
+      "owned_del": 39,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "525a60af5996a17f9be61ee0baf66035b1f42849",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15681": {
+      "number": 15681,
+      "title": "[Bugfix] Bypass Kimi K3 graph padding handling",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15681",
+      "changed_files": 2,
+      "additions": 4,
+      "deletions": 2,
+      "age_days": 81.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "161cbe86db13364e10af53d6c4aa8e97657529b7",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15689": {
+      "number": 15689,
+      "title": "[Doc] Document Ascend Triton operators",
+      "author": "yanhao5023",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15689",
+      "changed_files": 15,
+      "additions": 652,
+      "deletions": 0,
+      "age_days": 81.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "e0e4bb6e9bdca6c184938ca28d182414b90a3026",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15714": {
+      "number": 15714,
+      "title": "[Performance][MoE] Reuse a persistent pad buffer in the MC2 prepare path",
+      "author": "MirkoDeVita98",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15714",
+      "changed_files": 1,
+      "additions": 37,
+      "deletions": 2,
+      "age_days": 81.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "bbf68bdf6b8afe0258a0d82e53071912964b2b00",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15715": {
+      "number": 15715,
+      "title": "[BugFix][Device] Restore eager ATB registration on 310P",
+      "author": "Tflowers-0129",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15715",
+      "changed_files": 3,
+      "additions": 14,
+      "deletions": 0,
+      "age_days": 81.3,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "c071c5f9a942a341bb6b1a5593fef2091e56b7f8",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15717": {
+      "number": 15717,
+      "title": "[BugFix][Attention] Restore 310P paged-attention selection",
+      "author": "Tflowers-0129",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15717",
+      "changed_files": 4,
+      "additions": 20,
+      "deletions": 7,
+      "age_days": 81.3,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "b1b09b63ae5b84a12ce95c2a907a2aa678f62a63",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15725": {
+      "number": 15725,
+      "title": "[Performance][Kernel] Narrow tiling-key 1 scale synchronization in GroupedMatmulSwigluQuantWeightNZ",
+      "author": "Ruiqiu-Zheng",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15725",
+      "changed_files": 1,
+      "additions": 7,
+      "deletions": 6,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "1df454250c4ab8b52112d4ab15efead66b7be9ec",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15733": {
+      "number": 15733,
+      "title": "[Cherry-pick][releases/v0.27.1rc][Performance] Fuse DSV4 multi-group slot mapping (from #15289)",
+      "author": "vllm-ascend-ci",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15733",
+      "changed_files": 2,
+      "additions": 336,
+      "deletions": 0,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "8fce6e9ea7ea38cb073f1273c6ce072cb22ab335",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.27.1rc"
+    },
+    "15740": {
+      "number": 15740,
+      "title": "[BugFix][Model] Align DeepSeek V4 Vision runtime contracts",
+      "author": "QwertyJack",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15740",
+      "changed_files": 31,
+      "additions": 2047,
+      "deletions": 40,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/platform.py",
+          "status": "modified",
+          "additions": 9,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 9,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "3eb808938821597cf9bec07d0b174e255c9b4b25",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15742": {
+      "number": 15742,
+      "title": "[BugFix][DeepSeek] Restore no-clamp shared expert group index for v0.26",
+      "author": "Yaphets24",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15742",
+      "changed_files": 2,
+      "additions": 72,
+      "deletions": 2,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "1288b174a40160fc2c6d4fff46835a35987f4771",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.26.0rc"
+    },
+    "15748": {
+      "number": 15748,
+      "title": "[Feature][SFA] Expose optional LightningIndexer selected scores",
+      "author": "Ruiqiu-Zheng",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15748",
+      "changed_files": 5,
+      "additions": 230,
+      "deletions": 12,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 6
+        },
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 11,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 33,
+      "owned_del": 8,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "d53c352e5c9a51774b2f7cc3e3f2f7f405c35021",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15751": {
+      "number": 15751,
+      "title": "[Feature][Ops] Support original sparse indices in SCFA",
+      "author": "QwertyJack",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15751",
+      "changed_files": 5,
+      "additions": 599,
+      "deletions": 45,
+      "age_days": 81.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "c1dfeeae6a748ad7f4078154f1c00e849699185a",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15772": {
+      "number": 15772,
+      "title": "[Performance][Model] Add fused split_qkv_index_rmsnorm_rope kernel for MiniMax-M3 sparse prepare",
+      "author": "gxy9808",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15772",
+      "changed_files": 6,
+      "additions": 1050,
+      "deletions": 1,
+      "age_days": 80.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 17,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/__init__.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 1,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "7f802fb1a4add28e8e080847b17cb8214fa3c999",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15805": {
+      "number": 15805,
+      "title": "Szy situ debug",
+      "author": "grandolantow",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15805",
+      "changed_files": 106,
+      "additions": 17626,
+      "deletions": 198,
+      "age_days": 80.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 16,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/activation.py",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/grouped_matmul_situ_quant.py",
+          "status": "added",
+          "additions": 282,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/worker.py",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 313,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "08cf64c02b065436c63feb798bcbb7c7286492ce",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15813": {
+      "number": 15813,
+      "title": "[Performance][SFA] Bypass redundant LightningIndexer scoring for eligible full-visible short-prefill cases",
+      "author": "Ruiqiu-Zheng",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15813",
+      "changed_files": 11,
+      "additions": 461,
+      "deletions": 18,
+      "age_days": 80.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 8,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/ops/mla.py",
+          "status": "modified",
+          "additions": 19,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 20,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "84c10e84ac92db129e3fec5dfa32e79d3c5c4809",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15827": {
+      "number": 15827,
+      "title": "[BugFix][MoE] Align MC2 mask capacity with tensor parallelism",
+      "author": "Tflowers-0129",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15827",
+      "changed_files": 3,
+      "additions": 86,
+      "deletions": 6,
+      "age_days": 80,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 7,
+          "deletions": 6
+        }
+      ],
+      "owned_add": 7,
+      "owned_del": 6,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "181c406d3c7514883ad203c0abb0b35fd45635d7",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15837": {
+      "number": 15837,
+      "title": "[Bugfix][MoE] Add BF16 MegaMoe regression coverage",
+      "author": "BESzk",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15837",
+      "changed_files": 2,
+      "additions": 6,
+      "deletions": 1,
+      "age_days": 79.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "df43d876d43cdb716da89b2d33cd3d16622fc9d4",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15839": {
+      "number": 15839,
+      "title": "[Performance][Backport v0.27.1rc] Backport #15416",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15839",
+      "changed_files": 4,
+      "additions": 597,
+      "deletions": 52,
+      "age_days": 79.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "2e86a41a8863a91a9efd4343708aaa1baab9b288",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.27.1rc"
+    },
+    "15872": {
+      "number": 15872,
+      "title": "[Ops][Feature] Support Kimi K3 MegaMoe and increase EP size limit to 128",
+      "author": "qijiajin",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15872",
+      "changed_files": 6,
+      "additions": 375,
+      "deletions": 10,
+      "age_days": 79,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 2
+        },
+        {
+          "file": "vllm_ascend/ascend_forward_context.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 11,
+      "owned_del": 4,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ab048f9a158d9d178b367b1a48e1b1fdf454bce1",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.27.1rc"
+    },
+    "15874": {
+      "number": 15874,
+      "title": "[Cherry-pick][releases/v0.27.1rc][Performance][MoE] Overlap shared-expert collectives and routed projections (from #15252)",
+      "author": "vllm-ascend-ci",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15874",
+      "changed_files": 6,
+      "additions": 536,
+      "deletions": 56,
+      "age_days": 78.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "2c31025d4805803f594dfa240d54e6e1dc3c7e7f",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.27.1rc"
+    },
+    "15876": {
+      "number": 15876,
+      "title": "[BugFix][MoE] Avoid pre-AllGather W8A8 quantization on A3",
+      "author": "zhenwenqi2024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15876",
+      "changed_files": 4,
+      "additions": 55,
+      "deletions": 3,
+      "age_days": 78.9,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/hardware_profile.py",
+          "status": "modified",
+          "additions": 8,
+          "deletions": 1
+        }
+      ],
+      "owned_add": 8,
+      "owned_del": 1,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "417674d5b7f880415e4a88d579e2e8d5a0e4ac6d",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15880": {
+      "number": 15880,
+      "title": "[v0.27.1rc][BugFix][SpecDecode] Keep DSpark draft pointers in bounds",
+      "author": "Dawn952",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15880",
+      "changed_files": 6,
+      "additions": 333,
+      "deletions": 50,
+      "age_days": 78.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 4,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "ce57091679c71e2fcfe4bafae43ce3665a41cfe3",
+      "state": "open",
+      "merge": "dirty",
+      "base": "releases/v0.27.1rc"
+    },
+    "15883": {
+      "number": 15883,
+      "title": "[Feature] Add decode Mooncake host DRAM allocation for sparse KV offload",
+      "author": "TheManyBELL",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15883",
+      "changed_files": 17,
+      "additions": 1487,
+      "deletions": 128,
+      "age_days": 77.6,
+      "ci": {
+        "total": 6,
+        "failed": 0,
+        "failed_names": [],
+        "pending": 0,
+        "skipped": 2,
+        "state": "success"
+      },
+      "reviews": {
+        "approvals": 1,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ascend_config.py",
+          "status": "modified",
+          "additions": 18,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/envs.py",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 38,
+          "deletions": 29
+        }
+      ],
+      "owned_add": 61,
+      "owned_del": 29,
+      "reason": "新进入队列",
+      "first_edition": "2026-11-23-1300",
+      "head_sha": "dd10571141a2b516af7e9aac1148cac256b4dad0",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    },
+    "15885": {
+      "number": 15885,
+      "title": "[BugFix][Model] Fix the GLM-5.3-Flash NoPE and KDA convolution paths on Ascend",
+      "author": "yiminghub2024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15885",
+      "changed_files": 10,
+      "additions": 4812,
+      "deletions": 4024,
+      "age_days": 78.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 5,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/causal_conv1d.py",
+          "status": "modified",
+          "additions": 300,
+          "deletions": 297
+        }
+      ],
+      "owned_add": 300,
+      "owned_del": 297,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "8743a2b5e4be853d12d7e141e32f6101394959f5",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15886": {
+      "number": 15886,
+      "title": "[Ops][Feature] Support DFlash2 speculative decoding on Ascend",
+      "author": "yiminghub2024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15886",
+      "changed_files": 16,
+      "additions": 655,
+      "deletions": 14,
+      "age_days": 78.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "1b015d6bd38dc4453ebaa26bca55d6c8acd1b525",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15887": {
+      "number": 15887,
+      "title": "[BugFix][Attention] Do not band-mask a bidirectional batch in full_graph_fia",
+      "author": "yiminghub2024",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15887",
+      "changed_files": 3,
+      "additions": 72,
+      "deletions": 4,
+      "age_days": 78.4,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 3,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "9057bd6eb26f2ea4155f23f4019768a2f337cba9",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15891": {
+      "number": 15891,
+      "title": "[Performance][Gemma] Route RMSNorm through custom npu_gemma_rms_norm op",
+      "author": "leijie-ww",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15891",
+      "changed_files": 1,
+      "additions": 0,
+      "deletions": 5,
+      "age_days": 78.2,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/device/device_op.py",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 5
+        }
+      ],
+      "owned_add": 0,
+      "owned_del": 5,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "f09446790ee04bce253a107240356b19245c3009",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15893": {
+      "number": 15893,
+      "title": "Fix/dspark standard cache a3",
+      "author": "QiGS",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15893",
+      "changed_files": 14,
+      "additions": 1561,
+      "deletions": 933,
+      "age_days": 78.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/ops/rope_dsv4.py",
+          "status": "modified",
+          "additions": 42,
+          "deletions": 0
+        }
+      ],
+      "owned_add": 42,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "4742a81d295d0d08b9b34ba18ba03c29f074b81a",
+      "state": "open",
+      "merge": "dirty",
+      "base": "rfc/vllm_cann"
+    },
+    "15899": {
+      "number": 15899,
+      "title": "[Feature][Spec Decode] Enable MLA DSpARK ACLGraph for Kimi K3",
+      "author": "kk-ss1999",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15899",
+      "changed_files": 26,
+      "additions": 2715,
+      "deletions": 121,
+      "age_days": 78.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 0,
+        "mine": null
+      },
+      "owned": [
+        {
+          "file": "vllm_ascend/worker/utils.py",
+          "status": "modified",
+          "additions": 73,
+          "deletions": 47
+        },
+        {
+          "file": "vllm_ascend/worker/v2/attn_utils.py",
+          "status": "modified",
+          "additions": 118,
+          "deletions": 10
+        },
+        {
+          "file": "vllm_ascend/worker/v2/block_table.py",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0
+        },
+        {
+          "file": "vllm_ascend/worker/v2/model_runner.py",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 2
+        }
+      ],
+      "owned_add": 214,
+      "owned_del": 59,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "b45c18c48e69fc38cc5edd45603526f16ebd5d6a",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15952": {
+      "number": 15952,
+      "title": "[0.27.1rc][Performance][KDA] Drop redundant Kimi KDA padding mask",
+      "author": "MaybeChz",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15952",
+      "changed_files": 2,
+      "additions": 324,
+      "deletions": 83,
+      "age_days": 77.7,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 2,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "66733f3acb89740dedacd602a7339152eb5e3cb9",
+      "state": "open",
+      "merge": "unstable",
+      "base": "releases/v0.27.1rc"
+    },
+    "15994": {
+      "number": 15994,
+      "title": "[Refactor] Use official CANN operators on A3",
+      "author": "massmass",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15994",
+      "changed_files": 17,
+      "additions": 524,
+      "deletions": 116,
+      "age_days": 77.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "a633ca5a79a7dfc22f58e5bd4c04914e770f50d4",
+      "state": "open",
+      "merge": "dirty",
+      "base": "main"
+    },
+    "15996": {
+      "number": 15996,
+      "title": "[BugFix][Ops] Zero-init KDA chunked-prefill pipeline buffers",
+      "author": "Liears",
+      "html_url": "https://github.com/vllm-project/vllm-ascend/pull/15996",
+      "changed_files": 4,
+      "additions": 129,
+      "deletions": 8,
+      "age_days": 77.1,
+      "ci": {
+        "state": "unknown",
+        "total": 0,
+        "failed": 0,
+        "pending": 0,
+        "failed_names": []
+      },
+      "reviews": {
+        "approvals": 0,
+        "changes_requested": 0,
+        "total": 1,
+        "mine": null
+      },
+      "owned": [],
+      "owned_add": 0,
+      "owned_del": 0,
+      "reason": "历史积压",
+      "first_edition": "2026-11-23-0015",
+      "head_sha": "33d716867bf53fdf1170008fac48dc82e73e0b96",
+      "state": "open",
+      "merge": "blocked",
+      "base": "main"
+    }
+  }
+}
