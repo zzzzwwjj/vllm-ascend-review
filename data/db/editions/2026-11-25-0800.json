@@ -22,8 +22,8 @@
     "api_calls": 70
   },
   "verdicts": {
-    "approve": 1,
-    "look": 10,
+    "approve": 0,
+    "look": 9,
     "pushback": 2,
     "pending": 0
   },
@@ -94,14 +94,14 @@
     }
   ],
   "states": {
-    "merged": 2,
+    "merged": 4,
     "closed": 0,
     "draft": 1,
     "ready": 0,
-    "conflict": 2,
+    "conflict": 0,
     "ci": 0,
-    "blocked": 4,
+    "blocked": 2,
     "behind": 0,
-    "open": 7
+    "open": 9
   }
 }

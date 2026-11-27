@@ -1140,8 +1140,8 @@
       "reason": "新进入队列",
       "first_edition": "2026-11-24-1800",
       "head_sha": "34daea60018fd4a7087aaa9b59f52bc600ae7f83",
-      "state": "open",
-      "merge": "clean",
+      "state": "merged",
+      "merge": "unknown",
       "base": "releases/v0.32.0rc"
     },
     "11656": {

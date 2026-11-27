@@ -487,7 +487,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "e53adbfc1d5d01eacf3271496964fffbedff215f",
       "state": "open",
-      "merge": "blocked",
+      "merge": "dirty",
       "base": "main"
     },
     "14255": {

@@ -129,8 +129,8 @@
     "ready": 0,
     "conflict": 1,
     "ci": 0,
-    "blocked": 8,
+    "blocked": 1,
     "behind": 0,
-    "open": 10
+    "open": 17
   }
 }

@@ -31,12 +31,12 @@
     "merged": 0,
     "closed": 1,
     "draft": 1,
-    "ready": 1,
-    "conflict": 0,
-    "ci": 3,
-    "blocked": 4,
+    "ready": 2,
+    "conflict": 1,
+    "ci": 2,
+    "blocked": 2,
     "behind": 0,
-    "open": 6
+    "open": 7
   },
   "members": [
     {

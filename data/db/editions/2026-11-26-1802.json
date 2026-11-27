@@ -32,11 +32,11 @@
     "closed": 0,
     "draft": 1,
     "ready": 0,
-    "conflict": 1,
+    "conflict": 0,
     "ci": 1,
-    "blocked": 9,
+    "blocked": 2,
     "behind": 0,
-    "open": 4
+    "open": 12
   },
   "members": [
     {

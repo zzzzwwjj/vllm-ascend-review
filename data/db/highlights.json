@@ -1,4 +1,13 @@
 {
-  "updated_at": "2026-11-27T05:08:32.886Z",
-  "items": []
+  "updated_at": "2026-11-27T10:07:15.780Z",
+  "items": [
+    {
+      "pr": 23294,
+      "kind": "remind",
+      "title": "[Platform][Doc] Add sunset deprecation warnings and documentation for balance scheduling (main)",
+      "at": "2026-11-27T08:34:38Z",
+      "issue": 20,
+      "v": "approve"
+    }
+  ]
 }

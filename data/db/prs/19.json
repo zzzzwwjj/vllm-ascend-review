@@ -181,7 +181,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "90087431697f8de361b1ca6432e82deb01172c20",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19107": {
@@ -213,7 +213,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "b3c281bf2df5e6a0ca3726bea27ccb06fdd35883",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19109": {
@@ -348,7 +348,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "b32088eadea1257a5b7344ab6482faa5f6f5177f",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19153": {
@@ -450,7 +450,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "6a10fd1e37ca968a6bc8e38672b8ab3047595136",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19212": {
@@ -501,7 +501,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "b4e5e11a8116e03facd87b7dc30fb0a119836e06",
       "state": "open",
-      "merge": "dirty",
+      "merge": "blocked",
       "base": "main"
     },
     "19218": {
@@ -533,7 +533,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "ada9c411780c849be6a8361cfdf5a928e746717a",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19219": {
@@ -907,7 +907,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "9f3785d9d999fff5e3cabc18327f7a13719f51c1",
       "state": "open",
-      "merge": "unknown",
+      "merge": "dirty",
       "base": "main"
     },
     "19396": {
@@ -2035,7 +2035,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "2ecb61a23e8d29b60ca92a83f54d0bc17fc9b74f",
       "state": "open",
-      "merge": "unknown",
+      "merge": "blocked",
       "base": "main"
     },
     "19716": {
@@ -2550,7 +2550,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "77b505c692e7b0276e1d5442c71fd11a28da122c",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "19837": {

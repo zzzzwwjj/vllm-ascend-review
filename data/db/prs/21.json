@@ -60,7 +60,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "ca44e31f602ff05f0cdd1c6adfc8279ccf7c3a36",
       "state": "open",
-      "merge": "unknown",
+      "merge": "dirty",
       "base": "main"
     },
     "21016": {
@@ -267,7 +267,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "d98402e9ca3c6e598ae2a021321a9c508d2cdfe5",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "21032": {
@@ -485,7 +485,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "4bf771bdb9f0f6889caba79eb58167b343f69c5d",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21135": {
@@ -712,7 +712,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "8f5e2ead636bc2c03b8f72d5ba1d71d5bc70fe9b",
       "state": "open",
-      "merge": "unknown",
+      "merge": "dirty",
       "base": "main"
     },
     "21188": {
@@ -897,7 +897,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "9af8a15c1316d46e07a1441f0c5a05e88cdae691",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "21246": {
@@ -936,7 +936,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "614b22e92783371262b9bf4f2e2f1f2f8b2533f8",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21259": {
@@ -1279,7 +1279,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "aac68083be8f708b200802bb49241090c27064f8",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21372": {
@@ -2205,7 +2205,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "1dd31405019aa8a436836f2640d1b99833c39f88",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "21526": {
@@ -2284,7 +2284,7 @@
       "first_edition": "2026-11-24-0800",
       "head_sha": "01a1d9b95150d72d392dde064f30a53313c4c8b7",
       "state": "open",
-      "merge": "unknown",
+      "merge": "clean",
       "base": "main"
     },
     "21543": {
@@ -2329,7 +2329,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "4c0c1d30c07c22bdf2cb8753447ebdbfc4733252",
       "state": "open",
-      "merge": "unknown",
+      "merge": "blocked",
       "base": "main"
     },
     "21554": {
@@ -2361,7 +2361,7 @@
       "first_edition": "2026-11-23-1800",
       "head_sha": "4d607efc3a6b2f1d9b2d17629a796b8155cf786e",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21567": {
@@ -2514,7 +2514,7 @@
       "reason": "历史积压",
       "first_edition": "2026-11-23-0015",
       "head_sha": "f748d2d75e2ee64b835be08b61a7dab0786be122",
-      "state": "open",
+      "state": "merged",
       "merge": "unknown",
       "base": "main"
     },
@@ -2849,7 +2849,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "b9288717f1f6d8679d2a3eb7de50f841408e32f5",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21652": {
@@ -2939,7 +2939,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "b03394cdc92571441ad79edede46b2e3bc22ff0a",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "21658": {
@@ -2978,7 +2978,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "7210fcf6c480c3873627aae1d0b310f20b4af2f3",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21662": {
@@ -4007,7 +4007,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "407a3cd368fda50bc0ccab70ced62a6f5e5afdea",
       "state": "open",
-      "merge": "unstable",
+      "merge": "dirty",
       "base": "releases/v0.32.0rc"
     },
     "21830": {
@@ -4413,7 +4413,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "58d51edc64660dfd505f80825675e5fd6325f5ae",
       "state": "open",
-      "merge": "dirty",
+      "merge": "unknown",
       "base": "main"
     },
     "21864": {
@@ -4641,7 +4641,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "c4b9b9d7bdc4017e5fc03fc841b8775b1cddb7a0",
       "state": "open",
-      "merge": "dirty",
+      "merge": "blocked",
       "base": "main"
     },
     "21906": {
@@ -4783,7 +4783,7 @@
       "first_edition": "2026-11-23-0015",
       "head_sha": "e9145534846686178a54546b96305a9ed35d60b7",
       "state": "open",
-      "merge": "blocked",
+      "merge": "unknown",
       "base": "main"
     },
     "21924": {
