@@ -8,13 +8,13 @@
     "reason": "历史积压：尚未合入且待我检视（排除近四期与今早新增）"
   },
   "stats": {
-    "fresh": 959,
+    "fresh": 957,
     "deep": 0,
-    "rest": 959,
+    "rest": 957,
     "skipped": 22,
     "skipped_seen": 0,
     "skipped_other": 22,
-    "owned_prs": 572
+    "owned_prs": 570
   },
   "verdicts": {
     "approve": 0,
@@ -311,10 +311,6 @@
     },
     {
       "n": 22087,
-      "role": "rest"
-    },
-    {
-      "n": 19212,
       "role": "rest"
     },
     {
@@ -683,10 +679,6 @@
     },
     {
       "n": 21849,
-      "role": "rest"
-    },
-    {
-      "n": 21655,
       "role": "rest"
     },
     {
@@ -3863,14 +3855,14 @@
     }
   ],
   "states": {
-    "merged": 19,
-    "closed": 21,
+    "merged": 23,
+    "closed": 23,
     "draft": 4,
-    "ready": 21,
-    "conflict": 287,
+    "ready": 22,
+    "conflict": 636,
     "ci": 84,
-    "blocked": 54,
+    "blocked": 167,
     "behind": 0,
-    "open": 469
+    "open": 0
   }
 }

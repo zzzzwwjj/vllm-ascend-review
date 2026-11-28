@@ -1,13 +1,21 @@
 {
-  "updated_at": "2026-11-27T10:07:15.780Z",
+  "updated_at": "2026-11-28T05:10:13.740Z",
   "items": [
     {
-      "pr": 23294,
-      "kind": "remind",
-      "title": "[Platform][Doc] Add sunset deprecation warnings and documentation for balance scheduling (main)",
-      "at": "2026-11-27T08:34:38Z",
-      "issue": 20,
-      "v": "approve"
+      "pr": 19212,
+      "kind": "refresh",
+      "title": "[Feature][KVTransfer] Support Mooncake V2 with SFA-managed Host KV",
+      "at": "2026-11-28T01:08:25Z",
+      "issue": 22,
+      "v": "look"
+    },
+    {
+      "pr": 21655,
+      "kind": "refresh",
+      "title": "[Performance] Fuse A5 recurrent GDN preprocessing and refresh gate bias after reload",
+      "at": "2026-11-28T03:37:38Z",
+      "issue": 23,
+      "v": "pushback"
     }
   ]
 }

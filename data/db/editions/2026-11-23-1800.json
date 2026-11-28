@@ -124,13 +124,13 @@
   ],
   "states": {
     "merged": 3,
-    "closed": 2,
+    "closed": 3,
     "draft": 0,
     "ready": 0,
-    "conflict": 1,
+    "conflict": 9,
     "ci": 0,
-    "blocked": 1,
+    "blocked": 9,
     "behind": 0,
-    "open": 17
+    "open": 0
   }
 }
